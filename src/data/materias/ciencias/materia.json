@@ -1,0 +1,11 @@
+{
+  "id": "ciencias",
+  "nombre": "Ciencias",
+  "descripcion": "Descubre cómo funciona el mundo natural",
+  "emoji": "🔬",
+  "color": "ciencias",
+  "color_hex": "#84CC16",
+  "orden": 5,
+  "activo": true,
+  "lecciones": []
+}

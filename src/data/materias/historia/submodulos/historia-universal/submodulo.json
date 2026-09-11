@@ -1,0 +1,41 @@
+{
+  "id": "historia-universal",
+  "nombre": "Historia Universal",
+  "descripcion": "Las grandes civilizaciones del mundo",
+  "emoji": "🏛️",
+  "orden": 1,
+  "activo": true,
+  "lecciones": [
+    {
+      "id": "antigua-roma",
+      "titulo": "Antigua Roma",
+      "emoji": "🏛️",
+      "orden": 1,
+      "nivel": "intermedio",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/antigua-roma.json",
+      "activa": true
+    },
+    {
+      "id": "antigua-grecia",
+      "titulo": "Antigua Grecia",
+      "emoji": "🏺",
+      "orden": 2,
+      "nivel": "intermedio",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/antigua-grecia.json",
+      "activa": true
+    },
+    {
+      "id": "antiguo-egipto",
+      "titulo": "Antiguo Egipto",
+      "emoji": "🐫",
+      "orden": 3,
+      "nivel": "intermedio",
+      "duracion_estimada_min": 25,
+      "tipo": "submodulo_anidado",
+      "activo": true,
+      "archivo": "lecciones/antiguo-egipto/submodulo.json"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "historia-chile",
+  "nombre": "Historia de Chile",
+  "descripcion": "Nuestro país a través del tiempo",
+  "emoji": "🇨🇱",
+  "orden": 2,
+  "activo": true,
+  "lecciones": []
+}

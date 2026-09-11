@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* ============================================
+   PALETA PERSONALIZADA - Estilo Base44 adaptado
+   Público objetivo: niñas de 9-12 años
+   ============================================ */
+@theme {
+  /* Fondo limpio y ordenado */
+  --color-base: #F8F9FA;
+  --color-base-alt: #F3F4F6;
+  
+  /* Morado eléctrico - Marca/Progreso */
+  --color-brand-50: #F5F3FF;
+  --color-brand-100: #EDE9FE;
+  --color-brand-200: #DDD6FE;
+  --color-brand-300: #C4B5FD;
+  --color-brand-400: #A78BFA;
+  --color-brand-500: #8B5CF6;
+  --color-brand-600: #7C3AED;
+  --color-brand-700: #6D28D9;
+  
+  /* Verde menta - Aciertos */
+  --color-success-400: #34D399;
+  --color-success-500: #10B981;
+  --color-success-600: #059669;
+  
+  /* Coral - Errores (positivo) */
+  --color-coral-400: #FB923C;
+  --color-coral-500: #F97316;
+  --color-coral-600: #EA580C;
+  
+  /* Tipografía */
+  --font-sans: 'Nunito', system-ui, sans-serif;
+  
+  /* Radios suaves */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* ============================================
+     COLORES DE LAS MATERIAS
+     ============================================ */
+  /* Lenguaje - Rosa coral */
+  --color-lenguaje-50: #FDF2F8;
+  --color-lenguaje-100: #FCE7F3;
+  --color-lenguaje-400: #F472B6;
+  --color-lenguaje-500: #EC4899;
+  --color-lenguaje-600: #DB2777;
+  
+  /* Matemáticas - Azul eléctrico */
+  --color-matematicas-50: #EFF6FF;
+  --color-matematicas-100: #DBEAFE;
+  --color-matematicas-400: #60A5FA;
+  --color-matematicas-500: #3B82F6;
+  --color-matematicas-600: #2563EB;
+  
+  /* Historia - Ámbar dorado */
+  --color-historia-50: #FFFBEB;
+  --color-historia-100: #FEF3C7;
+  --color-historia-400: #FBBF24;
+  --color-historia-500: #F59E0B;
+  --color-historia-600: #D97706;
+  
+  /* Inglés - Turquesa */
+  --color-ingles-50: #F0FDFA;
+  --color-ingles-100: #CCFBF1;
+  --color-ingles-400: #2DD4BF;
+  --color-ingles-500: #14B8A6;
+  --color-ingles-600: #0D9488;
+  
+  /* Ciencias - Verde lima */
+  --color-ciencias-50: #F7FEE7;
+  --color-ciencias-100: #ECFCCB;
+  --color-ciencias-400: #A3E635;
+  --color-ciencias-500: #84CC16;
+  --color-ciencias-600: #65A30D;
+
+}
+
+/* ESTILOS BASE */
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  background-color: var(--color-base);
+  color: #1F2937;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animación flotante */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float-soft 3s ease-in-out infinite;
+}

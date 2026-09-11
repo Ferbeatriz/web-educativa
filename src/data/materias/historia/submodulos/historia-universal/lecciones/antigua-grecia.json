@@ -1,0 +1,26 @@
+{
+  "id": "antigua-grecia",
+  "titulo": "Antigua Grecia 🏺",
+  "categoria": "Historia Universal",
+  "emoji": "🏺",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "La Antigua Grecia fue una civilización fascinante que floreció hace más de 2.500 años en el sur de Europa.",
+    "Los griegos inventaron la democracia, los Juegos Olímpicos y nos dejaron historias increíbles como la Odisea y la Ilíada.",
+    "También fueron grandes filósofos: Sócrates, Platón y Aristóteles sentaron las bases del pensamiento occidental."
+  ],
+  "trivia": [
+    {
+      "pregunta": "¿Qué inventaron los griegos?",
+      "opciones": ["El papel", "La democracia", "La pólvora", "La brújula"],
+      "respuesta_correcta": 1,
+      "explicacion": "¡Correcto! Los griegos inventaron la democracia, un sistema donde el pueblo elige a sus gobernantes."
+    },
+    {
+      "pregunta": "¿Cuáles son los filósofos griegos más famosos?",
+      "opciones": ["Newton, Einstein y Galileo", "Sócrates, Platón y Aristóteles", "Colón, Magallanes y Vespucio", "Mozart, Bach y Beethoven"],
+      "respuesta_correcta": 1,
+      "explicacion": "¡Muy bien! Los tres grandes filósofos griegos fueron Sócrates, Platón y Aristóteles."
+    }
+  ]
+}

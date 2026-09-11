@@ -1,0 +1,39 @@
+{
+  "id": "historia",
+  "nombre": "Historia y Geografía",
+  "descripcion": "El pasado y el mundo que habitamos",
+  "emoji": "🌍",
+  "color": "historia",
+  "color_hex": "#F59E0B",
+  "orden": 3,
+  "activo": true,
+  "submodulos": [
+    {
+      "id": "historia-universal",
+      "nombre": "Historia Universal",
+      "descripcion": "Las grandes civilizaciones del mundo",
+      "emoji": "🏛️",
+      "orden": 1,
+      "archivo": "submodulos/historia-universal/submodulo.json",
+      "activo": true
+    },
+    {
+      "id": "historia-chile",
+      "nombre": "Historia de Chile",
+      "descripcion": "Nuestro país a través del tiempo",
+      "emoji": "🇨🇱",
+      "orden": 2,
+      "archivo": "submodulos/historia-chile/submodulo.json",
+      "activo": true
+    },
+    {
+      "id": "historia-precolombina",
+      "nombre": "Historia Precolombina",
+      "descripcion": "Los pueblos originarios de América",
+      "emoji": "🗿",
+      "orden": 3,
+      "archivo": "submodulos/historia-precolombina/submodulo.json",
+      "activo": true
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "materias": [
+    {
+      "id": "lenguaje",
+      "nombre": "Lenguaje",
+      "descripcion": "Lectura, escritura y comunicación",
+      "emoji": "📖",
+      "color": "lenguaje",
+      "orden": 1,
+      "activo": true,
+      "submodulos": []
+    },
+    {
+      "id": "matematicas",
+      "nombre": "Matemáticas",
+      "descripcion": "Números, operaciones y resolución de problemas",
+      "emoji": "🔢",
+      "color": "matematicas",
+      "orden": 2,
+      "activo": true,
+      "submodulos": []
+    },
+    {
+      "id": "historia",
+      "nombre": "Historia y Geografía",
+      "descripcion": "El pasado y el mundo que habitamos",
+      "emoji": "🌍",
+      "color": "historia",
+      "orden": 3,
+      "activo": true,
+      "submodulos": [
+        {
+          "id": "historia-universal",
+          "nombre": "Historia Universal",
+          "descripcion": "Las grandes civilizaciones del mundo",
+          "emoji": "🏛️",
+          "orden": 1
+        },
+        {
+          "id": "historia-chile",
+          "nombre": "Historia de Chile",
+          "descripcion": "Nuestro país a través del tiempo",
+          "emoji": "🇨🇱",
+          "orden": 2
+        },
+        {
+          "id": "historia-precolombina",
+          "nombre": "Historia Precolombina",
+          "descripcion": "Los pueblos originarios de América",
+          "emoji": "🗿",
+          "orden": 3
+        }
+      ]
+    },
+    {
+      "id": "ingles",
+      "nombre": "Inglés",
+      "descripcion": "Aprende el idioma universal",
+      "emoji": "🗣️",
+      "color": "ingles",
+      "orden": 4,
+      "activo": true,
+      "submodulos": []
+    },
+    {
+      "id": "ciencias",
+      "nombre": "Ciencias",
+      "descripcion": "Descubre cómo funciona el mundo natural",
+      "emoji": "🔬",
+      "color": "ciencias",
+      "orden": 5,
+      "activo": true,
+      "submodulos": []
+    }
+  ]
+}

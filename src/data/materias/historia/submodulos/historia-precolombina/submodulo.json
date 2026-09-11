@@ -1,0 +1,9 @@
+{
+  "id": "historia-precolombina",
+  "nombre": "Historia Precolombina",
+  "descripcion": "Los pueblos originarios de América",
+  "emoji": "🗿",
+  "orden": 3,
+  "activo": true,
+  "lecciones": []
+}

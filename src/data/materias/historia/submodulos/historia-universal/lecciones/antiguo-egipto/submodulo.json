@@ -1,0 +1,31 @@
+{
+  "id": "antiguo-egipto",
+  "nombre": "Antiguo Egipto",
+  "descripcion": "La civilización del Nilo",
+  "emoji": "🐫",
+  "orden": 1,
+  "activo": true,
+  "lecciones": [
+    {
+      "id": "introduccion-egipto",
+      "titulo": "Introducción al Antiguo Egipto",
+      "emoji": "🔺",
+      "orden": 1,
+      "nivel": "básico",
+      "archivo": "lecciones/01-introduccion.json",
+      "activa": false
+    }
+  ],
+  "cursos_especiales": [
+    {
+      "id": "ojo-de-horus",
+      "titulo": "Curso Especial: El Ojo de Horus",
+      "emoji": "👁️",
+      "descripcion": "Un viaje iniciático por los misterios del Antiguo Egipto",
+      "orden": 1,
+      "activo": true,
+      "archivo": "curso-especial/ojo-horus.json",
+      "estado": "pendiente_definicion"
+    }
+  ]
+}

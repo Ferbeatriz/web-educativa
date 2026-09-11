@@ -1,0 +1,32 @@
+{
+  "id": "antigua-roma",
+  "titulo": "Antigua Roma 🏛️",
+  "categoria": "Historia Universal",
+  "emoji": "🏛️",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "Roma comenzó como una pequeña aldea en la península itálica, fundada —según la leyenda— por los gemelos Rómulo y Remo en el año 753 a.C.",
+    "Con el tiempo se convirtió en una de las civilizaciones más poderosas de la historia, dominando territorios en Europa, África y Asia.",
+    "Los romanos fueron grandes ingenieros: construyeron calzadas, acueductos y edificios que aún hoy nos asombran."
+  ],
+  "trivia": [
+    {
+      "pregunta": "¿Quiénes fundaron Roma según la leyenda?",
+      "opciones": ["Julio César y Augusto", "Rómulo y Remo", "Aníbal y Escipión", "Nerón y Trajano"],
+      "respuesta_correcta": 1,
+      "explicacion": "¡Correcto! La leyenda dice que Roma fue fundada por los gemelos Rómulo y Remo en el año 753 a.C."
+    },
+    {
+      "pregunta": "¿En qué península se encuentra Roma?",
+      "opciones": ["Península Ibérica", "Península Balcánica", "Península Itálica", "Península Anatolia"],
+      "respuesta_correcta": 2,
+      "explicacion": "Muy bien. Roma está en la península itálica, que hoy conocemos como Italia."
+    },
+    {
+      "pregunta": "¿Qué construyeron los romanos para transportar agua?",
+      "opciones": ["Pirámides", "Acueductos", "Murallas chinas", "Zigurats"],
+      "respuesta_correcta": 1,
+      "explicacion": "¡Exacto! Los acueductos romanos llevaban agua desde las montañas hasta las ciudades."
+    }
+  ]
+}

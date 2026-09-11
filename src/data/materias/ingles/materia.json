@@ -1,0 +1,11 @@
+{
+  "id": "ingles",
+  "nombre": "Inglés",
+  "descripcion": "Aprende el idioma universal",
+  "emoji": "🗣️",
+  "color": "ingles",
+  "color_hex": "#14B8A6",
+  "orden": 4,
+  "activo": true,
+  "lecciones": []
+}

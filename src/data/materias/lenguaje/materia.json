@@ -1,0 +1,11 @@
+{
+  "id": "lenguaje",
+  "nombre": "Lenguaje",
+  "descripcion": "Lectura, escritura y comunicación",
+  "emoji": "📖",
+  "color": "lenguaje",
+  "color_hex": "#EC4899",
+  "orden": 1,
+  "activo": true,
+  "lecciones": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "matematicas",
+  "nombre": "Matemáticas",
+  "descripcion": "Números, operaciones y resolución de problemas",
+  "emoji": "🔢",
+  "color": "matematicas",
+  "color_hex": "#3B82F6",
+  "orden": 2,
+  "activo": true,
+  "lecciones": [
+    {
+      "id": "propiedades-multiplicacion",
+      "titulo": "Propiedades de la Multiplicación",
+      "emoji": "✖️",
+      "orden": 1,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/01-propiedades-multiplicacion.json",
+      "activa": false
+    }
+  ]
+}
