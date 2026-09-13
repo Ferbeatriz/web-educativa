@@ -16,7 +16,7 @@
       "nivel": "básico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/01-propiedades-multiplicacion.json",
-      "activa": false
+      "activa": true
     }
   ]
 }

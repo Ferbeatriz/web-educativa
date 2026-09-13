@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TriviaQuiz from '../../components/TriviaQuiz.astro';
+import { marked } from 'marked';
 
 // Le decimos a Astro qué páginas generar (una por cada lección con archivo JSON)
 export async function getStaticPaths() {
@@ -110,18 +111,19 @@ const trivia = leccion.trivia || [];
       )}
     </header>
 
-    <!-- Contenido modular -->
+        <!-- Contenido modular -->
     {contenido.length > 0 ? (
       <section class="space-y-4 mb-10">
         {contenido.map((parrafo: string, idx: number) => (
           <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
             <div class="flex items-start gap-3">
-              <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-100 text-brand-700 font-extrabold flex items-center justify-center text-xs">
+              <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-100 text-brand-700 font-extrabold flex items-center justify-center text-xs mt-1">
                 {idx + 1}
               </span>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed font-semibold">
-                {parrafo}
-              </p>
+              <div 
+                class="prose prose-slate max-w-none text-gray-700 font-semibold"
+                set:html={marked.parse(parrafo)}
+              />
             </div>
           </div>
         ))}

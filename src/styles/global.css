@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ============================================
    PALETA PERSONALIZADA - Estilo Base44 adaptado

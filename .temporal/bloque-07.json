@@ -1,0 +1,62 @@
+[
+  {
+    "pregunta": "¿Qué propiedad se aplica en 4 × 7 = 7 × 4?",
+    "opciones": ["Asociativa", "Conmutativa", "Distributiva", "Absorbente"],
+    "respuesta_correcta": 1,
+    "explicacion": "La propiedad conmutativa dice que el orden de los factores no altera el producto, por eso 4 × 7 = 7 × 4."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en (2 × 3) × 4 = 2 × (3 × 4)?",
+    "opciones": ["Absorbente", "Asociativa", "Distributiva", "Conmutativa"],
+    "respuesta_correcta": 1,
+    "explicacion": "La propiedad asociativa indica que el agrupamiento de los factores no altera el producto, por eso (2 × 3) × 4 = 2 × (3 × 4)."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en 5 × (6 + 2) = 5 × 6 + 5 × 2?",
+    "opciones": ["Conmutativa", "Asociativa", "Distributiva", "Absorbente"],
+    "respuesta_correcta": 2,
+    "explicacion": "La propiedad distributiva indica que multiplicar un número por una suma es igual a multiplicar ese número por cada sumando y luego sumar los resultados, por eso 5 × (6 + 2) = 5 × 6 + 5 × 2."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en 9 × 1 = 9?",
+    "opciones": ["Conmutativa", "Asociativa", "Distributiva", "Elemento Neutro"],
+    "respuesta_correcta": 3,
+    "explicacion": "El elemento neutro de la multiplicación es el 1, ya que multiplicar cualquier número por 1 da como resultado el mismo número, por eso 9 × 1 = 9."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en 7 × 0 = 0?",
+    "opciones": ["Conmutativa", "Asociativa", "Distributiva", "Elemento Absorbente"],
+    "respuesta_correcta": 3,
+    "explicacion": "El elemento absorbente de la multiplicación es el 0, ya que multiplicar cualquier número por 0 da como resultado 0, por eso 7 × 0 = 0."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en 4 × (3 + 5) = 4 × 3 + 4 × 5?",
+    "opciones": ["Conmutativa", "Asociativa", "Distributiva", "Elemento Neutro"],
+    "respuesta_correcta": 2,
+    "explicacion": "La propiedad distributiva indica que multiplicar un número por una suma es igual a multiplicar ese número por cada sumando y luego sumar los resultados, por eso 4 × (3 + 5) = 4 × 3 + 4 × 5."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en 8 × 15 = 15 × 8?",
+    "opciones": ["Conmutativa", "Asociativa", "Distributiva", "Elemento Absorbente"],
+    "respuesta_correcta": 0,
+    "explicacion": "La propiedad conmutativa indica que el orden de los factores no altera el producto, por eso 8 × 15 = 15 × 8."
+  },
+  {
+    "pregunta": "¿Qué propiedad se aplica en 6 × (7 + 3) = 6 × 7 + 6 × 3?",
+    "opciones": ["Conmutativa", "Asociativa", "Distributiva", "Elemento Neutro"],
+    "respuesta_correcta": 2,
+    "explicacion": "La propiedad distributiva indica que multiplicar un número por una suma es igual a multiplicar ese número por cada sumando y luego sumar los resultados, por eso 6 × (7 + 3) = 6 × 7 + 6 × 3."
+  },
+  {
+    "pregunta": "¿Qué propiedades se aplican en 9 × 1 = 9 y 7 × 0 = 0?",
+    "opciones": ["Conmutativa y Asociativa", "Distributiva y Conmutativa", "Asociativa y Distributiva", "Elemento Neutro y Absorbente"],
+    "respuesta_correcta": 3,
+    "explicacion": "El elemento neutro indica que multiplicar cualquier número por 1 da como resultado el mismo número, y el elemento absorbente indica que multiplicar cualquier número por 0 da como resultado 0, por eso 9 × 1 = 9 y 7 × 0 = 0."
+  },
+  {
+    "pregunta": "¿Qué propiedades se aplican en (2 × 3) × 4 = 2 × (3 × 4) y 5 × (6 + 2) = 5 × 6 + 5 × 2?",
+    "opciones": ["Conmutativa y Asociativa", "Asociativa y Distributiva", "Asociativa y Elemento Absorbente", "Distributiva y Conmutativa"],
+    "respuesta_correcta": 1,
+    "explicacion": "La primera expresión muestra la propiedad asociativa porque agrupa los factores de manera diferente, y la segunda muestra la propiedad distributiva porque distribuye el multiplicador sobre la suma."
+  }
+]
