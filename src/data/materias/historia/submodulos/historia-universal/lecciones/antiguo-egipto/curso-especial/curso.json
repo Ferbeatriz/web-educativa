@@ -26,7 +26,7 @@
       "subtitulo": "El reloj astronómico de la humanidad",
       "emoji": "🦁",
       "archivo": "capitulo-02.json",
-      "activo": false
+      "activo": true
     },
     {
       "id": "capitulo-03",
