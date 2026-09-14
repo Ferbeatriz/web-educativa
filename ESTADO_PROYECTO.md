@@ -106,7 +106,6 @@ web-educativa/
 
 
 ---
-
 ## ✅ Estado actual
 
 ### Completado
@@ -120,25 +119,50 @@ web-educativa/
 | Renderizado de Markdown en lecciones | ✅ |
 | Trivia interactiva (verde/coral) | ✅ |
 | Deploy automático (git push → Cloudflare) | ✅ |
-| Continue + Ollama configurado | ✅ |
+| Continue + Ollama configurado (Qwen 2.5 7B) | ✅ |
 | Lección Matemáticas: Propiedades Multiplicación | ✅ Publicada |
 | Lección Historia: Antigua Roma | ✅ Publicada |
 | Lección Historia: Antigua Grecia | ✅ Publicada |
+| **Curso Ojo de Horus: Portada + índice de 10 capítulos** | ✅ Publicada |
+| **Ojo de Horus - Capítulo I: La Escuela de Misterios** | ✅ Publicado |
+| **Ojo de Horus - Capítulo II: La Esfinge** | ✅ Publicado |
+| **Ojo de Horus - Capítulo III: La Escritura Sagrada** | ✅ Publicado |
+| Sistema de cursos especiales (componente + páginas) | ✅ |
+| Documentación del proyecto (3 archivos .md) | ✅ |
 
 ### Pendiente (en orden de prioridad)
 
 | Tarea | Prioridad |
 |-------|-----------|
-| Antiguo Egipto (introducción) | Alta |
-| Curso Especial "El Ojo de Horus" | Alta |
+| Ojo de Horus - Capítulo IV: Templos de Giza y Osirion | Alta |
+| Ojo de Horus - Capítulo V: La Flor de la Vida | Alta |
+| Ojo de Horus - Capítulo VI: Sakara | Alta |
+| Ojo de Horus - Capítulos VII, VIII, IX, X | Alta |
+| Lección introductoria de Antiguo Egipto (para el submódulo) | Media |
 | Historia de Chile (contenido) | Media |
 | Historia Precolombina (contenido) | Media |
 | Ciencias (contenido) | Media |
 | Lenguaje (contenido) | Baja |
 | Inglés (contenido) | Baja |
+| Embed de video por capítulo (colapsable) | Baja |
 | Sistema de progreso persistente (XP) | Baja |
-| Nuevos tipos de preguntas (V/F, completar) | Baja |
 
+### 🎬 Nueva funcionalidad pendiente: Embed de video
+
+**Idea aprobada**: agregar al final de cada capítulo un bloque colapsable con el video original de YouTube del capítulo correspondiente.
+
+**Diseño**:
+- Bloque `<details>` colapsable, discreto
+- Se expande para mostrar iframe 16:9 de YouTube
+- No interfiere con la lectura prioritaria
+
+**Implementación pendiente**:
+1. Agregar campo `video_url` y `video_duracion` a cada `capitulo-XX.json`
+2. Crear componente `VideoEmbed.astro`
+3. Insertar al final de `[capitulo].astro` (después de la trivia)
+
+**Referencia URL YouTube** (primer video de la serie):
+`https://www.youtube.com/watch?v=Q6D3gXq28hw`
 ---
 
 ## 🎨 Paleta de colores

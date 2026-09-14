@@ -76,16 +76,28 @@ de forma simple. Español de Chile. Cero lenguaje infantil
 ESTADO ACTUAL
 ═══════════════════════════════════════════════════════
 
-Lecciones publicadas:
+Lecciones normales publicadas:
 ✅ Matemáticas: Propiedades de la Multiplicación
 ✅ Historia Universal: Antigua Roma
 ✅ Historia Universal: Antigua Grecia
 
+Curso Especial El Ojo de Horus (en Antiguo Egipto):
+✅ Portada del curso + índice de 10 capítulos
+✅ Capítulo I: La Escuela de Misterios
+✅ Capítulo II: La Esfinge
+✅ Capítulo III: La Escritura Sagrada
+
 Pendiente próximo:
-⏳ Antiguo Egipto (introducción)
-⏳ Curso Especial "El Ojo de Horus"
+⏳ Capítulo IV: Los Templos de Giza y el Osirion
+⏳ Capítulo V: La Flor de la Vida
+⏳ Capítulos VI al X
+⏳ Lección introductoria de Antiguo Egipto
 ⏳ Historia de Chile
 ⏳ Historia Precolombina
+
+Transcripción completa del curso en: ojohorus.txt
+(contiene los 10 videos; los cortes se identifican por marcas
+de tiempo en silencios: [102:00], [152:50], etc.)
 
 ═══════════════════════════════════════════════════════
 LO QUE NECESITO QUE HAGAS
