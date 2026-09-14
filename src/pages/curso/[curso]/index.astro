@@ -1,0 +1,95 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CursoEspecial from '../../../components/CursoEspecial.astro';
+
+// Le decimos a Astro qué páginas generar
+export async function getStaticPaths() {
+  const cursosFiles = import.meta.glob('../../../data/materias/**/curso-especial/curso.json', {
+    eager: true,
+  });
+
+  const paths = [];
+
+  for (const path in cursosFiles) {
+    const curso = (cursosFiles[path] as any).default;
+
+    // Detectar materia
+    let materiaId = null;
+    const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias'];
+    for (const mid of materiasConocidas) {
+      if (path.includes(`/materias/${mid}/`)) {
+        materiaId = mid;
+        break;
+      }
+    }
+    if (!materiaId) continue;
+
+    // Detectar submódulo
+    let submoduloId = null;
+    const matchSub = path.match(/\/submodulos\/([^/]+)\//);
+    if (matchSub) submoduloId = matchSub[1];
+
+    // Detectar si está anidado dentro de un submódulo (ej: antiguo-egipto)
+    let submoduloAnidado = null;
+    const matchAnidado = path.match(/\/lecciones\/([^/]+)\/curso-especial\//);
+    if (matchAnidado) submoduloAnidado = matchAnidado[1];
+
+    paths.push({
+      params: { curso: curso.id },
+      props: {
+        curso,
+        materiaId,
+        submoduloId,
+        submoduloAnidado,
+      },
+    });
+  }
+
+  return paths;
+}
+
+const { curso, materiaId, submoduloId, submoduloAnidado } = Astro.props;
+
+// Breadcrumb
+const breadcrumb: { label: string; href: string }[] = [
+  { label: 'Inicio', href: '/' },
+];
+if (materiaId) {
+  breadcrumb.push({ label: 'Historia y Geografía', href: `/materia/${materiaId}` });
+}
+if (submoduloId && submoduloAnidado) {
+  breadcrumb.push({
+    label: 'Historia Universal',
+    href: `/submodulo/${materiaId}/${submoduloId}`,
+  });
+  breadcrumb.push({
+    label: 'Antiguo Egipto',
+    href: `/submodulo/${materiaId}/${submoduloId}/${submoduloAnidado}`,
+  });
+}
+---
+
+<Layout title={`${curso.titulo} · Curso Especial`}>
+  <main class="max-w-4xl mx-auto px-4 py-6 md:py-10">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
+      {breadcrumb.map((item, i) => (
+        <>
+          {i > 0 && <span class="text-gray-300">›</span>}
+          {i < breadcrumb.length - 1 ? (
+            <a href={item.href} class="text-brand-600 hover:underline">
+              {item.label}
+            </a>
+          ) : (
+            <span class="text-gray-500">{item.label}</span>
+          )}
+        </>
+      ))}
+    </nav>
+
+    <!-- Componente del curso -->
+    <CursoEspecial curso={curso} />
+
+  </main>
+</Layout>

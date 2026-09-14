@@ -1,0 +1,257 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TriviaQuiz from '../../../components/TriviaQuiz.astro';
+import { marked } from 'marked';
+
+// Le decimos a Astro qué páginas generar
+export async function getStaticPaths() {
+  // ⚠️ Los globs van DENTRO de getStaticPaths
+  const cursosFiles = import.meta.glob('../../../data/materias/**/curso-especial/curso.json', {
+    eager: true,
+  });
+  const capitulosFiles = import.meta.glob('../../../data/materias/**/curso-especial/capitulo-*.json', {
+    eager: true,
+  });
+
+  const paths = [];
+
+  for (const cursoPath in cursosFiles) {
+    const curso = (cursosFiles[cursoPath] as any).default;
+
+    // Detectar materia
+    let materiaId = null;
+    const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias'];
+    for (const mid of materiasConocidas) {
+      if (cursoPath.includes(`/materias/${mid}/`)) {
+        materiaId = mid;
+        break;
+      }
+    }
+    if (!materiaId) continue;
+
+    // Detectar la carpeta base (donde está curso.json)
+    const carpetaBase = cursoPath.replace('curso.json', '');
+
+    // Para cada capítulo del curso, buscar su JSON correspondiente
+    for (const cap of curso.capitulos) {
+      if (!cap.activo) continue;
+
+      const capituloPathCompleto = carpetaBase + cap.archivo;
+      const capituloModule = capitulosFiles[capituloPathCompleto];
+      if (!capituloModule) continue;
+
+      const capituloData = (capituloModule as any).default;
+      if (!capituloData || !capituloData.id) continue;
+
+      paths.push({
+        params: {
+          curso: curso.id,
+          capitulo: cap.id,
+        },
+        props: {
+          curso,
+          capitulo: capituloData,
+          materiaId,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { curso, capitulo, materiaId } = Astro.props;
+
+// Índice del capítulo actual para navegación
+const indiceActual = curso.capitulos.findIndex((c: any) => c.id === capitulo.id);
+const capituloAnterior = indiceActual > 0 ? curso.capitulos[indiceActual - 1] : null;
+const capituloSiguiente =
+  indiceActual < curso.capitulos.length - 1 ? curso.capitulos[indiceActual + 1] : null;
+
+// Contenido y trivia
+const contenido = capitulo.contenido_modulos || [];
+const vocabulario = capitulo.vocabulario || [];
+const lineaTiempo = capitulo.linea_tiempo || [];
+const trivia = capitulo.trivia || [];
+---
+
+<Layout title={`${capitulo.titulo} · ${curso.titulo}`}>
+  <main class="max-w-3xl mx-auto px-4 py-6 md:py-10">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
+      <a href="/" class="text-brand-600 hover:underline">Inicio</a>
+      <span class="text-gray-300">›</span>
+      <a href="/materia/historia" class="text-brand-600 hover:underline">Historia</a>
+      <span class="text-gray-300">›</span>
+      <a href={`/curso/${curso.id}`} class="text-brand-600 hover:underline">
+        {curso.titulo}
+      </a>
+      <span class="text-gray-300">›</span>
+      <span class="text-gray-500">Capítulo {capitulo.numero}</span>
+    </nav>
+
+    <!-- Portada del capítulo -->
+    <header class="bg-gradient-to-br from-historia-500 via-historia-600 to-historia-700 rounded-3xl p-6 md:p-8 shadow-lg text-white mb-8 relative overflow-hidden">
+      <div class="absolute top-0 right-0 text-[140px] leading-none opacity-10 select-none pointer-events-none">
+        {capitulo.emoji}
+      </div>
+
+      <div class="relative z-10">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-extrabold shadow-lg">
+            {capitulo.numero_romano}
+          </div>
+          <span class="text-xs font-extrabold px-3 py-1 rounded-full bg-white/20 backdrop-blur tracking-wide uppercase">
+            Capítulo {capitulo.numero}
+          </span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-2 leading-tight">
+          {capitulo.titulo}
+        </h1>
+        <p class="text-base md:text-lg text-white/90 font-bold mb-4">
+          {capitulo.subtitulo}
+        </p>
+
+        <span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur rounded-full px-4 py-2 text-sm font-bold">
+          ⭐ +{capitulo.progreso_puntos} XP al completar
+        </span>
+      </div>
+    </header>
+
+    <!-- Contenido modular (bloques markdown) -->
+    {contenido.length > 0 && (
+      <section class="space-y-4 mb-10">
+        {contenido.map((bloque: string, idx: number) => (
+          <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
+            <div class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-7 h-7 rounded-full bg-historia-100 text-historia-700 font-extrabold flex items-center justify-center text-xs mt-1">
+                {idx + 1}
+              </span>
+              <div
+                class="prose-markdown max-w-none text-gray-700"
+                set:html={marked.parse(bloque) as string}
+              />
+            </div>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <!-- Vocabulario -->
+    {vocabulario.length > 0 && (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">📖</span>
+          <h2 class="text-2xl font-extrabold text-gray-800">Vocabulario</h2>
+        </div>
+        <div class="bg-amber-50 border-2 border-historia-200 rounded-3xl p-5 md:p-6">
+          <dl class="space-y-3">
+            {vocabulario.map((item: any) => (
+              <div class="pb-3 border-b border-historia-200 last:border-0 last:pb-0">
+                <dt class="font-extrabold text-historia-700 mb-1">
+                  {item.termino}
+                </dt>
+                <dd class="text-sm text-gray-700 leading-relaxed">
+                  {item.definicion}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    )}
+
+    <!-- Línea de tiempo -->
+    {lineaTiempo.length > 0 && (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">⏳</span>
+          <h2 class="text-2xl font-extrabold text-gray-800">Línea de tiempo</h2>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-3xl p-5 md:p-6 shadow-sm">
+          <ol class="relative border-l-2 border-historia-300 ml-2 space-y-4">
+            {lineaTiempo.map((item: any) => (
+              <li class="ml-5 pl-3">
+                <div class="absolute w-3 h-3 bg-historia-500 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow"></div>
+                <span class="inline-block text-xs font-extrabold text-historia-700 bg-historia-100 px-2 py-0.5 rounded mb-1">
+                  {item.fecha}
+                </span>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                  {item.evento}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    )}
+
+    <!-- Trivia -->
+    {trivia.length > 0 && (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-3xl">🧠</span>
+          <h2 class="text-2xl font-extrabold text-gray-800">
+            Pon a prueba lo aprendido
+          </h2>
+        </div>
+        <TriviaQuiz trivia={trivia} />
+      </section>
+    )}
+
+    <!-- Navegación entre capítulos -->
+    <div class="flex flex-col md:flex-row gap-4 mt-10">
+      {capituloAnterior && capituloAnterior.activo ? (
+        <a
+          href={`/curso/${curso.id}/${capituloAnterior.id}`}
+          class="flex-1 bg-white border-2 border-gray-200 rounded-3xl p-4 hover:border-historia-400 hover:shadow-md transition-all"
+        >
+          <span class="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">
+            ← Capítulo anterior
+          </span>
+          <span class="font-extrabold text-gray-800">
+            {capituloAnterior.numero_romano}. {capituloAnterior.titulo}
+          </span>
+        </a>
+      ) : (
+        <a
+          href={`/curso/${curso.id}`}
+          class="flex-1 bg-white border-2 border-gray-200 rounded-3xl p-4 hover:border-historia-400 hover:shadow-md transition-all"
+        >
+          <span class="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">
+            ← Volver al índice
+          </span>
+          <span class="font-extrabold text-gray-800">
+            {curso.titulo}
+          </span>
+        </a>
+      )}
+
+      {capituloSiguiente && capituloSiguiente.activo ? (
+        <a
+          href={`/curso/${curso.id}/${capituloSiguiente.id}`}
+          class="flex-1 bg-gradient-to-br from-historia-500 to-historia-600 text-white rounded-3xl p-4 hover:shadow-xl transition-all text-right"
+        >
+          <span class="text-xs font-bold text-white/80 uppercase tracking-wide block mb-1">
+            Siguiente capítulo →
+          </span>
+          <span class="font-extrabold">
+            {capituloSiguiente.numero_romano}. {capituloSiguiente.titulo}
+          </span>
+        </a>
+      ) : (
+        <div class="flex-1 bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl p-4 text-center">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wide block mb-1">
+            🔒 Próximo capítulo
+          </span>
+          <span class="font-extrabold text-gray-400">
+            Próximamente
+          </span>
+        </div>
+      )}
+    </div>
+
+  </main>
+</Layout>

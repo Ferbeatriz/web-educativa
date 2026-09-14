@@ -1,0 +1,112 @@
+{
+  "id": "ojo-de-horus",
+  "titulo": "El Ojo de Horus 👁️",
+  "subtitulo": "Un Viaje por los Misterios de Egipto",
+  "descripcion": "Un recorrido por los secretos que los sacerdotes egipcios dejaron en sus templos: la reencarnación, la geometría sagrada, los ciclos cósmicos y el camino hacia la iluminación.",
+  "emoji": "👁️",
+  "fuente": "Basado en el documental de Fernando Malkun",
+  "progreso_puntos_por_capitulo": 200,
+  "total_capitulos": 10,
+  "capitulos": [
+    {
+      "id": "capitulo-01",
+      "numero": 1,
+      "numero_romano": "I",
+      "titulo": "La Escuela de Misterios",
+      "subtitulo": "El origen atlante de la sabiduría egipcia",
+      "emoji": "🔺",
+      "archivo": "capitulo-01.json",
+      "activo": true
+    },
+    {
+      "id": "capitulo-02",
+      "numero": 2,
+      "numero_romano": "II",
+      "titulo": "La Esfinge",
+      "subtitulo": "El reloj astronómico de la humanidad",
+      "emoji": "🦁",
+      "archivo": "capitulo-02.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-03",
+      "numero": 3,
+      "numero_romano": "III",
+      "titulo": "La Escritura Sagrada",
+      "subtitulo": "Los jeroglíficos como puerta al conocimiento",
+      "emoji": "📜",
+      "archivo": "capitulo-03.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-04",
+      "numero": 4,
+      "numero_romano": "IV",
+      "titulo": "Los Templos de Giza y el Osirion",
+      "subtitulo": "Arquitectura de los inicios",
+      "emoji": "🏛️",
+      "archivo": "capitulo-04.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-05",
+      "numero": 5,
+      "numero_romano": "V",
+      "titulo": "La Flor de la Vida",
+      "subtitulo": "La geometría sagrada de la creación",
+      "emoji": "🌸",
+      "archivo": "capitulo-05.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-06",
+      "numero": 6,
+      "numero_romano": "VI",
+      "titulo": "Sakara",
+      "subtitulo": "La máquina cuántica de Imhotep",
+      "emoji": "⚡",
+      "archivo": "capitulo-06.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-07",
+      "numero": 7,
+      "numero_romano": "VII",
+      "titulo": "Los Templos de Egipto",
+      "subtitulo": "Libros vivos de piedra",
+      "emoji": "📖",
+      "archivo": "capitulo-07.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-08",
+      "numero": 8,
+      "numero_romano": "VIII",
+      "titulo": "El Año Cósmico y el Zodíaco",
+      "subtitulo": "El ciclo de 25.920 años",
+      "emoji": "♈",
+      "archivo": "capitulo-08.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-09",
+      "numero": 9,
+      "numero_romano": "IX",
+      "titulo": "Los Niveles de Conciencia",
+      "subtitulo": "El camino del perfeccionamiento",
+      "emoji": "🌟",
+      "archivo": "capitulo-09.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-10",
+      "numero": 10,
+      "numero_romano": "X",
+      "titulo": "Filae y el Principio Femenino",
+      "subtitulo": "El poder de Isis y lo sagrado femenino",
+      "emoji": "🌺",
+      "archivo": "capitulo-10.json",
+      "activo": false
+    }
+  ]
+}

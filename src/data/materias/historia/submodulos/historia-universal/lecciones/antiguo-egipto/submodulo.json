@@ -5,27 +5,17 @@
   "emoji": "🐫",
   "orden": 1,
   "activo": true,
-  "lecciones": [
-    {
-      "id": "introduccion-egipto",
-      "titulo": "Introducción al Antiguo Egipto",
-      "emoji": "🔺",
-      "orden": 1,
-      "nivel": "básico",
-      "archivo": "lecciones/01-introduccion.json",
-      "activa": false
-    }
-  ],
+  "lecciones": [],
   "cursos_especiales": [
     {
       "id": "ojo-de-horus",
-      "titulo": "Curso Especial: El Ojo de Horus",
+      "titulo": "El Ojo de Horus",
+      "subtitulo": "Un Viaje por los Misterios de Egipto",
+      "descripcion": "Serie especial de 10 capítulos basada en el documental de Fernando Malkun.",
       "emoji": "👁️",
-      "descripcion": "Un viaje iniciático por los misterios del Antiguo Egipto",
       "orden": 1,
       "activo": true,
-      "archivo": "curso-especial/ojo-horus.json",
-      "estado": "pendiente_definicion"
+      "archivo": "curso-especial/curso.json"
     }
   ]
 }
