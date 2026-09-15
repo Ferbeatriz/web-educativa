@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 
 // Le decimos a Astro qué páginas generar (una por cada materia)
 export async function getStaticPaths() {
-  // ⚠️ import.meta.glob DEBE estar dentro de getStaticPaths
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
 
   const paths = [];
@@ -17,7 +16,6 @@ export async function getStaticPaths() {
   return paths;
 }
 
-// Astro nos pasa la materia como prop
 const { materia } = Astro.props;
 
 // Mapa de gradientes por color de materia
@@ -27,12 +25,14 @@ const gradienteMap: Record<string, string> = {
   historia: "from-historia-400 to-historia-600",
   ingles: "from-ingles-400 to-ingles-600",
   ciencias: "from-ciencias-400 to-ciencias-600",
+  programacion: "from-programacion-400 to-programacion-600",
 };
 const gradiente = gradienteMap[materia.color] || gradienteMap.ciencias;
 
-// ¿Tiene submodulos o lecciones directas?
+// ¿Tiene submodulos, lecciones o cursos especiales?
 const tieneSubmodulos = materia.submodulos && materia.submodulos.length > 0;
 const tieneLecciones = materia.lecciones && materia.lecciones.length > 0;
+const tieneCursos = materia.cursos_especiales && materia.cursos_especiales.length > 0;
 ---
 
 <Layout title={`${materia.nombre} · Aprende Jugando`}>
@@ -62,6 +62,49 @@ const tieneLecciones = materia.lecciones && materia.lecciones.length > 0;
         </div>
       </div>
     </header>
+
+    <!-- CURSOS ESPECIALES -->
+    {tieneCursos && (
+      <section class="mb-8">
+        <h2 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-4">
+          ✨ Cursos Especiales
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {materia.cursos_especiales
+            .filter((c: any) => c.activo !== false)
+            .sort((a: any, b: any) => (a.orden || 0) - (b.orden || 0))
+            .map((curso: any) => (
+              <a
+                href={`/curso/${curso.id}`}
+                class={`group block bg-gradient-to-br ${gradiente} rounded-3xl p-5 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-white`}
+              >
+                <div class="flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl shadow-sm flex-shrink-0">
+                    {curso.emoji}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-extrabold px-2 py-0.5 rounded-full bg-white/20 backdrop-blur tracking-wide uppercase">
+                        ✨ Especial
+                      </span>
+                    </div>
+                    <h3 class="text-lg font-extrabold text-white leading-tight mb-1">
+                      {curso.titulo}
+                    </h3>
+                    <p class="text-xs md:text-sm text-white/85 leading-snug mb-2">
+                      {curso.subtitulo}
+                    </p>
+                    <span class="text-white font-bold text-sm group-hover:translate-x-1 transition-transform inline-block">
+                      Descubrir →
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+    )}
 
     <!-- SUBMÓDULOS -->
     {tieneSubmodulos && (
@@ -145,7 +188,7 @@ const tieneLecciones = materia.lecciones && materia.lecciones.length > 0;
     )}
 
     <!-- Estado vacío -->
-    {!tieneSubmodulos && !tieneLecciones && (
+    {!tieneSubmodulos && !tieneLecciones && !tieneCursos && (
       <div class="bg-white rounded-3xl p-8 text-center shadow-sm border border-gray-100">
         <div class="text-6xl mb-4">🚧</div>
         <h3 class="text-xl font-extrabold text-gray-800 mb-2">
