@@ -3,13 +3,11 @@ import Layout from '../../../layouts/Layout.astro';
 import TriviaQuiz from '../../../components/TriviaQuiz.astro';
 import { marked } from 'marked';
 
-// Le decimos a Astro qué páginas generar
 export async function getStaticPaths() {
-  // ⚠️ Los globs van DENTRO de getStaticPaths
-  const cursosFiles = import.meta.glob('../../../data/materias/**/curso-especial/curso.json', {
+  const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', {
     eager: true,
   });
-  const capitulosFiles = import.meta.glob('../../../data/materias/**/curso-especial/capitulo-*.json', {
+  const capitulosFiles = import.meta.glob('../../../data/materias/**/capitulo-*.json', {
     eager: true,
   });
 
@@ -18,9 +16,8 @@ export async function getStaticPaths() {
   for (const cursoPath in cursosFiles) {
     const curso = (cursosFiles[cursoPath] as any).default;
 
-    // Detectar materia
     let materiaId = null;
-    const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias'];
+    const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias', 'programacion'];
     for (const mid of materiasConocidas) {
       if (cursoPath.includes(`/materias/${mid}/`)) {
         materiaId = mid;
@@ -29,10 +26,8 @@ export async function getStaticPaths() {
     }
     if (!materiaId) continue;
 
-    // Detectar la carpeta base (donde está curso.json)
     const carpetaBase = cursoPath.replace('curso.json', '');
 
-    // Para cada capítulo del curso, buscar su JSON correspondiente
     for (const cap of curso.capitulos) {
       if (!cap.activo) continue;
 
@@ -62,17 +57,36 @@ export async function getStaticPaths() {
 
 const { curso, capitulo, materiaId } = Astro.props;
 
-// Índice del capítulo actual para navegación
 const indiceActual = curso.capitulos.findIndex((c: any) => c.id === capitulo.id);
 const capituloAnterior = indiceActual > 0 ? curso.capitulos[indiceActual - 1] : null;
 const capituloSiguiente =
   indiceActual < curso.capitulos.length - 1 ? curso.capitulos[indiceActual + 1] : null;
 
-// Contenido y trivia
 const contenido = capitulo.contenido_modulos || [];
 const vocabulario = capitulo.vocabulario || [];
 const lineaTiempo = capitulo.linea_tiempo || [];
 const trivia = capitulo.trivia || [];
+
+// Mapeo de materia a color
+const coloresMateria: Record<string, string> = {
+  lenguaje: 'lenguaje',
+  matematicas: 'matematicas',
+  historia: 'historia',
+  ingles: 'ingles',
+  ciencias: 'ciencias',
+  programacion: 'programacion',
+};
+const color = coloresMateria[materiaId] || 'brand';
+
+const nombresMateria: Record<string, string> = {
+  lenguaje: 'Lenguaje',
+  matematicas: 'Matemáticas',
+  historia: 'Historia y Geografía',
+  ingles: 'Inglés',
+  ciencias: 'Ciencias',
+  programacion: 'Programación',
+};
+const nombreMateria = nombresMateria[materiaId] || 'Materia';
 ---
 
 <Layout title={`${capitulo.titulo} · ${curso.titulo}`}>
@@ -82,7 +96,9 @@ const trivia = capitulo.trivia || [];
     <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
       <a href="/" class="text-brand-600 hover:underline">Inicio</a>
       <span class="text-gray-300">›</span>
-      <a href="/materia/historia" class="text-brand-600 hover:underline">Historia</a>
+      <a href={`/materia/${materiaId}`} class="text-brand-600 hover:underline">
+        {nombreMateria}
+      </a>
       <span class="text-gray-300">›</span>
       <a href={`/curso/${curso.id}`} class="text-brand-600 hover:underline">
         {curso.titulo}
@@ -92,7 +108,7 @@ const trivia = capitulo.trivia || [];
     </nav>
 
     <!-- Portada del capítulo -->
-    <header class="bg-gradient-to-br from-historia-500 via-historia-600 to-historia-700 rounded-3xl p-6 md:p-8 shadow-lg text-white mb-8 relative overflow-hidden">
+    <header class={`bg-gradient-to-br from-${color}-500 via-${color}-600 to-${color}-700 rounded-3xl p-6 md:p-8 shadow-lg text-white mb-8 relative overflow-hidden`}>
       <div class="absolute top-0 right-0 text-[140px] leading-none opacity-10 select-none pointer-events-none">
         {capitulo.emoji}
       </div>
@@ -120,13 +136,13 @@ const trivia = capitulo.trivia || [];
       </div>
     </header>
 
-    <!-- Contenido modular (bloques markdown) -->
+    <!-- Contenido -->
     {contenido.length > 0 && (
       <section class="space-y-4 mb-10">
         {contenido.map((bloque: string, idx: number) => (
           <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
             <div class="flex items-start gap-3">
-              <span class="flex-shrink-0 w-7 h-7 rounded-full bg-historia-100 text-historia-700 font-extrabold flex items-center justify-center text-xs mt-1">
+              <span class={`flex-shrink-0 w-7 h-7 rounded-full bg-${color}-100 text-${color}-700 font-extrabold flex items-center justify-center text-xs mt-1`}>
                 {idx + 1}
               </span>
               <div
@@ -146,11 +162,11 @@ const trivia = capitulo.trivia || [];
           <span class="text-3xl">📖</span>
           <h2 class="text-2xl font-extrabold text-gray-800">Vocabulario</h2>
         </div>
-        <div class="bg-amber-50 border-2 border-historia-200 rounded-3xl p-5 md:p-6">
+        <div class={`bg-${color}-50 border-2 border-${color}-200 rounded-3xl p-5 md:p-6`}>
           <dl class="space-y-3">
             {vocabulario.map((item: any) => (
-              <div class="pb-3 border-b border-historia-200 last:border-0 last:pb-0">
-                <dt class="font-extrabold text-historia-700 mb-1">
+              <div class={`pb-3 border-b border-${color}-200 last:border-0 last:pb-0`}>
+                <dt class={`font-extrabold text-${color}-700 mb-1`}>
                   {item.termino}
                 </dt>
                 <dd class="text-sm text-gray-700 leading-relaxed">
@@ -171,11 +187,11 @@ const trivia = capitulo.trivia || [];
           <h2 class="text-2xl font-extrabold text-gray-800">Línea de tiempo</h2>
         </div>
         <div class="bg-white border border-gray-100 rounded-3xl p-5 md:p-6 shadow-sm">
-          <ol class="relative border-l-2 border-historia-300 ml-2 space-y-4">
+          <ol class={`relative border-l-2 border-${color}-300 ml-2 space-y-4`}>
             {lineaTiempo.map((item: any) => (
               <li class="ml-5 pl-3">
-                <div class="absolute w-3 h-3 bg-historia-500 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow"></div>
-                <span class="inline-block text-xs font-extrabold text-historia-700 bg-historia-100 px-2 py-0.5 rounded mb-1">
+                <div class={`absolute w-3 h-3 bg-${color}-500 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow`}></div>
+                <span class={`inline-block text-xs font-extrabold text-${color}-700 bg-${color}-100 px-2 py-0.5 rounded mb-1`}>
                   {item.fecha}
                 </span>
                 <p class="text-sm text-gray-700 leading-relaxed">
@@ -201,12 +217,12 @@ const trivia = capitulo.trivia || [];
       </section>
     )}
 
-    <!-- Navegación entre capítulos -->
+    <!-- Navegación -->
     <div class="flex flex-col md:flex-row gap-4 mt-10">
       {capituloAnterior && capituloAnterior.activo ? (
         <a
           href={`/curso/${curso.id}/${capituloAnterior.id}`}
-          class="flex-1 bg-white border-2 border-gray-200 rounded-3xl p-4 hover:border-historia-400 hover:shadow-md transition-all"
+          class="flex-1 bg-white border-2 border-gray-200 rounded-3xl p-4 hover:shadow-md transition-all"
         >
           <span class="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">
             ← Capítulo anterior
@@ -218,7 +234,7 @@ const trivia = capitulo.trivia || [];
       ) : (
         <a
           href={`/curso/${curso.id}`}
-          class="flex-1 bg-white border-2 border-gray-200 rounded-3xl p-4 hover:border-historia-400 hover:shadow-md transition-all"
+          class="flex-1 bg-white border-2 border-gray-200 rounded-3xl p-4 hover:shadow-md transition-all"
         >
           <span class="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">
             ← Volver al índice
@@ -232,7 +248,7 @@ const trivia = capitulo.trivia || [];
       {capituloSiguiente && capituloSiguiente.activo ? (
         <a
           href={`/curso/${curso.id}/${capituloSiguiente.id}`}
-          class="flex-1 bg-gradient-to-br from-historia-500 to-historia-600 text-white rounded-3xl p-4 hover:shadow-xl transition-all text-right"
+          class={`flex-1 bg-gradient-to-br from-${color}-500 to-${color}-600 text-white rounded-3xl p-4 hover:shadow-xl transition-all text-right`}
         >
           <span class="text-xs font-bold text-white/80 uppercase tracking-wide block mb-1">
             Siguiente capítulo →

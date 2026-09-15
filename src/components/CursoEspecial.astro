@@ -21,29 +21,49 @@ interface Props {
     total_capitulos: number;
     capitulos: Capitulo[];
   };
+  materiaId: string;
 }
 
-const { curso } = Astro.props;
+const { curso, materiaId } = Astro.props;
 const capitulosActivos = curso.capitulos.filter((c) => c.activo);
 const capitulosPendientes = curso.capitulos.filter((c) => !c.activo);
+
+// Mapeo de materia a color
+const coloresMateria: Record<string, string> = {
+  lenguaje: 'lenguaje',
+  matematicas: 'matematicas',
+  historia: 'historia',
+  ingles: 'ingles',
+  ciencias: 'ciencias',
+  programacion: 'programacion',
+};
+const color = coloresMateria[materiaId] || 'brand';
+
+// Nombre bonito de la materia para breadcrumb
+const nombresMateria: Record<string, string> = {
+  lenguaje: 'Lenguaje',
+  matematicas: 'Matemáticas',
+  historia: 'Historia y Geografía',
+  ingles: 'Inglés',
+  ciencias: 'Ciencias',
+  programacion: 'Programación',
+};
+const nombreMateria = nombresMateria[materiaId] || 'Materia';
 ---
 
 <div class="space-y-6">
 
   <!-- 🎭 PORTADA DEL CURSO -->
-  <div class="bg-gradient-to-br from-historia-500 via-historia-600 to-historia-700 rounded-3xl p-6 md:p-10 shadow-xl text-white relative overflow-hidden">
-    <!-- Decoración de fondo -->
+  <div class={`bg-gradient-to-br from-${color}-500 via-${color}-600 to-${color}-700 rounded-3xl p-6 md:p-10 shadow-xl text-white relative overflow-hidden`}>
     <div class="absolute top-0 right-0 text-[180px] leading-none opacity-10 select-none pointer-events-none">
-      👁️
+      {curso.emoji}
     </div>
 
     <div class="relative z-10">
-      <!-- Badge de curso especial -->
       <span class="inline-block text-xs font-extrabold px-3 py-1 rounded-full bg-white/20 backdrop-blur mb-4 tracking-wide uppercase">
         ✨ Serie Especial
       </span>
 
-      <!-- Título -->
       <h1 class="text-3xl md:text-5xl font-extrabold mb-2 leading-tight">
         {curso.titulo}
       </h1>
@@ -51,12 +71,10 @@ const capitulosPendientes = curso.capitulos.filter((c) => !c.activo);
         {curso.subtitulo}
       </p>
 
-      <!-- Descripción -->
       <p class="text-sm md:text-base text-white/85 leading-relaxed max-w-2xl mb-6">
         {curso.descripcion}
       </p>
 
-      <!-- Metadatos -->
       <div class="flex flex-wrap items-center gap-4 text-sm font-bold">
         <span class="flex items-center gap-2 bg-white/15 backdrop-blur rounded-full px-4 py-2">
           📚 {curso.total_capitulos} capítulos
@@ -82,22 +100,19 @@ const capitulosPendientes = curso.capitulos.filter((c) => !c.activo);
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-      <!-- Capítulos ACTIVOS (clicables) -->
       {capitulosActivos.map((cap) => (
         <a
           href={`/curso/${curso.id}/${cap.id}`}
           class="group block bg-white rounded-3xl p-5 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
           <div class="flex items-start gap-4">
-            <!-- Número romano -->
-            <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-historia-400 to-historia-600 flex items-center justify-center text-white text-xl font-extrabold shadow-md">
+            <div class={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-${color}-400 to-${color}-600 flex items-center justify-center text-white text-xl font-extrabold shadow-md`}>
               {cap.numero_romano}
             </div>
-            <!-- Contenido -->
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 mb-1">
                 <span class="text-xl">{cap.emoji}</span>
-                <span class="text-xs font-bold text-historia-600 uppercase tracking-wide">
+                <span class={`text-xs font-bold text-${color}-600 uppercase tracking-wide`}>
                   Capítulo {cap.numero}
                 </span>
               </div>
@@ -107,7 +122,7 @@ const capitulosPendientes = curso.capitulos.filter((c) => !c.activo);
               <p class="text-xs md:text-sm text-gray-500 leading-snug mb-2">
                 {cap.subtitulo}
               </p>
-              <span class="text-historia-500 font-bold text-sm group-hover:translate-x-1 transition-transform inline-block">
+              <span class={`text-${color}-500 font-bold text-sm group-hover:translate-x-1 transition-transform inline-block`}>
                 Entrar al capítulo →
               </span>
             </div>
@@ -115,7 +130,6 @@ const capitulosPendientes = curso.capitulos.filter((c) => !c.activo);
         </a>
       ))}
 
-      <!-- Capítulos PENDIENTES (bloqueados) -->
       {capitulosPendientes.map((cap) => (
         <div class="block bg-white/50 rounded-3xl p-5 shadow-sm border border-dashed border-gray-200 opacity-60 cursor-not-allowed">
           <div class="flex items-start gap-4">
@@ -144,12 +158,10 @@ const capitulosPendientes = curso.capitulos.filter((c) => !c.activo);
   </section>
 
   <!-- 💡 Nota al pie -->
-  <div class="bg-amber-50 border-l-4 border-historia-500 rounded-2xl p-4 text-sm text-gray-700">
+  <div class={`bg-${color}-50 border-l-4 border-${color}-500 rounded-2xl p-4 text-sm text-gray-700`}>
     <p class="font-bold mb-1">💡 Sobre este curso</p>
     <p class="leading-relaxed">
-      Este recorrido explora la interpretación simbólica y espiritual que los sacerdotes del Antiguo Egipto
-      dejaron en sus templos. Cada capítulo corresponde a un episodio del documental de Fernando Malkun,
-      adaptado para una lectura amena y con actividades interactivas.
+      {curso.descripcion}
     </p>
   </div>
 

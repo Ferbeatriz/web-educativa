@@ -2,9 +2,8 @@
 import Layout from '../../../layouts/Layout.astro';
 import CursoEspecial from '../../../components/CursoEspecial.astro';
 
-// Le decimos a Astro qué páginas generar
 export async function getStaticPaths() {
-  const cursosFiles = import.meta.glob('../../../data/materias/**/curso-especial/curso.json', {
+  const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', {
     eager: true,
   });
 
@@ -13,9 +12,9 @@ export async function getStaticPaths() {
   for (const path in cursosFiles) {
     const curso = (cursosFiles[path] as any).default;
 
-    // Detectar materia
+    // Detectar materia (incluye programacion)
     let materiaId = null;
-    const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias'];
+    const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias', 'programacion'];
     for (const mid of materiasConocidas) {
       if (path.includes(`/materias/${mid}/`)) {
         materiaId = mid;
@@ -24,12 +23,11 @@ export async function getStaticPaths() {
     }
     if (!materiaId) continue;
 
-    // Detectar submódulo
+    // Detectar submódulo (solo aplica a historia)
     let submoduloId = null;
     const matchSub = path.match(/\/submodulos\/([^/]+)\//);
     if (matchSub) submoduloId = matchSub[1];
 
-    // Detectar si está anidado dentro de un submódulo (ej: antiguo-egipto)
     let submoduloAnidado = null;
     const matchAnidado = path.match(/\/lecciones\/([^/]+)\/curso-especial\//);
     if (matchAnidado) submoduloAnidado = matchAnidado[1];
@@ -50,12 +48,22 @@ export async function getStaticPaths() {
 
 const { curso, materiaId, submoduloId, submoduloAnidado } = Astro.props;
 
+// Nombre bonito de la materia
+const nombresMateria: Record<string, string> = {
+  lenguaje: 'Lenguaje',
+  matematicas: 'Matemáticas',
+  historia: 'Historia y Geografía',
+  ingles: 'Inglés',
+  ciencias: 'Ciencias',
+  programacion: 'Programación',
+};
+
 // Breadcrumb
 const breadcrumb: { label: string; href: string }[] = [
   { label: 'Inicio', href: '/' },
 ];
 if (materiaId) {
-  breadcrumb.push({ label: 'Historia y Geografía', href: `/materia/${materiaId}` });
+  breadcrumb.push({ label: nombresMateria[materiaId] || materiaId, href: `/materia/${materiaId}` });
 }
 if (submoduloId && submoduloAnidado) {
   breadcrumb.push({
@@ -72,7 +80,6 @@ if (submoduloId && submoduloAnidado) {
 <Layout title={`${curso.titulo} · Curso Especial`}>
   <main class="max-w-4xl mx-auto px-4 py-6 md:py-10">
 
-    <!-- Breadcrumb -->
     <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
       {breadcrumb.map((item, i) => (
         <>
@@ -88,8 +95,7 @@ if (submoduloId && submoduloAnidado) {
       ))}
     </nav>
 
-    <!-- Componente del curso -->
-    <CursoEspecial curso={curso} />
+    <CursoEspecial curso={curso} materiaId={materiaId} />
 
   </main>
 </Layout>
