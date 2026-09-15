@@ -55,27 +55,20 @@ const vocabulario = capitulo.vocabulario || [];
 const lineaTiempo = capitulo.linea_tiempo || [];
 const trivia = capitulo.trivia || [];
 
-const colorVar: Record<string, string> = {
-  lenguaje: 'lenguaje',
-  matematicas: 'matematicas',
-  historia: 'historia',
-  ingles: 'ingles',
-  ciencias: 'ciencias',
-  programacion: 'programacion',
+// Colores HEX directos por materia
+const colores: Record<string, { c50: string; c100: string; c200: string; c300: string; c400: string; c500: string; c600: string; c700: string }> = {
+  lenguaje:     { c50: '#FDF2F8', c100: '#FCE7F3', c200: '#FBCFE8', c300: '#F9A8D4', c400: '#F472B6', c500: '#EC4899', c600: '#DB2777', c700: '#BE185D' },
+  matematicas:  { c50: '#EFF6FF', c100: '#DBEAFE', c200: '#BFDBFE', c300: '#93C5FD', c400: '#60A5FA', c500: '#3B82F6', c600: '#2563EB', c700: '#1D4ED8' },
+  historia:     { c50: '#FFFBEB', c100: '#FEF3C7', c200: '#FDE68A', c300: '#FCD34D', c400: '#FBBF24', c500: '#F59E0B', c600: '#D97706', c700: '#B45309' },
+  ingles:       { c50: '#F0FDFA', c100: '#CCFBF1', c200: '#99F6E4', c300: '#5EEAD4', c400: '#2DD4BF', c500: '#14B8A6', c600: '#0D9488', c700: '#0F766E' },
+  ciencias:     { c50: '#F7FEE7', c100: '#ECFCCB', c200: '#D9F99D', c300: '#BEF264', c400: '#A3E635', c500: '#84CC16', c600: '#65A30D', c700: '#4D7C0F' },
+  programacion: { c50: '#FDF4FF', c100: '#FAE8FF', c200: '#F5D0FE', c300: '#F0ABFC', c400: '#E879F9', c500: '#D946EF', c600: '#C026D3', c700: '#A21CAF' },
+  brand:        { c50: '#F5F3FF', c100: '#EDE9FE', c200: '#DDD6FE', c300: '#C4B5FD', c400: '#A78BFA', c500: '#8B5CF6', c600: '#7C3AED', c700: '#6D28D9' },
 };
-const color = colorVar[materiaId] || 'brand';
 
-const c500 = `var(--color-${color}-500)`;
-const c600 = `var(--color-${color}-600)`;
-const c700 = `var(--color-${color}-700)`;
-const c400 = `var(--color-${color}-400)`;
-const c300 = `var(--color-${color}-300)`;
-const c200 = `var(--color-${color}-200)`;
-const c100 = `var(--color-${color}-100)`;
-const c50  = `var(--color-${color}-50)`;
+const c = colores[materiaId] || colores.brand;
 
-const estiloPortada = `background: linear-gradient(135deg, ${c500} 0%, ${c600} 50%, ${c700} 100%);`;
-const estiloNumero = `background: linear-gradient(135deg, ${c400} 0%, ${c600} 100%);`;
+const estiloPortada = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
 
 const nombresMateria: Record<string, string> = {
   lenguaje: 'Lenguaje',
@@ -141,7 +134,7 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
         {contenido.map((bloque: string, idx: number) => (
           <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
             <div class="flex items-start gap-3">
-              <span class="flex-shrink-0 w-7 h-7 rounded-full font-extrabold flex items-center justify-center text-xs mt-1" style={`background: ${c100}; color: ${c700};`}>
+              <span class="flex-shrink-0 w-7 h-7 rounded-full font-extrabold flex items-center justify-center text-xs mt-1" style={`background: ${c.c100}; color: ${c.c700};`}>
                 {idx + 1}
               </span>
               <div
@@ -161,11 +154,11 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
           <span class="text-3xl">📖</span>
           <h2 class="text-2xl font-extrabold text-gray-800">Vocabulario</h2>
         </div>
-        <div class="rounded-3xl p-5 md:p-6" style={`background: ${c50}; border: 2px solid ${c200};`}>
+        <div class="rounded-3xl p-5 md:p-6" style={`background: ${c.c50}; border: 2px solid ${c.c200};`}>
           <dl class="space-y-3">
             {vocabulario.map((item: any) => (
-              <div class="pb-3 last:border-0 last:pb-0" style={`border-bottom: 1px solid ${c200};`}>
-                <dt class="font-extrabold mb-1" style={`color: ${c700};`}>
+              <div class="pb-3 last:border-0 last:pb-0" style={`border-bottom: 1px solid ${c.c200};`}>
+                <dt class="font-extrabold mb-1" style={`color: ${c.c700};`}>
                   {item.termino}
                 </dt>
                 <dd class="text-sm text-gray-700 leading-relaxed">
@@ -186,11 +179,11 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
           <h2 class="text-2xl font-extrabold text-gray-800">Línea de tiempo</h2>
         </div>
         <div class="bg-white border border-gray-100 rounded-3xl p-5 md:p-6 shadow-sm">
-          <ol class="relative ml-2 space-y-4" style={`border-left: 2px solid ${c300};`}>
+          <ol class="relative ml-2 space-y-4" style={`border-left: 2px solid ${c.c300};`}>
             {lineaTiempo.map((item: any) => (
               <li class="ml-5 pl-3">
-                <div class="absolute w-3 h-3 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow" style={`background: ${c500};`}></div>
-                <span class="inline-block text-xs font-extrabold px-2 py-0.5 rounded mb-1" style={`color: ${c700}; background: ${c100};`}>
+                <div class="absolute w-3 h-3 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow" style={`background: ${c.c500};`}></div>
+                <span class="inline-block text-xs font-extrabold px-2 py-0.5 rounded mb-1" style={`color: ${c.c700}; background: ${c.c100};`}>
                   {item.fecha}
                 </span>
                 <p class="text-sm text-gray-700 leading-relaxed">
@@ -248,7 +241,7 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
         <a
           href={`/curso/${curso.id}/${capituloSiguiente.id}`}
           class="flex-1 rounded-3xl p-4 hover:shadow-xl transition-all text-right text-white"
-          style={`background: linear-gradient(135deg, ${c500} 0%, ${c600} 100%);`}
+          style={`background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 100%);`}
         >
           <span class="text-xs font-bold text-white/80 uppercase tracking-wide block mb-1">
             Siguiente capítulo →
