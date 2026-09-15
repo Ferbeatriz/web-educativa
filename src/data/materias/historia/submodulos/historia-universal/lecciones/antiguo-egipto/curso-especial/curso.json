@@ -76,7 +76,7 @@
       "subtitulo": "Libros vivos de piedra",
       "emoji": "📖",
       "archivo": "capitulo-07.json",
-      "activo": false
+      "activo": true
     },
     {
       "id": "capitulo-08",
