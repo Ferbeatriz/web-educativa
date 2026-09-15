@@ -101,3 +101,178 @@ body {
 .animate-float {
   animation: float-soft 3s ease-in-out infinite;
 }
+
+/* ============================================
+   ESTILOS DE MARKDOWN EN CAPÍTULOS
+   Diseñado para lectura cómoda de niñas 9-12
+   ============================================ */
+
+.prose-markdown {
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.8;
+  color: #374151;
+}
+
+.prose-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.prose-markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+/* PÁRRAFOS: espacio generoso entre ellos */
+.prose-markdown p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+/* H1 DENTRO DE BLOQUES: más pequeño, es un título de bloque */
+.prose-markdown h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1F2937;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  display: none; /* Ocultamos el H1 porque el bloque ya muestra el número */
+}
+
+/* H2: subtítulos internos bien destacados */
+.prose-markdown h2 {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: #1F2937;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #F3F4F6;
+}
+
+.prose-markdown h2:first-child {
+  margin-top: 0;
+}
+
+/* H3: subsecciones */
+.prose-markdown h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #4B5563;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* NEGRITA: resaltada con color */
+.prose-markdown strong {
+  font-weight: 800;
+  color: #1F2937;
+}
+
+/* LISTAS: con más espacio y viñetas custom */
+.prose-markdown ul,
+.prose-markdown ol {
+  margin: 1rem 0 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose-markdown li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.prose-markdown ul li::marker {
+  color: #8B5CF6;
+  font-weight: bold;
+}
+
+.prose-markdown ol li::marker {
+  color: #8B5CF6;
+  font-weight: 800;
+}
+
+/* BLOCKQUOTE (Idea fuerza): caja destacada y amigable */
+.prose-markdown blockquote {
+  background: #F5F3FF;
+  border-left: 4px solid #8B5CF6;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: normal;
+  color: #4B5563;
+}
+
+.prose-markdown blockquote p {
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.prose-markdown blockquote strong {
+  color: #7C3AED;
+}
+
+/* TABLAS: más legibles */
+.prose-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9375rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.prose-markdown thead {
+  background: #F9FAFB;
+}
+
+.prose-markdown th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 800;
+  color: #374151;
+  border-bottom: 2px solid #E5E7EB;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.prose-markdown td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #F3F4F6;
+  color: #4B5563;
+}
+
+.prose-markdown tr:last-child td {
+  border-bottom: none;
+}
+
+/* CÓDIGO (por si algún día se usa) */
+.prose-markdown code {
+  background: #F3F4F6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+  color: #7C3AED;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+/* ENLACES */
+.prose-markdown a {
+  color: #7C3AED;
+  text-decoration: underline;
+  text-decoration-color: #DDD6FE;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+.prose-markdown a:hover {
+  text-decoration-color: #8B5CF6;
+}
+
+/* SEPARADORES */
+.prose-markdown hr {
+  border: none;
+  border-top: 2px solid #F3F4F6;
+  margin: 2rem 0;
+}

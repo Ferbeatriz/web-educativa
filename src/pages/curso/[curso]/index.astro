@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import CursoEspecial from '../../../components/CursoEspecial.astro';
 
 export async function getStaticPaths() {
+  // ⚠️ Los globs van DENTRO de getStaticPaths
   const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', {
     eager: true,
   });
@@ -10,9 +11,15 @@ export async function getStaticPaths() {
   const paths = [];
 
   for (const path in cursosFiles) {
-    const curso = (cursosFiles[path] as any).default;
+    const cursoModulo = cursosFiles[path] as any;
+    const curso = cursoModulo?.default;
 
-    // Detectar materia (incluye programacion)
+    // Validación defensiva
+    if (!curso || typeof curso !== 'object' || !Array.isArray(curso.capitulos)) {
+      continue;
+    }
+
+    // Detectar materia
     let materiaId = null;
     const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias', 'programacion'];
     for (const mid of materiasConocidas) {
@@ -48,7 +55,6 @@ export async function getStaticPaths() {
 
 const { curso, materiaId, submoduloId, submoduloAnidado } = Astro.props;
 
-// Nombre bonito de la materia
 const nombresMateria: Record<string, string> = {
   lenguaje: 'Lenguaje',
   matematicas: 'Matemáticas',
@@ -58,7 +64,6 @@ const nombresMateria: Record<string, string> = {
   programacion: 'Programación',
 };
 
-// Breadcrumb
 const breadcrumb: { label: string; href: string }[] = [
   { label: 'Inicio', href: '/' },
 ];

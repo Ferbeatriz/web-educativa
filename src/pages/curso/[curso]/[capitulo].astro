@@ -10,7 +10,13 @@ export async function getStaticPaths() {
   const paths = [];
 
   for (const cursoPath in cursosFiles) {
-    const curso = (cursosFiles[cursoPath] as any).default;
+    const cursoModulo = cursosFiles[cursoPath] as any;
+    const curso = cursoModulo?.default;
+
+    // 🛡️ Validación defensiva: el curso debe existir y tener capítulos
+    if (!curso || typeof curso !== 'object' || !Array.isArray(curso.capitulos)) {
+      continue;
+    }
 
     let materiaId = null;
     const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias', 'programacion'];
@@ -129,16 +135,16 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
     </header>
 
     <!-- Contenido -->
-    {contenido.length > 0 && (
-      <section class="space-y-4 mb-10">
+        {contenido.length > 0 && (
+      <section class="space-y-5 mb-10">
         {contenido.map((bloque: string, idx: number) => (
-          <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
-            <div class="flex items-start gap-3">
-              <span class="flex-shrink-0 w-7 h-7 rounded-full font-extrabold flex items-center justify-center text-xs mt-1" style={`background: ${c.c100}; color: ${c.c700};`}>
+          <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+            <div class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-9 h-9 rounded-full font-extrabold flex items-center justify-center text-sm" style={`background: ${c.c100}; color: ${c.c700};`}>
                 {idx + 1}
               </span>
               <div
-                class="prose-markdown max-w-none text-gray-700"
+                class="prose-markdown max-w-none flex-1"
                 set:html={marked.parse(bloque) as string}
               />
             </div>
