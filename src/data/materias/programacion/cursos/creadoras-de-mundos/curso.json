@@ -1,3 +1,13 @@
+{
+  "id": "creadoras-de-mundos",
+  "titulo": "Creadoras de Mundos Digitales",
+  "subtitulo": "Tu primer paso al mundo de la programación",
+  "descripcion": "Un viaje de 10 capítulos donde vas a aprender a programar creando juegos, animaciones e historias. No necesitas saber nada de computación: solo ganas de crear.",
+  "emoji": "🚀",
+  "fuente": "Curso original de web-educativa",
+  "progreso_puntos_por_capitulo": 200,
+  "total_capitulos": 10,
+  "capitulos": [
     {
       "id": "capitulo-01",
       "numero": 1,
@@ -7,4 +17,96 @@
       "emoji": "🎉",
       "archivo": "capitulo-01.json",
       "activo": true
+    },
+    {
+      "id": "capitulo-02",
+      "numero": 2,
+      "numero_romano": "II",
+      "titulo": "El Baile del Gato Naranja",
+      "subtitulo": "Cómo dar órdenes en orden",
+      "emoji": "🐱",
+      "archivo": "capitulo-02.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-03",
+      "numero": 3,
+      "numero_romano": "III",
+      "titulo": "Cazadoras de Errores",
+      "subtitulo": "Encontrar y arreglar bugs",
+      "emoji": "🔍",
+      "archivo": "capitulo-03.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-04",
+      "numero": 4,
+      "numero_romano": "IV",
+      "titulo": "Repite conmigo: ¡Bucles!",
+      "subtitulo": "Hacer más con menos bloques",
+      "emoji": "🔁",
+      "archivo": "capitulo-04.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-05",
+      "numero": 5,
+      "numero_romano": "V",
+      "titulo": "Toma de Decisiones",
+      "subtitulo": "Si pasa esto... entonces haz aquello",
+      "emoji": "🤔",
+      "archivo": "capitulo-05.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-06",
+      "numero": 6,
+      "numero_romano": "VI",
+      "titulo": "Mi Primer Mini-Juego",
+      "subtitulo": "Atrapa el objeto",
+      "emoji": "🎮",
+      "archivo": "capitulo-06.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-07",
+      "numero": 7,
+      "numero_romano": "VII",
+      "titulo": "Historias Interactivas",
+      "subtitulo": "Elige tu propia aventura",
+      "emoji": "📖",
+      "archivo": "capitulo-07.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-08",
+      "numero": 8,
+      "numero_romano": "VIII",
+      "titulo": "IA: ¿Cómo Aprende una Computadora?",
+      "subtitulo": "Entrena a tu robot",
+      "emoji": "🤖",
+      "archivo": "capitulo-08.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-09",
+      "numero": 9,
+      "numero_romano": "IX",
+      "titulo": "Creadoras de Mundos",
+      "subtitulo": "Tu proyecto final",
+      "emoji": "🌍",
+      "archivo": "capitulo-09.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-10",
+      "numero": 10,
+      "numero_romano": "X",
+      "titulo": "¡Gran Presentación!",
+      "subtitulo": "Festival de Creadoras",
+      "emoji": "🏆",
+      "archivo": "capitulo-10.json",
+      "activo": false
     }
+  ]
+}
