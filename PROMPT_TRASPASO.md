@@ -76,29 +76,51 @@ de forma simple. Español de Chile. Cero lenguaje infantil
 ESTADO ACTUAL
 ═══════════════════════════════════════════════════════
 
+Materias activas: 6
+✅ Lenguaje
+✅ Matemáticas
+✅ Historia y Geografía
+✅ Inglés
+✅ Ciencias
+✅ Programación (NUEVA, magenta)
+
 Lecciones normales publicadas:
 ✅ Matemáticas: Propiedades de la Multiplicación
 ✅ Historia Universal: Antigua Roma
 ✅ Historia Universal: Antigua Grecia
 
-Curso Especial El Ojo de Horus (en Antiguo Egipto):
-✅ Portada del curso + índice de 10 capítulos
-✅ Capítulo I: La Escuela de Misterios
-✅ Capítulo II: La Esfinge
-✅ Capítulo III: La Escritura Sagrada
+Curso Especial 1: El Ojo de Horus (en Historia Universal → Antiguo Egipto):
+✅ COMPLETO - 10 de 10 capítulos publicados
 
-Pendiente próximo:
-⏳ Capítulo IV: Los Templos de Giza y el Osirion
-⏳ Capítulo V: La Flor de la Vida
-⏳ Capítulos VI al X
+Curso Especial 2: Creadoras de Mundos Digitales (en Programación):
+✅ Estructura creada (curso.json con 10 capítulos planificados)
+✅ Solo Capítulo I planificado como activo
+⏳ Pendiente: generar contenido de los 10 capítulos
+
+Próximo paso:
+⏳ Generar Capítulo I: "¡Bienvenida, Programadora!"
+
+Otros pendientes:
 ⏳ Lección introductoria de Antiguo Egipto
-⏳ Historia de Chile
-⏳ Historia Precolombina
+⏳ Historia de Chile, Historia Precolombina
+⏳ Ciencias, Lenguaje, Inglés (contenido)
 
-Transcripción completa del curso en: ojohorus.txt
-(contiene los 10 videos; los cortes se identifican por marcas
-de tiempo en silencios: [102:00], [152:50], etc.)
+Transcripción del Ojo de Horus en: ojohorus.txt
+Documentación completa en: ESTADO_PROYECTO.md y GUIA_IA.md
 
+═══════════════════════════════════════════════════════
+REFACTOR RECIENTE (15 sep 2026)
+═══════════════════════════════════════════════════════
+
+Se refactorizó CursoEspecial.astro y las páginas [curso]/*.astro
+para que sean DINÁMICAS por materia:
+
+- Detectan automáticamente la materia del curso
+- Aplican el color correcto (programacion → magenta)
+- Usan códigos HEX directos (no variables CSS) para evitar
+  problemas de Tailwind v4 con clases dinámicas
+- El curso Ojo de Horus usa ámbar (historia)
+- El curso Creadoras de Mundos usa magenta (programacion)
 ═══════════════════════════════════════════════════════
 LO QUE NECESITO QUE HAGAS
 ═══════════════════════════════════════════════════════

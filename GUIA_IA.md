@@ -241,13 +241,15 @@ Este es un **curso especial** dentro de Antiguo Egipto, diferente a las leccione
 | I | La Escuela de Misterios | ✅ Publicado |
 | II | La Esfinge | ✅ Publicado |
 | III | La Escritura Sagrada | ✅ Publicado |
-| IV | Los Templos de Giza y el Osirion | ⏳ Pendiente |
-| V | La Flor de la Vida | ⏳ Pendiente |
-| VI | Sakara | ⏳ Pendiente |
-| VII | Los Templos de Egipto | ⏳ Pendiente |
-| VIII | El Año Cósmico y el Zodíaco | ⏳ Pendiente |
-| IX | Los Niveles de Conciencia | ⏳ Pendiente |
-| X | Filae y el Principio Femenino | ⏳ Pendiente |
+| IV | Los Templos de Giza y el Osirion | ✅ Publicado |
+| V | La Flor de la Vida | ✅ Publicado |
+| VI | Sakara | ✅ Publicado |
+| VII | Los Templos de Egipto | ✅ Publicado |
+| VIII | El Año Cósmico y el Zodíaco | ✅ Publicado |
+| IX | Los Niveles de Conciencia | ✅ Publicado |
+| X | Filae y el Principio Femenino | ✅ Publicado |
+
+**CURSO COMPLETO: 10 de 10 capítulos publicados.**
 
 **Transcripción completa del curso**: `ojohorus.txt` (en la raíz del proyecto).
 Contiene las transcripciones de los 10 videos. Los cortes entre capítulos se
@@ -336,6 +338,101 @@ Si dice "INVÁLIDO", hay un error de sintaxis (coma extra, comilla mal cerrada, 
 - **Ciencias**: verde lima `#84CC16`
 
 ---
+
+---
+
+## 💻 Curso Especial: Creadoras de Mundos Digitales
+
+**Materia**: `programacion` (magenta `#D946EF`, emoji 💻)
+**Ubicación**: `src/data/materias/programacion/cursos/creadoras-de-mundos/`
+**Estructura**: igual a Ojo de Horus (curso.json + capitulo-XX.json)
+**Público**: niñas de 9-12 años sin experiencia previa en programación
+**Herramienta base**: Scratch (https://scratch.mit.edu)
+
+**Campos adicionales en cada capítulo:**
+
+- `actividades[]` — array de `{ titulo, descripcion, nivel }` con desafíos prácticos
+
+**Estructura del JSON de un capítulo**:
+
+```json
+{
+  "id": "capitulo-XX",
+  "numero": 1,
+  "numero_romano": "I",
+  "titulo": "Título del capítulo",
+  "subtitulo": "Subtítulo",
+  "emoji": "🎉",
+  "progreso_puntos": 200,
+  "contenido_modulos": ["bloque 1", "bloque 2", "..."],
+  "vocabulario": [
+    { "termino": "...", "definicion": "..." }
+  ],
+  "actividades": [
+    { "titulo": "...", "descripcion": "...", "nivel": "fácil" }
+  ],
+  "trivia": [
+    { "pregunta": "...", "opciones": ["A","B","C","D"], "respuesta_correcta": 1, "explicacion": "..." }
+  ]
+}
+
+
+
+
+Notas sobre el contenido:
+
+Tono motivador y alentador (no solemne como Ojo de Horus)
+
+Cero tecnicismos innecesarios
+
+Ejemplos cotidianos para explicar conceptos
+
+Cada capítulo incluye al menos 2-3 actividades prácticas
+
+Enfatizar que el error es parte del aprendizaje (cultura maker)
+
+Capítulos planificados:
+
+#	Capítulo	Estado
+I	¡Bienvenida, Programadora!	⏳ Pendiente
+II	El Baile del Gato Naranja	⏳ Pendiente
+III	Cazadoras de Errores	⏳ Pendiente
+IV	Repite conmigo: ¡Bucles!	⏳ Pendiente
+V	Toma de Decisiones	⏳ Pendiente
+VI	Mi Primer Mini-Juego	⏳ Pendiente
+VII	Historias Interactivas	⏳ Pendiente
+VIII	IA: ¿Cómo Aprende una Computadora?	⏳ Pendiente
+IX	Creadoras de Mundos	⏳ Pendiente
+X	¡Gran Presentación!	⏳ Pendiente
+🎨 Refactor de cursos multi-materia
+Desde el 15 de septiembre de 2026, CursoEspecial.astro y las páginas [curso]/*.astro son dinámicas por materia.
+
+Cómo funciona:
+
+Detectan la materia por el path del curso
+
+Mapean la materia a un color (definido en global.css como --color-<materia>-*)
+
+Usan códigos HEX directos dentro del componente (no variables CSS dinámicas) para evitar problemas de Tailwind v4
+
+El color se aplica a: portada, números de capítulo, links, vocabulario, línea de tiempo
+
+Materias soportadas actualmente:
+
+lenguaje, matematicas, historia, ingles, ciencias, programacion
+
+Para agregar una nueva materia:
+
+Agregar a src/data/materias.json
+
+Agregar sus variables CSS en global.css (--color-<materia>-50..700)
+
+Agregar el color HEX en el objeto colores de CursoEspecial.astro y [capitulo].astro
+
+Agregar la materia a la lista materiasConocidas en [curso]/index.astro y [capitulo].astro
+
+
+
 
 ## 📞 Contacto del proyecto
 

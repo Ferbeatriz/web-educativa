@@ -113,8 +113,8 @@ web-educativa/
 | Elemento | Estado |
 |----------|--------|
 | Setup Astro + Tailwind v4 | ✅ |
-| Paleta personalizada (5 materias) | ✅ |
-| Dashboard con 5 materias | ✅ |
+| Paleta personalizada (6 materias) | ✅ |
+| Dashboard con 6 materias | ✅ |
 | Navegación jerárquica | ✅ |
 | Renderizado de Markdown en lecciones | ✅ |
 | Trivia interactiva (verde/coral) | ✅ |
@@ -123,21 +123,19 @@ web-educativa/
 | Lección Matemáticas: Propiedades Multiplicación | ✅ Publicada |
 | Lección Historia: Antigua Roma | ✅ Publicada |
 | Lección Historia: Antigua Grecia | ✅ Publicada |
-| **Curso Ojo de Horus: Portada + índice de 10 capítulos** | ✅ Publicada |
-| **Ojo de Horus - Capítulo I: La Escuela de Misterios** | ✅ Publicado |
-| **Ojo de Horus - Capítulo II: La Esfinge** | ✅ Publicado |
-| **Ojo de Horus - Capítulo III: La Escritura Sagrada** | ✅ Publicado |
-| Sistema de cursos especiales (componente + páginas) | ✅ |
+| **Curso Ojo de Horus: Portada + 10 capítulos COMPLETO** | ✅ Publicado |
+| **Materia Programación creada (magenta #D946EF)** | ✅ |
+| **Curso Creadoras de Mundos Digitales: estructura + curso.json** | ✅ |
+| Refactor de CursoEspecial: colores dinámicos por materia | ✅ |
+| Fix de colores: HEX directos en lugar de variables CSS | ✅ |
+| Sistema de cursos especiales multi-materia | ✅ |
 | Documentación del proyecto (3 archivos .md) | ✅ |
 
 ### Pendiente (en orden de prioridad)
 
 | Tarea | Prioridad |
 |-------|-----------|
-| Ojo de Horus - Capítulo IV: Templos de Giza y Osirion | Alta |
-| Ojo de Horus - Capítulo V: La Flor de la Vida | Alta |
-| Ojo de Horus - Capítulo VI: Sakara | Alta |
-| Ojo de Horus - Capítulos VII, VIII, IX, X | Alta |
+| Curso Creadoras de Mundos Digitales: Capítulos I al X | Alta |
 | Lección introductoria de Antiguo Egipto (para el submódulo) | Media |
 | Historia de Chile (contenido) | Media |
 | Historia Precolombina (contenido) | Media |
@@ -163,6 +161,29 @@ web-educativa/
 
 **Referencia URL YouTube** (primer video de la serie):
 `https://www.youtube.com/watch?v=Q6D3gXq28hw`
+
+### 🆕 Curso en desarrollo: Creadoras de Mundos Digitales
+
+**Materia**: `programacion` (magenta `#D946EF`, emoji 💻)
+**Ubicación**: `src/data/materias/programacion/cursos/creadoras-de-mundos/`
+**Estructura**: 10 capítulos planificados, solo el I está activo
+**Tema**: Introducción a la programación para niñas de 9-12 años, usando Scratch
+**Enfoque**: Actividades prácticas + trivias + motivación
+
+**Capítulos planificados:**
+
+| # | Capítulo | Estado |
+|---|----------|--------|
+| I | ¡Bienvenida, Programadora! | ⏳ Pendiente |
+| II | El Baile del Gato Naranja | ⏳ Pendiente |
+| III | Cazadoras de Errores | ⏳ Pendiente |
+| IV | Repite conmigo: ¡Bucles! | ⏳ Pendiente |
+| V | Toma de Decisiones | ⏳ Pendiente |
+| VI | Mi Primer Mini-Juego | ⏳ Pendiente |
+| VII | Historias Interactivas | ⏳ Pendiente |
+| VIII | IA: ¿Cómo Aprende una Computadora? | ⏳ Pendiente |
+| IX | Creadoras de Mundos | ⏳ Pendiente |
+| X | ¡Gran Presentación! | ⏳ Pendiente |
 ---
 
 ## 🎨 Paleta de colores
