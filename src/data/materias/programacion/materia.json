@@ -3,9 +3,9 @@
   "nombre": "Programación",
   "descripcion": "Crea mundos digitales con código",
   "emoji": "💻",
-  "color": "#D946EF",
+  "color": "programacion",
   "orden": 6,
-  "activa": true,
+  "activo": true,
   "lecciones": [],
   "submodulos": [],
   "cursos_especiales": [

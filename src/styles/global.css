@@ -75,6 +75,13 @@
   --color-ciencias-500: #84CC16;
   --color-ciencias-600: #65A30D;
 
+  /* Programación - Magenta */
+  --color-programacion-50: #FDF4FF;
+  --color-programacion-100: #FAE8FF;
+  --color-programacion-400: #E879F9;
+  --color-programacion-500: #D946EF;
+  --color-programacion-600: #C026D3;
+
 }
 
 /* ESTILOS BASE */

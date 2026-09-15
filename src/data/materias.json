@@ -3,56 +3,84 @@
     {
       "id": "lenguaje",
       "nombre": "Lenguaje",
+      "descripcion": "Lectura, escritura y comunicación",
       "emoji": "📖",
-      "color": "#EC4899",
-      "descripcion": "Lee, escribe y comunica tus ideas",
+      "color": "lenguaje",
       "orden": 1,
-      "activa": true
+      "activo": true,
+      "submodulos": []
     },
     {
       "id": "matematicas",
       "nombre": "Matemáticas",
+      "descripcion": "Números, operaciones y resolución de problemas",
       "emoji": "🔢",
-      "color": "#3B82F6",
-      "descripcion": "Números, formas y lógica",
+      "color": "matematicas",
       "orden": 2,
-      "activa": true
+      "activo": true,
+      "submodulos": []
     },
     {
       "id": "historia",
       "nombre": "Historia y Geografía",
+      "descripcion": "El pasado y el mundo que habitamos",
       "emoji": "🌍",
-      "color": "#F59E0B",
-      "descripcion": "Viaja al pasado y descubre el mundo",
+      "color": "historia",
       "orden": 3,
-      "activa": true
+      "activo": true,
+      "submodulos": [
+        {
+          "id": "historia-universal",
+          "nombre": "Historia Universal",
+          "descripcion": "Las grandes civilizaciones del mundo",
+          "emoji": "🏛️",
+          "orden": 1
+        },
+        {
+          "id": "historia-chile",
+          "nombre": "Historia de Chile",
+          "descripcion": "Nuestro país a través del tiempo",
+          "emoji": "🇨🇱",
+          "orden": 2
+        },
+        {
+          "id": "historia-precolombina",
+          "nombre": "Historia Precolombina",
+          "descripcion": "Los pueblos originarios de América",
+          "emoji": "🗿",
+          "orden": 3
+        }
+      ]
     },
     {
       "id": "ingles",
       "nombre": "Inglés",
-      "emoji": "🇬🇧",
-      "color": "#14B8A6",
-      "descripcion": "Aprende un nuevo idioma",
+      "descripcion": "Aprende el idioma universal",
+      "emoji": "🗣️",
+      "color": "ingles",
       "orden": 4,
-      "activa": true
+      "activo": true,
+      "submodulos": []
     },
     {
       "id": "ciencias",
       "nombre": "Ciencias",
+      "descripcion": "Descubre cómo funciona el mundo natural",
       "emoji": "🔬",
-      "color": "#84CC16",
-      "descripcion": "Explora la naturaleza y el universo",
+      "color": "ciencias",
       "orden": 5,
-      "activa": true
+      "activo": true,
+      "submodulos": []
     },
     {
       "id": "programacion",
       "nombre": "Programación",
-      "emoji": "💻",
-      "color": "#D946EF",
       "descripcion": "Crea mundos digitales con código",
+      "emoji": "💻",
+      "color": "programacion",
       "orden": 6,
-      "activa": true
+      "activo": true,
+      "submodulos": []
     }
   ]
 }
