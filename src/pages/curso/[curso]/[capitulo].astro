@@ -4,12 +4,8 @@ import TriviaQuiz from '../../../components/TriviaQuiz.astro';
 import { marked } from 'marked';
 
 export async function getStaticPaths() {
-  const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', {
-    eager: true,
-  });
-  const capitulosFiles = import.meta.glob('../../../data/materias/**/capitulo-*.json', {
-    eager: true,
-  });
+  const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', { eager: true });
+  const capitulosFiles = import.meta.glob('../../../data/materias/**/capitulo-*.json', { eager: true });
 
   const paths = [];
 
@@ -39,15 +35,8 @@ export async function getStaticPaths() {
       if (!capituloData || !capituloData.id) continue;
 
       paths.push({
-        params: {
-          curso: curso.id,
-          capitulo: cap.id,
-        },
-        props: {
-          curso,
-          capitulo: capituloData,
-          materiaId,
-        },
+        params: { curso: curso.id, capitulo: cap.id },
+        props: { curso, capitulo: capituloData, materiaId },
       });
     }
   }
@@ -59,16 +48,14 @@ const { curso, capitulo, materiaId } = Astro.props;
 
 const indiceActual = curso.capitulos.findIndex((c: any) => c.id === capitulo.id);
 const capituloAnterior = indiceActual > 0 ? curso.capitulos[indiceActual - 1] : null;
-const capituloSiguiente =
-  indiceActual < curso.capitulos.length - 1 ? curso.capitulos[indiceActual + 1] : null;
+const capituloSiguiente = indiceActual < curso.capitulos.length - 1 ? curso.capitulos[indiceActual + 1] : null;
 
 const contenido = capitulo.contenido_modulos || [];
 const vocabulario = capitulo.vocabulario || [];
 const lineaTiempo = capitulo.linea_tiempo || [];
 const trivia = capitulo.trivia || [];
 
-// Mapeo de materia a color
-const coloresMateria: Record<string, string> = {
+const colorVar: Record<string, string> = {
   lenguaje: 'lenguaje',
   matematicas: 'matematicas',
   historia: 'historia',
@@ -76,7 +63,19 @@ const coloresMateria: Record<string, string> = {
   ciencias: 'ciencias',
   programacion: 'programacion',
 };
-const color = coloresMateria[materiaId] || 'brand';
+const color = colorVar[materiaId] || 'brand';
+
+const c500 = `var(--color-${color}-500)`;
+const c600 = `var(--color-${color}-600)`;
+const c700 = `var(--color-${color}-700)`;
+const c400 = `var(--color-${color}-400)`;
+const c300 = `var(--color-${color}-300)`;
+const c200 = `var(--color-${color}-200)`;
+const c100 = `var(--color-${color}-100)`;
+const c50  = `var(--color-${color}-50)`;
+
+const estiloPortada = `background: linear-gradient(135deg, ${c500} 0%, ${c600} 50%, ${c700} 100%);`;
+const estiloNumero = `background: linear-gradient(135deg, ${c400} 0%, ${c600} 100%);`;
 
 const nombresMateria: Record<string, string> = {
   lenguaje: 'Lenguaje',
@@ -108,7 +107,7 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
     </nav>
 
     <!-- Portada del capítulo -->
-    <header class={`bg-gradient-to-br from-${color}-500 via-${color}-600 to-${color}-700 rounded-3xl p-6 md:p-8 shadow-lg text-white mb-8 relative overflow-hidden`}>
+    <header class="rounded-3xl p-6 md:p-8 shadow-lg text-white mb-8 relative overflow-hidden" style={estiloPortada}>
       <div class="absolute top-0 right-0 text-[140px] leading-none opacity-10 select-none pointer-events-none">
         {capitulo.emoji}
       </div>
@@ -142,7 +141,7 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
         {contenido.map((bloque: string, idx: number) => (
           <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
             <div class="flex items-start gap-3">
-              <span class={`flex-shrink-0 w-7 h-7 rounded-full bg-${color}-100 text-${color}-700 font-extrabold flex items-center justify-center text-xs mt-1`}>
+              <span class="flex-shrink-0 w-7 h-7 rounded-full font-extrabold flex items-center justify-center text-xs mt-1" style={`background: ${c100}; color: ${c700};`}>
                 {idx + 1}
               </span>
               <div
@@ -162,11 +161,11 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
           <span class="text-3xl">📖</span>
           <h2 class="text-2xl font-extrabold text-gray-800">Vocabulario</h2>
         </div>
-        <div class={`bg-${color}-50 border-2 border-${color}-200 rounded-3xl p-5 md:p-6`}>
+        <div class="rounded-3xl p-5 md:p-6" style={`background: ${c50}; border: 2px solid ${c200};`}>
           <dl class="space-y-3">
             {vocabulario.map((item: any) => (
-              <div class={`pb-3 border-b border-${color}-200 last:border-0 last:pb-0`}>
-                <dt class={`font-extrabold text-${color}-700 mb-1`}>
+              <div class="pb-3 last:border-0 last:pb-0" style={`border-bottom: 1px solid ${c200};`}>
+                <dt class="font-extrabold mb-1" style={`color: ${c700};`}>
                   {item.termino}
                 </dt>
                 <dd class="text-sm text-gray-700 leading-relaxed">
@@ -187,11 +186,11 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
           <h2 class="text-2xl font-extrabold text-gray-800">Línea de tiempo</h2>
         </div>
         <div class="bg-white border border-gray-100 rounded-3xl p-5 md:p-6 shadow-sm">
-          <ol class={`relative border-l-2 border-${color}-300 ml-2 space-y-4`}>
+          <ol class="relative ml-2 space-y-4" style={`border-left: 2px solid ${c300};`}>
             {lineaTiempo.map((item: any) => (
               <li class="ml-5 pl-3">
-                <div class={`absolute w-3 h-3 bg-${color}-500 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow`}></div>
-                <span class={`inline-block text-xs font-extrabold text-${color}-700 bg-${color}-100 px-2 py-0.5 rounded mb-1`}>
+                <div class="absolute w-3 h-3 rounded-full -left-[7px] mt-1.5 border-2 border-white shadow" style={`background: ${c500};`}></div>
+                <span class="inline-block text-xs font-extrabold px-2 py-0.5 rounded mb-1" style={`color: ${c700}; background: ${c100};`}>
                   {item.fecha}
                 </span>
                 <p class="text-sm text-gray-700 leading-relaxed">
@@ -248,7 +247,8 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
       {capituloSiguiente && capituloSiguiente.activo ? (
         <a
           href={`/curso/${curso.id}/${capituloSiguiente.id}`}
-          class={`flex-1 bg-gradient-to-br from-${color}-500 to-${color}-600 text-white rounded-3xl p-4 hover:shadow-xl transition-all text-right`}
+          class="flex-1 rounded-3xl p-4 hover:shadow-xl transition-all text-right text-white"
+          style={`background: linear-gradient(135deg, ${c500} 0%, ${c600} 100%);`}
         >
           <span class="text-xs font-bold text-white/80 uppercase tracking-wide block mb-1">
             Siguiente capítulo →
