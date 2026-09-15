@@ -1,0 +1,23 @@
+{
+  "id": "programacion",
+  "nombre": "Programación",
+  "descripcion": "Crea mundos digitales con código",
+  "emoji": "💻",
+  "color": "#D946EF",
+  "orden": 6,
+  "activa": true,
+  "lecciones": [],
+  "submodulos": [],
+  "cursos_especiales": [
+    {
+      "id": "creadoras-de-mundos",
+      "titulo": "Creadoras de Mundos Digitales",
+      "subtitulo": "Tu primer paso al mundo de la programación",
+      "descripcion": "Un curso interactivo de 10 capítulos para aprender a programar creando juegos, animaciones e historias.",
+      "emoji": "🚀",
+      "orden": 1,
+      "activo": true,
+      "archivo": "cursos/creadoras-de-mundos/curso.json"
+    }
+  ]
+}
