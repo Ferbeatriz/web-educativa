@@ -1,0 +1,122 @@
+{
+  "id": "capitulo-01",
+  "numero": 1,
+  "numero_romano": "I",
+  "titulo": "¡Bienvenida, Programadora!",
+  "subtitulo": "Tu primera orden a la computadora",
+  "emoji": "🎉",
+  "progreso_puntos": 200,
+  "contenido_modulos": [
+    "# Capítulo I: ¡Bienvenida, Programadora! 🎉\n\n## 🌟 ¡Hola! Este curso es para ti\n\nBienvenida a **Creadoras de Mundos Digitales**, un curso donde vas a aprender a **programar**. ¿Y qué es programar? Es darle órdenes a una computadora para que haga cosas que tú quieras: mover un personaje, crear un juego, contar una historia, dibujar lo que imagines.\n\nUna computadora es muy poderosa, pero no piensa sola. Necesita que alguien le diga qué hacer. **Ese alguien vas a ser tú.**\n\nEn este curso vas a ser **creadora**, no solo usuaria. Vas a pasar de mirar la pantalla a **hacer que pasen cosas en ella**. Y lo mejor: no necesitas saber nada de computación para empezar. Solo ganas de crear.\n\n> **Idea fuerza**: Programar es darle órdenes a una computadora. Y tú puedes hacerlo, aunque nunca lo hayas intentado.",
+    "## 🤖 Las computadoras hacen exactamente lo que les dices\n\nImagínate un robot que obedece todo lo que le pides, pero **sin sentido común**. Si le dices \"camina hacia adelante\", camina. Si le dices \"gira a la derecha\", gira. Pero si le dices \"camina hacia adelante\" y hay una pared, **la atraviesa o se choca**, porque no sabe que hay una pared. Solo hace lo que le dijiste.\n\nLas computadoras son así. No adivinan. No suponen. No tienen intuición. **Hacen exactamente lo que les ordenas**, ni más ni menos. Por eso, cuando programamos, tenemos que ser muy claras y ordenadas. Si nos equivocamos, la computadora hace algo raro. Y eso está bien: los errores nos enseñan.\n\nPiensa en una receta de cocina. Si la receta dice \"mezcla la harina con los huevos\", la computadora hace eso. Si olvidaste decirle \"rompe los huevos primero\", va a mezclar los huevos enteros con cáscara. No es tonta: es que **tú no le dijiste lo que querías**.\n\nEsa es la esencia de la programación: **pensar en cada paso, en orden, para que la computadora haga lo que imaginamos.**\n\n> **Idea fuerza**: Las computadoras no adivinan. Hacen exactamente lo que les dices. Por eso, programar es aprender a pensar en pasos ordenados.",
+    "## 🐱 Conoce Scratch: tu taller digital\n\nPara aprender a programar, vamos a usar una herramienta llamada **Scratch**. Scratch fue creado por el **MIT** (Instituto Tecnológico de Massachusetts), una de las universidades más importantes del mundo, especialmente para que niños y niñas aprendan a programar.\n\nEn Scratch, no escribes letras y símbolos raros. En vez de eso, **arrastras bloques de colores** y los encajas como piezas de un rompecabezas. Cada bloque es una orden. Al unirlos, formas un **programa**.\n\nScratch tiene:\n\n- **Personajes** (llamados \"sprites\") que puedes mover, cambiar de color, hacer hablar\n- **Escenarios** (fondos) donde ocurren las cosas\n- **Bloques de colores** agrupados por tipo:\n  - 🔵 Movimiento (mover, girar, ir a...)\n  - 🟣 Apariencia (decir, cambiar disfraz, mostrar)\n  - 🟡 Eventos (cuando presiones una tecla, cuando haga clic...)\n  - 🟠 Control (repetir, esperar, si... entonces)\n  - 🔴 Sonido (tocar un sonido, cambiar volumen)\n  - 🔷 Sensores (tocar un color, preguntar...)\n  - 🟢 Operadores (sumar, restar, comparar)\n  - 🟪 Variables (guardar datos)\n\nNo necesitas saber qué hace cada color todavía. Solo quiero que sepas que en Scratch **todo se hace con bloques**. Y tú vas a encajarlos.\n\n> **Idea fuerza**: Scratch es un taller digital donde programas arrastrando bloques de colores. No necesitas saber código para empezar.",
+    "## 🎬 Tu primer proyecto: haz bailar a un personaje\n\n¡Vamos a crear tu primer programa! Sigue estos pasos en Scratch.\n\n### Paso 1: Abre Scratch\n\nEntra a **scratch.mit.edu** desde tu navegador. Haz clic en \"Crear\". Se abrirá el taller con un gato naranja en el centro (ese es el personaje por defecto, se llama **\"Gato\"**).\n\n### Paso 2: Explora los bloques\n\nA la izquierda de la pantalla hay bloques de colores. Haz clic en algunos para ver qué hacen. Prueba arrastrar el bloque azul **\"mover 10 pasos\"** al área del centro (el área de programación).\n\n### Paso 3: Dale una orden al gato\n\n1. Arrastra el bloque amarillo **\"al presionar bandera verde\"** al área de programación\n2. Debajo de ese bloque, encaja el bloque azul **\"mover 10 pasos\"**\n3. Haz clic en la **bandera verde** (arriba a la derecha)\n\n¡El gato se moverá 10 pasos hacia la derecha! Eso es programar: **dar una orden, ver el resultado.**\n\n### Paso 4: Hazlo bailar\n\nAhora vamos a hacer algo más divertido:\n\n1. Debajo del bloque \"mover 10 pasos\", agrega el bloque azul **\"girar 15 grados\"**\n2. Debajo, agrega el bloque rosa **\"tocar sonido pop\"**\n3. Haz clic en la bandera verde de nuevo\n\nEl gato se mueve, gira y hace un sonido. ¡Acabas de crear tu primer baile!\n\n### Paso 5: Experimenta\n\nAhora es tu turno. Cambia los números de los bloques:\n\n- ¿Qué pasa si mueves 50 pasos en vez de 10?\n- ¿Qué pasa si giras 90 grados en vez de 15?\n- ¿Qué pasa si agregas más bloques debajo?\n\n**No hay respuestas correctas. Solo experimenta.**\n\n> **Idea fuerza**: Tu primer programa no tiene que ser perfecto. Solo tiene que hacer algo. Y con cada intento, aprendes algo nuevo.",
+    "## 💡 El error es tu amigo\n\nQuiero contarte un secreto: **los programadores profesionales se equivocan todo el tiempo.** Todos los días. A cada rato. No importa cuántos años lleven programando: siempre hay errores.\n\nLos errores en programación se llaman **bugs**. La historia cuenta que, en 1947, una computadora enorme dejó de funcionar. Los ingenieros la abrieron y encontraron... **¡una polilla atrapada entre los cables!** Desde entonces, los errores en los programas se llaman \"bugs\" (bichos en inglés).\n\nCuando programes y algo no funcione como esperabas, no te frustres. **Pregúntate**:\n\n- ¿Qué quería que pasara?\n- ¿Qué pasó en realidad?\n- ¿Qué bloque puede estar causando la diferencia?\n\nEse proceso de buscar y arreglar errores se llama **depuración** (o *debugging*). Y es una de las partes más divertidas de programar, porque es como resolver un misterio.\n\n**Recuerda**: un error no significa que eres mala programando. Significa que estás **aprendiendo algo nuevo**. Los errores son pistas, no fracasos.\n\n> **Idea fuerza**: Los errores no son fracasos: son pistas. Cada error te enseña algo nuevo. Los programadores profesionales se equivocan todos los días.",
+    "## 📋 Resumen del Capítulo I\n\nEn este primer capítulo aprendiste qué es programar y cómo empezar. Vamos a repasar lo esencial.\n\n| Aspecto | Detalle |\n|---------|---------|\n| Programar | Darle órdenes a una computadora |\n| Computadoras | Hacen exactamente lo que les dices, sin adivinar |\n| Scratch | Taller digital del MIT para aprender a programar |\n| Cómo se programa en Scratch | Arrastrando bloques de colores |\n| Tu primer programa | Hacer mover y sonar al gato con bloques |\n| Los errores | Se llaman \"bugs\" y son parte del aprendizaje |\n\n### Conceptos clave\n\n- **Programa**: conjunto de órdenes que le das a la computadora\n- **Bloque**: cada pieza de Scratch que contiene una orden\n- **Bug**: error en un programa\n- **Depuración**: buscar y arreglar errores\n- **Scratch**: la herramienta que usaremos durante todo el curso\n\n## ✨ Cierre del capítulo\n\nHas dado tu primer paso en el mundo de la programación. Aprendiste que las computadoras hacen exactamente lo que les dices, que Scratch es un taller digital para crear con bloques, y que los errores son parte del aprendizaje.\n\nEn el próximo capítulo vas a aprender algo fundamental: **el orden de las órdenes**. Vas a descubrir que si cambias el orden de los bloques, cambia todo el resultado. Le vamos a enseñar al gato naranja a hacer un baile completo, paso a paso.\n\nRecuerda: cada programadora profesional empezó exactamente como tú, con una primera orden a un personaje. **Ya diste la tuya.**\n\n> **Idea fuerza final**: Programar es como tener un superpoder: le dices a la computadora qué hacer, y ella lo hace. Ese superpoder ahora es tuyo."
+  ],
+  "vocabulario": [
+    {
+      "termino": "Programar",
+      "definicion": "Darle órdenes a una computadora para que haga cosas específicas, como mover un personaje, crear un juego o dibujar."
+    },
+    {
+      "termino": "Programa",
+      "definicion": "Conjunto de órdenes que le das a la computadora. Cuando las órdenes están bien ordenadas, el programa funciona."
+    },
+    {
+      "termino": "Scratch",
+      "definicion": "Herramienta creada por el MIT para aprender a programar arrastrando bloques de colores. Se usa gratis en scratch.mit.edu."
+    },
+    {
+      "termino": "Bloque",
+      "definicion": "Cada pieza de color en Scratch que contiene una orden. Se arrastran y encajan como piezas de rompecabezas para formar un programa."
+    },
+    {
+      "termino": "Bug",
+      "definicion": "Error en un programa. El nombre viene de una polilla (bug en inglés) que se encontró dentro de una computadora en 1947."
+    },
+    {
+      "termino": "Depuración",
+      "definicion": "Proceso de buscar y arreglar errores en un programa. También se llama debugging."
+    }
+  ],
+  "actividades": [
+    {
+      "titulo": "Tu primer baile",
+      "descripcion": "En Scratch, haz que el gato se mueva 10 pasos, gire 15 grados y toque un sonido. Luego cambia los números y mira qué pasa.",
+      "nivel": "fácil"
+    },
+    {
+      "titulo": "El gato saltarín",
+      "descripcion": "Agrega bloques para que el gato se mueva 30 pasos, después gire 90 grados, y después vuelva a moverse 30 pasos. ¿Qué forma dibuja su camino?",
+      "nivel": "fácil"
+    },
+    {
+      "titulo": "Cambia el personaje",
+      "descripcion": "En Scratch, haz clic en el ícono del gato y elige otro personaje. Repite el baile con tu nuevo personaje. ¿Funciona igual?",
+      "nivel": "fácil"
+    }
+  ],
+  "trivia": [
+    {
+      "pregunta": "¿Qué significa programar?",
+      "opciones": ["Arreglar computadoras", "Darle órdenes a una computadora", "Dibujar en la pantalla", "Escribir correos"],
+      "respuesta_correcta": 1,
+      "explicacion": "Programar es darle órdenes a una computadora para que haga cosas específicas: mover un personaje, crear un juego o dibujar."
+    },
+    {
+      "pregunta": "¿Por qué las computadoras necesitan que las programemos?",
+      "opciones": ["Porque son lentas", "Porque no piensan solas y necesitan órdenes", "Porque se aburren", "Porque no tienen pantalla"],
+      "respuesta_correcta": 1,
+      "explicacion": "Las computadoras no piensan solas. Hacen exactamente lo que les dices, ni más ni menos. Por eso necesitan que alguien las programe."
+    },
+    {
+      "pregunta": "¿Qué pasa si le das a una computadora una orden incompleta?",
+      "opciones": ["Adivina lo que quisiste decir", "Hace algo raro porque no adivina", "Te pide más información", "Se apaga sola"],
+      "respuesta_correcta": 1,
+      "explicacion": "Las computadoras no adivinan. Si la orden está incompleta, hacen exactamente lo que les dijiste, aunque no sea lo que querías."
+    },
+    {
+      "pregunta": "¿Quién creó Scratch?",
+      "opciones": ["Google", "El MIT", "Microsoft", "La NASA"],
+      "respuesta_correcta": 1,
+      "explicacion": "Scratch fue creado por el MIT (Instituto Tecnológico de Massachusetts) para que niños y niñas aprendan a programar."
+    },
+    {
+      "pregunta": "¿Cómo se programa en Scratch?",
+      "opciones": ["Escribiendo código", "Arrastrando bloques de colores", "Dibujando a mano", "Haciendo clic en botones"],
+      "respuesta_correcta": 1,
+      "explicacion": "En Scratch no escribes código. Arrastras bloques de colores y los encajas como piezas de rompecabezas para formar programas."
+    },
+    {
+      "pregunta": "¿Qué es un bloque en Scratch?",
+      "opciones": ["Un adorno", "Una pieza de color con una orden", "Un botón para guardar", "Un dibujo"],
+      "respuesta_correcta": 1,
+      "explicacion": "Cada bloque en Scratch contiene una orden. Se arrastran y encajan para formar un programa."
+    },
+    {
+      "pregunta": "¿Qué es un \"bug\"?",
+      "opciones": ["Un insecto de verdad", "Un error en un programa", "Un tipo de bloque", "Un juego de Scratch"],
+      "respuesta_correcta": 1,
+      "explicacion": "Un bug es un error en un programa. El nombre viene de una polilla (bug en inglés) encontrada dentro de una computadora en 1947."
+    },
+    {
+      "pregunta": "¿Qué significa depurar un programa?",
+      "opciones": ["Limpiarlo con un paño", "Buscar y arreglar sus errores", "Borrarlo y empezar de nuevo", "Compartirlo con amigos"],
+      "respuesta_correcta": 1,
+      "explicacion": "Depurar (o hacer debugging) es buscar y arreglar errores en un programa. Es como resolver un misterio."
+    },
+    {
+      "pregunta": "¿Cómo debemos sentirnos cuando aparece un error?",
+      "opciones": ["Frustradas y tristes", "Contentas, porque estamos aprendiendo", "Enojadas con la computadora", "Aburridas"],
+      "respuesta_correcta": 1,
+      "explicacion": "Los errores son parte del aprendizaje. Son pistas, no fracasos. Los programadores profesionales se equivocan todos los días."
+    },
+    {
+      "pregunta": "¿Cuál es la idea principal de este capítulo?",
+      "opciones": ["Que las computadoras son difíciles", "Que programar es dar órdenes y que tú puedes hacerlo", "Que solo los adultos programan", "Que hay que memorizar bloques"],
+      "respuesta_correcta": 1,
+      "explicacion": "La idea central es que programar es darle órdenes a una computadora, y que cualquier persona (incluida tú) puede hacerlo empezando con pasos simples."
+    }
+  ]
+}

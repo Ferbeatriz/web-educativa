@@ -1,0 +1,10 @@
+    {
+      "id": "capitulo-01",
+      "numero": 1,
+      "numero_romano": "I",
+      "titulo": "¡Bienvenida, Programadora!",
+      "subtitulo": "Tu primera orden a la computadora",
+      "emoji": "🎉",
+      "archivo": "capitulo-01.json",
+      "activo": true
+    },
