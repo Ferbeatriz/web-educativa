@@ -1,9 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// Le decimos a Astro qué páginas generar
 export async function getStaticPaths() {
-  // Cargar todas las materias (para saber sus colores y nombres)
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
   const materiasMap: Record<string, any> = {};
   for (const path in materiasFiles) {
@@ -11,13 +9,11 @@ export async function getStaticPaths() {
     materiasMap[data.id] = data;
   }
 
-  // Cargar TODOS los submodulo.json que existan en cualquier nivel
   const submodulosFiles = import.meta.glob(
     '../../data/materias/**/submodulos/**/submodulo.json',
     { eager: true }
   );
 
-  // Cargar submodulos de Antiguo Egipto (anidados dentro de lecciones/)
   const submodulosAnidados = import.meta.glob(
     '../../data/materias/**/lecciones/**/submodulo.json',
     { eager: true }
@@ -30,7 +26,6 @@ export async function getStaticPaths() {
   for (const path in allSubmodulos) {
     const submodulo = (allSubmodulos[path] as any).default;
 
-    // Detectar la materia a la que pertenece buscando en la ruta
     let materiaId = null;
     for (const mid in materiasMap) {
       if (path.includes(`/materias/${mid}/`)) {
@@ -40,12 +35,8 @@ export async function getStaticPaths() {
     }
     if (!materiaId) continue;
 
-    // Construir el slug según la ubicación del archivo
-    // Ej: historia-universal → ['historia', 'historia-universal']
-    // Ej: antiguo-egipto → ['historia', 'historia-universal', 'antiguo-egipto']
     let slugParts: string[] = [materiaId];
 
-    // Extraer las partes del path entre "submodulos/" (o "lecciones/") y "/submodulo.json"
     const match = path.match(/\/(?:submodulos|lecciones)\/(.+?)\/submodulo\.json$/);
     if (match) {
       const partes = match[1].split('/').filter((p) => !p.startsWith('submodulos') && !p.startsWith('lecciones'));
@@ -67,28 +58,30 @@ export async function getStaticPaths() {
 
 const { submodulo, materia } = Astro.props;
 
-// Mapa de gradientes por color de materia
-const gradienteMap: Record<string, string> = {
-  lenguaje: "from-lenguaje-400 to-lenguaje-600",
-  matematicas: "from-matematicas-400 to-matematicas-600",
-  historia: "from-historia-400 to-historia-600",
-  ingles: "from-ingles-400 to-ingles-600",
-  ciencias: "from-ciencias-400 to-ciencias-600",
+// Colores HEX directos por materia
+const colores: Record<string, { c50: string; c100: string; c200: string; c400: string; c500: string; c600: string; c700: string }> = {
+  lenguaje:     { c50: '#FDF2F8', c100: '#FCE7F3', c200: '#FBCFE8', c400: '#F472B6', c500: '#EC4899', c600: '#DB2777', c700: '#BE185D' },
+  matematicas:  { c50: '#EFF6FF', c100: '#DBEAFE', c200: '#BFDBFE', c400: '#60A5FA', c500: '#3B82F6', c600: '#2563EB', c700: '#1D4ED8' },
+  historia:     { c50: '#FFFBEB', c100: '#FEF3C7', c200: '#FDE68A', c400: '#FBBF24', c500: '#F59E0B', c600: '#D97706', c700: '#B45309' },
+  ingles:       { c50: '#F0FDFA', c100: '#CCFBF1', c200: '#99F6E4', c400: '#2DD4BF', c500: '#14B8A6', c600: '#0D9488', c700: '#0F766E' },
+  ciencias:     { c50: '#F7FEE7', c100: '#ECFCCB', c200: '#D9F99D', c400: '#A3E635', c500: '#84CC16', c600: '#65A30D', c700: '#4D7C0F' },
+  programacion: { c50: '#FDF4FF', c100: '#FAE8FF', c200: '#F5D0FE', c400: '#E879F9', c500: '#D946EF', c600: '#C026D3', c700: '#A21CAF' },
 };
-const gradiente = gradienteMap[materia.color] || gradienteMap.ciencias;
+const c = colores[materia.color] || colores.ciencias;
 
-// ¿Tiene lecciones o submodulos anidados?
+const estiloGradiente = `background: linear-gradient(135deg, ${c.c400} 0%, ${c.c600} 100%);`;
+const estiloHero = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
+
 const tieneLecciones = submodulo.lecciones && submodulo.lecciones.length > 0;
 const tieneCursos = submodulo.cursos_especiales && submodulo.cursos_especiales.length > 0;
 
-// Ruta base para los enlaces de lecciones de este submódulo
-const slugBase = Astro.params.slug; // ej: "historia/historia-universal"
+const slugBase = Astro.params.slug;
 ---
 
 <Layout title={`${submodulo.nombre} · ${materia.nombre}`}>
-  <main class="max-w-4xl mx-auto px-4 py-6 md:py-10">
+  <main class="max-w-5xl mx-auto px-4 py-8 md:py-12">
 
-    <!-- Breadcrumb simple -->
+    <!-- Breadcrumb -->
     <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
       <a href="/" class="text-brand-600 hover:underline">Inicio</a>
       <span class="text-gray-300">›</span>
@@ -99,38 +92,99 @@ const slugBase = Astro.params.slug; // ej: "historia/historia-universal"
       <span class="text-gray-500">{submodulo.nombre}</span>
     </nav>
 
-    <!-- Cabecera del submódulo -->
-    <header class="mb-8">
-      <div class="flex items-center gap-4 mb-3">
-        <div class={`w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br ${gradiente} flex items-center justify-center text-5xl md:text-6xl shadow-lg`}>
+    <!-- 🌟 HERO DEL SUBMÓDULO -->
+    <section class="mb-10">
+      <div class="relative overflow-hidden rounded-[2rem] p-6 md:p-10 shadow-xl text-white" style={estiloHero}>
+        <div class="absolute -top-6 -right-6 text-[180px] leading-none opacity-10 select-none pointer-events-none">
           {submodulo.emoji}
         </div>
-        <div>
-          <span class="text-xs font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-600">
-            {materia.nombre}
-          </span>
-          <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mt-2">
-            {submodulo.nombre}
-          </h1>
-          <p class="text-gray-500 font-bold mt-1">
-            {submodulo.descripcion}
-          </p>
+
+        <div class="relative z-10 flex items-center gap-5">
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-white/20 backdrop-blur flex items-center justify-center text-5xl md:text-6xl shadow-lg flex-shrink-0">
+            {submodulo.emoji}
+          </div>
+          <div>
+            <span class="inline-block text-xs font-extrabold px-3 py-1 rounded-full bg-white/20 backdrop-blur mb-2 tracking-wide uppercase">
+              {materia.nombre}
+            </span>
+            <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-2">
+              {submodulo.nombre}
+            </h1>
+            <p class="text-sm md:text-base text-white/90 font-bold">
+              {submodulo.descripcion}
+            </p>
+          </div>
         </div>
       </div>
-    </header>
+    </section>
 
-    <!-- LECCIONES DEL SUBMÓDULO -->
+    <!-- ✨ CURSOS ESPECIALES -->
+    {tieneCursos && (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-3xl">✨</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+            Cursos Especiales
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {submodulo.cursos_especiales
+            .filter((curso: any) => curso.activo !== false)
+            .sort((a: any, b: any) => (a.orden || 0) - (b.orden || 0))
+            .map((curso: any) => (
+              <a
+                href={`/curso/${curso.id}`}
+                class="group block rounded-3xl p-6 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-white relative overflow-hidden"
+                style={estiloGradiente}
+              >
+                <div class="absolute -top-4 -right-4 text-[120px] leading-none opacity-10 select-none pointer-events-none">
+                  {curso.emoji}
+                </div>
+
+                <div class="relative z-10">
+                  <span class="inline-block text-xs font-extrabold px-3 py-1 rounded-full bg-white/20 backdrop-blur mb-4 tracking-wide uppercase">
+                    ✨ Serie Especial
+                  </span>
+
+                  <div class="flex items-start gap-4 mb-4">
+                    <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl flex-shrink-0">
+                      {curso.emoji}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-lg md:text-xl font-extrabold leading-tight mb-1">
+                        {curso.titulo}
+                      </h3>
+                      <p class="text-xs md:text-sm text-white/85 leading-snug">
+                        {curso.descripcion || curso.subtitulo}
+                      </p>
+                    </div>
+                  </div>
+
+                  <span class="inline-flex items-center gap-1 font-bold text-sm group-hover:translate-x-1 transition-transform">
+                    Descubrir <span class="text-base">→</span>
+                  </span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+    )}
+
+    <!-- 📚 LECCIONES DEL SUBMÓDULO -->
     {tieneLecciones && (
-      <section class="mb-8">
-        <h2 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-4">
-          📚 Lecciones
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-3xl">📚</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+            Lecciones
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           {submodulo.lecciones
             .filter((l: any) => l.activa !== false && l.activo !== false)
             .sort((a: any, b: any) => (a.orden || 0) - (b.orden || 0))
             .map((lec: any) => {
-              // Detectar si es un submódulo anidado
               const esAnidado = lec.tipo === 'submodulo_anidado';
               const href = esAnidado
                 ? `/submodulo/${slugBase}/${lec.id}`
@@ -139,29 +193,45 @@ const slugBase = Astro.params.slug; // ej: "historia/historia-universal"
               return (
                 <a
                   href={href}
-                  class="group block bg-white rounded-3xl p-5 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  class="group block bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
                 >
-                  <div class="flex items-start justify-between mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-2xl shadow-sm">
-                      {lec.emoji}
+                  <div
+                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
+                  ></div>
+
+                  <div class="relative z-10">
+                    <div class="flex items-start justify-between mb-4">
+                      <div
+                        class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform"
+                        style={`background: ${c.c100};`}
+                      >
+                        {lec.emoji}
+                      </div>
+                      {lec.nivel && (
+                        <span
+                          class="text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide"
+                          style={`background: ${c.c100}; color: ${c.c700};`}
+                        >
+                          {lec.nivel}
+                        </span>
+                      )}
                     </div>
-                    {lec.nivel && (
-                      <span class="text-xs font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-600">
-                        {lec.nivel}
-                      </span>
+                    <h3 class="text-lg font-extrabold text-gray-800 mb-1 leading-tight">
+                      {lec.titulo}
+                    </h3>
+                    {lec.duracion_estimada_min && (
+                      <p class="text-xs text-gray-400 font-bold mb-3">
+                        ⏱️ ~{lec.duracion_estimada_min} min
+                      </p>
                     )}
+                    <span
+                      class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+                      style={`color: ${c.c500};`}
+                    >
+                      {esAnidado ? 'Explorar' : 'Empezar'} <span class="text-base">→</span>
+                    </span>
                   </div>
-                  <h3 class="text-lg font-extrabold text-gray-800 mb-1">
-                    {lec.titulo}
-                  </h3>
-                  {lec.duracion_estimada_min && (
-                    <p class="text-xs text-gray-400 font-bold mb-3">
-                      ⏱️ ~{lec.duracion_estimada_min} min
-                    </p>
-                  )}
-                  <span class="text-brand-500 font-bold group-hover:translate-x-1 transition-transform inline-block">
-                    {esAnidado ? "Explorar →" : "Empezar →"}
-                  </span>
                 </a>
               );
             })
@@ -170,48 +240,9 @@ const slugBase = Astro.params.slug; // ej: "historia/historia-universal"
       </section>
     )}
 
-    <!-- CURSOS ESPECIALES -->
-    {tieneCursos && (
-      <section class="mb-8">
-        <h2 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-4">
-          🌟 Cursos Especiales
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {submodulo.cursos_especiales
-            .filter((c: any) => c.activo !== false)
-            .sort((a: any, b: any) => (a.orden || 0) - (b.orden || 0))
-            .map((curso: any) => (
-              <a
-                href={`/curso/${curso.id}`}
-                class="group block bg-gradient-to-br from-brand-500 to-brand-700 rounded-3xl p-5 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-white"
-              >
-                <div class="flex items-start justify-between mb-3">
-                  <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-2xl shadow-sm">
-                    {curso.emoji}
-                  </div>
-                  <span class="text-xs font-bold px-3 py-1 rounded-full bg-white/20 backdrop-blur">
-                    ✨ Especial
-                  </span>
-                </div>
-                <h3 class="text-lg font-extrabold mb-1">
-                  {curso.titulo}
-                </h3>
-                <p class="text-sm text-white/80 mb-3 leading-snug">
-                  {curso.descripcion}
-                </p>
-                <span class="font-bold group-hover:translate-x-1 transition-transform inline-block">
-                  Descubrir →
-                </span>
-              </a>
-            ))
-          }
-        </div>
-      </section>
-    )}
-
-    <!-- Estado vacío -->
+    <!-- ESTADO VACÍO -->
     {!tieneLecciones && !tieneCursos && (
-      <div class="bg-white rounded-3xl p-8 text-center shadow-sm border border-gray-100">
+      <div class="bg-white rounded-3xl p-10 text-center shadow-sm border border-gray-100">
         <div class="text-6xl mb-4">🚧</div>
         <h3 class="text-xl font-extrabold text-gray-800 mb-2">
           Próximamente
