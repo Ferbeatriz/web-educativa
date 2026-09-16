@@ -1,80 +1,97 @@
 ---
 interface Props {
-  id: string;
-  nombre: string;
-  descripcion: string;
-  emoji: string;
-  color: string;
-  cantidad?: number;
-  etiquetaCantidad?: string;
+  materia: {
+    id: string;
+    nombre: string;
+    descripcion: string;
+    emoji: string;
+    color: string;
+    submodulos?: any[];
+    lecciones?: any[];
+    cursos_especiales?: any[];
+  };
 }
 
-const {
-  id,
-  nombre,
-  descripcion,
-  emoji,
-  color,
-  cantidad,
-  etiquetaCantidad = "lecciones",
-} = Astro.props;
+const { materia } = Astro.props;
 
-const gradienteMap: Record<string, string> = {
-  lenguaje: "from-lenguaje-400 to-lenguaje-600",
-  matematicas: "from-matematicas-400 to-matematicas-600",
-  historia: "from-historia-400 to-historia-600",
-  ingles: "from-ingles-400 to-ingles-600",
-  ciencias: "from-ciencias-400 to-ciencias-600",
+// Colores HEX directos por materia (consistente con CursoEspecial)
+const colores: Record<string, { c50: string; c100: string; c200: string; c400: string; c500: string; c600: string; c700: string }> = {
+  lenguaje:     { c50: '#FDF2F8', c100: '#FCE7F3', c200: '#FBCFE8', c400: '#F472B6', c500: '#EC4899', c600: '#DB2777', c700: '#BE185D' },
+  matematicas:  { c50: '#EFF6FF', c100: '#DBEAFE', c200: '#BFDBFE', c400: '#60A5FA', c500: '#3B82F6', c600: '#2563EB', c700: '#1D4ED8' },
+  historia:     { c50: '#FFFBEB', c100: '#FEF3C7', c200: '#FDE68A', c400: '#FBBF24', c500: '#F59E0B', c600: '#D97706', c700: '#B45309' },
+  ingles:       { c50: '#F0FDFA', c100: '#CCFBF1', c200: '#99F6E4', c400: '#2DD4BF', c500: '#14B8A6', c600: '#0D9488', c700: '#0F766E' },
+  ciencias:     { c50: '#F7FEE7', c100: '#ECFCCB', c200: '#D9F99D', c400: '#A3E635', c500: '#84CC16', c600: '#65A30D', c700: '#4D7C0F' },
+  programacion: { c50: '#FDF4FF', c100: '#FAE8FF', c200: '#F5D0FE', c400: '#E879F9', c500: '#D946EF', c600: '#C026D3', c700: '#A21CAF' },
 };
 
-const etiquetaMap: Record<string, string> = {
-  lenguaje: "bg-lenguaje-100 text-lenguaje-600",
-  matematicas: "bg-matematicas-100 text-matematicas-600",
-  historia: "bg-historia-100 text-historia-600",
-  ingles: "bg-ingles-100 text-ingles-600",
-  ciencias: "bg-ciencias-100 text-ciencias-600",
-};
+const c = colores[materia.color] || colores.ciencias;
 
-const hoverMap: Record<string, string> = {
-  lenguaje: "text-lenguaje-500",
-  matematicas: "text-matematicas-500",
-  historia: "text-historia-500",
-  ingles: "text-ingles-500",
-  ciencias: "text-ciencias-500",
-};
+// Contar contenido para la etiqueta
+let cantidad = 0;
+let etiquetaCantidad = 'lecciones';
+if (materia.cursos_especiales && materia.cursos_especiales.length > 0) {
+  cantidad += materia.cursos_especiales.length;
+}
+if (materia.submodulos && materia.submodulos.length > 0) {
+  cantidad += materia.submodulos.length;
+  etiquetaCantidad = cantidad === 1 ? 'módulo' : 'módulos';
+} else if (materia.lecciones && materia.lecciones.length > 0) {
+  cantidad += materia.lecciones.length;
+}
 
-const gradiente = gradienteMap[color] || gradienteMap.ciencias;
-const etiqueta = etiquetaMap[color] || etiquetaMap.ciencias;
-const hover = hoverMap[color] || hoverMap.ciencias;
+const estiloGradiente = `background: linear-gradient(135deg, ${c.c400} 0%, ${c.c600} 100%);`;
+const estiloHoverBorder = `hover:border-${materia.color}-200`;
 ---
 
 <a
-  href={`/materia/${id}`}
-  class="group block bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+  href={`/materia/${materia.id}`}
+  class="group relative block bg-white rounded-[1.75rem] p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
 >
-  <div class="flex items-start justify-between mb-4">
-    <div
-      class={`w-16 h-16 md:w-20 md:h-20 rounded-3xl bg-gradient-to-br ${gradiente} flex items-center justify-center text-4xl md:text-5xl shadow-md`}
-    >
-      {emoji}
+  <!-- Degradado sutil de fondo al hover -->
+  <div
+    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+    style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
+  ></div>
+
+  <div class="relative z-10">
+
+    <!-- Fila superior: emoji + badge -->
+    <div class="flex items-start justify-between mb-5">
+      <div
+        class="w-16 h-16 md:w-20 md:h-20 rounded-3xl flex items-center justify-center text-4xl md:text-5xl shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+        style={estiloGradiente}
+      >
+        {materia.emoji}
+      </div>
+
+      {cantidad > 0 && (
+        <span
+          class="text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide"
+          style={`background: ${c.c100}; color: ${c.c700};`}
+        >
+          {cantidad} {etiquetaCantidad}
+        </span>
+      )}
     </div>
-    {cantidad !== undefined && (
-      <span class={`text-xs font-bold px-3 py-1 rounded-full ${etiqueta}`}>
-        {cantidad} {etiquetaCantidad}
+
+    <!-- Título + descripción -->
+    <h3 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-2 leading-tight">
+      {materia.nombre}
+    </h3>
+    <p class="text-sm text-gray-500 mb-5 leading-snug">
+      {materia.descripcion}
+    </p>
+
+    <!-- Link -->
+    <div class="flex items-center justify-end">
+      <span
+        class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+        style={`color: ${c.c500};`}
+      >
+        Entrar
+        <span class="text-base">→</span>
       </span>
-    )}
-  </div>
-  <h3 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-1">
-    {nombre}
-  </h3>
-  <p class="text-sm text-gray-500 mb-4 leading-snug">
-    {descripcion}
-  </p>
-  <div class="flex items-center justify-end">
-    <span
-      class={`font-extrabold ${hover} group-hover:translate-x-1 transition-transform inline-block`}
-    >
-      Entrar →
-    </span>
+    </div>
+
   </div>
 </a>
