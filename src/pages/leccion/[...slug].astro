@@ -3,9 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import TriviaQuiz from '../../components/TriviaQuiz.astro';
 import { marked } from 'marked';
 
-// Le decimos a Astro qué páginas generar (una por cada lección con archivo JSON)
 export async function getStaticPaths() {
-  // Cargar todas las materias (para color y contexto)
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
   const materiasMap: Record<string, any> = {};
   for (const path in materiasFiles) {
@@ -13,20 +11,16 @@ export async function getStaticPaths() {
     materiasMap[data.id] = data;
   }
 
-  // Cargar TODOS los .json de lecciones
   const leccionesFiles = import.meta.glob(
     '../../data/materias/**/lecciones/**/*.json',
     { eager: true }
   );
 
-  // ⚠️ ESTA LÍNEA FALTABA
   const paths = [];
 
   for (const path in leccionesFiles) {
-    // Saltar los submodulo.json (esos los maneja /submodulo/[...slug])
     if (path.endsWith('/submodulo.json')) continue;
 
-    // Protección: saltar archivos con JSON inválido
     let leccion;
     try {
       leccion = (leccionesFiles[path] as any).default;
@@ -35,10 +29,8 @@ export async function getStaticPaths() {
       continue;
     }
 
-    // Saltar si no tiene id
     if (!leccion || !leccion.id) continue;
 
-    // Detectar la materia a la que pertenece
     let materiaId = null;
     for (const mid in materiasMap) {
       if (path.includes(`/materias/${mid}/`)) {
@@ -62,23 +54,25 @@ export async function getStaticPaths() {
 
 const { leccion, materia } = Astro.props;
 
-// Mapa de gradientes por color de materia
-const gradienteMap: Record<string, string> = {
-  lenguaje: "from-lenguaje-400 to-lenguaje-600",
-  matematicas: "from-matematicas-400 to-matematicas-600",
-  historia: "from-historia-400 to-historia-600",
-  ingles: "from-ingles-400 to-ingles-600",
-  ciencias: "from-ciencias-400 to-ciencias-600",
+// Colores HEX directos por materia
+const colores: Record<string, { c50: string; c100: string; c200: string; c300: string; c400: string; c500: string; c600: string; c700: string }> = {
+  lenguaje:     { c50: '#FDF2F8', c100: '#FCE7F3', c200: '#FBCFE8', c300: '#F9A8D4', c400: '#F472B6', c500: '#EC4899', c600: '#DB2777', c700: '#BE185D' },
+  matematicas:  { c50: '#EFF6FF', c100: '#DBEAFE', c200: '#BFDBFE', c300: '#93C5FD', c400: '#60A5FA', c500: '#3B82F6', c600: '#2563EB', c700: '#1D4ED8' },
+  historia:     { c50: '#FFFBEB', c100: '#FEF3C7', c200: '#FDE68A', c300: '#FCD34D', c400: '#FBBF24', c500: '#F59E0B', c600: '#D97706', c700: '#B45309' },
+  ingles:       { c50: '#F0FDFA', c100: '#CCFBF1', c200: '#99F6E4', c300: '#5EEAD4', c400: '#2DD4BF', c500: '#14B8A6', c600: '#0D9488', c700: '#0F766E' },
+  ciencias:     { c50: '#F7FEE7', c100: '#ECFCCB', c200: '#D9F99D', c300: '#BEF264', c400: '#A3E635', c500: '#84CC16', c600: '#65A30D', c700: '#4D7C0F' },
+  programacion: { c50: '#FDF4FF', c100: '#FAE8FF', c200: '#F5D0FE', c300: '#F0ABFC', c400: '#E879F9', c500: '#D946EF', c600: '#C026D3', c700: '#A21CAF' },
 };
-const gradiente = gradienteMap[materia.color] || gradienteMap.ciencias;
+const c = colores[materia.color] || colores.ciencias;
 
-// Contenido y trivia
+const estiloHero = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
+
 const contenido = leccion.contenido_modulos || [];
 const trivia = leccion.trivia || [];
 ---
 
 <Layout title={`${leccion.titulo} · ${materia.nombre}`}>
-  <main class="max-w-3xl mx-auto px-4 py-6 md:py-10">
+  <main class="max-w-3xl mx-auto px-4 py-8 md:py-12">
 
     <!-- Breadcrumb -->
     <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
@@ -91,37 +85,53 @@ const trivia = leccion.trivia || [];
       <span class="text-gray-500">{leccion.titulo}</span>
     </nav>
 
-    <!-- Cabecera de la lección -->
-    <header class="mb-8">
-      <div class={`w-20 h-20 rounded-3xl bg-gradient-to-br ${gradiente} flex items-center justify-center text-5xl shadow-lg mb-4`}>
-        {leccion.emoji || materia.emoji}
-      </div>
-      {leccion.categoria && (
-        <span class="inline-block text-xs font-bold px-3 py-1 rounded-full bg-brand-100 text-brand-700 mb-3">
-          {leccion.categoria}
-        </span>
-      )}
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">
-        {leccion.titulo}
-      </h1>
-      {leccion.progreso_puntos && (
-        <p class="text-gray-500 font-bold">
-          +{leccion.progreso_puntos} XP al completar
-        </p>
-      )}
-    </header>
+    <!-- 🌟 HERO DE LA LECCIÓN -->
+    <section class="mb-10">
+      <div class="relative overflow-hidden rounded-[2rem] p-6 md:p-10 shadow-xl text-white" style={estiloHero}>
+        <div class="absolute -top-6 -right-6 text-[180px] leading-none opacity-10 select-none pointer-events-none">
+          {leccion.emoji || materia.emoji}
+        </div>
 
-        <!-- Contenido modular -->
+        <div class="relative z-10">
+          {leccion.categoria && (
+            <span class="inline-block text-xs font-extrabold px-3 py-1 rounded-full bg-white/20 backdrop-blur mb-4 tracking-wide uppercase">
+              {leccion.categoria}
+            </span>
+          )}
+
+          <div class="flex items-start gap-5 mb-4">
+            <div class="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-white/20 backdrop-blur flex items-center justify-center text-5xl md:text-6xl shadow-lg flex-shrink-0">
+              {leccion.emoji || materia.emoji}
+            </div>
+            <div>
+              <h1 class="text-2xl md:text-4xl font-extrabold leading-tight mb-2">
+                {leccion.titulo}
+              </h1>
+              {leccion.progreso_puntos && (
+                <span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur rounded-full px-4 py-2 text-sm font-bold">
+                  ⭐ +{leccion.progreso_puntos} XP al completar
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📖 CONTENIDO MODULAR -->
     {contenido.length > 0 ? (
-      <section class="space-y-4 mb-10">
+      <section class="space-y-5 mb-10">
         {contenido.map((parrafo: string, idx: number) => (
-          <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-gray-100">
-            <div class="flex items-start gap-3">
-              <span class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-100 text-brand-700 font-extrabold flex items-center justify-center text-xs mt-1">
+          <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+            <div class="flex items-start gap-4">
+              <span
+                class="flex-shrink-0 w-9 h-9 rounded-full font-extrabold flex items-center justify-center text-sm"
+                style={`background: ${c.c100}; color: ${c.c700};`}
+              >
                 {idx + 1}
               </span>
-              <div 
-                class="prose prose-slate max-w-none text-gray-700 font-semibold"
+              <div
+                class="prose-markdown max-w-none flex-1"
                 set:html={marked.parse(parrafo)}
               />
             </div>
@@ -129,7 +139,7 @@ const trivia = leccion.trivia || [];
         ))}
       </section>
     ) : (
-      <div class="bg-white rounded-3xl p-8 text-center shadow-sm border border-gray-100 mb-10">
+      <div class="bg-white rounded-3xl p-10 text-center shadow-sm border border-gray-100 mb-10">
         <div class="text-6xl mb-4">📝</div>
         <h3 class="text-xl font-extrabold text-gray-800 mb-2">
           Contenido en preparación
@@ -140,12 +150,12 @@ const trivia = leccion.trivia || [];
       </div>
     )}
 
-    <!-- Trivia -->
+    <!-- 🧠 TRIVIA -->
     {trivia.length > 0 && (
-      <section>
+      <section class="mb-10">
         <div class="flex items-center gap-3 mb-5">
           <span class="text-3xl">🧠</span>
-          <h2 class="text-2xl font-extrabold text-gray-800">
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
             ¡Ahora te toca!
           </h2>
         </div>
@@ -153,11 +163,11 @@ const trivia = leccion.trivia || [];
       </section>
     )}
 
-    <!-- Botón volver al final -->
+    <!-- BOTÓN VOLVER -->
     <div class="mt-10 text-center">
       <a
         href={`/materia/${materia.id}`}
-        class="inline-block px-6 py-3 rounded-2xl bg-white border border-gray-200 text-gray-600 font-bold hover:border-brand-300 hover:text-brand-600 transition-all"
+        class="inline-block px-6 py-3 rounded-2xl bg-white border border-gray-200 text-gray-600 font-bold hover:border-gray-300 hover:text-gray-800 transition-all"
       >
         ← Volver a {materia.nombre}
       </a>
