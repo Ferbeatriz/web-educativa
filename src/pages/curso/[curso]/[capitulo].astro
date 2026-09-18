@@ -75,9 +75,6 @@ const colores: Record<string, { c50: string; c100: string; c200: string; c300: s
 
 const colorFinal = (curso as any).color || materiaId;
 const c = colores[colorFinal] || colores.brand;
-};
-
-const c = colores[materiaId] || colores.brand;
 
 const estiloPortada = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
 

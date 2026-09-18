@@ -43,9 +43,6 @@ const colores: Record<string, { c50: string; c100: string; c200: string; c400: s
 // Si el curso define un color propio, ese gana. Si no, usa el de la materia.
 const colorFinal = (curso as any).color || materiaId;
 const c = colores[colorFinal] || colores.brand;
-};
-
-const c = colores[materiaId] || colores.brand;
 
 const estiloPortada = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
 const estiloNumero = `background: linear-gradient(135deg, ${c.c400} 0%, ${c.c600} 100%);`;
