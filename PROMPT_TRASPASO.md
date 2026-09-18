@@ -108,6 +108,9 @@ Otros pendientes:
 Transcripción del Ojo de Horus en: ojohorus.txt
 Documentación completa en: ESTADO_PROYECTO.md y GUIA_IA.md
 
+Curso Selk'nam (Historia de Chile): 5 de 10 capítulos publicados
+Próximo: Capítulo VI - KŸnÿs y Kwányip (basado en Bloque II del Tomo I)
+
 ═══════════════════════════════════════════════════════
 REFACTOR RECIENTE (15 sep 2026)
 ═══════════════════════════════════════════════════════

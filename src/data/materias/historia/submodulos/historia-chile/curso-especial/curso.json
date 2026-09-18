@@ -67,7 +67,7 @@
       "subtitulo": "Los héroes del origen",
       "emoji": "🗿",
       "archivo": "capitulo-06.json",
-      "activo": false
+      "activo": true
     },
     {
       "id": "capitulo-07",

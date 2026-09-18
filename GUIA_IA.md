@@ -432,6 +432,16 @@ Agregar el color HEX en el objeto colores de CursoEspecial.astro y [capitulo].as
 Agregar la materia a la lista materiasConocidas en [curso]/index.astro y [capitulo].astro
 
 
+## Curso: El mundo espiritual de los Selk'nam
+- Ubicación: src/data/materias/historia/submodulos/historia-chile/curso-especial/
+- Materia: Historia de Chile
+- Color propio: rojo tierra (#DC2626)
+- 5 de 10 capítulos publicados (I a V)
+- Fuente: Secciones 1-4 del Tomo I narradas por NotebookLM
+- Material narrado pendiente: Secciones del Tomo II (Klóketen)
+
+
+
 
 
 ## 📞 Contacto del proyecto

@@ -130,6 +130,7 @@ web-educativa/
 | Fix de colores: HEX directos en lugar de variables CSS | ✅ |
 | Sistema de cursos especiales multi-materia | ✅ |
 | Documentación del proyecto (3 archivos .md) | ✅ |
+| Curso Selk'nam: Capítulos I, II, III, IV, V publicados | ✅ |
 
 ### Pendiente (en orden de prioridad)
 
@@ -184,6 +185,7 @@ web-educativa/
 | VIII | IA: ¿Cómo Aprende una Computadora? | ⏳ Pendiente |
 | IX | Creadoras de Mundos | ⏳ Pendiente |
 | X | ¡Gran Presentación! | ⏳ Pendiente |
+
 ---
 
 ## 🎨 Paleta de colores
