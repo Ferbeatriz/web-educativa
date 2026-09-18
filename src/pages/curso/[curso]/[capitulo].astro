@@ -56,7 +56,7 @@ const indiceActual = curso.capitulos.findIndex((c: any) => c.id === capitulo.id)
 const capituloAnterior = indiceActual > 0 ? curso.capitulos[indiceActual - 1] : null;
 const capituloSiguiente = indiceActual < curso.capitulos.length - 1 ? curso.capitulos[indiceActual + 1] : null;
 
-cconst contenido = capitulo.contenido_modulos || [];
+const contenido = capitulo.contenido_modulos || [];
 const vocabulario = capitulo.vocabulario || [];
 const lineaTiempo = capitulo.linea_tiempo || [];
 const trivia = capitulo.trivia || [];
