@@ -5,5 +5,17 @@
   "emoji": "🇨🇱",
   "orden": 2,
   "activo": true,
-  "lecciones": []
+  "lecciones": [],
+  "cursos_especiales": [
+    {
+      "id": "mundo-espiritual-selknam",
+      "titulo": "El mundo espiritual de los Selk'nam",
+      "subtitulo": "Un viaje al corazón del fin del mundo",
+      "descripcion": "Curso especial de 10 capítulos sobre la espiritualidad del pueblo Selk'nam, basado en la obra de Martín Gusinde.",
+      "emoji": "🔥",
+      "orden": 1,
+      "activo": true,
+      "archivo": "curso-especial/curso.json"
+    }
+  ]
 }

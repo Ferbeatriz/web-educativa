@@ -29,7 +29,17 @@
   --color-coral-400: #FB923C;
   --color-coral-500: #F97316;
   --color-coral-600: #EA580C;
-  
+
+  /* Selk'nam - Rojo tierra */
+  --color-selknam-50: #FEF2F2;
+  --color-selknam-100: #FEE2E2;
+  --color-selknam-200: #FECACA;
+  --color-selknam-300: #FCA5A5;
+  --color-selknam-400: #F87171;
+  --color-selknam-500: #DC2626;
+  --color-selknam-600: #B91C1C;
+  --color-selknam-700: #991B1B;
+
   /* Tipografía */
   --font-sans: 'Nunito', system-ui, sans-serif;
   

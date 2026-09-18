@@ -1,0 +1,113 @@
+{
+  "id": "mundo-espiritual-selknam",
+  "titulo": "El mundo espiritual de los Selk'nam",
+  "subtitulo": "Un viaje al corazón del fin del mundo",
+  "descripcion": "Un curso de 10 capítulos que te llevará a conocer la espiritualidad, la moral y las ceremonias del pueblo Selk'nam, tal como el etnólogo Martín Gusinde las documentó a principios del siglo XX.",
+  "emoji": "🔥",
+  "fuente": "Basado en la obra de Martín Gusinde",
+  "color": "selknam",
+  "progreso_puntos_por_capitulo": 200,
+  "total_capitulos": 10,
+  "capitulos": [
+    {
+      "id": "capitulo-01",
+      "numero": 1,
+      "numero_romano": "I",
+      "titulo": "El secreto en la nieve",
+      "subtitulo": "La noche en que Tenenesk habló",
+      "emoji": "❄️",
+      "archivo": "capitulo-01.json",
+      "activo": true
+    },
+    {
+      "id": "capitulo-02",
+      "numero": 2,
+      "numero_romano": "II",
+      "titulo": "El Dios que vive detrás de las estrellas",
+      "subtitulo": "TŸmáŒkel y el origen del mundo",
+      "emoji": "✨",
+      "archivo": "capitulo-02.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-03",
+      "numero": 3,
+      "numero_romano": "III",
+      "titulo": "La ley del corazón",
+      "subtitulo": "La moral Selk'nam y el juicio de la conciencia",
+      "emoji": "❤️",
+      "archivo": "capitulo-03.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-04",
+      "numero": 4,
+      "numero_romano": "IV",
+      "titulo": "El viaje del alma",
+      "subtitulo": "Ká=pi y el camino hacia las estrellas",
+      "emoji": "🌟",
+      "archivo": "capitulo-04.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-05",
+      "numero": 5,
+      "numero_romano": "V",
+      "titulo": "La despedida",
+      "subtitulo": "Muerte, duelo y la memoria del fuego",
+      "emoji": "🕯️",
+      "archivo": "capitulo-05.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-06",
+      "numero": 6,
+      "numero_romano": "VI",
+      "titulo": "KŸnÿs y Kwányip",
+      "subtitulo": "Los héroes del origen",
+      "emoji": "🗿",
+      "archivo": "capitulo-06.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-07",
+      "numero": 7,
+      "numero_romano": "VII",
+      "titulo": "Los Yúši y los sueños",
+      "subtitulo": "Espíritus del bosque y supersticiones",
+      "emoji": "🌲",
+      "archivo": "capitulo-07.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-08",
+      "numero": 8,
+      "numero_romano": "VIII",
+      "titulo": "El Klóketen",
+      "subtitulo": "La ceremonia secreta de iniciación",
+      "emoji": "🎭",
+      "archivo": "capitulo-08.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-09",
+      "numero": 9,
+      "numero_romano": "IX",
+      "titulo": "Los espíritus del Klóketen",
+      "subtitulo": "Máscaras, danzas y apariciones",
+      "emoji": "👺",
+      "archivo": "capitulo-09.json",
+      "activo": false
+    },
+    {
+      "id": "capitulo-10",
+      "numero": 10,
+      "numero_romano": "X",
+      "titulo": "La memoria del pueblo",
+      "subtitulo": "El legado de los Selk'nam",
+      "emoji": "🕊️",
+      "archivo": "capitulo-10.json",
+      "activo": false
+    }
+  ]
+}
