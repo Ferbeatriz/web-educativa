@@ -73,11 +73,11 @@
       "id": "capitulo-07",
       "numero": 7,
       "numero_romano": "VII",
-      "titulo": "Los Yúši y los sueños",
-      "subtitulo": "Espíritus del bosque y supersticiones",
-      "emoji": "🌲",
+      "titulo": "Otros mitos y leyendas",
+      "subtitulo": "Héroes, hechiceros y animales del fin del mundo",
+      "emoji": "🌿",
       "archivo": "capitulo-07.json",
-      "activo": false
+      "activo": true
     },
     {
       "id": "capitulo-08",
