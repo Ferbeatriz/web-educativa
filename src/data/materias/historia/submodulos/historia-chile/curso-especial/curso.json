@@ -103,11 +103,11 @@
       "id": "capitulo-10",
       "numero": 10,
       "numero_romano": "X",
-      "titulo": "La memoria del pueblo",
-      "subtitulo": "El legado de los Selk'nam",
-      "emoji": "🕊️",
+      "titulo": "Presagios del bosque y visiones nocturnas",
+      "subtitulo": "El mundo como lenguaje de advertencias",
+      "emoji": "🌙",
       "archivo": "capitulo-10.json",
-      "activo": false
+      "activo": true
     }
   ]
 }
