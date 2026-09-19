@@ -93,11 +93,11 @@
       "id": "capitulo-09",
       "numero": 9,
       "numero_romano": "IX",
-      "titulo": "Los espíritus del Klóketen",
-      "subtitulo": "Máscaras, danzas y apariciones",
-      "emoji": "👺",
+      "titulo": "Los Yǫ́šį del bosque ancestral",
+      "subtitulo": "Los duendes que acechaban en la espesura",
+      "emoji": "🌲",
       "archivo": "capitulo-09.json",
-      "activo": false
+      "activo": true
     },
     {
       "id": "capitulo-10",
