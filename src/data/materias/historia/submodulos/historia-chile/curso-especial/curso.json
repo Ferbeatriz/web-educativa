@@ -83,11 +83,11 @@
       "id": "capitulo-08",
       "numero": 8,
       "numero_romano": "VIII",
-      "titulo": "El Klóketen",
-      "subtitulo": "La ceremonia secreta de iniciación",
-      "emoji": "🎭",
+      "titulo": "Una cosmogonía",
+      "subtitulo": "El mundo como memoria viva de los antepasados",
+      "emoji": "🌌",
       "archivo": "capitulo-08.json",
-      "activo": false
+      "activo": true
     },
     {
       "id": "capitulo-09",
