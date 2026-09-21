@@ -1,7 +1,6 @@
 ---
 // CuestionarioAleatorio.astro
 // Componente principal del sistema de comprensión lectora.
-// Carga los 3 bancos, selecciona preguntas al azar y las renderiza.
 
 interface Props {
   libroId: string;
@@ -29,7 +28,6 @@ interface Props {
 
 const {
   libroId,
-  libroTitulo,
   bancoComprension,
   bancoDesarrollo,
   bancoRelectura,
@@ -41,483 +39,74 @@ const nDesarrollo = configuracion.preguntas_por_sesion.desarrollo;
 const nRelectura = configuracion.preguntas_por_sesion.relectura;
 ---
 
-<div 
-  class="cuestionario-aleatorio" 
-  data-libro={libroId}
->
-  <!-- Encabezado -->
+<div class="cuestionario-aleatorio" data-libro={libroId}>
   <div class="encabezado">
     <h2>📝 Ejercicios de comprensión</h2>
-    <p class="subtitulo">
-      Cada sesión es diferente. Las preguntas se seleccionan al azar.
-    </p>
+    <p class="subtitulo">Cada sesión es diferente. Las preguntas se seleccionan al azar.</p>
 
-    <div class="progreso-bancos" id="progreso-bancos">
+    <div class="progreso-bancos">
       <div class="progreso-item" data-tipo="comprension">
         <span class="progreso-label">Comprensión</span>
-        <div class="progreso-barra">
-          <div class="progreso-fill" data-fill></div>
-        </div>
+        <div class="progreso-barra"><div class="progreso-fill" data-fill></div></div>
         <span class="progreso-texto" data-texto>0 / 0</span>
       </div>
       <div class="progreso-item" data-tipo="desarrollo">
         <span class="progreso-label">Desarrollo</span>
-        <div class="progreso-barra">
-          <div class="progreso-fill" data-fill></div>
-        </div>
+        <div class="progreso-barra"><div class="progreso-fill" data-fill></div></div>
         <span class="progreso-texto" data-texto>0 / 0</span>
       </div>
       <div class="progreso-item" data-tipo="relectura">
         <span class="progreso-label">Relectura</span>
-        <div class="progreso-barra">
-          <div class="progreso-fill" data-fill></div>
-        </div>
+        <div class="progreso-barra"><div class="progreso-fill" data-fill></div></div>
         <span class="progreso-texto" data-texto>0 / 0</span>
       </div>
     </div>
   </div>
 
-  <!-- Sección 1: Cuestionario de comprensión -->
-  <section class="bloque" id="bloque-comprension">
+  <section class="bloque">
     <header class="bloque-header">
       <h3>🎯 Cuestionario de comprensión</h3>
-      <p class="instruccion">
-        {nComprension} preguntas de selección múltiple. Cada una tiene una pista de relectura.
-      </p>
+      <p class="instruccion">{nComprension} preguntas de selección múltiple. Cada una tiene una pista de relectura.</p>
     </header>
-
-    <div id="preguntas-comprension" class="preguntas-container">
-      <!-- Se rellena con JS -->
-    </div>
-
+    <div id="preguntas-comprension" class="preguntas-container"></div>
     <div class="acciones-bloque">
-      <button id="btn-corregir-comprension" class="btn-principal">
-        ✓ Corregir respuestas
-      </button>
-      <button id="btn-ocultar-comprension" class="btn-secundario" hidden>
-        👁️ Ocultar corrección
-      </button>
+      <button id="btn-corregir-comprension" class="btn-principal">✓ Corregir respuestas</button>
+      <button id="btn-ocultar-comprension" class="btn-secundario" hidden>👁️ Ocultar corrección</button>
     </div>
-
     <div id="resultado-comprension" class="resultado" hidden></div>
   </section>
 
-  <!-- Sección 2: Preguntas de desarrollo -->
-  <section class="bloque" id="bloque-desarrollo">
+  <section class="bloque">
     <header class="bloque-header">
       <h3>✍️ Preguntas de desarrollo</h3>
-      <p class="instruccion">
-        {nDesarrollo} preguntas para escribir. No hay respuesta única: lo importante es pensar.
-      </p>
+      <p class="instruccion">{nDesarrollo} preguntas para escribir. No hay respuesta única: lo importante es pensar.</p>
     </header>
-
-    <div id="preguntas-desarrollo" class="preguntas-container">
-      <!-- Se rellena con JS -->
-    </div>
-
+    <div id="preguntas-desarrollo" class="preguntas-container"></div>
     <div class="acciones-bloque">
-      <button id="btn-guardar-desarrollo" class="btn-secundario">
-        💾 Guardar mis respuestas
-      </button>
+      <button id="btn-guardar-desarrollo" class="btn-secundario">💾 Guardar mis respuestas</button>
     </div>
-
     <div id="resultado-desarrollo" class="resultado" hidden></div>
   </section>
 
-  <!-- Sección 3: Desafíos de relectura -->
-  <section class="bloque" id="bloque-relectura">
+  <section class="bloque">
     <header class="bloque-header">
       <h3>🔍 Desafíos de relectura</h3>
-      <p class="instruccion">
-        {nRelectura} actividades para volver al texto y descubrir detalles.
-      </p>
+      <p class="instruccion">{nRelectura} actividades para volver al texto y descubrir detalles.</p>
     </header>
-
-    <div id="preguntas-relectura" class="preguntas-container">
-      <!-- Se rellena con JS -->
-    </div>
+    <div id="preguntas-relectura" class="preguntas-container"></div>
   </section>
 
-  <!-- Acciones finales -->
   <div class="acciones-finales">
-    <button id="btn-nueva-sesion" class="btn-principal">
-      🎲 Nueva sesión
-    </button>
-    <button id="btn-reiniciar" class="btn-terciario">
-      ♻️ Reiniciar todo el progreso
-    </button>
+    <button id="btn-nueva-sesion" class="btn-principal">🎲 Nueva sesión</button>
+    <button id="btn-reiniciar" class="btn-terciario">♻️ Reiniciar todo el progreso</button>
   </div>
 </div>
-<style>
 
-
+<style is:global>
   /* ========================================================== */
-  /* ESTILOS DE LAS PREGUNTAS (renderizadas por JS)             */
+  /* ESTILOS GENERALES DEL CUESTIONARIO                         */
   /* ========================================================== */
 
-  /* Tarjeta de cada pregunta de comprensión */
-  .pregunta-comp {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid #EC4899;
-  }
-
-  /* Tarjeta de cada pregunta de desarrollo */
-  .pregunta-des {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid #8B5CF6;
-  }
-
-  /* Tarjeta de cada desafío de relectura */
-  .desafio {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid #14B8A6;
-  }
-
-  /* Header de cada pregunta (número + etiqueta) */
-  .preg-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .preg-num {
-    font-size: 0.85rem;
-    color: #6B7280;
-    font-weight: 600;
-  }
-
-  .preg-etiqueta {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* Tema */
-  .preg-tema {
-    font-size: 0.85rem;
-    color: #8B5CF6;
-    margin-bottom: 0.75rem;
-  }
-
-  .preg-tema strong {
-    font-weight: 700;
-  }
-
-  /* Enunciado */
-  .preg-enunciado {
-    font-size: 1.05rem;
-    color: #111827;
-    margin: 0 0 1.25rem 0;
-    line-height: 1.55;
-    font-weight: 500;
-  }
-
-  /* Lista de opciones */
-  .opciones {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  /* Cada opción */
-  .opcion {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.85rem;
-    padding: 0.85rem 1rem;
-    border-radius: 8px;
-    border: 2px solid #E5E7EB;
-    background: #F9FAFB;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    position: relative;
-  }
-
-  .opcion:hover {
-    border-color: #F9A8D4;
-    background: #FDF2F8;
-  }
-
-  .opcion input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* Letra (A, B, C, D) */
-  .letra {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 2px solid #D1D5DB;
-    background: white;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #6B7280;
-    transition: all 0.15s ease;
-  }
-
-  /* Texto de la opción */
-  .texto {
-    flex: 1;
-    color: #374151;
-    line-height: 1.5;
-    font-size: 0.95rem;
-    padding-top: 0.15rem;
-  }
-
-  /* Estado seleccionado */
-  .opcion:has(input:checked) {
-    border-color: #EC4899;
-    background: #FDF2F8;
-  }
-
-  .opcion:has(input:checked) .letra {
-    background: #EC4899;
-    color: white;
-    border-color: #EC4899;
-  }
-
-  .opcion:has(input:checked) .texto {
-    color: #BE185D;
-    font-weight: 600;
-  }
-
-  /* Estados de corrección */
-  .pregunta-comp.correcta .opcion:has(input:checked) {
-    border-color: #10B981;
-    background: #D1FAE5;
-  }
-
-  .pregunta-comp.correcta .opcion:has(input:checked) .letra {
-    background: #10B981;
-    color: white;
-    border-color: #10B981;
-  }
-
-  .pregunta-comp.incorrecta .opcion:has(input:checked) {
-    border-color: #F97316;
-    background: #FFEDD5;
-  }
-
-  .pregunta-comp.incorrecta .opcion:has(input:checked) .letra {
-    background: #F97316;
-    color: white;
-    border-color: #F97316;
-  }
-
-  .pregunta-comp.corregida .opcion {
-    pointer-events: none;
-  }
-
-  /* Feedback */
-  .preg-feedback {
-    margin-top: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    display: none;
-  }
-
-  .preg-feedback.visible {
-    display: block;
-  }
-
-  .preg-feedback.exito {
-    background: #D1FAE5;
-    color: #065F46;
-    border-left: 4px solid #10B981;
-  }
-
-  .preg-feedback.error {
-    background: #FEE2E2;
-    color: #991B1B;
-    border-left: 4px solid #EF4444;
-  }
-
-  .preg-feedback strong {
-    display: block;
-    margin-bottom: 0.4rem;
-    font-weight: 700;
-  }
-
-  /* Pista */
-  .preg-pista {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-  }
-
-  .preg-pista summary {
-    cursor: pointer;
-    color: #8B5CF6;
-    font-weight: 600;
-    padding: 0.5rem;
-    border-radius: 6px;
-    transition: background 0.15s;
-    user-select: none;
-  }
-
-  .preg-pista summary:hover {
-    background: #F3F4F6;
-  }
-
-  .preg-pista p {
-    margin-top: 0.5rem;
-    padding: 0.75rem;
-    background: #F3F4F6;
-    border-radius: 6px;
-    color: #4B5563;
-    line-height: 1.55;
-  }
-
-  /* Extensión sugerida (desarrollo) */
-  .preg-extension {
-    font-size: 0.85rem;
-    color: #6B7280;
-    font-style: italic;
-    margin-bottom: 0.75rem;
-  }
-
-  /* Textarea de desarrollo y relectura */
-  .des-textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid #E5E7EB;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    resize: vertical;
-    min-height: 120px;
-    transition: border-color 0.15s;
-    box-sizing: border-box;
-  }
-
-  .des-textarea:focus {
-    outline: none;
-    border-color: #8B5CF6;
-    background: #FAFAFF;
-  }
-
-  /* Criterios de evaluación */
-  .preg-criterios {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-  }
-
-  .preg-criterios summary {
-    cursor: pointer;
-    color: #8B5CF6;
-    font-weight: 600;
-    padding: 0.5rem;
-    border-radius: 6px;
-    transition: background 0.15s;
-    user-select: none;
-  }
-
-  .preg-criterios summary:hover {
-    background: #F3F4F6;
-  }
-
-  .preg-criterios ul {
-    margin: 0.5rem 0 0 0;
-    padding: 0.75rem 0.75rem 0.75rem 2rem;
-    background: #F3F4F6;
-    border-radius: 6px;
-  }
-
-  .preg-criterios li {
-    color: #4B5563;
-    line-height: 1.6;
-    margin-bottom: 0.35rem;
-  }
-
-  /* Desafío de relectura */
-  .desafio-instr {
-    padding-left: 1.5rem;
-    margin: 0 0 1rem 0;
-  }
-
-  .desafio-instr li {
-    color: #374151;
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  .desafio-entregable {
-    padding: 0.75rem 1rem;
-    background: #CCFBF1;
-    border-radius: 8px;
-    color: #115E59;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .desafio-entregable strong {
-    font-weight: 700;
-  }
-
-  /* Responsive */
-  @media (max-width: 640px) {
-    .pregunta-comp,
-    .pregunta-des,
-    .desafio {
-      padding: 1rem;
-    }
-
-    .preg-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .opcion {
-      padding: 0.75rem;
-      gap: 0.6rem;
-    }
-
-    .letra {
-      width: 24px;
-      height: 24px;
-      font-size: 0.8rem;
-    }
-
-    .texto {
-      font-size: 0.9rem;
-    }
-  }
-
-
-
-
-</style>
-
-
-<style>
   .cuestionario-aleatorio {
     max-width: 850px;
     margin: 2rem auto;
@@ -525,26 +114,26 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     font-family: system-ui, -apple-system, sans-serif;
   }
 
-  .encabezado {
+  .cuestionario-aleatorio .encabezado {
     text-align: center;
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
     border-bottom: 2px solid #EC4899;
   }
 
-  .encabezado h2 {
+  .cuestionario-aleatorio .encabezado h2 {
     color: #EC4899;
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
   }
 
-  .subtitulo {
+  .cuestionario-aleatorio .subtitulo {
     color: #6B7280;
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
   }
 
-  .progreso-bancos {
+  .cuestionario-aleatorio .progreso-bancos {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -553,7 +142,7 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     border-radius: 10px;
   }
 
-  .progreso-item {
+  .cuestionario-aleatorio .progreso-item {
     display: grid;
     grid-template-columns: 100px 1fr 80px;
     align-items: center;
@@ -561,19 +150,19 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     font-size: 0.85rem;
   }
 
-  .progreso-label {
+  .cuestionario-aleatorio .progreso-label {
     font-weight: 700;
     color: #BE185D;
   }
 
-  .progreso-barra {
+  .cuestionario-aleatorio .progreso-barra {
     height: 8px;
     background: #FBCFE8;
     border-radius: 999px;
     overflow: hidden;
   }
 
-  .progreso-fill {
+  .cuestionario-aleatorio .progreso-fill {
     height: 100%;
     background: #EC4899;
     border-radius: 999px;
@@ -581,52 +170,53 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     width: 0%;
   }
 
-  .progreso-texto {
+  .cuestionario-aleatorio .progreso-texto {
     color: #6B7280;
     font-weight: 600;
     text-align: right;
   }
 
-  .bloque {
+  .cuestionario-aleatorio .bloque {
     margin: 2rem 0;
     padding: 1.5rem;
     background: #F9FAFB;
     border-radius: 12px;
   }
 
-  .bloque-header {
+  .cuestionario-aleatorio .bloque-header {
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #E5E7EB;
   }
 
-  .bloque-header h3 {
+  .cuestionario-aleatorio .bloque-header h3 {
     color: #8B5CF6;
     margin-bottom: 0.5rem;
     font-size: 1.15rem;
   }
 
-  .instruccion {
+  .cuestionario-aleatorio .instruccion {
     color: #6B7280;
     font-size: 0.9rem;
   }
 
-  .preguntas-container {
+  .cuestionario-aleatorio .preguntas-container {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
   }
 
-  .acciones-bloque {
+  .cuestionario-aleatorio .acciones-bloque {
     display: flex;
     gap: 0.75rem;
     margin-top: 1rem;
+    flex-wrap: wrap;
   }
 
-  .btn-principal,
-  .btn-secundario,
-  .btn-terciario {
+  .cuestionario-aleatorio .btn-principal,
+  .cuestionario-aleatorio .btn-secundario,
+  .cuestionario-aleatorio .btn-terciario {
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
     border: none;
@@ -637,38 +227,38 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     font-family: inherit;
   }
 
-  .btn-principal {
+  .cuestionario-aleatorio .btn-principal {
     background: #EC4899;
     color: white;
   }
 
-  .btn-principal:hover {
+  .cuestionario-aleatorio .btn-principal:hover {
     background: #DB2777;
     transform: translateY(-1px);
   }
 
-  .btn-secundario {
+  .cuestionario-aleatorio .btn-secundario {
     background: #8B5CF6;
     color: white;
   }
 
-  .btn-secundario:hover {
+  .cuestionario-aleatorio .btn-secundario:hover {
     background: #7C3AED;
   }
 
-  .btn-terciario {
+  .cuestionario-aleatorio .btn-terciario {
     background: transparent;
     color: #6B7280;
     border: 1px solid #D1D5DB;
   }
 
-  .btn-terciario:hover {
+  .cuestionario-aleatorio .btn-terciario:hover {
     background: #F3F4F6;
     color: #EF4444;
     border-color: #EF4444;
   }
 
-  .resultado {
+  .cuestionario-aleatorio .resultado {
     margin-top: 1.5rem;
     padding: 1.25rem;
     border-radius: 10px;
@@ -677,25 +267,25 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     font-size: 1.05rem;
   }
 
-  .resultado.exito {
+  .cuestionario-aleatorio .resultado.exito {
     background: #D1FAE5;
     color: #065F46;
     border-left: 4px solid #10B981;
   }
 
-  .resultado.parcial {
+  .cuestionario-aleatorio .resultado.parcial {
     background: #FEF3C7;
     color: #92400E;
     border-left: 4px solid #F59E0B;
   }
 
-  .resultado.bajo {
+  .cuestionario-aleatorio .resultado.bajo {
     background: #FEE2E2;
     color: #991B1B;
     border-left: 4px solid #EF4444;
   }
 
-  .acciones-finales {
+  .cuestionario-aleatorio .acciones-finales {
     display: flex;
     gap: 1rem;
     justify-content: center;
@@ -705,19 +295,368 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     border-top: 1px solid #E5E7EB;
   }
 
+  /* ========================================================== */
+  /* TARJETAS DE PREGUNTAS (renderizadas por JS)                */
+  /* ========================================================== */
+
+  .cuestionario-aleatorio .pregunta-comp,
+  .cuestionario-aleatorio .pregunta-des,
+  .cuestionario-aleatorio .desafio {
+    background: white;
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #EC4899;
+  }
+
+  .cuestionario-aleatorio .pregunta-des {
+    border-left-color: #8B5CF6;
+  }
+
+  .cuestionario-aleatorio .desafio {
+    border-left-color: #14B8A6;
+  }
+
+  .cuestionario-aleatorio .preg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .cuestionario-aleatorio .preg-num {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .cuestionario-aleatorio .preg-etiqueta {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .cuestionario-aleatorio .preg-tema {
+    font-size: 0.85rem;
+    color: #8B5CF6;
+    margin-bottom: 0.85rem;
+    font-weight: 500;
+  }
+
+  .cuestionario-aleatorio .preg-tema strong {
+    font-weight: 700;
+  }
+
+  .cuestionario-aleatorio .preg-enunciado {
+    font-size: 1.1rem;
+    color: #111827;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+    font-weight: 600;
+  }
+
+  /* ========================================================== */
+  /* OPCIONES DE RESPUESTA                                      */
+  /* ========================================================== */
+
+  .cuestionario-aleatorio .opciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cuestionario-aleatorio .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border-radius: 10px;
+    border: 2px solid #E5E7EB;
+    background: #FAFBFC;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+
+  .cuestionario-aleatorio .opcion:hover {
+    border-color: #F9A8D4;
+    background: #FDF2F8;
+    transform: translateX(2px);
+  }
+
+  .cuestionario-aleatorio .opcion input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cuestionario-aleatorio .letra {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #D1D5DB;
+    background: white;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #6B7280;
+    transition: all 0.18s ease;
+  }
+
+  .cuestionario-aleatorio .texto {
+    flex: 1;
+    color: #374151;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    padding-top: 0.25rem;
+  }
+
+  /* Selección */
+  .cuestionario-aleatorio .opcion:has(input:checked) {
+    border-color: #EC4899;
+    background: #FDF2F8;
+    box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15);
+  }
+
+  .cuestionario-aleatorio .opcion:has(input:checked) .letra {
+    background: #EC4899;
+    color: white;
+    border-color: #EC4899;
+  }
+
+  .cuestionario-aleatorio .opcion:has(input:checked) .texto {
+    color: #BE185D;
+    font-weight: 600;
+  }
+
+  /* Estados de corrección */
+  .cuestionario-aleatorio .pregunta-comp.correcta .opcion:has(input:checked) {
+    border-color: #10B981;
+    background: #D1FAE5;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+  }
+
+  .cuestionario-aleatorio .pregunta-comp.correcta .opcion:has(input:checked) .letra {
+    background: #10B981;
+    color: white;
+    border-color: #10B981;
+  }
+
+  .cuestionario-aleatorio .pregunta-comp.incorrecta .opcion:has(input:checked) {
+    border-color: #F97316;
+    background: #FFEDD5;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.15);
+  }
+
+  .cuestionario-aleatorio .pregunta-comp.incorrecta .opcion:has(input:checked) .letra {
+    background: #F97316;
+    color: white;
+    border-color: #F97316;
+  }
+
+  .cuestionario-aleatorio .pregunta-comp.corregida .opcion {
+    pointer-events: none;
+  }
+
+  /* ========================================================== */
+  /* FEEDBACK DE CORRECCIÓN                                     */
+  /* ========================================================== */
+
+  .cuestionario-aleatorio .preg-feedback {
+    margin-top: 1.25rem;
+    padding: 1.15rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    display: none;
+  }
+
+  .cuestionario-aleatorio .preg-feedback.visible {
+    display: block;
+  }
+
+  .cuestionario-aleatorio .preg-feedback.exito {
+    background: #D1FAE5;
+    color: #065F46;
+    border-left: 4px solid #10B981;
+  }
+
+  .cuestionario-aleatorio .preg-feedback.error {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid #EF4444;
+  }
+
+  .cuestionario-aleatorio .preg-feedback strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  /* ========================================================== */
+  /* PISTAS Y CRITERIOS                                         */
+  /* ========================================================== */
+
+  .cuestionario-aleatorio .preg-pista,
+  .cuestionario-aleatorio .preg-criterios {
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .cuestionario-aleatorio .preg-pista summary,
+  .cuestionario-aleatorio .preg-criterios summary {
+    cursor: pointer;
+    color: #8B5CF6;
+    font-weight: 700;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .cuestionario-aleatorio .preg-pista summary:hover,
+  .cuestionario-aleatorio .preg-criterios summary:hover {
+    background: #F3F4F6;
+  }
+
+  .cuestionario-aleatorio .preg-pista p {
+    margin-top: 0.5rem;
+    padding: 0.85rem;
+    background: #F3F4F6;
+    border-radius: 8px;
+    color: #4B5563;
+    line-height: 1.6;
+  }
+
+  .cuestionario-aleatorio .preg-criterios ul {
+    margin: 0.5rem 0 0 0;
+    padding: 0.85rem 0.85rem 0.85rem 2rem;
+    background: #F3F4F6;
+    border-radius: 8px;
+  }
+
+  .cuestionario-aleatorio .preg-criterios li {
+    color: #4B5563;
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ========================================================== */
+  /* DESARROLLO Y RELECTURA                                     */
+  /* ========================================================== */
+
+  .cuestionario-aleatorio .preg-extension {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .cuestionario-aleatorio .des-textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 130px;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+
+  .cuestionario-aleatorio .des-textarea:focus {
+    outline: none;
+    border-color: #8B5CF6;
+    background: #FAFAFF;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  }
+
+  .cuestionario-aleatorio .desafio-instr {
+    padding-left: 1.5rem;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .cuestionario-aleatorio .desafio-instr li {
+    color: #374151;
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .cuestionario-aleatorio .desafio-entregable {
+    padding: 0.85rem 1.15rem;
+    background: #CCFBF1;
+    border-radius: 10px;
+    color: #115E59;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cuestionario-aleatorio .desafio-entregable strong {
+    font-weight: 800;
+  }
+
+  /* ========================================================== */
+  /* RESPONSIVE                                                 */
+  /* ========================================================== */
+
   @media (max-width: 640px) {
-    .progreso-item {
+    .cuestionario-aleatorio .progreso-item {
       grid-template-columns: 80px 1fr 60px;
       font-size: 0.75rem;
     }
-    .acciones-bloque,
-    .acciones-finales {
+
+    .cuestionario-aleatorio .acciones-bloque,
+    .cuestionario-aleatorio .acciones-finales {
       flex-direction: column;
     }
-    .btn-principal,
-    .btn-secundario,
-    .btn-terciario {
+
+    .cuestionario-aleatorio .btn-principal,
+    .cuestionario-aleatorio .btn-secundario,
+    .cuestionario-aleatorio .btn-terciario {
       width: 100%;
+    }
+
+    .cuestionario-aleatorio .pregunta-comp,
+    .cuestionario-aleatorio .pregunta-des,
+    .cuestionario-aleatorio .desafio {
+      padding: 1.15rem;
+    }
+
+    .cuestionario-aleatorio .preg-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .cuestionario-aleatorio .opcion {
+      padding: 0.85rem;
+      gap: 0.75rem;
+    }
+
+    .cuestionario-aleatorio .letra {
+      width: 28px;
+      height: 28px;
+      font-size: 0.85rem;
+    }
+
+    .cuestionario-aleatorio .texto {
+      font-size: 0.9rem;
     }
   }
 </style>
@@ -730,10 +669,6 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     reiniciarProgreso,
   } from '../../scripts/seleccion-preguntas.js';
 
-  // ============================================================
-  // 1. LEER DATOS
-  // ============================================================
-
   function esperarDatosYArrancar() {
     const datos = window.__CUESTIONARIO_DATOS__;
 
@@ -745,10 +680,6 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     console.log('[CuestionarioAleatorio] Iniciando con', datos.libroId);
     iniciarCuestionario(datos);
   }
-
-  // ============================================================
-  // 2. FUNCIÓN PRINCIPAL
-  // ============================================================
 
   function iniciarCuestionario(datos) {
     const { libroId, bancoComprension, bancoDesarrollo, bancoRelectura, configuracion } = datos;
@@ -772,37 +703,24 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
 
     function renderizarSesion() {
       const seleccionComprension = seleccionarPreguntas(
-        bancoComprension,
-        configuracion.preguntas_por_sesion.comprension,
-        libroId,
-        'comprension',
-        distribucion
+        bancoComprension, configuracion.preguntas_por_sesion.comprension,
+        libroId, 'comprension', distribucion
       );
-
       const seleccionDesarrollo = seleccionarPreguntas(
-        bancoDesarrollo,
-        configuracion.preguntas_por_sesion.desarrollo,
-        libroId,
-        'desarrollo',
-        distribucion
+        bancoDesarrollo, configuracion.preguntas_por_sesion.desarrollo,
+        libroId, 'desarrollo', distribucion
       );
-
       const seleccionRelectura = seleccionarPreguntas(
-        bancoRelectura,
-        configuracion.preguntas_por_sesion.relectura,
-        libroId,
-        'relectura',
-        distribucion
+        bancoRelectura, configuracion.preguntas_por_sesion.relectura,
+        libroId, 'relectura', distribucion
       );
 
       contComprension.innerHTML = seleccionComprension
         .map((p, i) => renderPreguntaComprension(p, i, seleccionComprension.length))
         .join('');
-
       contDesarrollo.innerHTML = seleccionDesarrollo
         .map((p, i) => renderPreguntaDesarrollo(p, i, seleccionDesarrollo.length))
         .join('');
-
       contRelectura.innerHTML = seleccionRelectura
         .map((p, i) => renderDesafioRelectura(p, i, seleccionRelectura.length))
         .join('');
@@ -1058,7 +976,6 @@ const nRelectura = configuracion.preguntas_por_sesion.relectura;
     renderizarSesion();
   }
 
-  // Arrancar cuando el DOM esté listo
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', esperarDatosYArrancar);
   } else {
