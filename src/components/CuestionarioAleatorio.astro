@@ -1,0 +1,241 @@
+---
+// CuestionarioAleatorio.astro
+// Componente que muestra preguntas aleatorias con rotación
+import { 
+  seleccionarPreguntas, 
+  guardarVistas, 
+  leerVistas,
+  reiniciarProgreso,
+  verProgreso
+} from '../scripts/seleccion-preguntas.js';
+
+interface Props {
+  libroId: string;
+  bancoComprension: any[];
+  bancoDesarrollo: any[];
+  bancoRelectura: any[];
+  configuracion: any;
+}
+
+const { 
+  libroId, 
+  bancoComprension, 
+  bancoDesarrollo, 
+  bancoRelectura,
+  configuracion 
+} = Astro.props;
+
+const nComprension = configuracion.preguntas_por_sesion.comprension;
+const nDesarrollo = configuracion.preguntas_por_sesion.desarrollo;
+const nRelectura = configuracion.preguntas_por_sesion.relectura;
+---
+
+<div class="cuestionario-aleatorio" data-libro={libroId}>
+  
+  <!-- Encabezado -->
+  <div class="encabezado">
+    <h2>📝 Ejercicios de comprensión</h2>
+    <p>Cada sesión es diferente. Las preguntas se seleccionan al azar.</p>
+    
+    <!-- Progreso del banco -->
+    <div class="progreso-banco" id="progreso-banco">
+      <!-- Se rellena con JS -->
+    </div>
+  </div>
+
+  <!-- Sección 1: Cuestionario de comprensión -->
+  <section class="bloque-comprension">
+    <h3>🎯 Cuestionario de comprensión</h3>
+    <p class="instruccion">10 preguntas de selección múltiple. Cada una tiene una pista de relectura.</p>
+    
+    <div id="preguntas-comprension" class="preguntas-container">
+      <!-- Se rellena con JS -->
+    </div>
+    
+    <button id="btn-corregir-comprension" class="btn-principal">
+      Corregir respuestas
+    </button>
+    
+    <div id="resultado-comprension" class="resultado"></div>
+  </section>
+
+  <!-- Sección 2: Preguntas de desarrollo -->
+  <section class="bloque-desarrollo">
+    <h3>✍️ Preguntas de desarrollo</h3>
+    <p class="instruccion">5 preguntas para escribir. No hay respuesta única: lo importante es pensar.</p>
+    
+    <div id="preguntas-desarrollo" class="preguntas-container">
+      <!-- Se rellena con JS -->
+    </div>
+    
+    <button id="btn-guardar-desarrollo" class="btn-secundario">
+      Guardar mis respuestas
+    </button>
+  </section>
+
+  <!-- Sección 3: Desafíos de relectura -->
+  <section class="bloque-relectura">
+    <h3>🔍 Desafíos de relectura</h3>
+    <p class="instruccion">3 actividades para volver al texto y descubrir detalles.</p>
+    
+    <div id="preguntas-relectura" class="preguntas-container">
+      <!-- Se rellena con JS -->
+    </div>
+  </section>
+
+  <!-- Botones de acción -->
+  <div class="acciones-finales">
+    <button id="btn-nueva-sesion" class="btn-principal">
+      🎲 Nueva sesión
+    </button>
+    <button id="btn-reiniciar" class="btn-terciario">
+      ♻️ Reiniciar progreso
+    </button>
+  </div>
+</div>
+
+<style>
+  .cuestionario-aleatorio {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-family: system-ui, sans-serif;
+  }
+
+  .encabezado {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #EC4899;
+  }
+
+  .encabezado h2 {
+    color: #EC4899;
+    margin-bottom: 0.5rem;
+  }
+
+  .progreso-banco {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #FDF2F8;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+
+  .bloque-comprension,
+  .bloque-desarrollo,
+  .bloque-relectura {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #F8F9FA;
+  }
+
+  .bloque-comprension h3,
+  .bloque-desarrollo h3,
+  .bloque-relectura h3 {
+    color: #8B5CF6;
+    margin-bottom: 0.5rem;
+  }
+
+  .instruccion {
+    color: #6B7280;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .preguntas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .btn-principal,
+  .btn-secundario,
+  .btn-terciario {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn-principal {
+    background: #EC4899;
+    color: white;
+  }
+
+  .btn-principal:hover {
+    background: #DB2777;
+  }
+
+  .btn-secundario {
+    background: #8B5CF6;
+    color: white;
+  }
+
+  .btn-secundario:hover {
+    background: #7C3AED;
+  }
+
+  .btn-terciario {
+    background: transparent;
+    color: #6B7280;
+    border: 1px solid #D1D5DB;
+  }
+
+  .btn-terciario:hover {
+    background: #F3F4F6;
+  }
+
+  .resultado {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .resultado.exito {
+    background: #D1FAE5;
+    color: #065F46;
+  }
+
+  .resultado.parcial {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  .acciones-finales {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #E5E7EB;
+  }
+</style>
+
+<script>
+  import { 
+    seleccionarPreguntas, 
+    guardarVistas, 
+    leerVistas,
+    reiniciarProgreso,
+    verProgreso,
+    mezclar
+  } from '../scripts/seleccion-preguntas.js';
+
+  // Datos que vienen del frontmatter (los inyecta Astro)
+  const datos = {
+    libroId: document.querySelector('.cuestionario-aleatorio').dataset.libro,
+    bancoComprension: JSON.parse(document.getElementById('banco-comprension')?.textContent || '[]'),
+    bancoDesarrollo: JSON.parse(document.getElementById('banco-desarrollo')?.textContent || '[]'),
+    bancoRelectura: JSON.parse(document.getElementById('banco-relectura')?.textContent || '[]'),
+    configuracion: JSON.parse(document.getElementById('configuracion')?.textContent || '{}')
+  };
+
+  // ... lógica JS que arma las preguntas, las muestra, corrige, guarda
+  // (En el próximo mensaje te paso el JS completo)
+</script>

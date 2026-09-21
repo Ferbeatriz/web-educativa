@@ -1,0 +1,20 @@
+{
+  "materia": "lenguaje",
+  "titulo": "Club de Lectura",
+  "descripcion": "Ejercicios de comprensión lectora para niñas de 9 a 12 años.",
+  "emoji": "📚",
+  "color": "lenguaje",
+  "libros": [
+    {
+      "id": "la-historia-de-manu",
+      "titulo": "La historia de Manú",
+      "autora": "Ana María del Río",
+      "ilustradora": "Carmen Cardemil",
+      "editorial": "Alfaguara Infantil",
+      "emoji": "🦅",
+      "nivel": "avanzado",
+      "activo": true,
+      "carpeta": "la-historia-de-manu"
+    }
+  ]
+}

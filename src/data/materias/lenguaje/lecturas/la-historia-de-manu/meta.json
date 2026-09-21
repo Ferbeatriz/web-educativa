@@ -1,0 +1,61 @@
+{
+  "id": "la-historia-de-manu",
+  "titulo": "La historia de Manú",
+  "autora": "Ana María del Río",
+  "ilustradora": "Carmen Cardemil",
+  "editorial": "Alfaguara Infantil",
+  "genero": "Novela infantil",
+  "año": "1996",
+  "pais": "Chile",
+  "emoji": "🦅",
+  "color": "lenguaje",
+  "nivel": "avanzado",
+  "sinopsis": "Manuela Mamani es una niña aymara de siete años que vive en el altiplano chileno con sus padres y sus doce llamas. Para su cumpleaños pide algo inusual: ir a la escuela de la ciudad de Iquique. Sus padres se niegan, pero Manú tiene un amigo secreto, un cóndor llamado Kunturo, que la llevará volando a la ciudad. Allí descubrirá la discriminación, la amistad y, sobre todo, que sus sueños pueden salvar vidas.",
+  "temas": [
+    "La identidad cultural",
+    "La amistad incondicional",
+    "La discriminación lingüística",
+    "El valor de los sueños",
+    "La relación campo-ciudad",
+    "La valentía infantil",
+    "La reconciliación y el perdón"
+  ],
+  "personajes": [
+    { "nombre": "Manú", "rol": "Protagonista. Niña aymara de 7 años" },
+    { "nombre": "Kunturo", "rol": "Cóndor amigo de Manú" },
+    { "nombre": "Manuel Mamani", "rol": "Padre de Manú. Jefe de la comunidad y doctor" },
+    { "nombre": "Mamá de Manú", "rol": "Madre cariñosa y prudente" },
+    { "nombre": "Tía Eduvigis", "rol": "Hermana del padre. Vive en Iquique. Enemistada con la familia" },
+    { "nombre": "La niña aymara sin nombre", "rol": "Compañera de colegio que traduce para Manú" },
+    { "nombre": "La directora", "rol": "Directora del colegio de Iquique" },
+    { "nombre": "El alcalde", "rol": "Alcalde de Iquique" },
+    { "nombre": "La señora Olaya", "rol": "Tejedora más famosa del pueblo" }
+  ],
+  "estructura": {
+    "capitulos": [
+      { "numero": 1, "titulo": "El cumpleaños de Manú", "pagina": 7 },
+      { "numero": 2, "titulo": "Kunturo", "pagina": 17 },
+      { "numero": 3, "titulo": "En la ciudad", "pagina": 22 },
+      { "numero": 4, "titulo": "El mar", "pagina": 28 },
+      { "numero": 5, "titulo": "El plan", "pagina": 32 },
+      { "numero": 6, "titulo": "Tsunami", "pagina": 34 },
+      { "numero": 7, "titulo": "El salvamento", "pagina": 37 }
+    ]
+  },
+  "configuracion": {
+    "preguntas_por_sesion": {
+      "comprension": 10,
+      "desarrollo": 5,
+      "relectura": 3
+    },
+    "distribucion_dificultad": {
+      "media": 0.30,
+      "dificil": 0.40,
+      "muy_dificil": 0.30
+    },
+    "orden_presentacion": "ascendente",
+    "persistencia": true,
+    "mezclar_opciones": true,
+    "mostrar_pistas": true
+  }
+}

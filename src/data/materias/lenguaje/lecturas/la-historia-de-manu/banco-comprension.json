@@ -1,0 +1,388 @@
+{
+  "libro": "la-historia-de-manu",
+  "tipo": "comprension",
+  "total_preguntas": 50,
+  "distribucion": {
+    "media": 15,
+    "dificil": 20,
+    "muy_dificil": 15
+  },
+  "preguntas": [
+    {
+      "id": "c01",
+      "dificultad": "media",
+      "tema": "Identidad cultural",
+      "pregunta": "Manú es aymara y vive en el altiplano chileno. ¿Por qué crees que la autora decidió que su protagonista fuera aymara y no de otro pueblo?",
+      "opciones": [
+        "Porque la autora también es aymara",
+        "Porque los aymaras son el único pueblo indígena de Chile",
+        "Para mostrar una realidad poco visible en la literatura infantil chilena: la de los niños indígenas del altiplano",
+        "Porque no había otros pueblos en esa zona"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "La autora elige a una niña aymara para visibilizar una realidad poco representada. Manú no es un personaje genérico: tiene una cultura, una lengua, una forma de vida propias. Esto permite abordar temas como la discriminación lingüística y la tensión campo-ciudad.",
+      "pista": "Piensa en qué otras novelas infantiles chilenas conoces con protagonistas indígenas."
+    },
+    {
+      "id": "c02",
+      "dificultad": "media",
+      "tema": "El sueño profético",
+      "pregunta": "Manú sueña con la ola ANTES de haber visto el mar. ¿Qué efecto tiene esto en el lector?",
+      "opciones": [
+        "Ninguno, es solo un detalle del libro",
+        "Genera suspenso y prepara al lector para el momento en que Manú reconoce el peligro real",
+        "Demuestra que Manú estaba enferma",
+        "Es una coincidencia sin importancia"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El sueño funciona como un recurso narrativo. La autora ya había mostrado que los sueños de Manú se cumplían (la sequía, la luz eléctrica). Cuando Manú ve la ola real, el lector ya sabe lo que eso significa: es un aviso. Esto crea tensión narrativa.",
+      "pista": "Recuerda los sueños anteriores de Manú (páginas 5 y 12)."
+    },
+    {
+      "id": "c03",
+      "dificultad": "media",
+      "tema": "Amistad",
+      "pregunta": "Manú le pone 'Kunturo' al cóndor. ¿Qué revela ese nombre sobre su relación con él?",
+      "opciones": [
+        "Que Manú no sabía cómo se llamaban los cóndores",
+        "Que Manú lo nombra con cariño: 'cóndor pequeño' es un nombre entre iguales, no una mascota",
+        "Que Manú quería tener un pájaro como juguete",
+        "Que Manú le tenía miedo al cóndor"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Kunturo significa 'cóndor pequeño' en aymara. Manú no lo llama 'cóndor' a secas (que sería distante) ni 'pajarito' (que sería diminutivo). Le da un nombre que reconoce su grandeza y su cercanía. Es un nombre de amistad entre iguales.",
+      "pista": "Página 19: cuando Manú le pone el nombre al polluelo."
+    },
+    {
+      "id": "c04",
+      "dificultad": "media",
+      "tema": "El padre",
+      "pregunta": "El papá de Manú es 'el hombre más importante del pueblo'. ¿Qué dos roles cumple en la comunidad?",
+      "opciones": [
+        "Alcalde y profesor",
+        "Jefe de la Comunidad y doctor",
+        "Cazador y herrero",
+        "Comerciante y músico"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El papá de Manú cumple dos roles centrales: es Jefe de la Comunidad (líder político) y doctor (sanador). Esto lo convierte en una figura de autoridad y respeto. Es interesante porque, a pesar de su poder, tiene una relación cariñosa con su hija.",
+      "pista": "Página 9: la descripción del padre."
+    },
+    {
+      "id": "c05",
+      "dificultad": "media",
+      "tema": "El regalo de cumpleaños",
+      "pregunta": "Manú pide un regalo de cumpleaños muy inusual. ¿Qué pide y por qué es inusual?",
+      "opciones": [
+        "Un cóndor amaestrado, porque ningún niño tenía uno",
+        "Ir a la escuela de la ciudad, porque en su pueblo no hay colegios y las niñas no solían pedir eso",
+        "Un vestido nuevo, porque era su cumpleaños",
+        "Doce llamas más, para tener un rebaño grande"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Manú pide algo que rompe las expectativas: no un objeto, sino una oportunidad. Y pide algo que sus padres no le pueden dar fácilmente. Este pedido marca el conflicto central del libro: el deseo de aprender vs. las limitaciones del lugar donde vive.",
+      "pista": "Páginas 10-11: Manú explica por qué quiere ir al colegio."
+    },
+    {
+      "id": "c06",
+      "dificultad": "media",
+      "tema": "El padre enojado",
+      "pregunta": "Cuando Manú pide ir a la escuela, su papá se enoja. ¿Qué razón de fondo tiene su enojo?",
+      "opciones": [
+        "No quiere gastar dinero en educación",
+        "Teme que Manú se vaya del pueblo y nunca vuelva, como les pasó a otros niños",
+        "Cree que las niñas no deben estudiar",
+        "Está cansado ese día"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El enojo del papá no es por egoísmo. Es porque sabe lo que pasa: los niños que se van a la ciudad no vuelven. Y si todos se van, el pueblo muere. Su enojo es miedo disfrazado: miedo de perder a su hija y de perder su comunidad.",
+      "pista": "Páginas 12-13: el papá explica su preocupación."
+    },
+    {
+      "id": "c07",
+      "dificultad": "media",
+      "tema": "La madre",
+      "pregunta": "La mamá de Manú, al enterarse del deseo de su hija, reacciona de manera diferente al papá. ¿Cómo reacciona?",
+      "opciones": [
+        "Se enoja igual que el papá",
+        "Se queda callada",
+        "Se entristece y le pregunta si no quiere vivir con ellos",
+        "Le da la razón a Manú y apoya su decisión"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "La mamá reacciona con tristeza, no con enojo. Su pregunta ('¿No quieres vivir con nosotros?') revela su miedo más profundo: perder a su hija. Este contraste entre el enojo del padre y la tristeza de la madre muestra dos formas distintas de amar.",
+      "pista": "Página 11: la reacción de la mamá."
+    },
+    {
+      "id": "c08",
+      "dificultad": "media",
+      "tema": "Los sueños como don",
+      "pregunta": "¿Por qué la gente del pueblo le tiene respeto a los sueños de Manú?",
+      "opciones": [
+        "Porque es hija del Jefe de la Comunidad",
+        "Porque sus sueños se han cumplido antes (la sequía, la luz eléctrica)",
+        "Porque es la niña más pequeña del pueblo",
+        "Porque su mamá también sueña cosas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Los sueños de Manú no son comunes: se cumplen. La sequía que soñó, se cumplió. La luz eléctrica que soñó, llegó. Por eso, cuando Manú dice 'anoche tuve un sueño', sus padres se miran preocupados. Saben que sus sueños son avisos.",
+      "pista": "Página 12: los sueños anteriores de Manú."
+    },
+    {
+      "id": "c09",
+      "dificultad": "media",
+      "tema": "El nombre",
+      "pregunta": "Manú se llama 'Manuela Mamani', pero todos la llaman 'Manú'. ¿Por qué?",
+      "opciones": [
+        "Porque Manuela es muy largo y era pequeñita de porte",
+        "Porque 'Manú' es un nombre aymara",
+        "Porque nadie recordaba su nombre completo",
+        "Porque su mamá la llamaba así de cariño"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "El libro lo dice explícitamente: 'Como era pequeñita de porte, nadie le decía por su nombre porque era muy largo. Todos la llamaban simplemente, Manú'. Este detalle muestra cómo la comunidad la nombra con cariño, adaptando su nombre a su tamaño.",
+      "pista": "Página 7: la presentación de Manú."
+    },
+    {
+      "id": "c10",
+      "dificultad": "media",
+      "tema": "Los animales",
+      "pregunta": "Manú cuida doce llamas y las llama por su nombre. ¿Qué revela esto sobre su relación con los animales?",
+      "opciones": [
+        "Que las llamas eran muy valiosas",
+        "Que Manú es una pastora responsable y cariñosa, que ve a los animales como individuos, no como cosas",
+        "Que el papá le exigía cuidarlas",
+        "Que las llamas eran sus únicas amigas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Manú no solo cuida a las llamas: las llama por su nombre. Warki, Pelu, Sapsa, Coxsa... Son doce nombres. Esto muestra que Manú las ve como individuos, con personalidad propia. Su relación con los animales es de respeto y afecto, no de utilidad.",
+      "pista": "Página 14: la lista de nombres de las llamas."
+    },
+    {
+      "id": "c11",
+      "dificultad": "media",
+      "tema": "La desobediencia",
+      "pregunta": "Manú decide ir al colegio aunque sus padres le dijeron que no. ¿Qué la impulsa a tomar esa decisión?",
+      "opciones": [
+        "Rabia contra sus padres",
+        "Un sueño que la llama, y la convicción de que debe aprender",
+        "El deseo de conocer la ciudad",
+        "Una apuesta con otros niños"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Manú no desobedece por rebeldía. Desobedece porque siente un llamado: un sueño que le dice que debe ir. Y también porque tiene una sed de aprender que no puede ignorar. La autora la presenta como alguien que sigue un llamado interior, no como una niña caprichosa.",
+      "pista": "Páginas 12-13: la decisión de Manú."
+    },
+    {
+      "id": "c12",
+      "dificultad": "media",
+      "tema": "Kunturo y Manú",
+      "pregunta": "¿Cómo conoció Manú a Kunturo?",
+      "opciones": [
+        "Lo encontró herido en el bosque",
+        "Su papá la llevó a ver un cóndor que necesitaba ayuda y de ahí nació el polluelo",
+        "Lo compró en la ciudad",
+        "El cóndor llegó solo a su casa"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El papá de Manú subió a la montaña a curar a un cóndor hembra herido. Cuando el cóndor murió, apareció su polluelo. Manú le dio de comer y desde entonces fueron inseparables. El origen de la amistad está ligado al padre, que es sanador.",
+      "pista": "Páginas 17-19: la historia de Kunturo."
+    },
+    {
+      "id": "c13",
+      "dificultad": "media",
+      "tema": "El mar",
+      "pregunta": "Cuando Kunturo lleva a Manú al mar por primera vez, ¿cómo reacciona ella?",
+      "opciones": [
+        "Se asusta y quiere volver",
+        "Se queda dormida",
+        "Sonríe y descubre el mar que tanto le había contado su mamá",
+        "No le importa porque ya lo había visto en sueños"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "Manú sonríe al ver el mar: era el mar del que tanto hablaba su mamá. Era del mismo color azul que vio en el mapa del colegio. Este primer encuentro con el mar es de asombro y belleza, antes de convertirse en amenaza.",
+      "pista": "Página 29: la primera vez que Manú ve el mar."
+    },
+    {
+      "id": "c14",
+      "dificultad": "media",
+      "tema": "El lenguaje",
+      "pregunta": "Cuando Manú llega al colegio, los niños se ríen de ella. ¿Por qué se ríen?",
+      "opciones": [
+        "Porque llegó tarde",
+        "Porque no hablaba castellano y ellos no entendían aymara",
+        "Porque llevaba ropa distinta",
+        "Porque era la niña nueva"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Los niños se ríen porque Manú no habla su idioma. La autora muestra cómo la diferencia lingüística puede convertirse en burla. Pero también muestra que la burla viene de la ignorancia, no de la maldad: al final, esos mismos niños le piden perdón.",
+      "pista": "Páginas 23-25: el primer día de clases."
+    },
+    {
+      "id": "c15",
+      "dificultad": "media",
+      "tema": "El sueño del tsunami",
+      "pregunta": "Cuando Manú ve por primera vez la ola gigante avanzando, ¿qué comprende?",
+      "opciones": [
+        "Que el mar es muy peligroso",
+        "Que su sueño se había cumplido y debía avisar a la gente",
+        "Que Kunturo la había engañado",
+        "Que era una alucinación"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Manú ve la ola y de inmediato comprende: 'Entonces Manú comprendió su sueño. Esa montaña de agua se precipitaría sobre el pueblo'. El sueño se había cumplido. Y comprendió que debía salvar a la gente avisando. Ese es el clímax del libro.",
+      "pista": "Páginas 35-36: el momento de la revelación."
+    },
+
+    {
+      "id": "c16",
+      "dificultad": "dificil",
+      "tema": "Análisis literario",
+      "pregunta": "La niña aymara que ayuda a Manú en el colegio nunca recibe un nombre. ¿Qué recurso literario usa la autora y por qué?",
+      "opciones": [
+        "Es un error de la autora",
+        "Es una simplificación para no confundir al lector",
+        "Es un recurso para representar a todas las niñas aymaras que han sufrido lo mismo: aprender un idioma ajeno para no quedarse fuera",
+        "Es porque el libro tiene muchos personajes"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "Cuando un personaje no tiene nombre, se convierte en representante de un grupo. La niña aymara sin nombre simboliza a todas las niñas indígenas que han tenido que adaptarse a un sistema que no las reconoce. Este es un recurso literario sofisticado, no un descuido.",
+      "pista": "Páginas 25-27: el rol de la niña aymara."
+    },
+    {
+      "id": "c17",
+      "dificultad": "dificil",
+      "tema": "Símbolos",
+      "pregunta": "El cóndor es un animal sagrado en la cultura andina. ¿Por qué la autora elige un cóndor y no otro animal para Kunturo?",
+      "opciones": [
+        "Porque los cóndores son fáciles de entrenar",
+        "Porque el cóndor representa la conexión entre el cielo y la tierra, entre lo humano y lo sagrado, y es símbolo del mundo andino",
+        "Porque era el único animal disponible",
+        "Porque los cóndores viven en el altiplano"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El cóndor es el ave sagrada de los Andes. Representa el mundo del 'Hanan Pacha' (mundo de arriba), la conexión con lo divino. Al elegir un cóndor, la autora conecta a Manú con la cosmovisión andina. Kunturo no es solo un amigo: es un vínculo con la cultura ancestral de Manú.",
+      "pista": "Investiga qué significa el cóndor en la cultura aymara."
+    },
+    {
+      "id": "c18",
+      "dificultad": "dificil",
+      "tema": "El silencio del padre",
+      "pregunta": "Cuando Manú cuenta su sueño de la ola, su papá 'se queda muy silencioso'. ¿Qué revela ese silencio?",
+      "opciones": [
+        "Que no le creía a Manú",
+        "Que estaba pensando en otra cosa",
+        "Que el silencio revela que él sabe que los sueños de Manú se cumplen y algo grave se avecina",
+        "Que se había quedado dormido"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "El silencio del padre es significativo. No es indiferencia: es preocupación contenida. El padre sabe que los sueños de Manú se cumplen. Al escuchar el sueño de la ola, no la contradice, se queda callado. Ese silencio dice más que cualquier palabra: presiente que algo grave va a pasar.",
+      "pista": "Páginas 12-13: el silencio del padre."
+    },
+    {
+      "id": "c19",
+      "dificultad": "dificil",
+      "tema": "La mentira",
+      "pregunta": "Manú les miente a sus papás sobre sus vuelos con Kunturo. ¿Por qué la autora no la castiga narrativamente?",
+      "opciones": [
+        "Porque no se dieron cuenta",
+        "Porque la mentira no era egoísta: era para proteger algo valioso (su amistad con Kunturo y su misión de salvar a la gente)",
+        "Porque los niños siempre mienten",
+        "Porque la mentira no era importante"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La autora no castiga a Manú porque entiende el contexto. Manú miente para proteger algo sagrado. La mentira no es un acto de rebeldía egoísta, es un acto de cuidado. Este es un tema profundo: a veces, decir la verdad completa pondría en peligro algo más importante.",
+      "pista": "Páginas 31-32: cuando Manú miente."
+    },
+    {
+      "id": "c20",
+      "dificultad": "dificil",
+      "tema": "Los dos mares",
+      "pregunta": "El mar aparece dos veces en el libro. ¿Qué simboliza cada aparición?",
+      "opciones": [
+        "El mar siempre es igual",
+        "La primera vez simboliza la belleza y el sueño; la segunda, la amenaza y el deber",
+        "El mar no tiene símbolo, es solo un lugar",
+        "La primera vez es para asustar a Manú, la segunda para calmarla"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Este contraste es central en la novela. El primer mar es azul, luminoso, pacífico: es el mar de la belleza y del sueño. El segundo mar es oscuro, furioso, mortal: es el mar de la amenaza y del deber. Manú primero lo ama, después lo teme, y finalmente lo comprende.",
+      "pista": "Páginas 28-30 (primer mar) y 34-36 (segundo mar)."
+    },
+    {
+      "id": "c21",
+      "dificultad": "dificil",
+      "tema": "Análisis del título",
+      "pregunta": "El libro se llama 'La historia de Manú'. ¿Por qué crees que la autora eligió ese título y no, por ejemplo, 'Manú y el cóndor' o 'El tsunami'?",
+      "opciones": [
+        "Porque no se le ocurrió otro título",
+        "Porque el libro narra la transformación de Manú: es su historia personal de crecimiento, no solo una aventura con un cóndor o un desastre natural",
+        "Porque 'Manú' era más fácil de recordar",
+        "Porque los otros títulos ya estaban usados"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El título es central. 'La historia de Manú' anuncia que el foco es la niña, no los eventos. El cóndor, el tsunami, el colegio, son partes de SU historia. La autora quiere que el lector acompañe el crecimiento interior de Manú, no solo la aventura exterior.",
+      "pista": "Piensa en la diferencia entre una novela de aventuras y una novela de formación."
+    },
+    {
+      "id": "c22",
+      "dificultad": "dificil",
+      "tema": "La risa y el perdón",
+      "pregunta": "Los niños que se ríen de Manú al final le piden perdón. ¿Qué revela este cambio?",
+      "opciones": [
+        "Que los niños eran malos y cambiaron",
+        "Que la ignorancia no es lo mismo que la maldad: cuando los niños entienden, cambian su actitud",
+        "Que Manú los obligó a pedir perdón",
+        "Que era parte de una tarea escolar"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La autora no pinta a los niños como villanos. Los pinta como ignorantes. Se ríen porque no entienden. Cuando Manú los salva y comprenden quién es, cambian. Esto es un mensaje importante: la ignorancia se puede superar. La maldad, no. Y los niños no eran malos.",
+      "pista": "Página 44: cuando los niños le piden perdón."
+    },
+    {
+      "id": "c23",
+      "dificultad": "dificil",
+      "tema": "El rol del padre",
+      "pregunta": "El papá de Manú pasa de 'no puedes ir' a 'confío en la ciudad'. ¿Qué produjo ese cambio profundo?",
+      "opciones": [
+        "Que Manú le desobedeció",
+        "Que el alcalde le pidió un favor",
+        "Que la ciudad demostró que podía ser aliada, no enemiga: la evacuación al altiplano unió a los dos mundos",
+        "Que la mamá lo convenció"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "El cambio del padre no es por debilidad ni por presión. Es porque la ciudad se transformó a sus ojos. Cuando los habitantes de Iquique suben al altiplano, el padre de Manú ve que la ciudad puede ser hermana, no enemiga. Su confianza no es ingenua: está basada en una experiencia real.",
+      "pista": "Páginas 43-46: el cambio del padre."
+    },
+    {
+      "id": "c24",
+      "dificultad": "dificil",
+      "tema": "El mar y los sueños",
+      "pregunta": "Manú sueña con el mar antes de conocerlo. ¿Qué dice esto sobre el poder de los sueños en la novela?",
+      "opciones": [
+        "Que los sueños son casualidades",
+        "Que los sueños de Manú son una forma de conocimiento profundo: le permiten saber cosas que aún no ha vivido",
+        "Que Manú tiene poderes mágicos",
+        "Que todos los niños sueñan con el mar"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "En la novela, los sueños no son casualidad: son una forma de conocimiento. Manú sueña con la sequía antes de que ocurra. Sueña con la luz antes de que llegue. Sueña con el tsunami antes de ver el mar. Sus sueños no son magia: son una conexión profunda con la realidad que otros no ven.",
+      "pista": "Piensa en cómo la cultura aymara valora los sueños."
+    },
+    {
+      "id": "c25",
+      "dificultad": "dificil",
+      "tema": "La comunidad",
+      "pregunta": "El libro termina con toda la gente durmiendo en la plaza, 'como si fueran hermanos'. ¿Qué dice esto sobre el mensaje final del libro?",
+      "opciones": [
+        "Que todos eran parientes",
+        "Que la experiencia compartida del peligro borró las diferencias entre los dos mundos, uniendo campo y ciudad",
+        "Que estaban muy cansados",
+        "Que la ciudad se apoderó del pueblo"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El mensaje final del libro es de unión. La experiencia compartida del tsunami unió dos mundos que antes estaban separados: campo y ciudad, aymara y castellano, tradición y modernidad. Al dormir 'como hermanos', se sugiere que la convivencia es posible cuando hay un propósito común.",
+      "pista": "Página 46: el cierre del libro."
+    }
+  ]
+}
