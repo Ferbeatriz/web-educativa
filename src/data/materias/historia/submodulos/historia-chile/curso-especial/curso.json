@@ -138,20 +138,33 @@
       "titulo": "El teatro de los espíritus y la prueba de los iniciados",
       "subtitulo": "El desarrollo de la ceremonia del Klóketen",
       "emoji": "🎭",
-      "archivo": "capitulo-12.json",
+      "archivo": "capitulo-13.json",
       "activo": true
-        }
+        },
+{
 
 
+      "id": "capitulo-14",
+      "numero": 14,
+      "numero_romano": "XIV",
+      "titulo": "El diario del invierno sagrado",
+      "subtitulo": "Los dos meses del Klóketen de 1923",
+      "emoji": "📖",
+      "archivo": "capitulo-14.json",
+      "activo": true
 
+        },
 
+{
+      "id": "capitulo-15",
+      "numero": 15,
+      "numero_romano": "XV",
+      "titulo": "El significado de la Choza Grande",
+      "subtitulo": "Lo que el Klóketen enseña sobre los Selk'nam",
+      "emoji": "🔍",
+        "archivo": "capitulo-15.json",
+      "activo": true
 
-
-
-
-
-
-
-
-  ]
+        },
+      ]
 }
