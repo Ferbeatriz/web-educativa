@@ -1,0 +1,1067 @@
+---
+// CuestionarioAleatorio.astro
+// Componente principal del sistema de comprensión lectora.
+// Carga los 3 bancos, selecciona preguntas al azar y las renderiza.
+
+interface Props {
+  libroId: string;
+  libroTitulo: string;
+  bancoComprension: any[];
+  bancoDesarrollo: any[];
+  bancoRelectura: any[];
+  configuracion: {
+    preguntas_por_sesion: {
+      comprension: number;
+      desarrollo: number;
+      relectura: number;
+    };
+    distribucion_dificultad: {
+      media: number;
+      dificil: number;
+      muy_dificil: number;
+    };
+    orden_presentacion: string;
+    persistencia: boolean;
+    mezclar_opciones: boolean;
+    mostrar_pistas: boolean;
+  };
+}
+
+const {
+  libroId,
+  libroTitulo,
+  bancoComprension,
+  bancoDesarrollo,
+  bancoRelectura,
+  configuracion,
+} = Astro.props;
+
+const nComprension = configuracion.preguntas_por_sesion.comprension;
+const nDesarrollo = configuracion.preguntas_por_sesion.desarrollo;
+const nRelectura = configuracion.preguntas_por_sesion.relectura;
+---
+
+<div 
+  class="cuestionario-aleatorio" 
+  data-libro={libroId}
+>
+  <!-- Encabezado -->
+  <div class="encabezado">
+    <h2>📝 Ejercicios de comprensión</h2>
+    <p class="subtitulo">
+      Cada sesión es diferente. Las preguntas se seleccionan al azar.
+    </p>
+
+    <div class="progreso-bancos" id="progreso-bancos">
+      <div class="progreso-item" data-tipo="comprension">
+        <span class="progreso-label">Comprensión</span>
+        <div class="progreso-barra">
+          <div class="progreso-fill" data-fill></div>
+        </div>
+        <span class="progreso-texto" data-texto>0 / 0</span>
+      </div>
+      <div class="progreso-item" data-tipo="desarrollo">
+        <span class="progreso-label">Desarrollo</span>
+        <div class="progreso-barra">
+          <div class="progreso-fill" data-fill></div>
+        </div>
+        <span class="progreso-texto" data-texto>0 / 0</span>
+      </div>
+      <div class="progreso-item" data-tipo="relectura">
+        <span class="progreso-label">Relectura</span>
+        <div class="progreso-barra">
+          <div class="progreso-fill" data-fill></div>
+        </div>
+        <span class="progreso-texto" data-texto>0 / 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 1: Cuestionario de comprensión -->
+  <section class="bloque" id="bloque-comprension">
+    <header class="bloque-header">
+      <h3>🎯 Cuestionario de comprensión</h3>
+      <p class="instruccion">
+        {nComprension} preguntas de selección múltiple. Cada una tiene una pista de relectura.
+      </p>
+    </header>
+
+    <div id="preguntas-comprension" class="preguntas-container">
+      <!-- Se rellena con JS -->
+    </div>
+
+    <div class="acciones-bloque">
+      <button id="btn-corregir-comprension" class="btn-principal">
+        ✓ Corregir respuestas
+      </button>
+      <button id="btn-ocultar-comprension" class="btn-secundario" hidden>
+        👁️ Ocultar corrección
+      </button>
+    </div>
+
+    <div id="resultado-comprension" class="resultado" hidden></div>
+  </section>
+
+  <!-- Sección 2: Preguntas de desarrollo -->
+  <section class="bloque" id="bloque-desarrollo">
+    <header class="bloque-header">
+      <h3>✍️ Preguntas de desarrollo</h3>
+      <p class="instruccion">
+        {nDesarrollo} preguntas para escribir. No hay respuesta única: lo importante es pensar.
+      </p>
+    </header>
+
+    <div id="preguntas-desarrollo" class="preguntas-container">
+      <!-- Se rellena con JS -->
+    </div>
+
+    <div class="acciones-bloque">
+      <button id="btn-guardar-desarrollo" class="btn-secundario">
+        💾 Guardar mis respuestas
+      </button>
+    </div>
+
+    <div id="resultado-desarrollo" class="resultado" hidden></div>
+  </section>
+
+  <!-- Sección 3: Desafíos de relectura -->
+  <section class="bloque" id="bloque-relectura">
+    <header class="bloque-header">
+      <h3>🔍 Desafíos de relectura</h3>
+      <p class="instruccion">
+        {nRelectura} actividades para volver al texto y descubrir detalles.
+      </p>
+    </header>
+
+    <div id="preguntas-relectura" class="preguntas-container">
+      <!-- Se rellena con JS -->
+    </div>
+  </section>
+
+  <!-- Acciones finales -->
+  <div class="acciones-finales">
+    <button id="btn-nueva-sesion" class="btn-principal">
+      🎲 Nueva sesión
+    </button>
+    <button id="btn-reiniciar" class="btn-terciario">
+      ♻️ Reiniciar todo el progreso
+    </button>
+  </div>
+</div>
+<style>
+
+
+  /* ========================================================== */
+  /* ESTILOS DE LAS PREGUNTAS (renderizadas por JS)             */
+  /* ========================================================== */
+
+  /* Tarjeta de cada pregunta de comprensión */
+  .pregunta-comp {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #EC4899;
+  }
+
+  /* Tarjeta de cada pregunta de desarrollo */
+  .pregunta-des {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #8B5CF6;
+  }
+
+  /* Tarjeta de cada desafío de relectura */
+  .desafio {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #14B8A6;
+  }
+
+  /* Header de cada pregunta (número + etiqueta) */
+  .preg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .preg-num {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 600;
+  }
+
+  .preg-etiqueta {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Tema */
+  .preg-tema {
+    font-size: 0.85rem;
+    color: #8B5CF6;
+    margin-bottom: 0.75rem;
+  }
+
+  .preg-tema strong {
+    font-weight: 700;
+  }
+
+  /* Enunciado */
+  .preg-enunciado {
+    font-size: 1.05rem;
+    color: #111827;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.55;
+    font-weight: 500;
+  }
+
+  /* Lista de opciones */
+  .opciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* Cada opción */
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    border: 2px solid #E5E7EB;
+    background: #F9FAFB;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  .opcion:hover {
+    border-color: #F9A8D4;
+    background: #FDF2F8;
+  }
+
+  .opcion input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Letra (A, B, C, D) */
+  .letra {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #D1D5DB;
+    background: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #6B7280;
+    transition: all 0.15s ease;
+  }
+
+  /* Texto de la opción */
+  .texto {
+    flex: 1;
+    color: #374151;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    padding-top: 0.15rem;
+  }
+
+  /* Estado seleccionado */
+  .opcion:has(input:checked) {
+    border-color: #EC4899;
+    background: #FDF2F8;
+  }
+
+  .opcion:has(input:checked) .letra {
+    background: #EC4899;
+    color: white;
+    border-color: #EC4899;
+  }
+
+  .opcion:has(input:checked) .texto {
+    color: #BE185D;
+    font-weight: 600;
+  }
+
+  /* Estados de corrección */
+  .pregunta-comp.correcta .opcion:has(input:checked) {
+    border-color: #10B981;
+    background: #D1FAE5;
+  }
+
+  .pregunta-comp.correcta .opcion:has(input:checked) .letra {
+    background: #10B981;
+    color: white;
+    border-color: #10B981;
+  }
+
+  .pregunta-comp.incorrecta .opcion:has(input:checked) {
+    border-color: #F97316;
+    background: #FFEDD5;
+  }
+
+  .pregunta-comp.incorrecta .opcion:has(input:checked) .letra {
+    background: #F97316;
+    color: white;
+    border-color: #F97316;
+  }
+
+  .pregunta-comp.corregida .opcion {
+    pointer-events: none;
+  }
+
+  /* Feedback */
+  .preg-feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .preg-feedback.visible {
+    display: block;
+  }
+
+  .preg-feedback.exito {
+    background: #D1FAE5;
+    color: #065F46;
+    border-left: 4px solid #10B981;
+  }
+
+  .preg-feedback.error {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid #EF4444;
+  }
+
+  .preg-feedback strong {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  /* Pista */
+  .preg-pista {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .preg-pista summary {
+    cursor: pointer;
+    color: #8B5CF6;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .preg-pista summary:hover {
+    background: #F3F4F6;
+  }
+
+  .preg-pista p {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: #F3F4F6;
+    border-radius: 6px;
+    color: #4B5563;
+    line-height: 1.55;
+  }
+
+  /* Extensión sugerida (desarrollo) */
+  .preg-extension {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Textarea de desarrollo y relectura */
+  .des-textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 120px;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+
+  .des-textarea:focus {
+    outline: none;
+    border-color: #8B5CF6;
+    background: #FAFAFF;
+  }
+
+  /* Criterios de evaluación */
+  .preg-criterios {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .preg-criterios summary {
+    cursor: pointer;
+    color: #8B5CF6;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .preg-criterios summary:hover {
+    background: #F3F4F6;
+  }
+
+  .preg-criterios ul {
+    margin: 0.5rem 0 0 0;
+    padding: 0.75rem 0.75rem 0.75rem 2rem;
+    background: #F3F4F6;
+    border-radius: 6px;
+  }
+
+  .preg-criterios li {
+    color: #4B5563;
+    line-height: 1.6;
+    margin-bottom: 0.35rem;
+  }
+
+  /* Desafío de relectura */
+  .desafio-instr {
+    padding-left: 1.5rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .desafio-instr li {
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .desafio-entregable {
+    padding: 0.75rem 1rem;
+    background: #CCFBF1;
+    border-radius: 8px;
+    color: #115E59;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .desafio-entregable strong {
+    font-weight: 700;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .pregunta-comp,
+    .pregunta-des,
+    .desafio {
+      padding: 1rem;
+    }
+
+    .preg-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .opcion {
+      padding: 0.75rem;
+      gap: 0.6rem;
+    }
+
+    .letra {
+      width: 24px;
+      height: 24px;
+      font-size: 0.8rem;
+    }
+
+    .texto {
+      font-size: 0.9rem;
+    }
+  }
+
+
+
+
+</style>
+
+
+<style>
+  .cuestionario-aleatorio {
+    max-width: 850px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .encabezado {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #EC4899;
+  }
+
+  .encabezado h2 {
+    color: #EC4899;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .subtitulo {
+    color: #6B7280;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .progreso-bancos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: #FDF2F8;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .progreso-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 80px;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .progreso-label {
+    font-weight: 700;
+    color: #BE185D;
+  }
+
+  .progreso-barra {
+    height: 8px;
+    background: #FBCFE8;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progreso-fill {
+    height: 100%;
+    background: #EC4899;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progreso-texto {
+    color: #6B7280;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .bloque {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #F9FAFB;
+    border-radius: 12px;
+  }
+
+  .bloque-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .bloque-header h3 {
+    color: #8B5CF6;
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+  }
+
+  .instruccion {
+    color: #6B7280;
+    font-size: 0.9rem;
+  }
+
+  .preguntas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .acciones-bloque {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .btn-principal,
+  .btn-secundario,
+  .btn-terciario {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-principal {
+    background: #EC4899;
+    color: white;
+  }
+
+  .btn-principal:hover {
+    background: #DB2777;
+    transform: translateY(-1px);
+  }
+
+  .btn-secundario {
+    background: #8B5CF6;
+    color: white;
+  }
+
+  .btn-secundario:hover {
+    background: #7C3AED;
+  }
+
+  .btn-terciario {
+    background: transparent;
+    color: #6B7280;
+    border: 1px solid #D1D5DB;
+  }
+
+  .btn-terciario:hover {
+    background: #F3F4F6;
+    color: #EF4444;
+    border-color: #EF4444;
+  }
+
+  .resultado {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+
+  .resultado.exito {
+    background: #D1FAE5;
+    color: #065F46;
+    border-left: 4px solid #10B981;
+  }
+
+  .resultado.parcial {
+    background: #FEF3C7;
+    color: #92400E;
+    border-left: 4px solid #F59E0B;
+  }
+
+  .resultado.bajo {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid #EF4444;
+  }
+
+  .acciones-finales {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #E5E7EB;
+  }
+
+  @media (max-width: 640px) {
+    .progreso-item {
+      grid-template-columns: 80px 1fr 60px;
+      font-size: 0.75rem;
+    }
+    .acciones-bloque,
+    .acciones-finales {
+      flex-direction: column;
+    }
+    .btn-principal,
+    .btn-secundario,
+    .btn-terciario {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  import {
+    seleccionarPreguntas,
+    guardarVistas,
+    leerVistas,
+    reiniciarProgreso,
+  } from '../../scripts/seleccion-preguntas.js';
+
+  // ============================================================
+  // 1. LEER DATOS
+  // ============================================================
+
+  function esperarDatosYArrancar() {
+    const datos = window.__CUESTIONARIO_DATOS__;
+
+    if (!datos) {
+      console.error('[CuestionarioAleatorio] No se encontraron los datos globales.');
+      return;
+    }
+
+    console.log('[CuestionarioAleatorio] Iniciando con', datos.libroId);
+    iniciarCuestionario(datos);
+  }
+
+  // ============================================================
+  // 2. FUNCIÓN PRINCIPAL
+  // ============================================================
+
+  function iniciarCuestionario(datos) {
+    const { libroId, bancoComprension, bancoDesarrollo, bancoRelectura, configuracion } = datos;
+
+    const contComprension = document.getElementById('preguntas-comprension');
+    const contDesarrollo = document.getElementById('preguntas-desarrollo');
+    const contRelectura = document.getElementById('preguntas-relectura');
+    const btnCorregirComprension = document.getElementById('btn-corregir-comprension');
+    const btnOcultarComprension = document.getElementById('btn-ocultar-comprension');
+    const btnGuardarDesarrollo = document.getElementById('btn-guardar-desarrollo');
+    const btnNuevaSesion = document.getElementById('btn-nueva-sesion');
+    const btnReiniciar = document.getElementById('btn-reiniciar');
+    const resultadoComprension = document.getElementById('resultado-comprension');
+    const resultadoDesarrollo = document.getElementById('resultado-desarrollo');
+
+    const distribucion = configuracion.distribucion_dificultad || {
+      media: 0.30,
+      dificil: 0.40,
+      muy_dificil: 0.30,
+    };
+
+    function renderizarSesion() {
+      const seleccionComprension = seleccionarPreguntas(
+        bancoComprension,
+        configuracion.preguntas_por_sesion.comprension,
+        libroId,
+        'comprension',
+        distribucion
+      );
+
+      const seleccionDesarrollo = seleccionarPreguntas(
+        bancoDesarrollo,
+        configuracion.preguntas_por_sesion.desarrollo,
+        libroId,
+        'desarrollo',
+        distribucion
+      );
+
+      const seleccionRelectura = seleccionarPreguntas(
+        bancoRelectura,
+        configuracion.preguntas_por_sesion.relectura,
+        libroId,
+        'relectura',
+        distribucion
+      );
+
+      contComprension.innerHTML = seleccionComprension
+        .map((p, i) => renderPreguntaComprension(p, i, seleccionComprension.length))
+        .join('');
+
+      contDesarrollo.innerHTML = seleccionDesarrollo
+        .map((p, i) => renderPreguntaDesarrollo(p, i, seleccionDesarrollo.length))
+        .join('');
+
+      contRelectura.innerHTML = seleccionRelectura
+        .map((p, i) => renderDesafioRelectura(p, i, seleccionRelectura.length))
+        .join('');
+
+      resultadoComprension.hidden = true;
+      resultadoDesarrollo.hidden = true;
+      btnOcultarComprension.hidden = true;
+
+      actualizarProgreso();
+    }
+
+    function renderPreguntaComprension(p, i, total) {
+      const colores = {
+        media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D' },
+        dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C' },
+        muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171' },
+      };
+      const etiquetas = { media: 'Media', dificil: 'Difícil', muy_dificil: 'Muy difícil' };
+      const c = colores[p.dificultad] || colores.media;
+
+      const opciones = p.opciones.map((op, j) => `
+        <li>
+          <label class="opcion" data-indice="${j}">
+            <input type="radio" name="p-${p.id}" value="${j}">
+            <span class="letra">${String.fromCharCode(65 + j)}</span>
+            <span class="texto">${escapeHtml(op)}</span>
+          </label>
+        </li>
+      `).join('');
+
+      return `
+        <article class="pregunta-comp" data-id="${p.id}" data-correcta="${p.respuesta_correcta}">
+          <header class="preg-header">
+            <span class="preg-num">Pregunta ${i + 1} de ${total}</span>
+            <span class="preg-etiqueta" style="background:${c.bg};color:${c.texto};border:1px solid ${c.borde}">
+              ${etiquetas[p.dificultad]}
+            </span>
+          </header>
+          <div class="preg-tema"><strong>Tema:</strong> ${escapeHtml(p.tema)}</div>
+          <h3 class="preg-enunciado">${escapeHtml(p.pregunta)}</h3>
+          <ul class="opciones">${opciones}</ul>
+          <div class="preg-feedback" hidden></div>
+          <details class="preg-pista">
+            <summary>💡 Pista de relectura</summary>
+            <p>${escapeHtml(p.pista)}</p>
+          </details>
+        </article>
+      `;
+    }
+
+    function renderPreguntaDesarrollo(p, i, total) {
+      const colores = {
+        media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D' },
+        dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C' },
+        muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171' },
+      };
+      const etiquetas = { media: 'Media', dificil: 'Difícil', muy_dificil: 'Muy difícil' };
+      const c = colores[p.dificultad] || colores.media;
+
+      return `
+        <article class="pregunta-des" data-id="${p.id}">
+          <header class="preg-header">
+            <span class="preg-num">Pregunta ${i + 1} de ${total}</span>
+            <span class="preg-etiqueta" style="background:${c.bg};color:${c.texto};border:1px solid ${c.borde}">
+              ${etiquetas[p.dificultad]}
+            </span>
+          </header>
+          <div class="preg-tema"><strong>Tema:</strong> ${escapeHtml(p.tema)}</div>
+          <h3 class="preg-enunciado">${escapeHtml(p.pregunta)}</h3>
+          <div class="preg-extension">✍️ Extensión sugerida: ${escapeHtml(p.extension)}</div>
+          <textarea class="des-textarea" rows="6" placeholder="Escribe aquí tu respuesta..."></textarea>
+          <details class="preg-criterios">
+            <summary>📋 ¿Qué se evaluará?</summary>
+            <ul>${p.criterios.map(cr => `<li>${escapeHtml(cr)}</li>`).join('')}</ul>
+          </details>
+        </article>
+      `;
+    }
+
+    function renderDesafioRelectura(p, i, total) {
+      const colores = {
+        media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D' },
+        dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C' },
+        muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171' },
+      };
+      const etiquetas = { media: 'Media', dificil: 'Difícil', muy_dificil: 'Muy difícil' };
+      const c = colores[p.dificultad] || colores.media;
+
+      return `
+        <article class="desafio" data-id="${p.id}">
+          <header class="preg-header">
+            <span class="preg-num">Desafío ${i + 1} de ${total}</span>
+            <span class="preg-etiqueta" style="background:${c.bg};color:${c.texto};border:1px solid ${c.borde}">
+              ${etiquetas[p.dificultad]}
+            </span>
+          </header>
+          <div class="preg-tema"><strong>Tema:</strong> ${escapeHtml(p.tema)}</div>
+          <h3 class="preg-enunciado">🔍 ${escapeHtml(p.titulo)}</h3>
+          <ol class="desafio-instr">${p.instrucciones.map(x => `<li>${escapeHtml(x)}</li>`).join('')}</ol>
+          <div class="desafio-entregable"><strong>📝 Entregable:</strong> ${escapeHtml(p.entregable)}</div>
+          <details class="preg-pista">
+            <summary>💡 Pista</summary>
+            <p>${escapeHtml(p.pista)}</p>
+          </details>
+          <textarea class="des-textarea" rows="4" placeholder="Escribe aquí tus notas..."></textarea>
+        </article>
+      `;
+    }
+
+    function corregirComprension() {
+      const preguntasDOM = document.querySelectorAll('.pregunta-comp');
+      let correctas = 0;
+      let sinResponder = 0;
+
+      preguntasDOM.forEach(preg => {
+        const id = preg.dataset.id;
+        const correcta = parseInt(preg.dataset.correcta);
+        const seleccionada = preg.querySelector('input[type="radio"]:checked');
+        const feedback = preg.querySelector('.preg-feedback');
+
+        preg.classList.remove('correcta', 'incorrecta', 'corregida');
+
+        if (!seleccionada) {
+          sinResponder++;
+          preg.classList.add('corregida');
+          feedback.className = 'preg-feedback visible error';
+          feedback.innerHTML = `<strong>⚠️ Sin responder</strong>Esta pregunta quedó en blanco.`;
+          return;
+        }
+
+        const valor = parseInt(seleccionada.value);
+        const esCorrecta = valor === correcta;
+
+        if (esCorrecta) {
+          correctas++;
+          preg.classList.add('correcta', 'corregida');
+          feedback.className = 'preg-feedback visible exito';
+          feedback.innerHTML = `<strong>✓ ¡Correcto!</strong>${escapeHtml(getExplicacionPorId(id))}`;
+        } else {
+          preg.classList.add('incorrecta', 'corregida');
+          const respuestaCorrectaTexto = preg.querySelectorAll('.opcion')[correcta]?.querySelector('.texto')?.textContent || '';
+          feedback.className = 'preg-feedback visible error';
+          feedback.innerHTML = `<strong>✗ Incorrecto</strong>La respuesta correcta era: <em>${escapeHtml(respuestaCorrectaTexto)}</em><br><br>${escapeHtml(getExplicacionPorId(id))}`;
+        }
+      });
+
+      const total = preguntasDOM.length;
+      const porcentaje = Math.round((correctas / total) * 100);
+      resultadoComprension.hidden = false;
+      resultadoComprension.className = 'resultado ' + (
+        porcentaje >= 80 ? 'exito' : porcentaje >= 50 ? 'parcial' : 'bajo'
+      );
+      resultadoComprension.innerHTML = `
+        <div>${correctas} de ${total} correctas (${porcentaje}%)</div>
+        ${sinResponder > 0 ? `<div style="font-size:0.85rem;margin-top:0.5rem">⚠️ ${sinResponder} sin responder</div>` : ''}
+      `;
+
+      const ids = Array.from(preguntasDOM).map(p => p.dataset.id);
+      guardarVistas(libroId, 'comprension', ids);
+
+      btnOcultarComprension.hidden = false;
+      actualizarProgreso();
+    }
+
+    function getExplicacionPorId(id) {
+      const p = bancoComprension.find(x => x.id === id);
+      return p ? p.explicacion : '';
+    }
+
+    function guardarDesarrollo() {
+      const preguntasDOM = document.querySelectorAll('.pregunta-des');
+      let escritas = 0;
+
+      preguntasDOM.forEach(preg => {
+        const textarea = preg.querySelector('.des-textarea');
+        if (textarea && textarea.value.trim().length > 20) {
+          escritas++;
+        }
+      });
+
+      resultadoDesarrollo.hidden = false;
+      resultadoDesarrollo.className = 'resultado exito';
+      resultadoDesarrollo.innerHTML = `
+        <div>💾 Respuestas guardadas</div>
+        <div style="font-size:0.85rem;margin-top:0.5rem">
+          ${escritas} de ${preguntasDOM.length} respuestas escritas
+        </div>
+      `;
+
+      const ids = Array.from(preguntasDOM).map(p => p.dataset.id);
+      guardarVistas(libroId, 'desarrollo', ids);
+
+      actualizarProgreso();
+    }
+
+    function actualizarProgreso() {
+      actualizarBarra('comprension', bancoComprension.length);
+      actualizarBarra('desarrollo', bancoDesarrollo.length);
+      actualizarBarra('relectura', bancoRelectura.length);
+    }
+
+    function actualizarBarra(tipo, total) {
+      const item = document.querySelector(`.progreso-item[data-tipo="${tipo}"]`);
+      if (!item) return;
+
+      const vistas = leerVistas(libroId, tipo).length;
+      const pct = total > 0 ? Math.round((vistas / total) * 100) : 0;
+
+      const fill = item.querySelector('[data-fill]');
+      const texto = item.querySelector('[data-texto]');
+
+      if (fill) fill.style.width = pct + '%';
+      if (texto) texto.textContent = `${vistas} / ${total}`;
+    }
+
+    btnCorregirComprension?.addEventListener('click', corregirComprension);
+
+    btnOcultarComprension?.addEventListener('click', () => {
+      document.querySelectorAll('.pregunta-comp').forEach(preg => {
+        preg.classList.remove('correcta', 'incorrecta', 'corregida');
+        const fb = preg.querySelector('.preg-feedback');
+        if (fb) { fb.hidden = true; fb.className = 'preg-feedback'; }
+      });
+      resultadoComprension.hidden = true;
+      btnOcultarComprension.hidden = true;
+    });
+
+    btnGuardarDesarrollo?.addEventListener('click', guardarDesarrollo);
+
+    btnNuevaSesion?.addEventListener('click', () => {
+      renderizarSesion();
+    });
+
+    btnReiniciar?.addEventListener('click', () => {
+      const confirmar = confirm(
+        '¿Estás segura? Se borrará todo el progreso de este libro.\n\n' +
+        'La próxima sesión empezará desde cero, como si fuera la primera vez.'
+      );
+      if (confirmar) {
+        reiniciarProgreso(libroId);
+        actualizarProgreso();
+        alert('✓ Progreso reiniciado. La próxima sesión empezará de nuevo.');
+      }
+    });
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    renderizarSesion();
+  }
+
+  // Arrancar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', esperarDatosYArrancar);
+  } else {
+    esperarDatosYArrancar();
+  }
+</script>

@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import indice from '../../data/materias/lenguaje/lecturas/indice.json';
+
+const librosActivos = indice.libros.filter(l => l.activo);
+---
+
+<Layout titulo="Club de Lectura — Lenguaje">
+  <main class="pagina-club">
+    <header class="encabezado">
+      <a href="/materia/lenguaje" class="volver">← Volver a Lenguaje</a>
+
+      <div class="portada">
+        <div class="portada-emoji">{indice.emoji}</div>
+        <div class="portada-info">
+          <h1>{indice.titulo}</h1>
+          <p class="descripcion">{indice.descripcion}</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="libros">
+      <h2>📖 Libros disponibles</h2>
+
+      {librosActivos.length === 0 ? (
+        <div class="vacio">
+          <p>Pronto agregaremos libros al Club de Lectura.</p>
+        </div>
+      ) : (
+        <div class="libros-grid">
+          {librosActivos.map(libro => (
+            <a href={`/lenguaje/comprension/${libro.id}`} class="libro-card">
+              <div class="libro-emoji">{libro.emoji}</div>
+              <div class="libro-info">
+                <h3>{libro.titulo}</h3>
+                <p class="autor">de {libro.autora}</p>
+                <p class="editorial">{libro.editorial}</p>
+                <span class="nivel">Nivel {libro.nivel}</span>
+              </div>
+              <div class="libro-cta">Comenzar →</div>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .pagina-club {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .volver {
+    display: inline-block;
+    color: #EC4899;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .volver:hover {
+    text-decoration: underline;
+  }
+
+  .portada {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #FDF2F8 0%, #FCE7F3 100%);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border-left: 4px solid #EC4899;
+  }
+
+  .portada-emoji {
+    font-size: 4rem;
+    flex-shrink: 0;
+  }
+
+  .portada-info h1 {
+    color: #BE185D;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.75rem;
+  }
+
+  .descripcion {
+    color: #6B7280;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .libros {
+    margin-top: 2rem;
+  }
+
+  .libros h2 {
+    color: #111827;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .libros-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .libro-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 2px solid transparent;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+
+  .libro-card:hover {
+    border-color: #EC4899;
+    box-shadow: 0 4px 16px rgba(236, 72, 153, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .libro-emoji {
+    font-size: 3.5rem;
+    flex-shrink: 0;
+  }
+
+  .libro-info {
+    flex: 1;
+  }
+
+  .libro-info h3 {
+    color: #111827;
+    margin: 0 0 0.25rem 0;
+    font-size: 1.15rem;
+  }
+
+  .autor {
+    color: #6B7280;
+    margin: 0 0 0.15rem 0;
+    font-size: 0.9rem;
+  }
+
+  .editorial {
+    color: #9CA3AF;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  .nivel {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: #FDF2F8;
+    color: #BE185D;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .libro-cta {
+    color: #EC4899;
+    font-weight: 600;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .vacio {
+    padding: 3rem;
+    text-align: center;
+    background: #F9FAFB;
+    border-radius: 12px;
+    color: #6B7280;
+  }
+
+  @media (max-width: 640px) {
+    .libro-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .portada {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import indiceLecturas from '../../data/materias/lenguaje/lecturas/indice.json';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -16,6 +17,10 @@ export async function getStaticPaths() {
 }
 
 const { materia } = Astro.props;
+
+// Club de Lectura (solo para Lenguaje)
+const tieneClubLectura = materia.id === 'lenguaje' && indiceLecturas.libros && indiceLecturas.libros.filter(l => l.activo).length > 0;
+const librosActivos = tieneClubLectura ? indiceLecturas.libros.filter(l => l.activo) : [];
 
 // Colores HEX directos por materia
 const colores: Record<string, { c50: string; c100: string; c200: string; c400: string; c500: string; c600: string; c700: string }> = {
@@ -237,8 +242,53 @@ const tieneCursos = materia.cursos_especiales && materia.cursos_especiales.lengt
       </section>
     )}
 
+    <!-- 📚 CLUB DE LECTURA (solo en Lenguaje) -->
+    {materia.id === 'lenguaje' && (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="text-3xl">📚</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+            Club de Lectura
+          </h2>
+        </div>
+
+        <a
+          href="/lenguaje"
+          class="group block bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+        >
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
+          ></div>
+
+          <div class="relative z-10 flex items-start gap-4">
+            <div
+              class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-sm flex-shrink-0 group-hover:scale-110 transition-transform"
+              style={`background: ${c.c100};`}
+            >
+              📖
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-extrabold text-gray-800 mb-1 leading-tight">
+                Club de Lectura
+              </h3>
+              <p class="text-sm text-gray-500 mb-3 leading-snug">
+                Ejercicios de comprensión lectora con preguntas que rotan. Cada sesión es diferente.
+              </p>
+              <span
+                class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+                style={`color: ${c.c500};`}
+              >
+                Entrar al Club <span class="text-base">→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </section>
+    )}
+
     <!-- ESTADO VACÍO -->
-    {!tieneSubmodulos && !tieneLecciones && !tieneCursos && (
+    {!tieneSubmodulos && !tieneLecciones && !tieneCursos && materia.id !== 'lenguaje' && (
       <div class="bg-white rounded-3xl p-10 text-center shadow-sm border border-gray-100">
         <div class="text-6xl mb-4">🚧</div>
         <h3 class="text-xl font-extrabold text-gray-800 mb-2">

@@ -1,0 +1,192 @@
+---
+// PreguntaDesarrollo.astro
+// Renderiza una pregunta abierta con criterios de evaluación y textarea.
+
+interface Props {
+  pregunta: {
+    id: string;
+    dificultad: 'media' | 'dificil' | 'muy_dificil';
+    tema: string;
+    pregunta: string;
+    criterios: string[];
+    extension: string;
+  };
+  indice: number;
+  total: number;
+}
+
+const { pregunta, indice, total } = Astro.props;
+
+const etiquetas = {
+  media: 'Media',
+  dificil: 'Difícil',
+  muy_dificil: 'Muy difícil',
+};
+
+const colores = {
+  media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D' },
+  dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C' },
+  muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171' },
+};
+
+const color = colores[pregunta.dificultad] || colores.media;
+---
+
+<article class="pregunta-desarrollo" data-id={pregunta.id}>
+  <header class="encabezado">
+    <div class="numero">
+      Pregunta {indice + 1} de {total}
+    </div>
+    <div 
+      class="etiqueta-dificultad" 
+      style={`background: ${color.bg}; color: ${color.texto}; border: 1px solid ${color.borde};`}
+    >
+      {etiquetas[pregunta.dificultad]}
+    </div>
+  </header>
+
+  <div class="tema">
+    <span class="tema-label">Tema:</span> {pregunta.tema}
+  </div>
+
+  <h3 class="enunciado">{pregunta.pregunta}</h3>
+
+  <div class="info-escritura">
+    <span class="extension">✍️ Extensión sugerida: {pregunta.extension}</span>
+  </div>
+
+  <textarea 
+    class="respuesta" 
+    placeholder="Escribe aquí tu respuesta..."
+    data-textarea
+    rows="8"
+  ></textarea>
+
+  <details class="criterios">
+    <summary>📋 ¿Qué se evaluará?</summary>
+    <ul>
+      {pregunta.criterios.map(c => <li>{c}</li>)}
+    </ul>
+    <p class="nota">No hay una respuesta única. Lo importante es pensar y argumentar.</p>
+  </details>
+</article>
+
+<style>
+  .pregunta-desarrollo {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #8B5CF6;
+  }
+
+  .encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .numero {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 600;
+  }
+
+  .etiqueta-dificultad {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tema {
+    font-size: 0.85rem;
+    color: #8B5CF6;
+    margin-bottom: 0.75rem;
+  }
+
+  .tema-label {
+    font-weight: 700;
+  }
+
+  .enunciado {
+    font-size: 1.05rem;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .info-escritura {
+    margin-bottom: 0.75rem;
+  }
+
+  .extension {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-style: italic;
+  }
+
+  .respuesta {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 150px;
+    transition: border-color 0.15s;
+  }
+
+  .respuesta:focus {
+    outline: none;
+    border-color: #8B5CF6;
+    background: #FAFAFF;
+  }
+
+  .criterios {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .criterios summary {
+    cursor: pointer;
+    color: #8B5CF6;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+
+  .criterios summary:hover {
+    background: #F3F4F6;
+  }
+
+  .criterios ul {
+    margin-top: 0.5rem;
+    padding: 0.75rem 0.75rem 0.75rem 2rem;
+    background: #F3F4F6;
+    border-radius: 6px;
+  }
+
+  .criterios li {
+    color: #4B5563;
+    line-height: 1.6;
+    margin-bottom: 0.25rem;
+  }
+
+  .nota {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: #FEF3C7;
+    border-radius: 6px;
+    color: #92400E;
+    font-style: italic;
+    line-height: 1.5;
+  }
+</style>

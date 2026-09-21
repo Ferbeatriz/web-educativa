@@ -1,0 +1,289 @@
+---
+// PreguntaComprension.astro
+// Renderiza una pregunta de selección múltiple con dificultad, pista y explicación.
+
+interface Props {
+  pregunta: {
+    id: string;
+    dificultad: 'media' | 'dificil' | 'muy_dificil';
+    tema: string;
+    pregunta: string;
+    opciones: string[];
+    respuesta_correcta: number;
+    explicacion: string;
+    pista: string;
+  };
+  indice: number;
+  total: number;
+}
+
+const { pregunta, indice, total } = Astro.props;
+
+const etiquetas = {
+  media: 'Media',
+  dificil: 'Difícil',
+  muy_dificil: 'Muy difícil',
+};
+
+const colores = {
+  media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D' },
+  dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C' },
+  muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171' },
+};
+
+const color = colores[pregunta.dificultad] || colores.media;
+---
+
+<article class="pregunta" data-id={pregunta.id} data-correcta={pregunta.respuesta_correcta}>
+  <header class="encabezado">
+    <div class="numero">
+      Pregunta {indice + 1} de {total}
+    </div>
+    <div 
+      class="etiqueta-dificultad" 
+      style={`background: ${color.bg}; color: ${color.texto}; border: 1px solid ${color.borde};`}
+    >
+      {etiquetas[pregunta.dificultad]}
+    </div>
+  </header>
+
+  <div class="tema">
+    <span class="tema-label">Tema:</span> {pregunta.tema}
+  </div>
+
+  <h3 class="enunciado">{pregunta.pregunta}</h3>
+
+  <ul class="opciones" role="radiogroup">
+    {pregunta.opciones.map((opcion, i) => (
+      <li>
+        <label class="opcion">
+          <input 
+            type="radio" 
+            name={`pregunta-${pregunta.id}`} 
+            value={i}
+          />
+          <span class="letra">{String.fromCharCode(65 + i)}</span>
+          <span class="texto">{opcion}</span>
+        </label>
+      </li>
+    ))}
+  </ul>
+
+  <div class="feedback" data-feedback>
+    <div class="feedback-contenido"></div>
+  </div>
+
+  <details class="pista">
+    <summary>💡 Pista de relectura</summary>
+    <p>{pregunta.pista}</p>
+  </details>
+</article>
+
+<style>
+  .pregunta {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #EC4899;
+  }
+
+  .encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .numero {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 600;
+  }
+
+  .etiqueta-dificultad {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tema {
+    font-size: 0.85rem;
+    color: #8B5CF6;
+    margin-bottom: 0.75rem;
+  }
+
+  .tema-label {
+    font-weight: 700;
+  }
+
+  .enunciado {
+    font-size: 1.05rem;
+    color: #111827;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .opciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 2px solid #E5E7EB;
+    background: #F9FAFB;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .opcion:hover {
+    border-color: #EC4899;
+    background: #FDF2F8;
+  }
+
+  .opcion input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .opcion input[type="radio"]:checked ~ .letra {
+    background: #EC4899;
+    color: white;
+    border-color: #EC4899;
+  }
+
+  .opcion input[type="radio"]:checked ~ .texto {
+    color: #BE185D;
+    font-weight: 600;
+  }
+
+  .opcion input[type="radio"]:checked {
+    /* Trick para marcar el label como seleccionado */
+  }
+
+  .opcion:has(input:checked) {
+    border-color: #EC4899;
+    background: #FDF2F8;
+  }
+
+  .letra {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #D1D5DB;
+    background: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #6B7280;
+    transition: all 0.15s ease;
+  }
+
+  .texto {
+    flex: 1;
+    color: #374151;
+    line-height: 1.4;
+    font-size: 0.95rem;
+  }
+
+  /* Estados corregidos */
+  .pregunta.correcta .opcion:has(input:checked) {
+    border-color: #10B981;
+    background: #D1FAE5;
+  }
+
+  .pregunta.correcta .opcion:has(input:checked) .letra {
+    background: #10B981;
+    color: white;
+    border-color: #10B981;
+  }
+
+  .pregunta.incorrecta .opcion:has(input:checked) {
+    border-color: #F97316;
+    background: #FFEDD5;
+  }
+
+  .pregunta.incorrecta .opcion:has(input:checked) .letra {
+    background: #F97316;
+    color: white;
+    border-color: #F97316;
+  }
+
+  .pregunta.corregida .opcion input[type="radio"] {
+    pointer-events: none;
+  }
+
+  .feedback {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .feedback.visible {
+    display: block;
+  }
+
+  .feedback.exito {
+    background: #D1FAE5;
+    color: #065F46;
+    border-left: 4px solid #10B981;
+  }
+
+  .feedback.error {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid #EF4444;
+  }
+
+  .feedback strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .pista {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .pista summary {
+    cursor: pointer;
+    color: #8B5CF6;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+
+  .pista summary:hover {
+    background: #F3F4F6;
+  }
+
+  .pista p {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: #F3F4F6;
+    border-radius: 6px;
+    color: #4B5563;
+    line-height: 1.5;
+  }
+</style>

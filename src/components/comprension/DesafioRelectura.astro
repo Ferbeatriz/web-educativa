@@ -1,0 +1,206 @@
+---
+// DesafioRelectura.astro
+// Renderiza un desafío de relectura con instrucciones paso a paso.
+
+interface Props {
+  desafio: {
+    id: string;
+    dificultad: 'media' | 'dificil' | 'muy_dificil';
+    tema: string;
+    titulo: string;
+    instrucciones: string[];
+    pista: string;
+    entregable: string;
+  };
+  indice: number;
+  total: number;
+}
+
+const { desafio, indice, total } = Astro.props;
+
+const etiquetas = {
+  media: 'Media',
+  dificil: 'Difícil',
+  muy_dificil: 'Muy difícil',
+};
+
+const colores = {
+  media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D' },
+  dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C' },
+  muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171' },
+};
+
+const color = colores[desafio.dificultad] || colores.media;
+---
+
+<article class="desafio" data-id={desafio.id}>
+  <header class="encabezado">
+    <div class="numero">
+      Desafío {indice + 1} de {total}
+    </div>
+    <div 
+      class="etiqueta-dificultad" 
+      style={`background: ${color.bg}; color: ${color.texto}; border: 1px solid ${color.borde};`}
+    >
+      {etiquetas[desafio.dificultad]}
+    </div>
+  </header>
+
+  <div class="tema">
+    <span class="tema-label">Tema:</span> {desafio.tema}
+  </div>
+
+  <h3 class="titulo">🔍 {desafio.titulo}</h3>
+
+  <ol class="instrucciones">
+    {desafio.instrucciones.map(inst => <li>{inst}</li>)}
+  </ol>
+
+  <div class="entregable">
+    <strong>📝 Entregable:</strong> {desafio.entregable}
+  </div>
+
+  <details class="pista">
+    <summary>💡 Pista</summary>
+    <p>{desafio.pista}</p>
+  </details>
+
+  <div class="zona-trabajo">
+    <label for={`trabajo-${desafio.id}`} class="label-trabajo">
+      Aquí puedes escribir tus notas o reflexiones:
+    </label>
+    <textarea 
+      id={`trabajo-${desafio.id}`}
+      class="respuesta" 
+      placeholder="Escribe aquí lo que encontraste o dibujaste..."
+      rows="5"
+    ></textarea>
+  </div>
+</article>
+
+<style>
+  .desafio {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #14B8A6;
+  }
+
+  .encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .numero {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 600;
+  }
+
+  .etiqueta-dificultad {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tema {
+    font-size: 0.85rem;
+    color: #14B8A6;
+    margin-bottom: 0.75rem;
+  }
+
+  .tema-label {
+    font-weight: 700;
+  }
+
+  .titulo {
+    font-size: 1.15rem;
+    color: #111827;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .instrucciones {
+    padding-left: 1.5rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .instrucciones li {
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .entregable {
+    padding: 0.75rem 1rem;
+    background: #CCFBF1;
+    border-radius: 8px;
+    color: #115E59;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .pista {
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .pista summary {
+    cursor: pointer;
+    color: #14B8A6;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+
+  .pista summary:hover {
+    background: #F3F4F6;
+  }
+
+  .pista p {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: #F3F4F6;
+    border-radius: 6px;
+    color: #4B5563;
+    line-height: 1.5;
+  }
+
+  .zona-trabajo {
+    margin-top: 1rem;
+  }
+
+  .label-trabajo {
+    display: block;
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .respuesta {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .respuesta:focus {
+    outline: none;
+    border-color: #14B8A6;
+    background: #F0FDFA;
+  }
+</style>

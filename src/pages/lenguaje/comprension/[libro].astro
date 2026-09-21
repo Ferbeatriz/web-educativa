@@ -1,0 +1,278 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CuestionarioAleatorio from '../../../components/comprension/CuestionarioAleatorio.astro';
+
+import indice from '../../../data/materias/lenguaje/lecturas/indice.json';
+import metaManu from '../../../data/materias/lenguaje/lecturas/la-historia-de-manu/meta.json';
+import bancoComprensionManu from '../../../data/materias/lenguaje/lecturas/la-historia-de-manu/banco-comprension.json';
+import bancoDesarrolloManu from '../../../data/materias/lenguaje/lecturas/la-historia-de-manu/banco-desarrollo.json';
+import bancoRelecturaManu from '../../../data/materias/lenguaje/lecturas/la-historia-de-manu/banco-relectura.json';
+
+const datosLibros = {
+  'la-historia-de-manu': {
+    meta: metaManu,
+    bancoComprension: bancoComprensionManu.preguntas,
+    bancoDesarrollo: bancoDesarrolloManu.preguntas,
+    bancoRelectura: bancoRelecturaManu.desafios,
+  },
+};
+
+export function getStaticPaths() {
+  return indice.libros
+    .filter(libro => libro.activo)
+    .map(libro => ({
+      params: { libro: libro.id },
+      props: { libroId: libro.id },
+    }));
+}
+
+const { libro: libroId } = Astro.params;
+const libroActivo = indice.libros.find(l => l.id === libroId);
+
+if (!libroActivo || !datosLibros[libroId]) {
+  return Astro.redirect('/lenguaje');
+}
+
+const datos = datosLibros[libroId];
+const meta = datos.meta;
+
+// Datos que se pasan al cliente vía define:vars
+const datosParaElCliente = {
+  libroId,
+  libroTitulo: meta.titulo,
+  bancoComprension: datos.bancoComprension,
+  bancoDesarrollo: datos.bancoDesarrollo,
+  bancoRelectura: datos.bancoRelectura,
+  configuracion: meta.configuracion,
+};
+---
+
+<Layout titulo={`${meta.titulo} — Comprensión lectora`}>
+  <main class="pagina-libro">
+    <!-- Portada del libro -->
+    <header class="portada">
+      <a href="/lenguaje" class="volver">← Volver al Club de Lectura</a>
+
+      <div class="portada-contenido">
+        <div class="portada-emoji">{meta.emoji}</div>
+
+        <div class="portada-info">
+          <h1>{meta.titulo}</h1>
+          <p class="autora">de {meta.autora}</p>
+          <p class="ilustradora">Ilustraciones de {meta.ilustradora}</p>
+          <div class="meta-datos">
+            <span class="meta-chip">{meta.editorial}</span>
+            <span class="meta-chip">{meta.genero}</span>
+            <span class="meta-chip">Nivel {meta.nivel}</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="sinopsis">{meta.sinopsis}</p>
+
+      <div class="temas">
+        <h3>Temas que aborda</h3>
+        <div class="temas-lista">
+          {meta.temas.map(t => <span class="tema-chip">{t}</span>)}
+        </div>
+      </div>
+
+      <div class="instrucciones">
+        <h3>📖 Cómo funciona esta página</h3>
+        <ul>
+          <li><strong>Lee primero el libro completo.</strong> Esta página es para ejercitar la comprensión, no para reemplazar la lectura.</li>
+          <li><strong>Cada sesión es diferente.</strong> Las preguntas se seleccionan al azar de un banco grande.</li>
+          <li><strong>Hay 3 tipos de ejercicios</strong>: comprensión (selección múltiple), desarrollo (escribir) y relectura (volver al texto).</li>
+          <li><strong>Tu progreso se guarda</strong> en este navegador. Puedes volver otro día y continuar donde quedaste.</li>
+          <li><strong>Puedes repetir las veces que quieras.</strong> Cuando hayas visto todas las preguntas, el sistema reinicia el ciclo automáticamente.</li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Datos para el cliente (via define:vars, sin escape HTML) -->
+    <script is:inline define:vars={{ datosParaElCliente }}>
+      window.__CUESTIONARIO_DATOS__ = datosParaElCliente;
+    </script>
+
+    <!-- Cuestionario aleatorio -->
+    <CuestionarioAleatorio
+      libroId={libroId}
+      libroTitulo={meta.titulo}
+      bancoComprension={datos.bancoComprension}
+      bancoDesarrollo={datos.bancoDesarrollo}
+      bancoRelectura={datos.bancoRelectura}
+      configuracion={meta.configuracion}
+    />
+  </main>
+</Layout>
+
+<style>
+  .pagina-libro {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .volver {
+    display: inline-block;
+    color: #EC4899;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    transition: transform 0.15s;
+  }
+
+  .volver:hover {
+    transform: translateX(-3px);
+  }
+
+  .portada {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.08);
+    border-top: 4px solid #EC4899;
+    margin-bottom: 2rem;
+  }
+
+  .portada-contenido {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .portada-emoji {
+    font-size: 5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .portada-info h1 {
+    color: #111827;
+    font-size: 1.75rem;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+  }
+
+  .autora {
+    color: #6B7280;
+    font-size: 1rem;
+    margin: 0 0 0.25rem 0;
+    font-weight: 500;
+  }
+
+  .ilustradora {
+    color: #9CA3AF;
+    font-size: 0.9rem;
+    margin: 0 0 1rem 0;
+    font-style: italic;
+  }
+
+  .meta-datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .meta-chip {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #FDF2F8;
+    color: #BE185D;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .sinopsis {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    background: #F9FAFB;
+    border-radius: 10px;
+    border-left: 4px solid #EC4899;
+  }
+
+  .temas {
+    margin: 1.5rem 0;
+  }
+
+  .temas h3 {
+    color: #8B5CF6;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .temas-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tema-chip {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    background: #F3E8FF;
+    color: #6B21A8;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .instrucciones {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #FEF3C7;
+    border-radius: 10px;
+    border-left: 4px solid #F59E0B;
+  }
+
+  .instrucciones h3 {
+    color: #92400E;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .instrucciones ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .instrucciones li {
+    color: #78350F;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .instrucciones li strong {
+    color: #92400E;
+  }
+
+  @media (max-width: 640px) {
+    .portada-contenido {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .portada-emoji {
+      font-size: 4rem;
+    }
+
+    .portada-info h1 {
+      font-size: 1.5rem;
+    }
+
+    .meta-datos {
+      justify-content: center;
+    }
+  }
+</style>
