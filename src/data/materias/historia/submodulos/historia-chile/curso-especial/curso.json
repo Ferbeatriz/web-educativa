@@ -108,6 +108,17 @@
       "emoji": "🌙",
       "archivo": "capitulo-10.json",
       "activo": true
+    },
+    {
+      "id": "capitulo-11",
+      "numero": 11,
+      "numero_romano": "XI",
+      "titulo": "El secreto de los hombres y la Choza Grande",
+      "subtitulo": "El Klóketen, pilar de la sociedad Selk'nam",
+      "emoji": "🎭",
+      "archivo": "capitulo-11.json",
+      "activo": true
     }
+
   ]
 }
