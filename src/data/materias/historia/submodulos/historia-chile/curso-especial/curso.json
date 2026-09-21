@@ -2,12 +2,12 @@
   "id": "mundo-espiritual-selknam",
   "titulo": "El mundo espiritual de los Selk'nam",
   "subtitulo": "Un viaje al corazón del fin del mundo",
-  "descripcion": "Un curso de 10 capítulos que te llevará a conocer la espiritualidad, la moral y las ceremonias del pueblo Selk'nam, tal como el etnólogo Martín Gusinde las documentó a principios del siglo XX.",
+  "descripcion": "Un curso de 15 capítulos que te llevará a conocer la espiritualidad, la moral y las ceremonias del pueblo Selk'nam, tal como el etnólogo Martín Gusinde las documentó a principios del siglo XX.",
   "emoji": "🔥",
   "fuente": "Basado en la obra de Martín Gusinde",
   "color": "selknam",
   "progreso_puntos_por_capitulo": 200,
-  "total_capitulos": 10,
+  "total_capitulos": 15,
   "capitulos": [
     {
       "id": "capitulo-01",
@@ -119,9 +119,8 @@
       "archivo": "capitulo-11.json",
       "activo": true
     },
-
     {
-       "id": "capitulo-12",
+      "id": "capitulo-12",
       "numero": 12,
       "numero_romano": "XII",
       "titulo": "La llamada de la Choza Grande y el fuego de la iniciación",
@@ -129,10 +128,9 @@
       "emoji": "🛖",
       "archivo": "capitulo-12.json",
       "activo": true
-        },
-
-{
-       "id": "capitulo-13",
+    },
+    {
+      "id": "capitulo-13",
       "numero": 13,
       "numero_romano": "XIII",
       "titulo": "El teatro de los espíritus y la prueba de los iniciados",
@@ -140,10 +138,8 @@
       "emoji": "🎭",
       "archivo": "capitulo-13.json",
       "activo": true
-        },
-{
-
-
+    },
+    {
       "id": "capitulo-14",
       "numero": 14,
       "numero_romano": "XIV",
@@ -152,19 +148,16 @@
       "emoji": "📖",
       "archivo": "capitulo-14.json",
       "activo": true
-
-        },
-
-{
+    },
+    {
       "id": "capitulo-15",
       "numero": 15,
       "numero_romano": "XV",
       "titulo": "El significado de la Choza Grande",
       "subtitulo": "Lo que el Klóketen enseña sobre los Selk'nam",
       "emoji": "🔍",
-        "archivo": "capitulo-15.json",
+      "archivo": "capitulo-15.json",
       "activo": true
-
-        },
-      ]
+    }
+  ]
 }
