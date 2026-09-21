@@ -118,7 +118,17 @@
       "emoji": "🎭",
       "archivo": "capitulo-11.json",
       "activo": true
-    }
+    },
 
+    {
+       "id": "capitulo-12",
+      "numero": 12,
+      "numero_romano": "XII",
+      "titulo": "La llamada de la Choza Grande y el fuego de la iniciación",
+      "subtitulo": "Los preparativos del Klóketen",
+      "emoji": "🛖",
+      "archivo": "capitulo-12.json",
+      "activo": true
+        }
   ]
 }
