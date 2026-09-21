@@ -129,6 +129,29 @@
       "emoji": "🛖",
       "archivo": "capitulo-12.json",
       "activo": true
+        },
+
+{
+       "id": "capitulo-13",
+      "numero": 13,
+      "numero_romano": "XIII",
+      "titulo": "El teatro de los espíritus y la prueba de los iniciados",
+      "subtitulo": "El desarrollo de la ceremonia del Klóketen",
+      "emoji": "🎭",
+      "archivo": "capitulo-12.json",
+      "activo": true
         }
+
+
+
+
+
+
+
+
+
+
+
+
   ]
 }
