@@ -1,0 +1,176 @@
+{
+  "libro": "la-historia-de-manu",
+  "tipo": "relectura",
+  "total_desafios": 12,
+  "distribucion": {
+    "media": 4,
+    "dificil": 5,
+    "muy_dificil": 3
+  },
+  "desafios": [
+    {
+      "id": "r01",
+      "dificultad": "media",
+      "tema": "Mapa de los vuelos",
+      "titulo": "El mapa de los vuelos",
+      "instrucciones": [
+        "Manú vuela con Kunturo a tres lugares diferentes en el libro.",
+        "Dibuja un pequeño mapa con esos tres lugares.",
+        "Al lado de cada uno, escribe tres cosas: qué ve Manú, qué siente, qué aprende."
+      ],
+      "pista": "Puedes encontrar la información en las páginas 20, 24 y 28.",
+      "entregable": "Dibujo con anotaciones"
+    },
+    {
+      "id": "r02",
+      "dificultad": "media",
+      "tema": "Las mentiras",
+      "titulo": "Las mentiras y las verdades",
+      "instrucciones": [
+        "Manú miente tres veces en el libro.",
+        "Encuentra esos tres momentos.",
+        "Para cada uno, escribe: qué dice Manú, por qué miente, y qué habría pasado si hubiera dicho la verdad."
+      ],
+      "pista": "Busca en las páginas 30, 32 y 44.",
+      "entregable": "Tabla con tres filas"
+    },
+    {
+      "id": "r03",
+      "dificultad": "media",
+      "tema": "La palabra tsunami",
+      "titulo": "La palabra que salva",
+      "instrucciones": [
+        "Cuando Manú dice 'viene una montaña de agua', la directora piensa en la palabra 'tsunami' y se le erizan los cabellos.",
+        "Busca en el diccionario qué significa 'tsunami'.",
+        "Explica por qué la directora reacciona así.",
+        "Reflexiona: ¿por qué una sola palabra puede salvar vidas?"
+      ],
+      "pista": "Página 41.",
+      "entregable": "Definición + reflexión escrita"
+    },
+    {
+      "id": "r04",
+      "dificultad": "media",
+      "tema": "Los personajes",
+      "titulo": "Ficha de personajes",
+      "instrucciones": [
+        "Elige tres personajes del libro (Manú, Kunturo, el papá, la mamá, la niña aymara, la directora).",
+        "Para cada uno, completa una ficha con: nombre, rol en la historia, dos características, un momento importante."
+      ],
+      "pista": "Puedes buscar en todo el libro.",
+      "entregable": "Tres fichas completas"
+    },
+
+    {
+      "id": "r05",
+      "dificultad": "dificil",
+      "tema": "Los sueños",
+      "titulo": "La cadena de sueños",
+      "instrucciones": [
+        "Manú tiene tres sueños importantes en el libro.",
+        "Encuéntralos y ordénalos cronológicamente.",
+        "Para cada uno, escribe: qué soñó, cuándo lo soñó, y cómo se cumplió.",
+        "Al final, explica cómo los tres sueños preparan al lector para el sueño final."
+      ],
+      "pista": "Páginas 5, 12 y 35.",
+      "entregable": "Línea de tiempo con anotaciones"
+    },
+    {
+      "id": "r06",
+      "dificultad": "dificil",
+      "tema": "El lenguaje",
+      "titulo": "El aymara en el libro",
+      "instrucciones": [
+        "El libro usa varias palabras en aymara (Kunturo, bofedal, etc.).",
+        "Encuentra al menos cinco palabras o expresiones en aymara.",
+        "Para cada una, escribe: qué significa, quién la dice, y en qué contexto aparece.",
+        "Reflexiona: ¿por qué la autora decidió usar palabras en aymara sin traducirlas?"
+      ],
+      "pista": "Busca en todo el libro. Algunas palabras: Kunturo, bofedal, warki, pelu, etc.",
+      "entregable": "Glosario de cinco términos + reflexión"
+    },
+    {
+      "id": "r07",
+      "dificultad": "dificil",
+      "tema": "Los símbolos",
+      "titulo": "El mar y la montaña",
+      "instrucciones": [
+        "Manú vive en la montaña (altiplano) y conoce el mar por primera vez en el libro.",
+        "Compara las dos descripciones del mar (la primera y la segunda visita).",
+        "Dibuja un contraste: ¿qué representa cada uno?",
+        "Reflexiona: ¿por qué la autora eligió el mar como escenario del clímax?"
+      ],
+      "pista": "Páginas 28-30 (primer mar) y 34-36 (segundo mar).",
+      "entregable": "Cuadro comparativo + reflexión"
+    },
+    {
+      "id": "r08",
+      "dificultad": "dificil",
+      "tema": "La comunidad",
+      "titulo": "El pueblo de Manú",
+      "instrucciones": [
+        "Investiga: ¿qué es un bofedal? ¿Dónde vive el pueblo aymara?",
+        "Dibuja un mapa simple del norte de Chile, marcando Iquique y el altiplano.",
+        "Escribe tres cosas que aprendiste sobre el pueblo aymara al leer el libro."
+      ],
+      "pista": "Puedes usar internet o una enciclopedia.",
+      "entregable": "Mapa + tres aprendizajes"
+    },
+    {
+      "id": "r09",
+      "dificultad": "dificil",
+      "tema": "Análisis literario",
+      "titulo": "El árbol de la historia",
+      "instrucciones": [
+        "Dibuja un árbol grande. En las raíces, escribe el contexto (lugar, familia, cultura).",
+        "En el tronco, escribe el conflicto central del libro.",
+        "En las ramas, escribe los momentos principales.",
+        "En las hojas, escribe lo que Manú aprende en cada momento."
+      ],
+      "pista": "Relee todo el libro.",
+      "entregable": "Dibujo del árbol con anotaciones"
+    },
+
+    {
+      "id": "r10",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis profundo",
+      "titulo": "Manú: la construcción del personaje",
+      "instrucciones": [
+        "Manú cambia durante el libro.",
+        "Elige cuatro momentos: uno del inicio, uno de la mitad, uno antes del clímax, y uno del final.",
+        "Para cada momento, describe: cómo es Manú, qué piensa, qué siente.",
+        "Al final, escribe un párrafo sobre cómo cambió Manú del principio al final."
+      ],
+      "pista": "Relee todo el libro prestando atención a las emociones de Manú.",
+      "entregable": "Cuatro fichas + párrafo de síntesis"
+    },
+    {
+      "id": "r11",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis cultural",
+      "titulo": "El cóndor en los Andes",
+      "instrucciones": [
+        "Investiga el significado del cóndor en la cultura andina.",
+        "¿Qué representa? ¿Por qué es sagrado?",
+        "Compara lo que encontraste con el rol de Kunturo en el libro.",
+        "Reflexiona: ¿por qué la autora eligió un cóndor y no otro animal?"
+      ],
+      "pista": "Puedes usar internet o enciclopedias.",
+      "entregable": "Investigación + comparación con el libro"
+    },
+    {
+      "id": "r12",
+      "dificultad": "muy_dificil",
+      "tema": "Escritura creativa",
+      "titulo": "La carta de Manú",
+      "instrucciones": [
+        "Imagina que Manú, ya adulta, le escribe una carta a su hija contándole sobre su infancia.",
+        "La carta debe mencionar: a Kunturo, el día del tsunami, su papá y su mamá, y lo que aprendió.",
+        "Escribe la carta con la voz de Manú adulta."
+      ],
+      "pista": "Usa todo lo que sabes del personaje.",
+      "entregable": "Carta de una página"
+    }
+  ]
+}

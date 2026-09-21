@@ -1,0 +1,339 @@
+{
+  "libro": "la-historia-de-manu",
+  "tipo": "desarrollo",
+  "total_preguntas": 25,
+  "distribucion": {
+    "media": 8,
+    "dificil": 10,
+    "muy_dificil": 7
+  },
+  "preguntas": [
+    {
+      "id": "d01",
+      "dificultad": "media",
+      "tema": "Amistad",
+      "pregunta": "Manú dice: 'Sabía que podría contar contigo'. ¿Qué significa la confianza en una amistad? Escribe un párrafo sobre una amistad que hayas tenido y explica por qué se parece (o no) a la amistad entre Manú y Kunturo.",
+      "criterios": [
+        "Menciona al menos un momento específico del libro donde se vea la confianza entre Manú y Kunturo",
+        "Describe una amistad propia o conocida",
+        "Establece una comparación clara entre ambas",
+        "Reflexiona sobre qué hace que una amistad sea confiable"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d02",
+      "dificultad": "media",
+      "tema": "El padre",
+      "pregunta": "El papá de Manú dice al final: 'Ya la ciudad no será una enemiga'. ¿Por qué crees que antes la veía como enemiga? ¿Qué cambió?",
+      "criterios": [
+        "Explica qué temía el papá (que los niños se fueran y el pueblo muriera)",
+        "Menciona el tsunami como punto de cambio",
+        "Reconoce que los prejuicios se superan con experiencias compartidas",
+        "No reduce la respuesta a 'porque estaba enojado'"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d03",
+      "dificultad": "media",
+      "tema": "Discriminación",
+      "pregunta": "En el colegio, los niños se ríen de Manú porque habla aymara. Pero cuando la ven llegar volando sobre Kunturo, no pueden reírse. ¿Qué nos enseña esto sobre cómo tratamos a las personas diferentes?",
+      "criterios": [
+        "Reconoce el prejuicio inicial de los niños",
+        "Menciona la transformación (del desprecio a la admiración)",
+        "Reflexiona sobre la diferencia entre apariencia y valor",
+        "Conecta con situaciones actuales o propias"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d04",
+      "dificultad": "media",
+      "tema": "Sueños",
+      "pregunta": "Manú tuvo un sueño que se cumplió. ¿Crees que los sueños pueden avisarnos de cosas importantes? ¿Qué sueños has tenido tú que te hayan hecho pensar?",
+      "criterios": [
+        "Menciona el sueño de Manú y su cumplimiento",
+        "Reflexiona sobre el valor de los sueños",
+        "Comparte una experiencia propia o conocida",
+        "Diferencia entre sueños simbólicos y sueños literales"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d05",
+      "dificultad": "media",
+      "tema": "El regalo",
+      "pregunta": "Al final del libro, Manú no consigue exactamente lo que pidió. Pero consigue algo más grande. ¿Te ha pasado algo parecido? ¿Has pedido algo pequeño y recibido algo más grande?",
+      "criterios": [
+        "Reconoce la diferencia entre lo pedido y lo recibido en el libro",
+        "Reflexiona sobre su propia experiencia",
+        "Establece una conexión entre ambas",
+        "Reflexiona sobre el valor de lo inesperado"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d06",
+      "dificultad": "media",
+      "tema": "Valentía",
+      "pregunta": "Manú desobedeció a sus padres para ir al colegio. ¿Crees que hizo bien o mal? Explica tu respuesta con razones del libro.",
+      "criterios": [
+        "Reconoce que desobedeció",
+        "Reflexiona sobre el contexto (quería aprender, tenía un sueño)",
+        "Menciona las consecuencias (positivas y negativas)",
+        "Da una opinión fundamentada, no solo un juicio"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d07",
+      "dificultad": "media",
+      "tema": "El mar",
+      "pregunta": "Manú ve el mar dos veces: una vez tranquilo y otra vez furioso. ¿Qué te parece que cambió entre las dos visitas? ¿Fue solo el mar o también algo en Manú?",
+      "criterios": [
+        "Describe ambas visitas al mar",
+        "Reconoce el cambio en el mar",
+        "Reflexiona sobre el cambio en Manú (de asombro a responsabilidad)",
+        "Conecta con el crecimiento del personaje"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d08",
+      "dificultad": "media",
+      "tema": "La comunidad",
+      "pregunta": "Al final del libro, la gente de la ciudad se queda a dormir en el pueblo de Manú. ¿Qué te parece que significa eso para el pueblo aymara?",
+      "criterios": [
+        "Reconoce la unión entre campo y ciudad",
+        "Reflexiona sobre lo que significa para el pueblo aymara recibir a los citadinos",
+        "Menciona la reconciliación entre los dos mundos",
+        "Reflexiona sobre el valor de la solidaridad"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+
+    {
+      "id": "d09",
+      "dificultad": "dificil",
+      "tema": "Análisis cultural",
+      "pregunta": "Manú es aymara y su cultura tiene siglos de historia. ¿Cómo crees que se siente ella al llegar a un colegio donde nadie habla su idioma? Escribe sobre lo que imaginas que pasó por su cabeza.",
+      "criterios": [
+        "Se pone en el lugar de Manú",
+        "Menciona el choque cultural y lingüístico",
+        "Reflexiona sobre la soledad y la confusión",
+        "No reduce la respuesta a 'se sintió mal': describe emociones específicas"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d10",
+      "dificultad": "dificil",
+      "tema": "El padre",
+      "pregunta": "El papá de Manú es doctor y Jefe de la Comunidad. ¿Qué crees que significa para él que su única hija quiera irse del pueblo? Escribe sobre sus miedos y esperanzas.",
+      "criterios": [
+        "Reconoce el amor del padre",
+        "Menciona sus dos roles (doctor y Jefe)",
+        "Reflexiona sobre sus miedos (perder a Manú, que el pueblo muera)",
+        "Reconoce que también tiene esperanzas (que Manú aprenda, que el pueblo tenga futuro)"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d11",
+      "dificultad": "dificil",
+      "tema": "La desobediencia",
+      "pregunta": "Manú desobedece a sus padres. Pero la autora no la castiga en el libro. ¿Qué opinas de eso? ¿Debió haber consecuencias o el resultado justifica la acción?",
+      "criterios": [
+        "Reconoce la desobediencia como tal",
+        "Reflexiona sobre el contexto (la misión de Manú)",
+        "Toma una postura y la fundamenta",
+        "Reconoce la complejidad del tema (no es blanco o negro)"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d12",
+      "dificultad": "dificil",
+      "tema": "El cóndor",
+      "pregunta": "Kunturo es un cóndor, un animal sagrado en los Andes. ¿Qué crees que simboliza el hecho de que Manú vuele sobre un cóndor? ¿Qué dice esto sobre su relación con su cultura?",
+      "criterios": [
+        "Reconoce al cóndor como animal sagrado andino",
+        "Reflexiona sobre el vuelo como símbolo de libertad",
+        "Conecta con la identidad cultural de Manú",
+        "No reduce la respuesta a 'vuela porque es su amigo'"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d13",
+      "dificultad": "dificil",
+      "tema": "La mentira",
+      "pregunta": "Manú miente a sus padres sobre sus vuelos con Kunturo. ¿Qué opinas de esa mentira? ¿Había otra opción?",
+      "criterios": [
+        "Reconoce la mentira y su motivo (proteger a Kunturo y su misión)",
+        "Reflexiona sobre las opciones que tenía Manú",
+        "Considera el contexto cultural y emocional",
+        "Toma una postura fundamentada"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d14",
+      "dificultad": "dificil",
+      "tema": "Racismo",
+      "pregunta": "Cuando Manú llega al colegio, algunos niños se aprietan la nariz o se achinan los ojos. ¿Qué te parece que significa esa reacción? ¿Has visto algo parecido en tu entorno?",
+      "criterios": [
+        "Reconoce el racismo en la escena",
+        "Reflexiona sobre el origen de esos gestos (se aprenden)",
+        "Comparte una observación propia o conocida",
+        "Reconoce el daño que causan esos gestos"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d15",
+      "dificultad": "dificil",
+      "tema": "El heroísmo",
+      "pregunta": "Manú podía haberse ido directo a su pueblo cuando vio el tsunami. Pero decidió ir primero al colegio. ¿Qué te dice esa decisión sobre ella?",
+      "criterios": [
+        "Reconoce el contexto (los niños se habían reído de ella)",
+        "Reflexiona sobre la grandeza de su decisión",
+        "Diferencia el heroísmo real del heroísmo de película",
+        "Reflexiona sobre la importancia del bien común"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d16",
+      "dificultad": "dificil",
+      "tema": "La reconciliación",
+      "pregunta": "Al final, el papá de Manú propone que se enseñe en aymara y castellano en los colegios. ¿Qué te parece esa idea? ¿Crees que es importante mantener las lenguas originarias?",
+      "criterios": [
+        "Reconoce la propuesta del padre",
+        "Reflexiona sobre el valor de las lenguas originarias",
+        "Menciona ejemplos actuales o conocidos",
+        "Toma una postura fundamentada"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d17",
+      "dificultad": "dificil",
+      "tema": "El perdón",
+      "pregunta": "Los niños del colegio le piden perdón a Manú al final. ¿Qué crees que significa el perdón en esta historia? ¿Es fácil pedir perdón?",
+      "criterios": [
+        "Reconoce la escena del perdón",
+        "Reflexiona sobre el significado del perdón",
+        "Comparte una experiencia propia o conocida",
+        "Diferencia entre pedir perdón por obligación y por convicción"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d18",
+      "dificultad": "dificil",
+      "tema": "Análisis literario",
+      "pregunta": "El libro se llama 'La historia de Manú' y no 'Manú y el cóndor' o 'El tsunami'. ¿Por qué crees que la autora eligió ese título?",
+      "criterios": [
+        "Reconoce que el título pone el foco en Manú",
+        "Reflexiona sobre la diferencia entre una historia de aventuras y una historia de crecimiento",
+        "Menciona los elementos que están al servicio del personaje (cóndor, tsunami, colegio)",
+        "Reflexiona sobre el género literario (novela de formación)"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+
+    {
+      "id": "d19",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis profundo",
+      "pregunta": "Manú sueña con una 'ola que sube la montaña'. ¿Qué crees que simboliza el agua en este sueño, más allá del tsunami real? Piensa en lo que el agua puede representar: cambio, fuerza, amenaza, purificación.",
+      "criterios": [
+        "Reconoce el sueño literal (tsunami)",
+        "Va más allá: analiza el agua como símbolo",
+        "Menciona al menos dos posibles simbolismos",
+        "Argumenta con el texto"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d20",
+      "dificultad": "muy_dificil",
+      "tema": "Interpretación libre",
+      "pregunta": "Si tuvieras que describir a Manú en una sola palabra, ¿cuál elegirías y por qué? Defiende tu elección con al menos tres momentos del libro.",
+      "criterios": [
+        "Elige una palabra significativa",
+        "Justifica con tres momentos específicos del libro",
+        "Evita palabras obvias sin argumento ('buena', 'linda')",
+        "Reflexiona sobre lo que esa palabra significa en el contexto"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d21",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis cultural",
+      "pregunta": "Manú vive entre dos mundos: el altiplano aymara y la ciudad chilena. ¿Cómo crees que se siente alguien que pertenece a dos culturas a la vez? ¿Conoces a alguien que viva algo parecido?",
+      "criterios": [
+        "Reconoce los dos mundos de Manú",
+        "Reflexiona sobre la tensión entre ambos",
+        "Comparte una observación propia o conocida",
+        "Reflexiona sobre la riqueza y el desafío de la doble identidad"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d22",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis literario",
+      "pregunta": "La autora no describe en detalle la ciudad de Iquique. ¿Por qué crees que la ciudad aparece tan poco en el libro? ¿Qué efecto tiene eso en el lector?",
+      "criterios": [
+        "Reconoce que la ciudad no está muy descrita",
+        "Reflexiona sobre el foco narrativo (está en Manú)",
+        "Considera el efecto en el lector (la ciudad es vista desde afuera, como Manú la ve)",
+        "Conecta con el punto de vista de Manú"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d23",
+      "dificultad": "muy_dificil",
+      "tema": "Reflexión profunda",
+      "pregunta": "Manú desobedece a sus padres, miente, se va sola al colegio. Y sin embargo, es la heroína del libro. ¿Qué nos dice esto sobre las reglas y el bien mayor?",
+      "criterios": [
+        "Reconoce las transgresiones de Manú",
+        "Reflexiona sobre el contexto (la misión de Manú)",
+        "Diferencia entre desobediencia caprichosa y desobediencia por causa mayor",
+        "Toma una postura fundamentada sobre cuándo es legítimo desobedecer"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d24",
+      "dificultad": "muy_dificil",
+      "tema": "Reflexión personal",
+      "pregunta": "Después de leer 'La historia de Manú', ¿qué te llevas? ¿Cuál es la idea más importante que te queda? ¿Cambió algo en tu forma de ver el mundo?",
+      "criterios": [
+        "Reflexiona sobre el impacto del libro en sí misma",
+        "Menciona la idea central que se lleva",
+        "Comparte una reflexión personal genuina",
+        "Relaciona el libro con su propia vida o visión del mundo"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d25",
+      "dificultad": "muy_dificil",
+      "tema": "Creación",
+      "pregunta": "Imagina que eres Manú y han pasado diez años. ¿Qué habrá pasado con ella? ¿Fue al colegio? ¿Volvió a su pueblo? ¿Qué pasó con Kunturo? Escribe un pequeño relato sobre el futuro de Manú.",
+      "criterios": [
+        "Se mantiene coherente con el personaje de Manú",
+        "Considera su cultura aymara",
+        "Menciona al menos un personaje secundario (Kunturo, los padres, el pueblo)",
+        "Usa un lenguaje adecuado al tono del libro"
+      ],
+      "extension": "10 a 15 oraciones"
+    }
+  ]
+}
