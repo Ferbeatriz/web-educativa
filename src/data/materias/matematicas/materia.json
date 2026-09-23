@@ -17,6 +17,19 @@
       "duracion_estimada_min": 15,
       "archivo": "lecciones/01-propiedades-multiplicacion.json",
       "activa": true
+    },
+
+
+    {
+      "id": "introduccion-division",
+      "titulo": "Introducción a la División",
+      "emoji": "➗",
+      "orden": 2,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/introduccion-division.json",
+      "activa": true
     }
+
   ]
 }

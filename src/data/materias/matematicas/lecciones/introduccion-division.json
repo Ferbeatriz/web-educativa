@@ -1,0 +1,187 @@
+{
+  "id": "introduccion-division",
+  "titulo": "Introducción a la División ➗",
+  "categoria": "Matemáticas",
+  "emoji": "➗",
+  "progreso_puntos": 150,
+  "contenido_modulos": [
+    "# ➗ ¿Qué significa dividir?\n\nImagina que tienes **12 galletas** y quieres repartirlas entre **3 amigas**. ¿Cuántas galletas le tocan a cada una?\n\nEso es **dividir**. Dividir es **repartir en partes iguales**.\n\nLa división responde a preguntas como:\n\n- ¿Cuántas galletas le tocan a cada amiga?\n- ¿Cuántos lápices hay en cada caja?\n- ¿Cuántas empanadas quedan para cada uno?\n\nEn el lenguaje matemático, la división se escribe con el símbolo **÷** o con una barra: **12 ÷ 3** o **12/3**.\n\nCuando dividimos, estamos **repartiendo una cantidad en grupos iguales**. No se puede repartir \"más o menos\": cada parte debe ser **exactamente igual** a las demás.\n\n> **Idea fuerza**: Dividir es repartir en partes iguales. Es una de las cuatro operaciones básicas, junto con sumar, restar y multiplicar.",
+
+    "# 🍰 Repartir en partes iguales\n\nVolvamos a las 12 galletas entre 3 amigas. Si repartimos una por una:\n\n1. Le doy una a la primera, una a la segunda, una a la tercera.\n2. Repito: una a cada una.\n3. Repito otra vez: una a cada una.\n4. Repito una vez más: una a cada una.\n\nAl final, cada amiga tiene **4 galletas**. No sobró ninguna.\n\nEntonces:\n\n> **12 galletas ÷ 3 amigas = 4 galletas por amiga**\n\n## ¿Qué pasa si sobran?\n\nImagina que tienes **13 galletas** y las repartes entre 3 amigas. Si le das 4 a cada una, usaste 12 galletas. **Sobró 1 galleta**.\n\nEn ese caso:\n\n- Cada amiga recibe **4 galletas** (el cociente)\n- **Sobra 1 galleta** (el resto)\n\nEscribimos: **13 ÷ 3 = 4, y sobra 1**.\n\n## Repartir no siempre es con comida\n\nDividir sirve para cualquier cosa que se pueda repartir:\n\n- **Juguetes** entre hermanos\n- **Hojas** entre cuadernos\n- **Minutos** en bloques de tiempo\n- **Dinero** entre gastos\n\nSiempre es lo mismo: **repartir en partes iguales**.",
+
+    "# 📖 El vocabulario de la división\n\nLa división tiene **cuatro palabras** que debes conocer. No son difíciles: solo hay que aprenderlas.\n\n## Dividendo\n\nEs **lo que se reparte**. En el ejemplo **12 ÷ 3**, el dividendo es **12** (las galletas).\n\n## Divisor\n\nEs **entre cuántos se reparte**. En el ejemplo **12 ÷ 3**, el divisor es **3** (las amigas).\n\n## Cociente\n\nEs **el resultado**, lo que le toca a cada uno. En **12 ÷ 3**, el cociente es **4** (las galletas por amiga).\n\n## Resto\n\nEs **lo que sobra**, cuando no se puede repartir exactamente. En **13 ÷ 3**, el resto es **1** (la galleta que sobró).\n\n## Tabla resumen\n\n| Palabra | Qué significa | Ejemplo en 12 ÷ 3 = 4 |\n|---------|--------------|----------------------|\n| Dividendo | Lo que se reparte | 12 |\n| Divisor | Entre cuántos | 3 |\n| Cociente | El resultado | 4 |\n| Resto | Lo que sobra | 0 |\n\n**Truco para recordar**: el **dividendo** es el grande, el **divisor** es el pequeño, el **cociente** es el resultado, y el **resto** es lo que quedó.",
+
+    "# 🔄 La división y la multiplicación son hermanas\n\nAquí viene algo importante: **la división es lo contrario de la multiplicación**.\n\n## La idea\n\nSi sabes que **3 × 4 = 12**, entonces automáticamente sabes que:\n\n- **12 ÷ 3 = 4**\n- **12 ÷ 4 = 3**\n\nEs la misma información, vista desde otro lado.\n\n## ¿Por qué funciona?\n\nPiensa así:\n\n- **Multiplicar** es juntar grupos iguales: 3 grupos de 4 galletas son 12 galletas.\n- **Dividir** es separar en grupos iguales: 12 galletas en grupos de 4 son 3 grupos.\n\nSon **dos caras de la misma moneda**.\n\n## Ejemplos\n\n| Multiplicación | División 1 | División 2 |\n|----------------|-----------|-----------|\n| 2 × 5 = 10 | 10 ÷ 2 = 5 | 10 ÷ 5 = 2 |\n| 3 × 6 = 18 | 18 ÷ 3 = 6 | 18 ÷ 6 = 3 |\n| 4 × 7 = 28 | 28 ÷ 4 = 7 | 28 ÷ 7 = 4 |\n\n## ¿Por qué te sirve saber esto?\n\nPorque si te olvidas de una división, puedes pensar en la multiplicación. Por ejemplo:\n\n- **No sabes cuánto es 20 ÷ 4**\n- Piensas: \"¿4 por cuánto me da 20?\"\n- Respuesta: **5**\n\nAsí, la multiplicación te ayuda a dividir.",
+
+    "# 🌍 La división en la vida diaria\n\nLa división no es solo un tema del colegio. La usamos **todo el tiempo**, a veces sin darnos cuenta.\n\n## En la cocina\n\n- Repartir **una torta** en 8 porciones iguales\n- Dividir **una receta** para la mitad\n- Repartir **pan amasado** entre los hermanos\n\n## En el colegio\n\n- Repartir **lápices** entre los compañeros\n- Dividir **una hoja** en 4 partes para hacer un cuadro\n- Repartir **tareas** en un grupo\n\n## En el deporte\n\n- Dividir **un equipo** en dos grupos\n- Repartir **minutos de juego** entre los jugadores\n- Distribuir **agua** entre los corredores\n\n## En el dinero\n\n- Repartir **la mesada** en gastos\n- Dividir **una cuenta** entre amigos\n- Calcular **cuánto cuesta cada cosa** si compras un pack\n\n## Algo importante\n\nCuando divides en la vida real, casi nunca sale **exacto**. Siempre queda **un poquito más o un poquito menos**. Por eso el **resto** es tan importante.\n\nPor ejemplo: si tienes **$10.000** y quieres repartirlos entre 3 personas, cada una recibe **$3.333**, y sobra **$1**. No se puede repartir un peso entre 3.",
+
+    "# 📜 Resumen\n\nLa división es una de las **cuatro operaciones básicas** de la matemática. Sirve para **repartir en partes iguales**.\n\n## Las cuatro palabras clave\n\n| Palabra | Significado | Ejemplo en 15 ÷ 3 = 5 |\n|---------|-------------|----------------------|\n| **Dividendo** | Lo que se reparte | 15 |\n| **Divisor** | Entre cuántos | 3 |\n| **Cociente** | El resultado | 5 |\n| **Resto** | Lo que sobra | 0 |\n\n## Las ideas importantes\n\n1. **Dividir es repartir** en partes iguales.\n2. **El dividendo** es el número grande (lo que se reparte).\n3. **El divisor** es el número pequeño (entre cuántos).\n4. **El cociente** es el resultado.\n5. **El resto** es lo que sobra (puede ser cero).\n6. **La división es lo contrario de la multiplicación**.\n\n## Un truco para toda la vida\n\nSi te olvidas de una división, piensa en la multiplicación. Por ejemplo:\n\n- **¿Cuánto es 24 ÷ 6?**\n- Piensa: \"¿6 por cuánto me da 24?\"\n- Respuesta: **4**\n\n## Y lo más importante\n\nLa división no es solo un tema del colegio. Está en **todo lo que hacemos**: repartir comida, compartir tiempo, dividir tareas. Aprender a dividir es aprender a **repartir con justicia**.\n\n> **Idea fuerza**: Dividir es repartir en partes iguales. El dividendo es lo que se reparte, el divisor es entre cuántos, el cociente es el resultado y el resto es lo que sobra."
+  ],
+  "trivia": [
+    {
+      "pregunta": "¿Qué significa dividir?",
+      "opciones": [
+        "Sumar dos números",
+        "Repartir en partes iguales",
+        "Multiplicar por 2",
+        "Restar varias veces el mismo número"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Dividir es repartir una cantidad en partes iguales. Es una de las cuatro operaciones básicas de la matemática."
+    },
+    {
+      "pregunta": "Si tienes 12 galletas y las repartes entre 4 amigas, ¿cuántas galletas le tocan a cada una?",
+      "opciones": [
+        "2 galletas",
+        "3 galletas",
+        "4 galletas",
+        "6 galletas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "12 ÷ 4 = 3. Cada amiga recibe 3 galletas. Para verificarlo: 3 × 4 = 12."
+    },
+    {
+      "pregunta": "En la división 20 ÷ 5 = 4, ¿cuál es el cociente?",
+      "opciones": [
+        "20",
+        "5",
+        "4",
+        "0"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "El cociente es el resultado de la división. En 20 ÷ 5, el cociente es 4."
+    },
+    {
+      "pregunta": "En la división 15 ÷ 3 = 5, ¿cuál es el dividendo?",
+      "opciones": [
+        "15",
+        "3",
+        "5",
+        "45"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "El dividendo es lo que se reparte. En 15 ÷ 3, el dividendo es 15."
+    },
+    {
+      "pregunta": "En la división 24 ÷ 6 = 4, ¿cuál es el divisor?",
+      "opciones": [
+        "24",
+        "6",
+        "4",
+        "30"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El divisor es entre cuántos se reparte. En 24 ÷ 6, el divisor es 6."
+    },
+    {
+      "pregunta": "¿Cuál es el resto en la división 17 ÷ 5 = 3?",
+      "opciones": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "17 ÷ 5 = 3 porque 3 × 5 = 15, y 17 - 15 = 2. Entonces el resto es 2."
+    },
+    {
+      "pregunta": "Si tienes 10 lápices y los repartes entre 2 hermanos, ¿cuántos lápices le tocan a cada uno?",
+      "opciones": [
+        "2 lápices",
+        "5 lápices",
+        "8 lápices",
+        "10 lápices"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "10 ÷ 2 = 5. Cada hermano recibe 5 lápices."
+    },
+    {
+      "pregunta": "Si tienes 13 caramelos y los repartes entre 4 niños, ¿cuántos caramelos sobran?",
+      "opciones": [
+        "0 caramelos",
+        "1 caramelo",
+        "2 caramelos",
+        "3 caramelos"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "13 ÷ 4 = 3, porque 3 × 4 = 12, y 13 - 12 = 1. Sobra 1 caramelo."
+    },
+    {
+      "pregunta": "¿Cuál de estas divisiones da como resultado 6?",
+      "opciones": [
+        "12 ÷ 3",
+        "18 ÷ 3",
+        "24 ÷ 6",
+        "30 ÷ 5"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "18 ÷ 3 = 6 porque 6 × 3 = 18. Las otras divisiones dan 4, 4 y 6 respectivamente, pero la respuesta correcta para esta pregunta es 18 ÷ 3."
+    },
+    {
+      "pregunta": "Si sabes que 3 × 7 = 21, ¿cuánto es 21 ÷ 3?",
+      "opciones": [
+        "3",
+        "4",
+        "7",
+        "21"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "La división es lo contrario de la multiplicación. Si 3 × 7 = 21, entonces 21 ÷ 3 = 7."
+    },
+    {
+      "pregunta": "Si sabes que 6 × 8 = 48, ¿cuánto es 48 ÷ 6?",
+      "opciones": [
+        "6",
+        "8",
+        "14",
+        "48"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Como la división es la operación inversa de la multiplicación, si 6 × 8 = 48, entonces 48 ÷ 6 = 8."
+    },
+    {
+      "pregunta": "Si tienes que repartir 30 cuadernos entre 5 cursos, ¿cuántos cuadernos le tocan a cada curso?",
+      "opciones": [
+        "5 cuadernos",
+        "6 cuadernos",
+        "10 cuadernos",
+        "15 cuadernos"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "30 ÷ 5 = 6. Cada curso recibe 6 cuadernos."
+    },
+    {
+      "pregunta": "¿Qué pasa si divides un número por 1?",
+      "opciones": [
+        "El resultado es 0",
+        "El resultado es el mismo número",
+        "El resultado es 1",
+        "No se puede dividir por 1"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Cuando divides un número por 1, el resultado es el mismo número. Por ejemplo: 8 ÷ 1 = 8. Repartir 8 cosas entre 1 persona significa que esa persona recibe todas."
+    },
+    {
+      "pregunta": "Si tienes 24 huevos y los pones en cajas de 6, ¿cuántas cajas necesitas?",
+      "opciones": [
+        "3 cajas",
+        "4 cajas",
+        "6 cajas",
+        "8 cajas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "24 ÷ 6 = 4. Necesitas 4 cajas. Esta es una división que agrupa: no repartes entre personas, sino que formas grupos de 6."
+    },
+    {
+      "pregunta": "¿Cuál es el resto en la división 50 ÷ 7 = 7?",
+      "opciones": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "50 ÷ 7 = 7 porque 7 × 7 = 49, y 50 - 49 = 1. El resto es 1. El resto siempre debe ser menor que el divisor."
+    }
+  ]
+}
