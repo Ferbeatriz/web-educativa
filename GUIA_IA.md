@@ -441,6 +441,80 @@ Agregar la materia a la lista materiasConocidas en [curso]/index.astro y [capitu
 - Material narrado pendiente: Secciones del Tomo II (Klóketen)
 
 
+## 🆕 Club de Lectura
+
+El Club de Lectura es un módulo de comprensión lectora adaptativa.
+
+
+### Estructura de archivos
+src/data/materias/lenguaje/lecturas/
+├── indice.json # Lista de libros activos
+└── <id-libro>/
+├── meta.json # Info del libro + configuración
+├── banco-comprension.json # 50 preguntas selección múltiple
+├── banco-desarrollo.json # 25 preguntas abiertas
+└── banco-relectura.json # 12 desafíos
+
+
+
+### Estructura de una pregunta de comprensión
+
+```json
+{
+  "id": "c01",
+  "dificultad": "media" | "dificil" | "muy_dificil",
+  "tema": "El sueño profético",
+  "pregunta": "...",
+  "opciones": ["A", "B", "C", "D"],
+  "respuesta_correcta": 1,
+  "explicacion": "...",
+  "pista": "Páginas 5 y 16"
+}
+
+
+{
+  "id": "d01",
+  "dificultad": "media" | "dificil" | "muy_dificil",
+  "tema": "...",
+  "pregunta": "...",
+  "criterios": ["...", "..."],
+  "extension": "5 a 8 oraciones"
+}
+
+
+
+{
+  "id": "r01",
+  "dificultad": "media" | "dificil" | "muy_dificil",
+  "tema": "...",
+  "titulo": "...",
+  "instrucciones": ["...", "..."],
+  "pista": "...",
+  "entregable": "Dibujo con anotaciones"
+}
+
+
+Cómo agregar un libro nuevo
+Crear carpeta src/data/materias/lenguaje/lecturas/<id-libro>/
+
+Crear meta.json con la info del libro
+
+Crear los 3 bancos (50 + 25 + 12 preguntas)
+
+Agregar el libro a src/data/materias/lenguaje/lecturas/indice.json
+
+Agregar el import en src/pages/lenguaje/comprension/[libro].astro
+
+Agregar la entrada en el objeto datosLibros
+
+Listo
+
+Distribución de dificultad
+30% media
+
+40% difícil
+
+30% muy difícil
 
 
 

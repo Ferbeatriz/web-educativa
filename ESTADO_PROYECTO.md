@@ -248,6 +248,67 @@ web-educativa/
 7. Guardar en `src/data/materias/.../lecciones/<id>.json`
 8. Activar en `submodulo.json` o `materia.json` (`"activa": true`)
 
+
+## 🆕 Módulo: Club de Lectura (2026-09-23)
+
+**Ubicación**: `src/data/materias/lenguaje/lecturas/`
+**URL**: https://web-educativa.pages.dev/lenguaje
+
+### Sistema
+- Rotación aleatoria de preguntas
+- 3 tipos de ejercicios: comprensión (10), desarrollo (5), relectura (3)
+- Distribución: 30% media / 40% difícil / 30% muy difícil
+- Orden ascendente (fácil → difícil)
+- Persistencia en localStorage
+
+### Componentes
+- `src/scripts/seleccion-preguntas.js` — algoritmo de selección
+- `src/components/comprension/CuestionarioAleatorio.astro` — componente principal
+- `src/components/comprension/PreguntaComprension.astro`
+- `src/components/comprension/PreguntaDesarrollo.astro`
+- `src/components/comprension/DesafioRelectura.astro`
+
+### Páginas
+- `src/pages/lenguaje/index.astro` — listado de libros
+- `src/pages/lenguaje/comprension/[libro].astro` — página del libro
+
+### Primer libro
+- **La historia de Manú** (Ana María del Río)
+- 87 preguntas: 50 comprensión + 25 desarrollo + 12 relectura
+
+## 🆕 Lección: Introducción a la División (2026-09-23)
+
+**Materia**: Matemáticas
+**Archivo**: `src/data/materias/matematicas/lecciones/introduccion-division.json`
+**Bloques**: 6
+**Trivia**: 15 preguntas
+**Enfoque**: Entender qué es dividir antes de mecanizar
+**Vocabulario**: Dividendo, divisor, cociente, resto
+**Conexión**: División ↔ multiplicación
+
+## 🎯 Próxima fase: Login y métricas
+
+**Objetivo**: 
+- Sistema de login para alumnas
+- Panel admin con métricas
+- Notificaciones por email
+- Restricción de acceso
+
+**Stack propuesto**:
+- Cloudflare Workers (backend)
+- Cloudflare D1 (base de datos)
+- Cloudflare Access (autenticación)
+- Resend o MailChannels (emails)
+
+**Estimación**: 5-7 sesiones de chat
+
+**Consideraciones**:
+- Cambio de Astro Static → SSR
+- Consentimiento de apoderados (menores de edad)
+- Ley de protección de datos (Chile: 19.628)
+
+
+
 ### Publicación
 
 ```bash
