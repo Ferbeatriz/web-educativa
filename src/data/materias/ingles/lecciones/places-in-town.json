@@ -1,0 +1,82 @@
+{
+  "id": "places-in-town",
+  "titulo": "Places in Town & Prepositions 🏙️",
+  "categoria": "Inglés",
+  "emoji": "🏙️",
+  "progreso_puntos": 150,
+  "contenido_modulos": [
+    "# Welcome to the Town! 🏙️\n\nHello! Today we are going to learn about the **places in a town** and how to say **where they are**. This is very useful because you can use it to give directions or tell someone where you live.\n\nLook at this map. What places can you see?\n\n*   **Hospital** 🏥\n*   **Cinema** 🎬\n*   **Supermarket** 🛒\n*   **School** 🏫\n*   **Library** 📚\n*   **Sport center** ⚽\n*   **Car park** 🚗\n*   **Hotel** 🏨\n*   **Bus station** 🚌\n\n> **Idea fuerza**: A town is a place where people live, work, and have fun. Learning the names of these places helps you understand your own city!",
+
+    "## What are Prepositions of Place? 📍\n\nPrepositions of place are small words that tell us **where** something is. In Spanish, they are words like \"en\", \"sobre\", \"debajo\", \"entre\".\n\nIn English, we have some very important ones:\n\n*   **In front of**: en frente de\n*   **Next to**: al lado de\n*   **Between**: entre\n*   **Behind**: detrás de\n\nWe use them to describe the position of one place compared to another. For example:\n\n*   The **cinema** is **next to** the **supermarket**.\n*   The **park** is **in front of** the **school**.\n*   The **library** is **between** the **bank** and the **hospital**.\n*   The **car park** is **behind** the **hotel**.\n\n> **Idea fuerza**: These words are like a map for your words. They help you create a picture in the other person's mind.",
+
+    "## Let's Practice! 🗺️\n\nLook at the town map in your book (page 37). Now, let's answer some questions. Use the prepositions we just learned.\n\n**Question:** Where is the swimming pool?\n**Answer:** It's **in front of** the park.\n\n**Question:** Where is the bank?\n**Answer:** It's **between** the supermarket and the cinema.\n\n**Question:** Where is the sports centre?\n**Answer:** It's **next to** the swimming pool.\n\n**Question:** Where is the bus station?\n**Answer:** It's **behind** the cinema.\n\nNow, you try! Look at the picture and answer:\n\n*   Where is the hotel?\n*   Where is the hospital?\n*   Where is the market?\n\n> **Idea fuerza**: Practice makes perfect. Try to describe your own neighbourhood using these words.",
+
+    "## Must and Mustn't: Rules and Obligations 🚦\n\nWe use **must** and **mustn't** to talk about rules and things that are necessary.\n\n*   **Must** = You have to do it. It's an obligation.\n    *   *Example*: I **must** do my homework.\n    *   *Example*: You **must** be quiet in the library.\n*   **Mustn't** = You cannot do it. It's prohibited.\n    *   *Example*: You **mustn't** run in the hospital.\n    *   *Example*: You **mustn't** eat in the library.\n\nLet's see some examples from the book:\n\n*   Simon **must** be quiet in the library.\n*   They **must** catch the bus.\n*   She **must** do her homework.\n*   Stella **must** stay in bed. She **mustn't** get up.\n\n> **Idea fuerza**: \"Must\" is for things you need to do. \"Mustn't\" is for things you cannot do.",
+
+    "## A Day in Town: Reading and Comprehension 📖\n\nRead the text about Lisa's town.\n\n*\"Hi! I'm Lisa. I live in a small town. My favourite place is the library. It's next to the park. I go there on Saturdays. I must be quiet in the library. I love reading books about animals. My mum works at the hospital. The hospital is in front of the supermarket. My dad works at the sports centre. The sports centre is behind the cinema. On Sundays, we go to the cinema. We mustn't talk during the film!\"*\n\n**Now, answer these questions:**\n\n1.  Where is the library?\n2.  What must Lisa do in the library?\n3.  Where does Lisa's mum work?\n4.  Where is the sports centre?\n5.  What mustn't they do in the cinema?\n\n> **Idea fuerza**: Reading helps you see how these words are used in real life.",
+
+    "## Summary and Review 📝\n\nLet's review what we learned today.\n\n| English | Spanish | Example |\n| :--- | :--- | :--- |\n| In front of | En frente de | The bank is **in front of** the park. |\n| Next to | Al lado de | The library is **next to** the school. |\n| Between | Entre | The cinema is **between** the bank and the supermarket. |\n| Behind | Detrás de | The car park is **behind** the hotel. |\n| Must | Deber (obligación) | I **must** study for the test. |\n| Mustn't | No deber (prohibición) | You **mustn't** smoke here. |\n\n**Places in Town Vocabulary:**\nHospital, Cinema, Supermarket, School, Library, Sport center, Car park, Hotel, Bus station.\n\n> **Idea fuerza**: You are now ready to give directions and talk about rules in English. Great job!"
+  ],
+  "trivia": [
+    {
+      "pregunta": "Where is the library? The library is ______ the park and the hospital.",
+      "opciones": ["behind", "between", "in front of", "next to"],
+      "respuesta_correcta": 1,
+      "explicacion": "Usamos 'between' para indicar que algo está en medio de dos lugares."
+    },
+    {
+      "pregunta": "If you want to buy food, where do you go?",
+      "opciones": ["Hospital", "Cinema", "Supermarket", "Library"],
+      "respuesta_correcta": 2,
+      "explicacion": "El 'supermarket' es el lugar donde compramos comida."
+    },
+    {
+      "pregunta": "Complete the sentence: You ______ be quiet in the library.",
+      "opciones": ["mustn't", "must", "can", "don't"],
+      "respuesta_correcta": 1,
+      "explicacion": "'Must' se usa para expresar una obligación o regla."
+    },
+    {
+      "pregunta": "Where is the car park? It's ______ the hotel.",
+      "opciones": ["next to", "between", "in front of", "behind"],
+      "respuesta_correcta": 3,
+      "explicacion": "'Behind' significa 'detrás de'."
+    },
+    {
+      "pregunta": "What is the opposite of 'next to'?",
+      "opciones": ["Between", "In front of", "Behind", "Far from"],
+      "respuesta_correcta": 3,
+      "explicacion": "Aunque no es un antónimo perfecto, 'behind' (detrás) se opone a 'in front of' (en frente). 'Next to' (al lado) no tiene un opuesto directo, pero 'far from' (lejos de) es lo más cercano."
+    },
+    {
+      "pregunta": "Where do you go to see a film?",
+      "opciones": ["Library", "Cinema", "Hospital", "School"],
+      "respuesta_correcta": 1,
+      "explicacion": "El 'cinema' es el lugar donde vemos películas."
+    },
+    {
+      "pregunta": "Complete the rule: You ______ run in the hospital.",
+      "opciones": ["must", "mustn't", "can", "have to"],
+      "respuesta_correcta": 1,
+      "explicacion": "'Mustn't' se usa para prohibiciones."
+    },
+    {
+      "pregunta": "If you are sick, where do you go?",
+      "opciones": ["School", "Supermarket", "Hospital", "Cinema"],
+      "respuesta_correcta": 2,
+      "explicacion": "El 'hospital' es el lugar para personas enfermas."
+    },
+    {
+      "pregunta": "Where is the bus station? It's ______ the cinema.",
+      "opciones": ["next to", "between", "in front of", "behind"],
+      "respuesta_correcta": 0,
+      "explicacion": "'Next to' significa 'al lado de'."
+    },
+    {
+      "pregunta": "What does 'must' express?",
+      "opciones": ["A prohibition", "An obligation", "A possibility", "A question"],
+      "respuesta_correcta": 1,
+      "explicacion": "'Must' expresa una obligación o algo que es necesario hacer."
+    }
+  ]
+}

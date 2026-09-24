@@ -1,11 +1,18 @@
 {
   "id": "ingles",
   "nombre": "Inglés",
-  "descripcion": "Aprende el idioma universal",
-  "emoji": "🗣️",
-  "color": "ingles",
-  "color_hex": "#14B8A6",
-  "orden": 4,
-  "activo": true,
-  "lecciones": []
+  "emoji": "🇬🇧",
+  "color": "#14B8A6",
+  "lecciones": [
+    {
+      "id": "places-in-town",
+      "titulo": "Places in Town & Prepositions 🏙️",
+      "emoji": "🏙️",
+      "orden": 1,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/places-in-town.json",
+      "activa": true
+    }
+  ]
 }
