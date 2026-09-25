@@ -1,15 +1,20 @@
 /**
  * Worker API para web-educativa
  * 
- * Endpoints disponibles:
- * - GET /api/health → Verifica que el Worker y la BD funcionan
+ * Endpoints:
+ * - GET  /api                         → Info general
+ * - GET  /api/health                  → Health check
+ * - POST /api/auth/login              → Login
+ * - POST /api/auth/logout             → Logout
+ * - GET  /api/auth/me                 → Info de la alumna logueada
  */
 
-export interface Env {
-  DB: D1Database;
-  ENVIRONMENT: string;
-  APP_NAME: string;
-}
+import {
+  handleLogin,
+  handleLogout,
+  handleMe,
+  type Env,
+} from './routes/auth';
 
 export default {
   async fetch(
@@ -19,69 +24,80 @@ export default {
   ): Promise<Response> {
     const url = new URL(request.url);
     const path = url.pathname;
+    const method = request.method;
 
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
-
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+    // CORS preflight
+    if (method === 'OPTIONS') {
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Max-Age': '86400',
+        },
+      });
     }
 
     try {
-      if (path === '/api/health' && request.method === 'GET') {
+      // ---------- Health ----------
+      if (path === '/api/health' && method === 'GET') {
         const dbTest = await env.DB.prepare('SELECT 1 as ok').first();
-
-        return new Response(
-          JSON.stringify({
-            status: 'ok',
-            worker: 'web-educativa-api',
-            environment: env.ENVIRONMENT,
-            app: env.APP_NAME,
-            database: dbTest ? 'connected' : 'error',
-            timestamp: new Date().toISOString(),
-          }),
-          {
-            status: 200,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
+        return json({
+          status: 'ok',
+          worker: 'web-educativa-api',
+          environment: env.ENVIRONMENT,
+          app: env.APP_NAME,
+          database: dbTest ? 'connected' : 'error',
+          timestamp: new Date().toISOString(),
+        });
       }
 
-      if (path === '/api' && request.method === 'GET') {
-        return new Response(
-          JSON.stringify({
-            name: 'web-educativa-api',
-            version: '1.0.0',
-            endpoints: ['/api/health'],
-          }),
-          {
-            status: 200,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
+      // ---------- Info ----------
+      if (path === '/api' && method === 'GET') {
+        return json({
+          name: 'web-educativa-api',
+          version: '1.1.0',
+          endpoints: [
+            'GET  /api/health',
+            'POST /api/auth/login',
+            'POST /api/auth/logout',
+            'GET  /api/auth/me',
+          ],
+        });
       }
 
-      return new Response(
-        JSON.stringify({ error: 'Not Found', path }),
-        {
-          status: 404,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      // ---------- Auth ----------
+      if (path === '/api/auth/login' && method === 'POST') {
+        return await handleLogin(request, env);
+      }
+      if (path === '/api/auth/logout' && method === 'POST') {
+        return await handleLogout(request, env);
+      }
+      if (path === '/api/auth/me' && method === 'GET') {
+        return await handleMe(request, env);
+      }
+
+      // ---------- 404 ----------
+      return json({ error: 'Not Found', path, method }, 404);
     } catch (error) {
-      return new Response(
-        JSON.stringify({
+      console.error('Worker error:', error);
+      return json(
+        {
           error: 'Internal Server Error',
           message: error instanceof Error ? error.message : 'Unknown error',
-        }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
+        },
+        500
       );
     }
   },
 };
+
+function json(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+  });
+}
