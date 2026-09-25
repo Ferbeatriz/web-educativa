@@ -3,6 +3,7 @@
  * - POST /api/auth/login
  * - POST /api/auth/logout
  * - GET  /api/auth/me
+ * - GET  /api/auth/perfil
  */
 
 import {
@@ -16,6 +17,8 @@ import {
   crearSesion,
   getSesionByTokenHash,
   eliminarSesion,
+  actualizarUltimoLogin,
+  getAlumnaCompleta,
 } from '../lib/db';
 
 const SESION_DURACION_DIAS = 30;
@@ -100,8 +103,9 @@ export async function handleLogin(
   expira.setDate(expira.getDate() + SESION_DURACION_DIAS);
   const expiraISO = expira.toISOString().replace('T', ' ').substring(0, 19);
 
-  // 6. Guardar sesión
+  // 6. Guardar sesión + registrar último login
   await crearSesion(env.DB, alumna.id, tokenHash, expiraISO);
+  await actualizarUltimoLogin(env.DB, alumna.id);
 
   // 7. Devolver token + info de la alumna
   return jsonResponse({
@@ -118,7 +122,6 @@ export async function handleLogin(
 
 /**
  * POST /api/auth/logout
- * Header: Authorization: Bearer <token>
  */
 export async function handleLogout(
   request: Request,
@@ -137,7 +140,6 @@ export async function handleLogout(
 
 /**
  * GET /api/auth/me
- * Header: Authorization: Bearer <token>
  */
 export async function handleMe(
   request: Request,
@@ -164,6 +166,55 @@ export async function handleMe(
       id: sesion.alumna_id,
       nombre: sesion.nombre,
       usuario: sesion.usuario,
+    },
+    expira_en: sesion.expira_en,
+    ultimo_login: sesion.ultimo_login,
+  });
+}
+
+/**
+ * GET /api/auth/perfil
+ * Devuelve info completa de la alumna (con clase).
+ */
+export async function handlePerfil(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const token = extraerToken(request);
+  if (!token) {
+    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+  }
+
+  const tokenHash = await hashToken(token);
+  const sesion = await getSesionByTokenHash(env.DB, tokenHash);
+
+  if (!sesion) {
+    return jsonResponse(
+      { ok: false, error: 'Sesión inválida o expirada' },
+      401
+    );
+  }
+
+  const perfil = await getAlumnaCompleta(env.DB, sesion.alumna_id);
+  if (!perfil) {
+    return jsonResponse({ ok: false, error: 'Alumna no encontrada' }, 404);
+  }
+
+  return jsonResponse({
+    ok: true,
+    alumna: {
+      id: perfil.id,
+      nombre: perfil.nombre,
+      usuario: perfil.usuario,
+      activa: perfil.activa === 1,
+      creada_en: perfil.creada_en,
+      ultimo_login: perfil.ultimo_login,
+      clase: perfil.clase_nombre
+        ? {
+            nombre: perfil.clase_nombre,
+            codigo: perfil.clase_codigo,
+          }
+        : null,
     },
     expira_en: sesion.expira_en,
   });

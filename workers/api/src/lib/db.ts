@@ -9,6 +9,7 @@ export interface Alumna {
   usuario: string;
   clase_id: number | null;
   activa: number;
+  ultimo_login: string | null;
 }
 
 export interface MetodoAuth {
@@ -34,7 +35,7 @@ export async function getAlumnaByUsuario(
   usuario: string
 ): Promise<Alumna | null> {
   const result = await db
-    .prepare('SELECT id, nombre, usuario, clase_id, activa FROM alumnas WHERE usuario = ?')
+    .prepare('SELECT id, nombre, usuario, clase_id, activa, ultimo_login FROM alumnas WHERE usuario = ?')
     .bind(usuario)
     .first<Alumna>();
   return result ?? null;
@@ -54,6 +55,19 @@ export async function getMetodoPassword(
     .bind(alumna_id)
     .first<MetodoAuth>();
   return result ?? null;
+}
+
+/**
+ * Actualiza el último login de una alumna.
+ */
+export async function actualizarUltimoLogin(
+  db: D1Database,
+  alumna_id: number
+): Promise<void> {
+  await db
+    .prepare("UPDATE alumnas SET ultimo_login = datetime('now') WHERE id = ?")
+    .bind(alumna_id)
+    .run();
 }
 
 /**
@@ -79,16 +93,17 @@ export async function crearSesion(
 export async function getSesionByTokenHash(
   db: D1Database,
   token_hash: string
-): Promise<(Sesion & { nombre: string; usuario: string }) | null> {
+): Promise<(Sesion & { nombre: string; usuario: string; ultimo_login: string | null }) | null> {
   const result = await db
     .prepare(
-      `SELECT s.id, s.alumna_id, s.token_hash, s.expira_en, a.nombre, a.usuario
+      `SELECT s.id, s.alumna_id, s.token_hash, s.expira_en, 
+              a.nombre, a.usuario, a.ultimo_login
        FROM sesiones s
        JOIN alumnas a ON a.id = s.alumna_id
        WHERE s.token_hash = ? AND s.expira_en > datetime('now')`
     )
     .bind(token_hash)
-    .first<Sesion & { nombre: string; usuario: string }>();
+    .first<Sesion & { nombre: string; usuario: string; ultimo_login: string | null }>();
   return result ?? null;
 }
 
@@ -112,4 +127,43 @@ export async function limpiarSesionesExpiradas(db: D1Database): Promise<void> {
   await db
     .prepare("DELETE FROM sesiones WHERE expira_en <= datetime('now')")
     .run();
+}
+
+/**
+ * Obtiene datos completos de la alumna incluyendo info de su clase.
+ * Útil para la página de perfil.
+ */
+export async function getAlumnaCompleta(
+  db: D1Database,
+  alumna_id: number
+): Promise<{
+  id: number;
+  nombre: string;
+  usuario: string;
+  activa: number;
+  creada_en: string;
+  ultimo_login: string | null;
+  clase_nombre: string | null;
+  clase_codigo: string | null;
+} | null> {
+  const result = await db
+    .prepare(
+      `SELECT a.id, a.nombre, a.usuario, a.activa, a.creada_en, a.ultimo_login,
+              c.nombre AS clase_nombre, c.codigo AS clase_codigo
+       FROM alumnas a
+       LEFT JOIN clases c ON c.id = a.clase_id
+       WHERE a.id = ?`
+    )
+    .bind(alumna_id)
+    .first<{
+      id: number;
+      nombre: string;
+      usuario: string;
+      activa: number;
+      creada_en: string;
+      ultimo_login: string | null;
+      clase_nombre: string | null;
+      clase_codigo: string | null;
+    }>();
+  return result ?? null;
 }

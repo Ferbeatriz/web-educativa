@@ -1,18 +1,12 @@
 /**
  * Worker API para web-educativa
- * 
- * Endpoints:
- * - GET  /api                         → Info general
- * - GET  /api/health                  → Health check
- * - POST /api/auth/login              → Login
- * - POST /api/auth/logout             → Logout
- * - GET  /api/auth/me                 → Info de la alumna logueada
  */
 
 import {
   handleLogin,
   handleLogout,
   handleMe,
+  handlePerfil,
   type Env,
 } from './routes/auth';
 
@@ -26,7 +20,6 @@ export default {
     const path = url.pathname;
     const method = request.method;
 
-    // CORS preflight
     if (method === 'OPTIONS') {
       return new Response(null, {
         headers: {
@@ -39,7 +32,6 @@ export default {
     }
 
     try {
-      // ---------- Health ----------
       if (path === '/api/health' && method === 'GET') {
         const dbTest = await env.DB.prepare('SELECT 1 as ok').first();
         return json({
@@ -52,21 +44,20 @@ export default {
         });
       }
 
-      // ---------- Info ----------
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.1.0',
+          version: '1.2.0',
           endpoints: [
             'GET  /api/health',
             'POST /api/auth/login',
             'POST /api/auth/logout',
             'GET  /api/auth/me',
+            'GET  /api/auth/perfil',
           ],
         });
       }
 
-      // ---------- Auth ----------
       if (path === '/api/auth/login' && method === 'POST') {
         return await handleLogin(request, env);
       }
@@ -76,8 +67,10 @@ export default {
       if (path === '/api/auth/me' && method === 'GET') {
         return await handleMe(request, env);
       }
+      if (path === '/api/auth/perfil' && method === 'GET') {
+        return await handlePerfil(request, env);
+      }
 
-      // ---------- 404 ----------
       return json({ error: 'Not Found', path, method }, 404);
     } catch (error) {
       console.error('Worker error:', error);

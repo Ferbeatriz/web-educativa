@@ -33,5 +33,30 @@ const { title = "Aprende Jugando" } = Astro.props;
       <slot />
     </div>
     <Footer />
+
+    <script>
+      /**
+       * Validación automática de sesión.
+       * Se ejecuta en el cliente al cargar cada página.
+       * Si el token expiró o es inválido, limpia la sesión local.
+       * 
+       * NOTA: Solo valida si hay token. Si no hay, no hace nada.
+       * No redirige a /login automáticamente para no romper la navegación.
+       */
+      import { getToken, verificarSesion } from '../lib/auth';
+
+      const token = getToken();
+
+      if (token) {
+        // Validar en segundo plano (no bloquea el render)
+        verificarSesion().then((alumna) => {
+          if (!alumna) {
+            // El token expiró: recargar la página para actualizar el header
+            console.info('[auth] Sesión expirada, recargando...');
+            window.location.reload();
+          }
+        });
+      }
+    </script>
   </body>
 </html>

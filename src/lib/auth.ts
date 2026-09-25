@@ -136,3 +136,47 @@ export async function verificarSesion(): Promise<Alumna | null> {
     return getAlumna();
   }
 }
+
+// ---------- Perfil ----------
+
+export interface PerfilAlumna {
+  id: number;
+  nombre: string;
+  usuario: string;
+  activa: boolean;
+  creada_en: string;
+  ultimo_login: string | null;
+  clase: {
+    nombre: string;
+    codigo: string;
+  } | null;
+}
+
+interface PerfilResponse {
+  ok: boolean;
+  alumna?: PerfilAlumna;
+  expira_en?: string;
+  error?: string;
+}
+
+/**
+ * Obtiene el perfil completo de la alumna logueada.
+ * Incluye datos de la clase, último login, etc.
+ */
+export async function getPerfil(): Promise<PerfilResponse> {
+  const token = getToken();
+  if (!token) {
+    return { ok: false, error: 'No hay sesión activa' };
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/api/auth/perfil`, {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+
+    const data: PerfilResponse = await response.json();
+    return data;
+  } catch {
+    return { ok: false, error: 'Error de conexión' };
+  }
+}

@@ -1,0 +1,212 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Mi perfil — Aprende Jugando">
+  <main class="max-w-3xl mx-auto px-4 py-8 md:py-12">
+
+    <!-- Encabezado -->
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">
+        👤 Mi perfil
+      </h1>
+      <p class="text-gray-600">
+        Aquí puedes ver tu información y gestionar tu cuenta.
+      </p>
+    </div>
+
+    <!-- Contenido dinámico (se llena con JS) -->
+    <div id="perfil-contenido">
+      <!-- Loading state -->
+      <div class="flex items-center justify-center py-12">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <span class="ml-3 text-gray-600">Cargando tu perfil...</span>
+      </div>
+    </div>
+
+    <!-- Si no hay sesión -->
+    <div id="perfil-sin-sesion" class="hidden">
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div class="text-5xl mb-4">🔒</div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">
+          Necesitas iniciar sesión
+        </h2>
+        <p class="text-gray-600 mb-6">
+          Para ver tu perfil, primero debes entrar con tu usuario y contraseña.
+        </p>
+        <a
+          href="/login"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition"
+        >
+          Ir a iniciar sesión
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    import { getToken, getPerfil, logout } from '../lib/auth';
+    import type { PerfilAlumna } from '../lib/auth';
+
+    const contenido = document.getElementById('perfil-contenido')!;
+    const sinSesion = document.getElementById('perfil-sin-sesion')!;
+
+    // ---------- Helpers ----------
+    function formatearFecha(isoString: string | null): string {
+      if (!isoString) return 'Nunca';
+      const fecha = new Date(isoString.replace(' ', 'T') + 'Z');
+      return fecha.toLocaleDateString('es-CL', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    function tiempoRelativo(isoString: string | null): string {
+      if (!isoString) return '';
+      const fecha = new Date(isoString.replace(' ', 'T') + 'Z');
+      const ahora = new Date();
+      const diffMs = ahora.getTime() - fecha.getTime();
+      const diffMin = Math.floor(diffMs / 60000);
+
+      if (diffMin < 1) return 'Hace unos segundos';
+      if (diffMin < 60) return `Hace ${diffMin} minuto${diffMin > 1 ? 's' : ''}`;
+      const diffHoras = Math.floor(diffMin / 60);
+      if (diffHoras < 24) return `Hace ${diffHoras} hora${diffHoras > 1 ? 's' : ''}`;
+      const diffDias = Math.floor(diffHoras / 24);
+      return `Hace ${diffDias} día${diffDias > 1 ? 's' : ''}`;
+    }
+
+    function iniciales(nombre: string): string {
+      return nombre
+        .split(' ')
+        .slice(0, 2)
+        .map((n) => n.charAt(0).toUpperCase())
+        .join('');
+    }
+
+    // ---------- Render ----------
+    function renderPerfil(alumna: PerfilAlumna, expira_en: string) {
+      const inicial = iniciales(alumna.nombre);
+
+      contenido.innerHTML = `
+        <!-- Card principal con avatar -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
+          <div class="bg-gradient-to-br from-purple-500 to-purple-700 p-8 text-center">
+            <div class="w-24 h-24 mx-auto rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-4xl font-extrabold text-white mb-4">
+              ${inicial}
+            </div>
+            <h2 class="text-2xl font-extrabold text-white mb-1">
+              ${alumna.nombre}
+            </h2>
+            <p class="text-white/80 font-semibold">
+              @${alumna.usuario}
+            </p>
+          </div>
+
+          <div class="p-6 md:p-8 space-y-5">
+            
+            <!-- Clase -->
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🎓</span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">
+                  Clase
+                </p>
+                <p class="text-gray-800 font-bold">
+                  ${alumna.clase ? alumna.clase.nombre : 'Sin clase asignada'}
+                </p>
+                ${alumna.clase ? `<p class="text-sm text-gray-500 mt-0.5">Código: <span class="font-mono font-bold text-purple-600">${alumna.clase.codigo}</span></p>` : ''}
+              </div>
+            </div>
+
+            <!-- Último login -->
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🕐</span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">
+                  Último ingreso
+                </p>
+                <p class="text-gray-800 font-bold">
+                  ${formatearFecha(alumna.ultimo_login)}
+                </p>
+                ${alumna.ultimo_login ? `<p class="text-sm text-gray-500 mt-0.5">${tiempoRelativo(alumna.ultimo_login)}</p>` : ''}
+              </div>
+            </div>
+
+            <!-- Miembro desde -->
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">📅</span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">
+                  Miembro desde
+                </p>
+                <p class="text-gray-800 font-bold">
+                  ${formatearFecha(alumna.creada_en)}
+                </p>
+              </div>
+            </div>
+
+            <!-- Sesión expira -->
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🔐</span>
+              <div class="flex-1">
+                <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">
+                  Sesión válida hasta
+                </p>
+                <p class="text-gray-800 font-bold">
+                  ${formatearFecha(expira_en)}
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="space-y-3">
+          <button
+            id="btn-logout"
+            class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition"
+          >
+            🚪 Cerrar sesión
+          </button>
+        </div>
+      `;
+
+      // Evento logout
+      document.getElementById('btn-logout')?.addEventListener('click', async () => {
+        await logout();
+        window.location.href = '/login';
+      });
+    }
+
+    // ---------- Init ----------
+    async function init() {
+      const token = getToken();
+
+      if (!token) {
+        contenido.classList.add('hidden');
+        sinSesion.classList.remove('hidden');
+        return;
+      }
+
+      const resultado = await getPerfil();
+
+      if (!resultado.ok || !resultado.alumna) {
+        // Sesión inválida: limpiar y mostrar login
+        await logout();
+        contenido.classList.add('hidden');
+        sinSesion.classList.remove('hidden');
+        return;
+      }
+
+      renderPerfil(resultado.alumna, resultado.expira_en || '');
+    }
+
+    init();
+  </script>
+</Layout>
