@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Carpeta temporal de trabajo
 .temporal/
+
+# Cloudflare Wrangler local state (no commitear)
+.wrangler/

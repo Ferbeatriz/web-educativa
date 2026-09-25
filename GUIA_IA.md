@@ -516,7 +516,23 @@ Distribución de dificultad
 
 30% muy difícil
 
+## 🚀 Publicación estándar (OBLIGATORIO)
 
+Después de crear o modificar cualquier lección, curso o módulo, 
+SIEMPRE entregar al usuario estos comandos para publicar:
+
+\`\`\`bash
+cd ~/Escritorio/EstudioFernanda/web-educativa
+git add .
+git commit -m "Descripción breve del cambio"
+git push
+\`\`\`
+
+El mensaje del commit debe seguir estos formatos:
+- Nueva lección: "Nueva lección: <título> (<materia>)"
+- Nuevo capítulo: "Nuevo capítulo: <título> (<curso>)"
+- Actualización: "Update: <descripción>"
+- Fix: "Fix: <descripción>"
 
 ## 📞 Contacto del proyecto
 

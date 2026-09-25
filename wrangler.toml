@@ -1,0 +1,22 @@
+# Configuración de Cloudflare Workers para web-educativa
+# Este archivo define el Worker API y la conexión a D1
+
+name = "web-educativa-api"
+main = "workers/api/src/index.ts"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Variables de entorno (no sensibles)
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "web-educativa"
+
+# Conexión a la base de datos D1
+[[d1_databases]]
+binding = "DB"
+database_name = "web-educativa-db"
+database_id = "dfe90365-c58f-4043-a79f-87dce0a5e313"
+
+# Observabilidad (logs)
+[observability]
+enabled = true
