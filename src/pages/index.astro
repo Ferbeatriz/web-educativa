@@ -22,7 +22,7 @@ const materias = materiasData.materias
         </div>
 
         <div class="relative z-10">
-          <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3 leading-tight">
+          <h1 id="hero-saludo" class="text-3xl md:text-5xl font-extrabold text-white mb-3 leading-tight">
             ¡Hola, exploradora! 👋
           </h1>
           <p class="text-base md:text-lg text-white/90 font-bold mb-6">
@@ -68,4 +68,16 @@ const materias = materiasData.materias
     </section>
 
   </main>
+
+  <script>
+    import { getAlumna } from '../lib/auth';
+
+    const alumna = getAlumna();
+    const saludo = document.getElementById('hero-saludo');
+
+    if (alumna && saludo) {
+      const primerNombre = alumna.nombre.split(' ')[0];
+      saludo.textContent = `¡Hola, ${primerNombre}! 👋`;
+    }
+  </script>
 </Layout>
