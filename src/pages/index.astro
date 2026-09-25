@@ -10,15 +10,13 @@ const materias = materiasData.materias
 ---
 
 <Layout title="Aprende Jugando 🚀">
-  <main class="max-w-5xl mx-auto px-4 py-8 md:py-12">
+  <main id="dashboard-protegido" class="hidden max-w-5xl mx-auto px-4 py-8 md:py-12">
 
-    <!-- 🌟 HERO -->
     <section class="mb-10">
       <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 p-6 md:p-10 shadow-xl">
 
-        <!-- Decoración de fondo -->
         <div class="absolute -top-6 -right-6 text-[200px] leading-none opacity-10 select-none pointer-events-none">
-          🦊
+          🦉
         </div>
 
         <div class="relative z-10">
@@ -29,7 +27,6 @@ const materias = materiasData.materias
             ¿Qué quieres aprender hoy? ✨
           </p>
 
-          <!-- Barra de progreso -->
           <div class="bg-white/15 backdrop-blur rounded-2xl p-4 max-w-md">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs md:text-sm font-extrabold text-white/90 uppercase tracking-wide">
@@ -40,10 +37,7 @@ const materias = materiasData.materias
               </span>
             </div>
             <div class="w-full h-2.5 bg-white/20 rounded-full overflow-hidden">
-              <div
-                class="h-full bg-white rounded-full transition-all duration-700"
-                style="width: 60%">
-              </div>
+              <div class="h-full bg-white rounded-full transition-all duration-700" style="width: 60%"></div>
             </div>
           </div>
         </div>
@@ -51,7 +45,6 @@ const materias = materiasData.materias
       </div>
     </section>
 
-    <!-- 📚 MATERIAS -->
     <section>
       <div class="flex items-center gap-3 mb-6">
         <span class="text-3xl">📚</span>
@@ -70,14 +63,20 @@ const materias = materiasData.materias
   </main>
 
   <script>
-    import { getAlumna } from '../lib/auth';
+    import { getAlumna, isLoggedIn } from '../lib/auth';
 
-    const alumna = getAlumna();
-    const saludo = document.getElementById('hero-saludo');
+    if (!isLoggedIn()) {
+      window.location.href = '/login';
+    } else {
+      const dashboard = document.getElementById('dashboard-protegido');
+      dashboard?.classList.remove('hidden');
 
-    if (alumna && saludo) {
-      const primerNombre = alumna.nombre.split(' ')[0];
-      saludo.textContent = `¡Hola, ${primerNombre}! 👋`;
+      const alumna = getAlumna();
+      const saludo = document.getElementById('hero-saludo');
+      if (alumna && saludo) {
+        const primerNombre = alumna.nombre.split(' ')[0];
+        saludo.textContent = `¡Hola, ${primerNombre}! 👋`;
+      }
     }
   </script>
 </Layout>
