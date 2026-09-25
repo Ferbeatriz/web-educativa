@@ -10,6 +10,13 @@ import {
   type Env,
 } from './routes/auth';
 
+import {
+  handleCompletarLeccion,
+  handleResumenProgreso,
+  handleProgresoCompleto,
+  handleEstadoLeccion,
+} from './routes/progreso';
+
 export default {
   async fetch(
     request: Request,
@@ -32,6 +39,7 @@ export default {
     }
 
     try {
+      // ---------- Health ----------
       if (path === '/api/health' && method === 'GET') {
         const dbTest = await env.DB.prepare('SELECT 1 as ok').first();
         return json({
@@ -44,20 +52,26 @@ export default {
         });
       }
 
+      // ---------- Info ----------
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.2.0',
+          version: '1.3.0',
           endpoints: [
             'GET  /api/health',
             'POST /api/auth/login',
             'POST /api/auth/logout',
             'GET  /api/auth/me',
             'GET  /api/auth/perfil',
+            'POST /api/progreso/completar',
+            'GET  /api/progreso/resumen',
+            'GET  /api/progreso/completo',
+            'GET  /api/progreso/leccion/:id',
           ],
         });
       }
 
+      // ---------- Auth ----------
       if (path === '/api/auth/login' && method === 'POST') {
         return await handleLogin(request, env);
       }
@@ -71,6 +85,24 @@ export default {
         return await handlePerfil(request, env);
       }
 
+      // ---------- Progreso ----------
+      if (path === '/api/progreso/completar' && method === 'POST') {
+        return await handleCompletarLeccion(request, env);
+      }
+      if (path === '/api/progreso/resumen' && method === 'GET') {
+        return await handleResumenProgreso(request, env);
+      }
+      if (path === '/api/progreso/completo' && method === 'GET') {
+        return await handleProgresoCompleto(request, env);
+      }
+
+      // Ruta dinámica: /api/progreso/leccion/:id
+      const matchLeccion = path.match(/^\/api\/progreso\/leccion\/([^\/]+)$/);
+      if (matchLeccion && method === 'GET') {
+        return await handleEstadoLeccion(request, env, matchLeccion[1]);
+      }
+
+      // ---------- 404 ----------
       return json({ error: 'Not Found', path, method }, 404);
     } catch (error) {
       console.error('Worker error:', error);

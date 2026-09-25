@@ -167,3 +167,111 @@ export async function getAlumnaCompleta(
     }>();
   return result ?? null;
 }
+
+// ============================================================
+// PROGRESO
+// ============================================================
+
+export interface ProgresoItem {
+  leccion_id: string;
+  materia_id: string;
+  xp_ganados: number;
+  completada_en: string;
+}
+
+export interface ResumenProgreso {
+  xp_total: number;
+  lecciones_completadas: number;
+  materias_exploradas: number;
+}
+
+/**
+ * Marca una lección como completada.
+ * Si ya estaba completada, no hace nada (gracias al UNIQUE constraint).
+ * Devuelve true si fue insertado nuevo, false si ya existía.
+ */
+export async function marcarLeccionCompletada(
+  db: D1Database,
+  alumna_id: number,
+  leccion_id: string,
+  materia_id: string
+): Promise<{ insertado: boolean; xp_ganados: number }> {
+  // 1. Verificar si ya está completada
+  const existente = await db
+    .prepare('SELECT id FROM progreso WHERE alumna_id = ? AND leccion_id = ?')
+    .bind(alumna_id, leccion_id)
+    .first<{ id: number }>();
+
+  if (existente) {
+    return { insertado: false, xp_ganados: 0 };
+  }
+
+  // 2. Insertar el nuevo progreso (50 XP fijo)
+  const XP_POR_LECCION = 50;
+  await db
+    .prepare(
+      'INSERT INTO progreso (alumna_id, leccion_id, materia_id, xp_ganados) VALUES (?, ?, ?, ?)'
+    )
+    .bind(alumna_id, leccion_id, materia_id, XP_POR_LECCION)
+    .run();
+
+  return { insertado: true, xp_ganados: XP_POR_LECCION };
+}
+
+/**
+ * Obtiene el resumen del progreso (XP total, lecciones completadas, materias exploradas).
+ */
+export async function getResumenProgreso(
+  db: D1Database,
+  alumna_id: number
+): Promise<ResumenProgreso> {
+  const result = await db
+    .prepare(
+      `SELECT 
+         COALESCE(SUM(xp_ganados), 0) AS xp_total,
+         COUNT(*) AS lecciones_completadas,
+         COUNT(DISTINCT materia_id) AS materias_exploradas
+       FROM progreso
+       WHERE alumna_id = ?`
+    )
+    .bind(alumna_id)
+    .first<ResumenProgreso>();
+
+  return result ?? { xp_total: 0, lecciones_completadas: 0, materias_exploradas: 0 };
+}
+
+/**
+ * Obtiene el progreso completo de una alumna (todas las lecciones completadas).
+ */
+export async function getProgresoCompleto(
+  db: D1Database,
+  alumna_id: number
+): Promise<ProgresoItem[]> {
+  const result = await db
+    .prepare(
+      `SELECT leccion_id, materia_id, xp_ganados, completada_en
+       FROM progreso
+       WHERE alumna_id = ?
+       ORDER BY completada_en DESC`
+    )
+    .bind(alumna_id)
+    .all<ProgresoItem>();
+
+  return result.results ?? [];
+}
+
+/**
+ * Verifica si una alumna ya completó una lección específica.
+ */
+export async function leccionCompletada(
+  db: D1Database,
+  alumna_id: number,
+  leccion_id: string
+): Promise<boolean> {
+  const result = await db
+    .prepare('SELECT id FROM progreso WHERE alumna_id = ? AND leccion_id = ?')
+    .bind(alumna_id, leccion_id)
+    .first<{ id: number }>();
+
+  return result !== null;
+}
