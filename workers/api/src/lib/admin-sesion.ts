@@ -1,13 +1,8 @@
 /**
  * Sesiones de administrador con cookies firmadas.
- * 
- * Formato de cookie: <payload_b64>.<firma_hmac_b64>
- * 
- * El payload contiene: { admin: true, exp: <timestamp> }
- * La firma se calcula con HMAC-SHA256 usando ADMIN_SESSION_SECRET.
  */
 
-const DURACION_HORAS = 24; // La sesión de admin dura 24 horas
+const DURACION_HORAS = 24;
 const NOMBRE_COOKIE = 'admin_session';
 
 function bufferToBase64Url(buffer: ArrayBuffer): string {
@@ -41,12 +36,7 @@ async function importarClaveHMAC(secret: string): Promise<CryptoKey> {
   );
 }
 
-/**
- * Crea una cookie de sesión admin firmada.
- */
-export async function crearCookieAdmin(
-  secret: string
-): Promise<string> {
+export async function crearCookieAdmin(secret: string): Promise<string> {
   const payload = {
     admin: true,
     exp: Math.floor(Date.now() / 1000) + DURACION_HORAS * 3600,
@@ -62,9 +52,6 @@ export async function crearCookieAdmin(
   return `${payloadB64}.${firmaB64}`;
 }
 
-/**
- * Verifica si una cookie admin es válida y no expiró.
- */
 export async function verificarCookieAdmin(
   cookie: string,
   secret: string
@@ -75,7 +62,6 @@ export async function verificarCookieAdmin(
 
     const [payloadB64, firmaB64] = parts;
 
-    // 1. Verificar firma
     const key = await importarClaveHMAC(secret);
     const encoder = new TextEncoder();
     const firmaValida = await crypto.subtle.verify(
@@ -87,7 +73,6 @@ export async function verificarCookieAdmin(
 
     if (!firmaValida) return false;
 
-    // 2. Verificar expiración
     const payloadJson = atob(
       payloadB64.replace(/-/g, '+').replace(/_/g, '/') +
         '='.repeat((4 - (payloadB64.length % 4)) % 4)
@@ -103,9 +88,6 @@ export async function verificarCookieAdmin(
   }
 }
 
-/**
- * Extrae la cookie de admin del header Cookie.
- */
 export function extraerCookieAdmin(request: Request): string | null {
   const cookies = request.headers.get('Cookie');
   if (!cookies) return null;
@@ -122,14 +104,17 @@ export function extraerCookieAdmin(request: Request): string | null {
 
 /**
  * Genera el header Set-Cookie para establecer la sesión admin.
+ * El flag Secure se activa solo si el origen es HTTPS.
  */
-export function headerSetCookieAdmin(cookie: string): string {
-  return `${NOMBRE_COOKIE}=${cookie}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${DURACION_HORAS * 3600}`;
+export function headerSetCookieAdmin(cookie: string, isSecure: boolean = true): string {
+  const secure = isSecure ? '; Secure' : '';
+  return `${NOMBRE_COOKIE}=${cookie}; Path=/; HttpOnly${secure}; SameSite=Lax; Max-Age=${DURACION_HORAS * 3600}`;
 }
 
 /**
  * Genera el header Set-Cookie para eliminar la sesión admin.
  */
-export function headerDeleteCookieAdmin(): string {
-  return `${NOMBRE_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`;
+export function headerDeleteCookieAdmin(isSecure: boolean = true): string {
+  const secure = isSecure ? '; Secure' : '';
+  return `${NOMBRE_COOKIE}=; Path=/; HttpOnly${secure}; SameSite=Lax; Max-Age=0`;
 }

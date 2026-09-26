@@ -35,14 +35,21 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     const method = request.method;
+    const origin = request.headers.get('Origin') || '';
+
+    // Headers CORS consistentes
+    const corsHeaders: Record<string, string> = {
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Credentials': 'true',
+      'Vary': 'Origin',
+    };
 
     if (method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': request.headers.get('Origin') || '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          'Access-Control-Allow-Credentials': 'true',
+          ...corsHeaders,
           'Access-Control-Max-Age': '86400',
         },
       });
@@ -59,14 +66,14 @@ export default {
           app: env.APP_NAME,
           database: dbTest ? 'connected' : 'error',
           timestamp: new Date().toISOString(),
-        });
+        }, 200, corsHeaders);
       }
 
       // ---------- Info ----------
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.4.0',
+          version: '1.4.1',
           endpoints: [
             'GET  /api/health',
             'POST /api/auth/login',
@@ -81,7 +88,7 @@ export default {
             'POST /api/admin/logout',
             'GET  /api/admin/me',
           ],
-        });
+        }, 200, corsHeaders);
       }
 
       // ---------- Auth (alumnas) ----------
@@ -126,7 +133,7 @@ export default {
       }
 
       // ---------- 404 ----------
-      return json({ error: 'Not Found', path, method }, 404);
+      return json({ error: 'Not Found', path, method }, 404, corsHeaders);
     } catch (error) {
       console.error('Worker error:', error);
       return json(
@@ -134,18 +141,23 @@ export default {
           error: 'Internal Server Error',
           message: error instanceof Error ? error.message : 'Unknown error',
         },
-        500
+        500,
+        corsHeaders
       );
     }
   },
 };
 
-function json(data: unknown, status = 200): Response {
+function json(
+  data: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {}
+): Response {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      ...extraHeaders,
     },
   });
 }
