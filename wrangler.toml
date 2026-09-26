@@ -1,6 +1,3 @@
-# Configuración de Cloudflare Workers para web-educativa
-# Este archivo define el Worker API y la conexión a D1
-
 name = "web-educativa-api"
 main = "workers/api/src/index.ts"
 compatibility_date = "2026-09-01"

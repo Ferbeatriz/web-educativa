@@ -7,7 +7,7 @@ import {
   handleLogout,
   handleMe,
   handlePerfil,
-  type Env,
+  type Env as EnvAuth,
 } from './routes/auth';
 
 import {
@@ -16,6 +16,15 @@ import {
   handleProgresoCompleto,
   handleEstadoLeccion,
 } from './routes/progreso';
+
+import {
+  handleAdminLogin,
+  handleAdminLogout,
+  handleAdminMe,
+  type Env as EnvAdmin,
+} from './routes/admin';
+
+type Env = EnvAuth & EnvAdmin;
 
 export default {
   async fetch(
@@ -30,9 +39,10 @@ export default {
     if (method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Origin': request.headers.get('Origin') || '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Credentials': 'true',
           'Access-Control-Max-Age': '86400',
         },
       });
@@ -56,7 +66,7 @@ export default {
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.3.0',
+          version: '1.4.0',
           endpoints: [
             'GET  /api/health',
             'POST /api/auth/login',
@@ -67,11 +77,14 @@ export default {
             'GET  /api/progreso/resumen',
             'GET  /api/progreso/completo',
             'GET  /api/progreso/leccion/:id',
+            'POST /api/admin/login',
+            'POST /api/admin/logout',
+            'GET  /api/admin/me',
           ],
         });
       }
 
-      // ---------- Auth ----------
+      // ---------- Auth (alumnas) ----------
       if (path === '/api/auth/login' && method === 'POST') {
         return await handleLogin(request, env);
       }
@@ -96,10 +109,20 @@ export default {
         return await handleProgresoCompleto(request, env);
       }
 
-      // Ruta dinámica: /api/progreso/leccion/:id
       const matchLeccion = path.match(/^\/api\/progreso\/leccion\/([^\/]+)$/);
       if (matchLeccion && method === 'GET') {
         return await handleEstadoLeccion(request, env, matchLeccion[1]);
+      }
+
+      // ---------- Admin ----------
+      if (path === '/api/admin/login' && method === 'POST') {
+        return await handleAdminLogin(request, env);
+      }
+      if (path === '/api/admin/logout' && method === 'POST') {
+        return await handleAdminLogout(request);
+      }
+      if (path === '/api/admin/me' && method === 'GET') {
+        return await handleAdminMe(request, env);
       }
 
       // ---------- 404 ----------
