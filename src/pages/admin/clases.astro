@@ -1,0 +1,390 @@
+---
+// Panel admin: gestión de clases
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Clases · Admin</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #F8FAFC;
+        min-height: 100vh;
+        color: #0F172A;
+      }
+      header {
+        background: #0F172A;
+        color: #F1F5F9;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #1E293B;
+      }
+      header .brand { display: flex; align-items: center; gap: 12px; }
+      header .brand-icon {
+        width: 36px; height: 36px; border-radius: 8px;
+        background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; border: 1px solid #334155;
+      }
+      header h1 { font-size: 15px; font-weight: 600; }
+      header .acciones { display: flex; align-items: center; gap: 12px; }
+      header .acciones a, header .acciones button {
+        font-family: inherit; font-size: 13px; color: #CBD5E1;
+        text-decoration: none; background: transparent;
+        border: 1px solid #334155; padding: 8px 14px;
+        border-radius: 6px; cursor: pointer; transition: all 0.15s;
+      }
+      header .acciones a:hover, header .acciones button:hover {
+        background: #1E293B; color: #F1F5F9;
+      }
+      main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+      .breadcrumb {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 13px; color: #64748B; text-decoration: none;
+        margin-bottom: 24px; transition: color 0.15s;
+      }
+      .breadcrumb:hover { color: #0F172A; }
+      .page-title { margin-bottom: 24px; }
+      .page-title h2 { font-size: 24px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+      .page-title p { font-size: 14px; color: #64748B; }
+      .actions-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 24px; gap: 12px; flex-wrap: wrap;
+      }
+      .btn-primary {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 10px 18px; background: #3B82F6; color: white;
+        border: none; border-radius: 8px; font-family: inherit;
+        font-size: 14px; font-weight: 600; cursor: pointer;
+        transition: background 0.15s;
+      }
+      .btn-primary:hover { background: #2563EB; }
+      .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+      .form-nueva {
+        background: white; border: 1px solid #E2E8F0; border-radius: 10px;
+        padding: 20px; margin-bottom: 24px; display: none;
+      }
+      .form-nueva.visible { display: block; }
+      .form-nueva h3 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+      .form-nueva label {
+        display: block; font-size: 13px; font-weight: 500;
+        color: #475569; margin-bottom: 6px;
+      }
+      .form-nueva input {
+        width: 100%; padding: 10px 12px; background: #F8FAFC;
+        border: 1px solid #E2E8F0; border-radius: 8px;
+        font-family: inherit; font-size: 14px; outline: none;
+        transition: border-color 0.15s; margin-bottom: 16px;
+      }
+      .form-nueva input:focus { border-color: #3B82F6; background: white; }
+      .form-nueva .row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+      .form-nueva .btns {
+        display: flex; gap: 10px; justify-content: flex-end;
+        margin-top: 8px;
+      }
+      .btn-secondary {
+        padding: 10px 18px; background: white; color: #475569;
+        border: 1px solid #E2E8F0; border-radius: 8px;
+        font-family: inherit; font-size: 14px; font-weight: 600;
+        cursor: pointer; transition: all 0.15s;
+      }
+      .btn-secondary:hover { background: #F8FAFC; color: #0F172A; }
+      .lista-clases { display: flex; flex-direction: column; gap: 12px; }
+      .card-clase {
+        background: white; border: 1px solid #E2E8F0; border-radius: 10px;
+        padding: 20px; display: flex; justify-content: space-between;
+        align-items: center; gap: 16px; transition: all 0.15s;
+      }
+      .card-clase:hover { border-color: #CBD5E1; }
+      .card-clase.inactiva { opacity: 0.6; }
+      .card-clase .info h3 {
+        font-size: 16px; font-weight: 600; color: #0F172A;
+        margin-bottom: 6px;
+      }
+      .card-clase .info .meta {
+        font-size: 13px; color: #64748B;
+        display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      }
+      .card-clase .info .codigo {
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-weight: 600; color: #3B82F6;
+      }
+      .badge-inactiva {
+        display: inline-block; font-size: 11px; font-weight: 600;
+        padding: 2px 8px; border-radius: 4px;
+        background: #FEF2F2; color: #DC2626;
+      }
+      .card-clase .acciones {
+        display: flex; gap: 8px; flex-shrink: 0;
+      }
+      .card-clase .acciones button {
+        padding: 8px 14px; font-family: inherit; font-size: 13px;
+        font-weight: 500; border-radius: 6px; cursor: pointer;
+        border: 1px solid #E2E8F0; background: white;
+        color: #475569; transition: all 0.15s;
+      }
+      .card-clase .acciones button:hover {
+        border-color: #3B82F6; color: #3B82F6;
+      }
+      .card-clase .acciones button.danger:hover {
+        border-color: #EF4444; color: #EF4444;
+      }
+      .loading, .empty {
+        text-align: center; padding: 60px 24px;
+        color: #64748B; font-size: 14px;
+      }
+      .empty .icon { font-size: 48px; margin-bottom: 16px; }
+      .empty h3 { font-size: 16px; font-weight: 600; color: #0F172A; margin-bottom: 8px; }
+      .error-toast {
+        position: fixed; bottom: 24px; right: 24px;
+        background: #FEF2F2; border: 1px solid #FECACA;
+        color: #991B1B; padding: 12px 18px; border-radius: 8px;
+        font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        display: none; z-index: 100;
+      }
+      .error-toast.visible { display: block; }
+      .hidden { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div id="loading" class="loading">Cargando…</div>
+
+    <div id="panel" class="hidden">
+      <header>
+        <div class="brand">
+          <div class="brand-icon">🔐</div>
+          <h1>Panel de Administración</h1>
+        </div>
+        <div class="acciones">
+          <a href="/">Ver web pública</a>
+          <button id="btn-logout">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <main>
+        <a href="/admin" class="breadcrumb">← Volver al dashboard</a>
+
+        <div class="page-title">
+          <h2>📚 Clases</h2>
+          <p>Gestiona las clases de tus alumnas</p>
+        </div>
+
+        <div class="actions-bar">
+          <button id="btn-nueva-clase" class="btn-primary">+ Nueva clase</button>
+        </div>
+
+        <div id="form-nueva" class="form-nueva">
+          <h3>Nueva clase</h3>
+          <div class="row">
+            <div>
+              <label for="clase-nombre">Nombre de la clase</label>
+              <input type="text" id="clase-nombre" placeholder="Ej: 5° Básico A 2026" maxlength="100" />
+            </div>
+            <div>
+              <label for="clase-codigo">Código</label>
+              <input type="text" id="clase-codigo" placeholder="Ej: 5BA2026" maxlength="20" style="text-transform: uppercase;" />
+            </div>
+          </div>
+          <div class="btns">
+            <button id="btn-cancelar" class="btn-secondary">Cancelar</button>
+            <button id="btn-guardar-clase" class="btn-primary">Crear clase</button>
+          </div>
+        </div>
+
+        <div id="lista-clases" class="lista-clases"></div>
+      </main>
+    </div>
+
+    <div id="error-toast" class="error-toast"></div>
+
+    <script>
+      import { verificarAdmin, logoutAdmin, getToken } from '../../lib/admin';
+
+      const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
+
+      interface Clase {
+        id: number;
+        nombre: string;
+        codigo: string;
+        activa: number;
+        creada_en: string;
+        total_alumnas: number;
+      }
+
+      async function init() {
+        const esAdmin = await verificarAdmin();
+        if (!esAdmin) {
+          window.location.href = '/admin/login';
+          return;
+        }
+
+        document.getElementById('loading')?.classList.add('hidden');
+        document.getElementById('panel')?.classList.remove('hidden');
+
+        document.getElementById('btn-logout')?.addEventListener('click', async () => {
+          await logoutAdmin();
+          window.location.href = '/admin/login';
+        });
+
+        document.getElementById('btn-nueva-clase')?.addEventListener('click', () => {
+          document.getElementById('form-nueva')?.classList.add('visible');
+          document.getElementById('clase-nombre')?.focus();
+        });
+
+        document.getElementById('btn-cancelar')?.addEventListener('click', () => {
+          document.getElementById('form-nueva')?.classList.remove('visible');
+        });
+
+        document.getElementById('btn-guardar-clase')?.addEventListener('click', crearClase);
+
+        await cargarClases();
+      }
+
+      async function cargarClases() {
+        const token = getToken();
+        const lista = document.getElementById('lista-clases')!;
+
+        try {
+          const response = await fetch(`${API_URL}/api/admin/clases`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          const data = await response.json();
+
+          if (!data.ok) {
+            lista.innerHTML = `<div class="empty"><p>Error al cargar clases</p></div>`;
+            return;
+          }
+
+          if (data.clases.length === 0) {
+            lista.innerHTML = `
+              <div class="empty">
+                <div class="icon">📚</div>
+                <h3>Aún no hay clases</h3>
+                <p>Crea tu primera clase con el botón de arriba</p>
+              </div>
+            `;
+            return;
+          }
+
+          lista.innerHTML = data.clases.map((clase: Clase) => `
+            <div class="card-clase ${clase.activa ? '' : 'inactiva'}">
+              <div class="info">
+                <h3>${escapeHtml(clase.nombre)}</h3>
+                <div class="meta">
+                  <span>Código: <span class="codigo">${escapeHtml(clase.codigo)}</span></span>
+                  <span>·</span>
+                  <span>${clase.total_alumnas} ${clase.total_alumnas === 1 ? 'alumna' : 'alumnas'}</span>
+                  ${!clase.activa ? '<span class="badge-inactiva">INACTIVA</span>' : ''}
+                </div>
+              </div>
+              <div class="acciones">
+                <button onclick="window.location.href='/admin/alumnas?clase_id=${clase.id}'">Ver alumnas</button>
+                <button class="${clase.activa ? 'danger' : ''}" onclick="toggleClase(${clase.id}, ${clase.activa ? 0 : 1})">
+                  ${clase.activa ? 'Desactivar' : 'Activar'}
+                </button>
+              </div>
+            </div>
+          `).join('');
+        } catch (err) {
+          lista.innerHTML = `<div class="empty"><p>Error de conexión</p></div>`;
+        }
+      }
+
+      async function crearClase() {
+        const nombreInput = document.getElementById('clase-nombre') as HTMLInputElement;
+        const codigoInput = document.getElementById('clase-codigo') as HTMLInputElement;
+        const btnGuardar = document.getElementById('btn-guardar-clase') as HTMLButtonElement;
+
+        const nombre = nombreInput.value.trim();
+        const codigo = codigoInput.value.trim().toUpperCase();
+
+        if (!nombre || !codigo) {
+          mostrarError('Completa todos los campos');
+          return;
+        }
+
+        btnGuardar.disabled = true;
+        btnGuardar.textContent = 'Creando...';
+
+        try {
+          const token = getToken();
+          const response = await fetch(`${API_URL}/api/admin/clases`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ nombre, codigo }),
+          });
+
+          const data = await response.json();
+
+          if (data.ok) {
+            nombreInput.value = '';
+            codigoInput.value = '';
+            document.getElementById('form-nueva')?.classList.remove('visible');
+            await cargarClases();
+          } else {
+            mostrarError(data.error || 'Error al crear la clase');
+          }
+        } catch {
+          mostrarError('Error de conexión');
+        } finally {
+          btnGuardar.disabled = false;
+          btnGuardar.textContent = 'Crear clase';
+        }
+      }
+
+      async function toggleClase(id: number, activa: number) {
+        try {
+          const token = getToken();
+          const response = await fetch(`${API_URL}/api/admin/clases/${id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ activa: activa === 1 }),
+          });
+
+          const data = await response.json();
+          if (data.ok) {
+            await cargarClases();
+          } else {
+            mostrarError(data.error || 'Error al actualizar');
+          }
+        } catch {
+          mostrarError('Error de conexión');
+        }
+      }
+
+      function mostrarError(msg: string) {
+        const toast = document.getElementById('error-toast')!;
+        toast.textContent = msg;
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 4000);
+      }
+
+      function escapeHtml(text: string): string {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      (window as any).toggleClase = toggleClase;
+
+      init();
+    </script>
+  </body>
+</html>
