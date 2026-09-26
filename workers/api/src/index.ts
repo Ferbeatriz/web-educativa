@@ -24,6 +24,19 @@ import {
   type Env as EnvAdmin,
 } from './routes/admin';
 
+import {
+  handleListarClases,
+  handleCrearClase,
+  handleActualizarClase,
+} from './routes/admin-clases';
+
+import {
+  handleListarAlumnas,
+  handleCrearAlumna,
+  handleResetearPassword,
+  handleProgresoAlumna,
+} from './routes/admin-alumnas';
+
 type Env = EnvAuth & EnvAdmin;
 
 export default {
@@ -40,7 +53,7 @@ export default {
       return new Response(null, {
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
           'Access-Control-Max-Age': '86400',
         },
@@ -65,20 +78,27 @@ export default {
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.5.0',
+          version: '1.6.0',
           endpoints: [
-            'GET  /api/health',
-            'POST /api/auth/login',
-            'POST /api/auth/logout',
-            'GET  /api/auth/me',
-            'GET  /api/auth/perfil',
-            'POST /api/progreso/completar',
-            'GET  /api/progreso/resumen',
-            'GET  /api/progreso/completo',
-            'GET  /api/progreso/leccion/:id',
-            'POST /api/admin/login',
-            'POST /api/admin/logout',
-            'GET  /api/admin/me',
+            'GET    /api/health',
+            'POST   /api/auth/login',
+            'POST   /api/auth/logout',
+            'GET    /api/auth/me',
+            'GET    /api/auth/perfil',
+            'POST   /api/progreso/completar',
+            'GET    /api/progreso/resumen',
+            'GET    /api/progreso/completo',
+            'GET    /api/progreso/leccion/:id',
+            'POST   /api/admin/login',
+            'POST   /api/admin/logout',
+            'GET    /api/admin/me',
+            'GET    /api/admin/clases',
+            'POST   /api/admin/clases',
+            'PATCH  /api/admin/clases/:id',
+            'GET    /api/admin/alumnas',
+            'POST   /api/admin/alumnas',
+            'POST   /api/admin/alumnas/:id/resetear-password',
+            'GET    /api/admin/alumnas/:id/progreso',
           ],
         });
       }
@@ -113,7 +133,7 @@ export default {
         return await handleEstadoLeccion(request, env, matchLeccion[1]);
       }
 
-      // ---------- Admin ----------
+      // ---------- Admin: auth ----------
       if (path === '/api/admin/login' && method === 'POST') {
         return await handleAdminLogin(request, env);
       }
@@ -122,6 +142,41 @@ export default {
       }
       if (path === '/api/admin/me' && method === 'GET') {
         return await handleAdminMe(request, env);
+      }
+
+      // ---------- Admin: clases ----------
+      if (path === '/api/admin/clases' && method === 'GET') {
+        return await handleListarClases(request, env);
+      }
+      if (path === '/api/admin/clases' && method === 'POST') {
+        return await handleCrearClase(request, env);
+      }
+
+      const matchClase = path.match(/^\/api\/admin\/clases\/(\d+)$/);
+      if (matchClase && method === 'PATCH') {
+        return await handleActualizarClase(request, env, matchClase[1]);
+      }
+
+      // ---------- Admin: alumnas ----------
+      if (path === '/api/admin/alumnas' && method === 'GET') {
+        return await handleListarAlumnas(request, env);
+      }
+      if (path === '/api/admin/alumnas' && method === 'POST') {
+        return await handleCrearAlumna(request, env);
+      }
+
+      const matchResetPass = path.match(
+        /^\/api\/admin\/alumnas\/(\d+)\/resetear-password$/
+      );
+      if (matchResetPass && method === 'POST') {
+        return await handleResetearPassword(request, env, matchResetPass[1]);
+      }
+
+      const matchProgAlumna = path.match(
+        /^\/api\/admin\/alumnas\/(\d+)\/progreso$/
+      );
+      if (matchProgAlumna && method === 'GET') {
+        return await handleProgresoAlumna(request, env, matchProgAlumna[1]);
       }
 
       // ---------- 404 ----------
