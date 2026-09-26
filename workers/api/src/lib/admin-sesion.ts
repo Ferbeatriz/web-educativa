@@ -1,120 +1,99 @@
 /**
- * Sesiones de administrador con cookies firmadas.
+ * Sesiones de administrador con tokens guardados en D1.
+ * Similar al sistema de sesiones de alumnas.
  */
 
 const DURACION_HORAS = 24;
-const NOMBRE_COOKIE = 'admin_session';
 
-function bufferToBase64Url(buffer: ArrayBuffer): string {
-  const bytes = new Uint8Array(buffer);
+/**
+ * Genera un token de sesión admin aleatorio.
+ */
+export function generarTokenAdmin(): string {
+  const bytes = crypto.getRandomValues(new Uint8Array(32));
   let binary = '';
   for (let i = 0; i < bytes.byteLength; i++) {
     binary += String.fromCharCode(bytes[i]);
   }
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  return btoa(binary)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
 }
 
-function base64UrlToBuffer(s: string): Uint8Array {
-  const base64 = s.replace(/-/g, '+').replace(/_/g, '/');
-  const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
-  const binary = atob(padded);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
+/**
+ * Genera el hash SHA-256 de un token (para guardar en BD).
+ */
+export async function hashTokenAdmin(token: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(token);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const bytes = new Uint8Array(hashBuffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
   }
-  return bytes;
+  return btoa(binary);
 }
 
-async function importarClaveHMAC(secret: string): Promise<CryptoKey> {
-  const encoder = new TextEncoder();
-  return crypto.subtle.importKey(
-    'raw',
-    encoder.encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign', 'verify']
-  );
+/**
+ * Guarda un token admin en D1.
+ * Retorna la fecha de expiración en ISO.
+ */
+export async function guardarTokenAdmin(
+  db: D1Database,
+  tokenHash: string
+): Promise<string> {
+  const expira = new Date();
+  expira.setHours(expira.getHours() + DURACION_HORAS);
+  const expiraISO = expira.toISOString().replace('T', ' ').substring(0, 19);
+
+  await db
+    .prepare(
+      'INSERT INTO admin_sesiones (token_hash, expira_en) VALUES (?, ?)'
+    )
+    .bind(tokenHash, expiraISO)
+    .run();
+
+  return expiraISO;
 }
 
-export async function crearCookieAdmin(secret: string): Promise<string> {
-  const payload = {
-    admin: true,
-    exp: Math.floor(Date.now() / 1000) + DURACION_HORAS * 3600,
-  };
-  const payloadJson = JSON.stringify(payload);
-  const payloadB64 = btoa(payloadJson).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-
-  const key = await importarClaveHMAC(secret);
-  const encoder = new TextEncoder();
-  const firma = await crypto.subtle.sign('HMAC', key, encoder.encode(payloadB64));
-  const firmaB64 = bufferToBase64Url(firma);
-
-  return `${payloadB64}.${firmaB64}`;
-}
-
-export async function verificarCookieAdmin(
-  cookie: string,
-  secret: string
+/**
+ * Verifica si un token admin es válido.
+ */
+export async function verificarTokenAdmin(
+  db: D1Database,
+  tokenHash: string
 ): Promise<boolean> {
-  try {
-    const parts = cookie.split('.');
-    if (parts.length !== 2) return false;
+  const result = await db
+    .prepare(
+      "SELECT id FROM admin_sesiones WHERE token_hash = ? AND expira_en > datetime('now')"
+    )
+    .bind(tokenHash)
+    .first<{ id: number }>();
 
-    const [payloadB64, firmaB64] = parts;
-
-    const key = await importarClaveHMAC(secret);
-    const encoder = new TextEncoder();
-    const firmaValida = await crypto.subtle.verify(
-      'HMAC',
-      key,
-      base64UrlToBuffer(firmaB64),
-      encoder.encode(payloadB64)
-    );
-
-    if (!firmaValida) return false;
-
-    const payloadJson = atob(
-      payloadB64.replace(/-/g, '+').replace(/_/g, '/') +
-        '='.repeat((4 - (payloadB64.length % 4)) % 4)
-    );
-    const payload = JSON.parse(payloadJson);
-
-    if (!payload.admin) return false;
-    if (payload.exp < Math.floor(Date.now() / 1000)) return false;
-
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export function extraerCookieAdmin(request: Request): string | null {
-  const cookies = request.headers.get('Cookie');
-  if (!cookies) return null;
-
-  const parts = cookies.split(';').map((c) => c.trim());
-  for (const part of parts) {
-    const [name, ...valueParts] = part.split('=');
-    if (name === NOMBRE_COOKIE) {
-      return valueParts.join('=');
-    }
-  }
-  return null;
+  return result !== null;
 }
 
 /**
- * Genera el header Set-Cookie para establecer la sesión admin.
- * El flag Secure se activa solo si el origen es HTTPS.
+ * Elimina un token admin (logout).
  */
-export function headerSetCookieAdmin(cookie: string, isSecure: boolean = true): string {
-  const secure = isSecure ? '; Secure' : '';
-  return `${NOMBRE_COOKIE}=${cookie}; Path=/; HttpOnly${secure}; SameSite=Lax; Max-Age=${DURACION_HORAS * 3600}`;
+export async function eliminarTokenAdmin(
+  db: D1Database,
+  tokenHash: string
+): Promise<void> {
+  await db
+    .prepare('DELETE FROM admin_sesiones WHERE token_hash = ?')
+    .bind(tokenHash)
+    .run();
 }
 
 /**
- * Genera el header Set-Cookie para eliminar la sesión admin.
+ * Extrae el token del header Authorization.
  */
-export function headerDeleteCookieAdmin(isSecure: boolean = true): string {
-  const secure = isSecure ? '; Secure' : '';
-  return `${NOMBRE_COOKIE}=; Path=/; HttpOnly${secure}; SameSite=Lax; Max-Age=0`;
+export function extraerTokenAdmin(request: Request): string | null {
+  const auth = request.headers.get('Authorization');
+  if (!auth) return null;
+  const parts = auth.split(' ');
+  if (parts.length !== 2 || parts[0] !== 'Bearer') return null;
+  return parts[1] || null;
 }

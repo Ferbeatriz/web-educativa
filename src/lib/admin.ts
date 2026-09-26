@@ -1,17 +1,15 @@
 /**
  * Helper del panel de administración.
- * Todas las llamadas al Worker sobre admin pasan por acá.
- * 
- * IMPORTANTE: usa cookies HttpOnly, no localStorage.
- * El navegador envía la cookie automáticamente con `credentials: 'include'`.
+ * Usa tokens en localStorage (mismo patrón que las alumnas).
  */
 
 const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
-
-// ---------- Tipos ----------
+const ADMIN_TOKEN_KEY = 'web_educativa_admin_token';
 
 export interface LoginAdminResponse {
   ok: boolean;
+  token?: string;
+  expira_en?: string;
   mensaje?: string;
   error?: string;
 }
@@ -23,23 +21,24 @@ export interface MeAdminResponse {
   error?: string;
 }
 
-// ---------- Funciones ----------
-
 /**
  * Login del admin.
- * Si es exitoso, el Worker devuelve una cookie HttpOnly que el navegador
- * guarda automáticamente.
+ * Guarda el token en localStorage si es exitoso.
  */
 export async function loginAdmin(password: string): Promise<LoginAdminResponse> {
   try {
     const response = await fetch(`${API_URL}/api/admin/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
       body: JSON.stringify({ password }),
     });
 
     const data: LoginAdminResponse = await response.json();
+
+    if (data.ok && data.token) {
+      localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+    }
+
     return data;
   } catch {
     return {
@@ -51,30 +50,49 @@ export async function loginAdmin(password: string): Promise<LoginAdminResponse> 
 
 /**
  * Logout del admin.
- * El Worker borra la cookie.
  */
 export async function logoutAdmin(): Promise<void> {
-  try {
-    await fetch(`${API_URL}/api/admin/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    });
-  } catch {
-    // Ignorar errores de red en logout
+  const token = getToken();
+
+  if (token) {
+    try {
+      await fetch(`${API_URL}/api/admin/logout`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+    } catch {
+      // Ignorar errores
+    }
   }
+
+  localStorage.removeItem(ADMIN_TOKEN_KEY);
 }
 
 /**
- * Verifica si hay una sesión admin activa.
- * Llama a /api/admin/me con la cookie.
+ * Obtiene el token admin guardado.
+ */
+export function getToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem(ADMIN_TOKEN_KEY);
+}
+
+/**
+ * Verifica si hay sesión admin activa.
  */
 export async function verificarAdmin(): Promise<boolean> {
+  const token = getToken();
+  if (!token) return false;
+
   try {
     const response = await fetch(`${API_URL}/api/admin/me`, {
-      credentials: 'include',
+      headers: { 'Authorization': `Bearer ${token}` },
     });
 
-    if (!response.ok) return false;
+    if (!response.ok) {
+      // Token inválido: limpiar
+      localStorage.removeItem(ADMIN_TOKEN_KEY);
+      return false;
+    }
 
     const data: MeAdminResponse = await response.json();
     return data.ok && data.admin === true;

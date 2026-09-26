@@ -1,14 +1,15 @@
 /**
- * Endpoints del panel de administración.
+ * Endpoints del panel de administración con tokens en D1.
  */
 
 import { verifyPassword } from '../lib/crypto';
 import {
-  crearCookieAdmin,
-  verificarCookieAdmin,
-  extraerCookieAdmin,
-  headerSetCookieAdmin,
-  headerDeleteCookieAdmin,
+  generarTokenAdmin,
+  hashTokenAdmin,
+  guardarTokenAdmin,
+  verificarTokenAdmin,
+  eliminarTokenAdmin,
+  extraerTokenAdmin,
 } from '../lib/admin-sesion';
 
 export interface Env {
@@ -19,120 +20,89 @@ export interface Env {
   ADMIN_SESSION_SECRET: string;
 }
 
-function corsHeaders(request: Request): Record<string, string> {
-  const origin = request.headers.get('Origin') || '';
-  return {
-    'Access-Control-Allow-Origin': origin,
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Credentials': 'true',
-    'Vary': 'Origin',
-  };
-}
-
 export async function handleAdminLogin(
   request: Request,
   env: Env
 ): Promise<Response> {
-  const cors = corsHeaders(request);
-
   let body: { password?: string };
   try {
     body = await request.json();
   } catch {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Body inválido' }),
-      { status: 400, headers: { 'Content-Type': 'application/json', ...cors } }
-    );
+    return json({ ok: false, error: 'Body inválido' }, 400);
   }
 
   const { password } = body;
 
   if (!password) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Contraseña requerida' }),
-      { status: 400, headers: { 'Content-Type': 'application/json', ...cors } }
-    );
+    return json({ ok: false, error: 'Contraseña requerida' }, 400);
   }
 
   if (password.length > 500) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Contraseña incorrecta' }),
-      { status: 401, headers: { 'Content-Type': 'application/json', ...cors } }
-    );
+    return json({ ok: false, error: 'Contraseña incorrecta' }, 401);
   }
 
   const valida = await verifyPassword(password, env.ADMIN_PASSWORD_HASH);
 
   if (!valida) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Contraseña incorrecta' }),
-      { status: 401, headers: { 'Content-Type': 'application/json', ...cors } }
-    );
+    return json({ ok: false, error: 'Contraseña incorrecta' }, 401);
   }
 
-  const cookie = await crearCookieAdmin(env.ADMIN_SESSION_SECRET);
+  // Generar token y guardarlo en D1
+  const token = generarTokenAdmin();
+  const tokenHash = await hashTokenAdmin(token);
+  const expira_en = await guardarTokenAdmin(env.DB, tokenHash);
 
-  return new Response(
-    JSON.stringify({ ok: true, mensaje: 'Sesión iniciada' }),
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Set-Cookie': headerSetCookieAdmin(cookie, request.headers.get('Origin')?.startsWith('https://') ?? true),
-        ...cors,
-      },
-    }
-  );
+  return json({
+    ok: true,
+    token,
+    expira_en,
+    mensaje: 'Sesión iniciada',
+  });
 }
 
 export async function handleAdminLogout(
-  request: Request
+  request: Request,
+  env: Env
 ): Promise<Response> {
-  const cors = corsHeaders(request);
+  const token = extraerTokenAdmin(request);
+  if (token) {
+    const tokenHash = await hashTokenAdmin(token);
+    await eliminarTokenAdmin(env.DB, tokenHash);
+  }
 
-  return new Response(
-    JSON.stringify({ ok: true, mensaje: 'Sesión cerrada' }),
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Set-Cookie': headerDeleteCookieAdmin(request.headers.get('Origin')?.startsWith('https://') ?? true),
-        ...cors,
-      },
-    }
-  );
+  return json({ ok: true, mensaje: 'Sesión cerrada' });
 }
 
 export async function handleAdminMe(
   request: Request,
   env: Env
 ): Promise<Response> {
-  const cors = corsHeaders(request);
-  const cookie = extraerCookieAdmin(request);
+  const token = extraerTokenAdmin(request);
 
-  if (!cookie) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Sin sesión' }),
-      { status: 401, headers: { 'Content-Type': 'application/json', ...cors } }
-    );
+  if (!token) {
+    return json({ ok: false, error: 'Sin token' }, 401);
   }
 
-  const valida = await verificarCookieAdmin(cookie, env.ADMIN_SESSION_SECRET);
+  const tokenHash = await hashTokenAdmin(token);
+  const valido = await verificarTokenAdmin(env.DB, tokenHash);
 
-  if (!valida) {
-    return new Response(
-      JSON.stringify({ ok: false, error: 'Sesión inválida o expirada' }),
-      { status: 401, headers: { 'Content-Type': 'application/json', ...cors } }
-    );
+  if (!valido) {
+    return json({ ok: false, error: 'Sesión inválida o expirada' }, 401);
   }
 
-  return new Response(
-    JSON.stringify({
-      ok: true,
-      admin: true,
-      mensaje: 'Sesión admin activa',
-    }),
-    { status: 200, headers: { 'Content-Type': 'application/json', ...cors } }
-  );
+  return json({
+    ok: true,
+    admin: true,
+    mensaje: 'Sesión admin activa',
+  });
+}
+
+function json(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+  });
 }
