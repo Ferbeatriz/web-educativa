@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # Cloudflare Wrangler local state (no commitear)
 .wrangler/
+
+# Backups locales
+*.backup

@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import TriviaQuiz from '../../components/TriviaQuiz.astro';
 import { marked } from 'marked';
+import BarraProgresoLectura from '../../components/BarraProgresoLectura.astro';
+import BotonCompletar from '../../components/BotonCompletar.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -67,11 +69,13 @@ const c = colores[materia.color] || colores.ciencias;
 
 const estiloHero = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
 
+
 const contenido = leccion.contenido_modulos || [];
 const trivia = leccion.trivia || [];
 ---
 
 <Layout title={`${leccion.titulo} · ${materia.nombre}`}>
+  <BarraProgresoLectura color={c.c500} />
   <main class="max-w-3xl mx-auto px-4 py-8 md:py-12">
 
     <!-- Breadcrumb -->
@@ -163,6 +167,8 @@ const trivia = leccion.trivia || [];
       </section>
     )}
 
+
+    <BotonCompletar leccionId={leccion.id} materiaId={materia.color} color={c.c500} xp={50} />
     <!-- BOTÓN VOLVER -->
     <div class="mt-10 text-center">
       <a

@@ -1,0 +1,67 @@
+---
+/**
+ * Barra de progreso de lectura.
+ * Flota arriba de la pantalla y se activa al primer scroll.
+ */
+interface Props {
+  color?: string;
+}
+
+const { color = '#8B5CF6' } = Astro.props;
+---
+
+<div
+  id="barra-progreso-lectura"
+  class="fixed top-0 left-0 right-0 z-[60] h-1 transition-opacity duration-500 opacity-0 pointer-events-none"
+  style={`background: ${color}; width: 0%;`}
+  aria-hidden="true"
+></div>
+
+<script>
+  const barra = document.getElementById('barra-progreso-lectura');
+  let activada = false;
+
+  function calcularProgreso(): number {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const alturaTotal = document.documentElement.scrollHeight;
+    const alturaVisible = window.innerHeight;
+    const scrollable = alturaTotal - alturaVisible;
+
+    if (scrollable <= 0) return 100;
+    return Math.min(100, Math.max(0, (scrollTop / scrollable) * 100));
+  }
+
+  function actualizarBarra() {
+    if (!barra) return;
+
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (!activada && scrollTop > 50) {
+      activada = true;
+      barra.classList.remove('opacity-0');
+      barra.classList.add('opacity-100');
+    }
+
+    if (activada && scrollTop <= 50) {
+      activada = false;
+      barra.classList.remove('opacity-100');
+      barra.classList.add('opacity-0');
+    }
+
+    const progreso = calcularProgreso();
+    barra.style.width = `${progreso}%`;
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        actualizarBarra();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  actualizarBarra();
+</script>

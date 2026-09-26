@@ -29,15 +29,15 @@ const materias = materiasData.materias
 
           <div class="bg-white/15 backdrop-blur rounded-2xl p-4 max-w-md">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-xs md:text-sm font-extrabold text-white/90 uppercase tracking-wide">
-                ⭐ Nivel 3 · Exploradora
+              <span id="hero-nivel" class="text-xs md:text-sm font-extrabold text-white/90 uppercase tracking-wide">
+                ⭐ Cargando...
               </span>
-              <span class="text-xs md:text-sm font-extrabold text-white">
-                120 / 200 XP
+              <span id="hero-xp" class="text-xs md:text-sm font-extrabold text-white">
+                — XP
               </span>
             </div>
             <div class="w-full h-2.5 bg-white/20 rounded-full overflow-hidden">
-              <div class="h-full bg-white rounded-full transition-all duration-700" style="width: 60%"></div>
+              <div id="hero-barra" class="h-full bg-white rounded-full transition-all duration-700" style="width: 0%"></div>
             </div>
           </div>
         </div>
@@ -64,19 +64,58 @@ const materias = materiasData.materias
 
   <script>
     import { getAlumna, isLoggedIn } from '../lib/auth';
+    import { getResumenProgreso } from '../lib/progreso';
 
-    if (!isLoggedIn()) {
-      window.location.href = '/login';
-    } else {
+    async function init() {
+      // 1. Verificar sesión
+      if (!isLoggedIn()) {
+        window.location.href = '/login';
+        return;
+      }
+
+      // 2. Mostrar el dashboard
       const dashboard = document.getElementById('dashboard-protegido');
       dashboard?.classList.remove('hidden');
 
+      // 3. Personalizar el saludo
       const alumna = getAlumna();
       const saludo = document.getElementById('hero-saludo');
       if (alumna && saludo) {
         const primerNombre = alumna.nombre.split(' ')[0];
         saludo.textContent = `¡Hola, ${primerNombre}! 👋`;
       }
+
+      // 4. Obtener datos reales de progreso
+      const resultado = await getResumenProgreso();
+
+      if (resultado.ok && resultado.resumen && resultado.nivel) {
+        const { resumen, nivel } = resultado;
+
+        // Actualizar etiqueta del nivel
+        const nivelLabel = document.getElementById('hero-nivel');
+        if (nivelLabel) {
+          nivelLabel.textContent = `⭐ Nivel ${nivel.numero} · ${nivel.nombre} ${nivel.emoji}`;
+        }
+
+        // Actualizar texto de XP
+        const xpLabel = document.getElementById('hero-xp');
+        if (xpLabel) {
+          if (nivel.es_maximo) {
+            xpLabel.textContent = `${nivel.xp_total} XP`;
+          } else {
+            xpLabel.textContent = `${nivel.xp_total} / ${nivel.xp_siguiente_total} XP`;
+          }
+        }
+
+        // Actualizar la barra de progreso
+        const barra = document.getElementById('hero-barra') as HTMLElement;
+        if (barra) {
+          barra.style.width = `${nivel.porcentaje}%`;
+        }
+      }
     }
+
+    init();
   </script>
+
 </Layout>

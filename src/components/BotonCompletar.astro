@@ -1,0 +1,123 @@
+---
+/**
+ * Botón "Marcar como completada" para el final de cada lección.
+ */
+interface Props {
+  leccionId: string;
+  materiaId: string;
+  color?: string;
+  xp?: number;
+}
+
+const {
+  leccionId,
+  materiaId,
+  color = '#8B5CF6',
+  xp = 50,
+} = Astro.props;
+---
+
+<div
+  id="boton-completar-container"
+  class="my-12 max-w-2xl mx-auto"
+  data-leccion-id={leccionId}
+  data-materia-id={materiaId}
+  data-color={color}
+  data-xp={xp}
+>
+  <div id="estado-cargando" class="flex justify-center py-6">
+    <div class="animate-spin rounded-full h-6 w-6 border-b-2" style={`border-color: ${color};`}></div>
+  </div>
+
+  <div id="estado-pendiente" class="hidden text-center">
+    <p class="text-gray-600 mb-4 font-semibold">
+      ¿Terminaste de leer esta lección?
+    </p>
+    <button
+      id="btn-completar"
+      class="inline-flex items-center gap-2 px-6 py-3 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer"
+      style={`background: ${color};`}
+    >
+      ✅ Marcar como completada · +{xp} XP
+    </button>
+  </div>
+
+  <div id="estado-completada" class="hidden text-center">
+    <div class="inline-flex items-center gap-2 px-6 py-3 bg-green-50 text-green-700 font-bold rounded-xl border-2 border-green-200">
+      🎉 ¡Lección completada! · +{xp} XP
+    </div>
+    <p class="text-sm text-gray-500 mt-2">
+      Ya registramos tu avance
+    </p>
+  </div>
+
+  <div id="estado-error" class="hidden text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-3 bg-red-50 text-red-700 rounded-xl border-2 border-red-200 text-sm">
+      ⚠️ <span id="error-mensaje">No pudimos guardar tu progreso</span>
+    </div>
+    <button
+      id="btn-reintentar"
+      class="mt-3 text-sm text-gray-600 underline hover:text-gray-800 cursor-pointer"
+    >
+      Reintentar
+    </button>
+  </div>
+</div>
+
+<script>
+  import {
+    marcarLeccionCompletada,
+    getEstadoLeccion,
+  } from '../lib/progreso';
+
+  const container = document.getElementById('boton-completar-container');
+  if (container) {
+    const leccionId = container.dataset.leccionId!;
+    const materiaId = container.dataset.materiaId!;
+
+    const estadoCargando = document.getElementById('estado-cargando')!;
+    const estadoPendiente = document.getElementById('estado-pendiente')!;
+    const estadoCompletada = document.getElementById('estado-completada')!;
+    const estadoError = document.getElementById('estado-error')!;
+    const btnCompletar = document.getElementById('btn-completar') as HTMLButtonElement;
+    const btnReintentar = document.getElementById('btn-reintentar') as HTMLButtonElement;
+    const errorMensaje = document.getElementById('error-mensaje')!;
+
+    function mostrarEstado(estado: 'cargando' | 'pendiente' | 'completada' | 'error') {
+      estadoCargando.classList.add('hidden');
+      estadoPendiente.classList.add('hidden');
+      estadoCompletada.classList.add('hidden');
+      estadoError.classList.add('hidden');
+
+      if (estado === 'cargando') estadoCargando.classList.remove('hidden');
+      if (estado === 'pendiente') estadoPendiente.classList.remove('hidden');
+      if (estado === 'completada') estadoCompletada.classList.remove('hidden');
+      if (estado === 'error') estadoError.classList.remove('hidden');
+    }
+
+    async function init() {
+      const estado = await getEstadoLeccion(leccionId);
+      if (estado.ok && estado.completada) {
+        mostrarEstado('completada');
+      } else {
+        mostrarEstado('pendiente');
+      }
+    }
+
+    async function completar() {
+      mostrarEstado('cargando');
+      const resultado = await marcarLeccionCompletada(leccionId, materiaId);
+      if (resultado.ok) {
+        mostrarEstado('completada');
+      } else {
+        errorMensaje.textContent = resultado.error || 'Error al guardar';
+        mostrarEstado('error');
+      }
+    }
+
+    btnCompletar?.addEventListener('click', completar);
+    btnReintentar?.addEventListener('click', completar);
+
+    init();
+  }
+</script>
