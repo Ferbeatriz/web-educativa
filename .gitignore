@@ -31,3 +31,6 @@ pnpm-debug.log*
 
 # Backups locales
 *.backup
+
+# Scripts locales de admin
+workers/api/scripts-hash-admin.js
