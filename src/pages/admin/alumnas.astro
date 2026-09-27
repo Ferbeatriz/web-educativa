@@ -1,0 +1,725 @@
+---
+// Panel admin: gestión de alumnas
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Alumnas · Admin</title>
+    <style is:global>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #F8FAFC;
+        min-height: 100vh;
+        color: #0F172A;
+      }
+      header {
+        background: #0F172A;
+        color: #F1F5F9;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #1E293B;
+      }
+      header .brand { display: flex; align-items: center; gap: 12px; }
+      header .brand-icon {
+        width: 36px; height: 36px; border-radius: 8px;
+        background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; border: 1px solid #334155;
+      }
+      header h1 { font-size: 15px; font-weight: 600; }
+      header .acciones { display: flex; align-items: center; gap: 12px; }
+      header .acciones a, header .acciones button {
+        font-family: inherit; font-size: 13px; color: #CBD5E1;
+        text-decoration: none; background: transparent;
+        border: 1px solid #334155; padding: 8px 14px;
+        border-radius: 6px; cursor: pointer; transition: all 0.15s;
+      }
+      header .acciones a:hover, header .acciones button:hover {
+        background: #1E293B; color: #F1F5F9;
+      }
+      main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
+      .breadcrumb {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 13px; color: #64748B; text-decoration: none;
+        margin-bottom: 24px; transition: color 0.15s;
+      }
+      .breadcrumb:hover { color: #0F172A; }
+      .page-title { margin-bottom: 24px; }
+      .page-title h2 { font-size: 24px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+      .page-title p { font-size: 14px; color: #64748B; }
+      .actions-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 24px; gap: 12px; flex-wrap: wrap;
+      }
+      .filter-group {
+        display: flex; align-items: center; gap: 8px;
+      }
+      .filter-group label {
+        font-size: 13px; color: #64748B; font-weight: 500;
+      }
+      .filter-group select {
+        padding: 8px 12px; font-family: inherit; font-size: 13px;
+        border: 1px solid #E2E8F0; border-radius: 8px;
+        background: white; color: #0F172A; cursor: pointer;
+        outline: none;
+      }
+      .filter-group select:focus { border-color: #3B82F6; }
+      .btn-primary {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 10px 18px; background: #3B82F6; color: white;
+        border: none; border-radius: 8px; font-family: inherit;
+        font-size: 14px; font-weight: 600; cursor: pointer;
+        transition: background 0.15s;
+      }
+      .btn-primary:hover { background: #2563EB; }
+      .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+      .form-nueva {
+        background: white; border: 1px solid #E2E8F0; border-radius: 10px;
+        padding: 20px; margin-bottom: 24px; display: none;
+      }
+      .form-nueva.visible { display: block; }
+      .form-nueva h3 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+      .form-nueva label {
+        display: block; font-size: 13px; font-weight: 500;
+        color: #475569; margin-bottom: 6px;
+      }
+      .form-nueva input, .form-nueva select {
+        width: 100%; padding: 10px 12px; background: #F8FAFC;
+        border: 1px solid #E2E8F0; border-radius: 8px;
+        font-family: inherit; font-size: 14px; outline: none;
+        transition: border-color 0.15s; margin-bottom: 16px;
+      }
+      .form-nueva input:focus, .form-nueva select:focus {
+        border-color: #3B82F6; background: white;
+      }
+      .form-nueva .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .form-nueva .btns {
+        display: flex; gap: 10px; justify-content: flex-end;
+        margin-top: 8px;
+      }
+      .btn-secondary {
+        padding: 10px 18px; background: white; color: #475569;
+        border: 1px solid #E2E8F0; border-radius: 8px;
+        font-family: inherit; font-size: 14px; font-weight: 600;
+        cursor: pointer; transition: all 0.15s;
+      }
+      .btn-secondary:hover { background: #F8FAFC; color: #0F172A; }
+      .lista-alumnas { display: flex; flex-direction: column; gap: 12px; }
+      .card-alumna {
+        background: white; border: 1px solid #E2E8F0; border-radius: 10px;
+        padding: 20px; display: flex; justify-content: space-between;
+        align-items: flex-start; gap: 16px; transition: all 0.15s;
+      }
+      .card-alumna:hover { border-color: #CBD5E1; }
+      .card-alumna.inactiva { opacity: 0.6; }
+      .card-alumna .info { flex: 1; min-width: 0; }
+      .card-alumna .info h3 {
+        font-size: 16px; font-weight: 600; color: #0F172A;
+        margin-bottom: 6px;
+      }
+      .card-alumna .info .meta {
+        font-size: 13px; color: #64748B;
+        display: flex; align-items: center; gap: 8px;
+        flex-wrap: wrap; margin-bottom: 10px;
+      }
+      .card-alumna .info .usuario {
+        color: #3B82F6; font-weight: 500;
+      }
+      .card-alumna .stats {
+        display: flex; gap: 16px; font-size: 12px; color: #64748B;
+        flex-wrap: wrap;
+      }
+      .card-alumna .stats .stat {
+        display: flex; align-items: center; gap: 4px;
+      }
+      .card-alumna .stats .stat strong {
+        color: #0F172A; font-weight: 600;
+      }
+      .badge-nivel {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 3px 10px; border-radius: 12px;
+        background: #EFF6FF; color: #2563EB;
+        font-size: 11px; font-weight: 600;
+      }
+      .badge-inactiva {
+        display: inline-block; font-size: 11px; font-weight: 600;
+        padding: 2px 8px; border-radius: 4px;
+        background: #FEF2F2; color: #DC2626;
+      }
+      .card-alumna .acciones {
+        display: flex; flex-direction: column; gap: 6px; flex-shrink: 0;
+      }
+      .card-alumna .acciones button {
+        padding: 7px 12px; font-family: inherit; font-size: 12px;
+        font-weight: 500; border-radius: 6px; cursor: pointer;
+        border: 1px solid #E2E8F0; background: white;
+        color: #475569; transition: all 0.15s; white-space: nowrap;
+      }
+      .card-alumna .acciones button:hover {
+        border-color: #3B82F6; color: #3B82F6;
+      }
+      .card-alumna .acciones button.danger:hover {
+        border-color: #EF4444; color: #EF4444;
+      }
+      .loading, .empty {
+        text-align: center; padding: 60px 24px;
+        color: #64748B; font-size: 14px;
+      }
+      .empty .icon { font-size: 48px; margin-bottom: 16px; }
+      .empty h3 { font-size: 16px; font-weight: 600; color: #0F172A; margin-bottom: 8px; }
+      .error-toast {
+        position: fixed; bottom: 24px; right: 24px;
+        background: #FEF2F2; border: 1px solid #FECACA;
+        color: #991B1B; padding: 12px 18px; border-radius: 8px;
+        font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        display: none; z-index: 100;
+      }
+      .error-toast.visible { display: block; }
+      .success-toast {
+        position: fixed; bottom: 24px; right: 24px;
+        background: #F0FDF4; border: 1px solid #BBF7D0;
+        color: #166534; padding: 12px 18px; border-radius: 8px;
+        font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        display: none; z-index: 100;
+      }
+      .success-toast.visible { display: block; }
+      /* Modal */
+      .modal-overlay {
+        position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+        display: none; align-items: center; justify-content: center;
+        z-index: 200; padding: 24px;
+      }
+      .modal-overlay.visible { display: flex; }
+      .modal {
+        background: white; border-radius: 12px; max-width: 500px;
+        width: 100%; padding: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        max-height: 80vh; overflow-y: auto;
+      }
+      .modal h3 {
+        font-size: 18px; font-weight: 700; color: #0F172A;
+        margin-bottom: 12px;
+      }
+      .modal p { font-size: 14px; color: #64748B; margin-bottom: 20px; }
+      .modal .password-box {
+        background: #F8FAFC; border: 2px dashed #CBD5E1;
+        border-radius: 8px; padding: 20px; margin-bottom: 20px;
+        text-align: center;
+      }
+      .modal .password-box .password {
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-size: 20px; font-weight: 700; color: #0F172A;
+        letter-spacing: 0.5px; margin-bottom: 12px;
+      }
+      .modal .password-box .hint {
+        font-size: 12px; color: #64748B; margin-bottom: 16px;
+      }
+      .modal .btn-copiar {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 16px; background: #3B82F6; color: white;
+        border: none; border-radius: 6px; font-family: inherit;
+        font-size: 13px; font-weight: 600; cursor: pointer;
+        transition: background 0.15s;
+      }
+      .modal .btn-copiar:hover { background: #2563EB; }
+      .modal .btn-cerrar {
+        width: 100%; padding: 12px; background: white;
+        border: 1px solid #E2E8F0; border-radius: 8px;
+        font-family: inherit; font-size: 14px; font-weight: 600;
+        color: #475569; cursor: pointer; transition: all 0.15s;
+      }
+      .modal .btn-cerrar:hover { background: #F8FAFC; color: #0F172A; }
+      .modal .progreso-item {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 10px 0; border-bottom: 1px solid #F1F5F9;
+        font-size: 13px;
+      }
+      .modal .progreso-item:last-child { border-bottom: none; }
+      .modal .progreso-item .leccion {
+        color: #0F172A; font-weight: 500;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      }
+      .modal .progreso-item .materia {
+        font-size: 11px; color: #64748B;
+      }
+      .modal .progreso-item .xp {
+        color: #16A34A; font-weight: 600; flex-shrink: 0;
+      }
+      .hidden { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div id="loading" class="loading">Cargando…</div>
+
+    <div id="panel" class="hidden">
+      <header>
+        <div class="brand">
+          <div class="brand-icon">🔐</div>
+          <h1>Panel de Administración</h1>
+        </div>
+        <div class="acciones">
+          <a href="/">Ver web pública</a>
+          <button id="btn-logout">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <main>
+        <a href="/admin" class="breadcrumb">← Volver al dashboard</a>
+
+        <div class="page-title">
+          <h2>👧 Alumnas</h2>
+          <p>Gestiona las alumnas de la plataforma</p>
+        </div>
+
+        <div class="actions-bar">
+          <div class="filter-group">
+            <label for="filtro-clase">Filtrar por clase:</label>
+            <select id="filtro-clase">
+              <option value="">Todas las clases</option>
+            </select>
+          </div>
+          <button id="btn-nueva-alumna" class="btn-primary">+ Nueva alumna</button>
+        </div>
+
+        <div id="form-nueva" class="form-nueva">
+          <h3>Nueva alumna</h3>
+          <div class="row">
+            <div>
+              <label for="alumna-nombre">Nombre completo</label>
+              <input type="text" id="alumna-nombre" placeholder="Ej: Sofía Martínez" maxlength="100" />
+            </div>
+            <div>
+              <label for="alumna-usuario">Usuario</label>
+              <input type="text" id="alumna-usuario" placeholder="Ej: sofia01" maxlength="30" />
+            </div>
+          </div>
+          <label for="alumna-clase">Clase</label>
+          <select id="alumna-clase">
+            <option value="">Sin clase</option>
+          </select>
+          <div class="btns">
+            <button id="btn-cancelar" class="btn-secondary">Cancelar</button>
+            <button id="btn-guardar-alumna" class="btn-primary">Crear alumna</button>
+          </div>
+        </div>
+
+        <div id="lista-alumnas" class="lista-alumnas"></div>
+      </main>
+    </div>
+
+    <div id="error-toast" class="error-toast"></div>
+    <div id="success-toast" class="success-toast"></div>
+
+    <!-- Modal para mostrar contraseña -->
+    <div id="modal-password" class="modal-overlay">
+      <div class="modal">
+        <h3 id="modal-password-titulo">Contraseña generada</h3>
+        <p id="modal-password-texto">Guarda esta contraseña. Solo se muestra una vez.</p>
+        <div class="password-box">
+          <div class="password" id="modal-password-valor">—</div>
+          <div class="hint">Para <strong id="modal-password-usuario">@usuario</strong></div>
+          <button class="btn-copiar" id="btn-copiar-password">📋 Copiar contraseña</button>
+        </div>
+        <button class="btn-cerrar" id="btn-cerrar-password">Entendido</button>
+      </div>
+    </div>
+
+    <!-- Modal para mostrar progreso -->
+    <div id="modal-progreso" class="modal-overlay">
+      <div class="modal">
+        <h3 id="modal-progreso-titulo">Progreso de la alumna</h3>
+        <p id="modal-progreso-resumen">—</p>
+        <div id="modal-progreso-lista"></div>
+        <button class="btn-cerrar" id="btn-cerrar-progreso" style="margin-top: 20px;">Cerrar</button>
+      </div>
+    </div>
+
+    <script>
+      import { verificarAdmin, logoutAdmin, getToken } from '../../lib/admin';
+
+      const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
+
+      interface Clase {
+        id: number;
+        nombre: string;
+        codigo: string;
+        activa: number;
+        total_alumnas: number;
+      }
+
+      interface Alumna {
+        id: number;
+        nombre: string;
+        usuario: string;
+        clase_id: number | null;
+        activa: number;
+        ultimo_login: string | null;
+        creada_en: string;
+        clase_nombre: string | null;
+        clase_codigo: string | null;
+        xp_total: number;
+        lecciones_completadas: number;
+      }
+
+      let clases: Clase[] = [];
+
+      function calcularNivel(xp: number): { nombre: string; emoji: string } {
+        if (xp >= 2000) return { nombre: 'Maestra', emoji: '👑' };
+        if (xp >= 1000) return { nombre: 'Sabia', emoji: '📚' };
+        if (xp >= 500) return { nombre: 'Aventurera', emoji: '🗺️' };
+        if (xp >= 250) return { nombre: 'Exploradora', emoji: '🦉' };
+        if (xp >= 100) return { nombre: 'Curiosa', emoji: '🐣' };
+        return { nombre: 'Aprendiz', emoji: '🥚' };
+      }
+
+      function tiempoRelativo(fecha: string | null): string {
+        if (!fecha) return 'Nunca';
+        const d = new Date(fecha.replace(' ', 'T') + 'Z');
+        const diffMin = Math.floor((Date.now() - d.getTime()) / 60000);
+        if (diffMin < 1) return 'hace un momento';
+        if (diffMin < 60) return `hace ${diffMin} min`;
+        const diffH = Math.floor(diffMin / 60);
+        if (diffH < 24) return `hace ${diffH} h`;
+        const diffD = Math.floor(diffH / 24);
+        if (diffD < 30) return `hace ${diffD} d`;
+        return d.toLocaleDateString('es-CL');
+      }
+
+      function escapeHtml(text: string): string {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      async function init() {
+        const esAdmin = await verificarAdmin();
+        if (!esAdmin) {
+          window.location.href = '/admin/login';
+          return;
+        }
+
+        document.getElementById('loading')?.classList.add('hidden');
+        document.getElementById('panel')?.classList.remove('hidden');
+
+        document.getElementById('btn-logout')?.addEventListener('click', async () => {
+          await logoutAdmin();
+          window.location.href = '/admin/login';
+        });
+
+        document.getElementById('btn-nueva-alumna')?.addEventListener('click', () => {
+          document.getElementById('form-nueva')?.classList.add('visible');
+          document.getElementById('alumna-nombre')?.focus();
+        });
+
+        document.getElementById('btn-cancelar')?.addEventListener('click', () => {
+          document.getElementById('form-nueva')?.classList.remove('visible');
+        });
+
+        document.getElementById('btn-guardar-alumna')?.addEventListener('click', crearAlumna);
+        document.getElementById('filtro-clase')?.addEventListener('change', cargarAlumnas);
+
+        document.getElementById('btn-cerrar-password')?.addEventListener('click', () => {
+          document.getElementById('modal-password')?.classList.remove('visible');
+        });
+        document.getElementById('btn-copiar-password')?.addEventListener('click', () => {
+          const password = document.getElementById('modal-password-valor')?.textContent || '';
+          navigator.clipboard.writeText(password).then(() => {
+            mostrarSuccess('Contraseña copiada');
+          });
+        });
+
+        document.getElementById('btn-cerrar-progreso')?.addEventListener('click', () => {
+          document.getElementById('modal-progreso')?.classList.remove('visible');
+        });
+
+        await cargarClases();
+        await cargarAlumnas();
+      }
+
+      async function cargarClases() {
+        const token = getToken();
+        try {
+          const response = await fetch(`${API_URL}/api/admin/clases`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          const data = await response.json();
+          if (data.ok) {
+            clases = data.clases;
+
+            // Llenar el filtro
+            const filtro = document.getElementById('filtro-clase') as HTMLSelectElement;
+            const urlParams = new URLSearchParams(window.location.search);
+            const claseIdInicial = urlParams.get('clase_id');
+
+            clases.forEach((clase) => {
+              const opt = document.createElement('option');
+              opt.value = String(clase.id);
+              opt.textContent = clase.nombre;
+              if (claseIdInicial && String(clase.id) === claseIdInicial) {
+                opt.selected = true;
+              }
+              filtro.appendChild(opt);
+            });
+
+            // Llenar el select del formulario
+            const selectForm = document.getElementById('alumna-clase') as HTMLSelectElement;
+            clases.forEach((clase) => {
+              const opt = document.createElement('option');
+              opt.value = String(clase.id);
+              opt.textContent = clase.nombre;
+              selectForm.appendChild(opt);
+            });
+          }
+        } catch {}
+      }
+
+      async function cargarAlumnas() {
+        const token = getToken();
+        const lista = document.getElementById('lista-alumnas')!;
+        const filtro = document.getElementById('filtro-clase') as HTMLSelectElement;
+        const claseId = filtro.value;
+
+        lista.innerHTML = '<div class="loading">Cargando...</div>';
+
+        try {
+          const url = claseId
+            ? `${API_URL}/api/admin/alumnas?clase_id=${claseId}`
+            : `${API_URL}/api/admin/alumnas`;
+
+          const response = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+          const data = await response.json();
+
+          if (!data.ok || data.alumnas.length === 0) {
+            lista.innerHTML = `
+              <div class="empty">
+                <div class="icon">👧</div>
+                <h3>No hay alumnas${claseId ? ' en esta clase' : ''}</h3>
+                <p>Crea la primera con el botón de arriba</p>
+              </div>
+            `;
+            return;
+          }
+
+          lista.innerHTML = data.alumnas.map((alumna: Alumna) => {
+            const nivel = calcularNivel(alumna.xp_total);
+            return `
+              <div class="card-alumna ${alumna.activa ? '' : 'inactiva'}">
+                <div class="info">
+                  <h3>
+                    ${escapeHtml(alumna.nombre)}
+                    ${!alumna.activa ? '<span class="badge-inactiva">INACTIVA</span>' : ''}
+                  </h3>
+                  <div class="meta">
+                    <span class="usuario">@${escapeHtml(alumna.usuario)}</span>
+                    ${alumna.clase_nombre ? `<span>· ${escapeHtml(alumna.clase_nombre)}</span>` : ''}
+                  </div>
+                  <div class="stats">
+                    <span class="stat">
+                      <strong>${alumna.xp_total}</strong> XP
+                    </span>
+                    <span class="stat">
+                      <strong>${alumna.lecciones_completadas}</strong> lecciones
+                    </span>
+                    <span class="badge-nivel">${nivel.emoji} ${nivel.nombre}</span>
+                    <span class="stat">Último login: ${tiempoRelativo(alumna.ultimo_login)}</span>
+                  </div>
+                </div>
+                <div class="acciones">
+                  <button onclick="verProgreso(${alumna.id}, '${escapeHtml(alumna.nombre).replace(/'/g, "\\'")}')">Ver progreso</button>
+                  <button onclick="resetearPassword(${alumna.id}, '${escapeHtml(alumna.usuario)}')">Resetear contraseña</button>
+                  <button class="${alumna.activa ? 'danger' : ''}" onclick="toggleAlumna(${alumna.id}, ${alumna.activa ? 0 : 1})">
+                    ${alumna.activa ? 'Desactivar' : 'Activar'}
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } catch {
+          lista.innerHTML = '<div class="empty"><p>Error de conexión</p></div>';
+        }
+      }
+
+      async function crearAlumna() {
+        const nombreInput = document.getElementById('alumna-nombre') as HTMLInputElement;
+        const usuarioInput = document.getElementById('alumna-usuario') as HTMLInputElement;
+        const claseSelect = document.getElementById('alumna-clase') as HTMLSelectElement;
+        const btnGuardar = document.getElementById('btn-guardar-alumna') as HTMLButtonElement;
+
+        const nombre = nombreInput.value.trim();
+        const usuario = usuarioInput.value.trim();
+        const clase_id = claseSelect.value ? parseInt(claseSelect.value, 10) : null;
+
+        if (!nombre || !usuario) {
+          mostrarError('Completa nombre y usuario');
+          return;
+        }
+
+        btnGuardar.disabled = true;
+        btnGuardar.textContent = 'Creando...';
+
+        try {
+          const token = getToken();
+          const response = await fetch(`${API_URL}/api/admin/alumnas`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ nombre, usuario, clase_id }),
+          });
+
+          const data = await response.json();
+
+          if (data.ok) {
+            nombreInput.value = '';
+            usuarioInput.value = '';
+            document.getElementById('form-nueva')?.classList.remove('visible');
+
+            // Mostrar modal con la contraseña
+            mostrarModalPassword(data.password_temporal, usuario, 'Alumna creada');
+            await cargarAlumnas();
+          } else {
+            mostrarError(data.error || 'Error al crear la alumna');
+          }
+        } catch {
+          mostrarError('Error de conexión');
+        } finally {
+          btnGuardar.disabled = false;
+          btnGuardar.textContent = 'Crear alumna';
+        }
+      }
+
+      async function resetearPassword(id: number, usuario: string) {
+        if (!confirm(`¿Resetear la contraseña de @${usuario}?`)) return;
+
+        try {
+          const token = getToken();
+          const response = await fetch(
+            `${API_URL}/api/admin/alumnas/${id}/resetear-password`,
+            {
+              method: 'POST',
+              headers: { 'Authorization': `Bearer ${token}` },
+            }
+          );
+
+          const data = await response.json();
+          if (data.ok) {
+            mostrarModalPassword(data.password_temporal, usuario, 'Contraseña reseteada');
+          } else {
+            mostrarError(data.error || 'Error al resetear');
+          }
+        } catch {
+          mostrarError('Error de conexión');
+        }
+      }
+
+      async function toggleAlumna(id: number, activa: number) {
+        try {
+          const token = getToken();
+          const response = await fetch(`${API_URL}/api/admin/alumnas/${id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ activa: activa === 1 }),
+          });
+
+          const data = await response.json();
+          if (data.ok) {
+            await cargarAlumnas();
+          } else {
+            mostrarError(data.error || 'Error al actualizar');
+          }
+        } catch {
+          mostrarError('Error de conexión');
+        }
+      }
+
+      async function verProgreso(id: number, nombre: string) {
+        const modal = document.getElementById('modal-progreso')!;
+        const titulo = document.getElementById('modal-progreso-titulo')!;
+        const resumen = document.getElementById('modal-progreso-resumen')!;
+        const lista = document.getElementById('modal-progreso-lista')!;
+
+        titulo.textContent = `Progreso de ${nombre}`;
+        resumen.textContent = 'Cargando...';
+        lista.innerHTML = '';
+        modal.classList.add('visible');
+
+        try {
+          const token = getToken();
+          const response = await fetch(
+            `${API_URL}/api/admin/alumnas/${id}/progreso`,
+            { headers: { 'Authorization': `Bearer ${token}` } }
+          );
+
+          const data = await response.json();
+          if (!data.ok) {
+            resumen.textContent = 'Error al cargar el progreso';
+            return;
+          }
+
+          const r = data.resumen;
+          resumen.textContent = `${r.xp_total} XP · ${r.lecciones_completadas} lecciones · ${r.materias_exploradas} materias exploradas`;
+
+          if (data.progreso.length === 0) {
+            lista.innerHTML = '<p style="text-align:center;color:#94A3B8;padding:20px;">Aún no ha completado lecciones</p>';
+            return;
+          }
+
+          lista.innerHTML = data.progreso.map((item: any) => `
+            <div class="progreso-item">
+              <div>
+                <div class="leccion">${escapeHtml(item.leccion_id)}</div>
+                <div class="materia">${escapeHtml(item.materia_id)}</div>
+              </div>
+              <div class="xp">+${item.xp_ganados} XP</div>
+            </div>
+          `).join('');
+        } catch {
+          resumen.textContent = 'Error de conexión';
+        }
+      }
+
+      function mostrarModalPassword(password: string, usuario: string, titulo: string) {
+        document.getElementById('modal-password-titulo')!.textContent = titulo;
+        document.getElementById('modal-password-valor')!.textContent = password;
+        document.getElementById('modal-password-usuario')!.textContent = '@' + usuario;
+        document.getElementById('modal-password')!.classList.add('visible');
+      }
+
+      function mostrarError(msg: string) {
+        const toast = document.getElementById('error-toast')!;
+        toast.textContent = msg;
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 4000);
+      }
+
+      function mostrarSuccess(msg: string) {
+        const toast = document.getElementById('success-toast')!;
+        toast.textContent = msg;
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 3000);
+      }
+
+      (window as any).toggleAlumna = toggleAlumna;
+      (window as any).resetearPassword = resetearPassword;
+      (window as any).verProgreso = verProgreso;
+
+      init();
+    </script>
+  </body>
+</html>

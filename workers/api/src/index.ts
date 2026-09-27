@@ -35,6 +35,7 @@ import {
   handleCrearAlumna,
   handleResetearPassword,
   handleProgresoAlumna,
+  handleActualizarAlumna,
 } from './routes/admin-alumnas';
 
 type Env = EnvAuth & EnvAdmin;
@@ -177,6 +178,11 @@ export default {
       );
       if (matchProgAlumna && method === 'GET') {
         return await handleProgresoAlumna(request, env, matchProgAlumna[1]);
+      }
+
+      const matchAlumna = path.match(/^\/api\/admin\/alumnas\/(\d+)$/);
+      if (matchAlumna && method === 'PATCH') {
+        return await handleActualizarAlumna(request, env, matchAlumna[1]);
       }
 
       // ---------- 404 ----------

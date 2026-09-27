@@ -368,3 +368,57 @@ function json(data: unknown, status = 200): Response {
     },
   });
 }
+
+/**
+ * PATCH /api/admin/alumnas/:id
+ * Body: { activa: boolean }
+ */
+export async function handleActualizarAlumna(
+  request: Request,
+  env: Env,
+  alumnaId: string
+): Promise<Response> {
+  const auth = await requireAdmin(request, env);
+  if (auth) return auth;
+
+  const id = parseInt(alumnaId, 10);
+  if (isNaN(id)) {
+    return json({ ok: false, error: 'ID inválido' }, 400);
+  }
+
+  let body: { activa?: boolean };
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false, error: 'Body inválido' }, 400);
+  }
+
+  if (typeof body.activa !== 'boolean') {
+    return json(
+      { ok: false, error: 'activa debe ser true o false' },
+      400
+    );
+  }
+
+  const result = await env.DB
+    .prepare('UPDATE alumnas SET activa = ? WHERE id = ?')
+    .bind(body.activa ? 1 : 0, id)
+    .run();
+
+  if (result.meta.changes === 0) {
+    return json({ ok: false, error: 'Alumna no encontrada' }, 404);
+  }
+
+  // Si se desactiva, invalidar todas sus sesiones
+  if (!body.activa) {
+    await env.DB
+      .prepare('DELETE FROM sesiones WHERE alumna_id = ?')
+      .bind(id)
+      .run();
+  }
+
+  return json({
+    ok: true,
+    mensaje: body.activa ? 'Alumna activada' : 'Alumna desactivada',
+  });
+}
