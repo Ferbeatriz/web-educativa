@@ -1,84 +1,154 @@
 # 🔄 PROMPT DE TRASPASO — web-educativa
 
-## Estado actual (2026-09-23)
-
-**Web pública**: https://web-educativa.pages.dev
-**Repo**: https://github.com/Ferbeatriz/web-educativa
-**Stack**: Astro 7 + Tailwind v4 + Cloudflare Pages
-
-## Materias activas (6)
-
-- Lenguaje (rosa #EC4899) → **Club de Lectura** con La historia de Manú (87 preguntas)
-- Matemáticas (azul #3B82F6) → 2 lecciones: Propiedades Multiplicación + Introducción División
-- Historia (ámbar #F59E0B) → 2 cursos especiales completos:
-  - Ojo de Horus (10 caps) en Historia Universal → Antiguo Egipto
-  - Selk'nam (15 caps) en Historia de Chile
-- Inglés (turquesa #14B8A6) → sin contenido
-- Ciencias (verde #84CC16) → sin contenido
-- Programación (magenta #D946EF) → Creadoras de Mundos (estructura)
-
-## Módulos especiales
-
-### Club de Lectura
-- **Ubicación**: `src/data/materias/lenguaje/lecturas/`
-- **Sistema**: rotación aleatoria de preguntas con localStorage
-- **Componentes**: `src/components/comprension/`
-- **Páginas**: `src/pages/lenguaje/`
-- **Banco actual**: 50 + 25 + 12 = 87 preguntas (La historia de Manú)
-- **Algoritmo**: `src/scripts/seleccion-preguntas.js`
-- **Distribución**: 30% media / 40% difícil / 30% muy difícil
-- **Persistencia**: localStorage por navegador
-
-## Tareas pendientes (por prioridad)
-
-1. **Sistema de login y métricas** (foco del próximo chat)
-   - Cloudflare Workers + D1 + Access
-   - Login con email/código
-   - Panel admin
-   - Notificaciones por email
-   - Métricas de uso
-2. Agregar más libros al Club de Lectura
-3. Curso Creadoras de Mundos Digitales (Programación)
-4. Lecciones normales de Ciencias, Inglés, Lenguaje
-5. Embed de video por capítulo (Ojo de Horus / Selk'nam)
-
-## Cómo generar contenido
-
-### Lección normal
-- 4-6 bloques de ~350 palabras markdown
-- 10 preguntas de trivia (4 opciones cada una)
-- Guardar en `src/data/materias/<materia>/lecciones/<id>.json`
-- Activar en `<materia>/materia.json` con `"activa": true`
-
-### Capítulo de curso especial
-- 4-6 bloques markdown
-- 10 preguntas de trivia
-- `vocabulario[]` y `linea_tiempo[]` o `momentos_del_relato[]`
-- Guardar en `curso-especial/capitulo-XX.json`
-- Activar en `curso.json` con `"activo": true`
-
-### Libro del Club de Lectura
-- `meta.json` (info del libro + configuración)
-- `banco-comprension.json` (mínimo 30 preguntas)
-- `banco-desarrollo.json` (mínimo 15 preguntas)
-- `banco-relectura.json` (mínimo 8 desafíos)
-- Guardar en `src/data/materias/lenguaje/lecturas/<id>/`
-- Agregar al `indice.json`
-- Agregar import en `src/pages/lenguaje/comprension/[libro].astro`
-
-## Tono de contenido
-
-- Rol: profesor de enseñanza básica
-- Tono serio pero cercano
-- Frases cortas (máx 20 palabras)
-- Español de Chile
-- Cero lenguaje infantil
-- Adaptar contenido sensible a niñas de 9-12 años
-
-## Documentación completa
-
-Los archivos `ESTADO_PROYECTO.md` y `GUIA_IA.md` tienen la documentación completa. Actualizar tras cada cambio significativo.
+> Copia este archivo al inicio de un chat nuevo para que la IA
+> tenga todo el contexto necesario para continuar el proyecto.
 
 ---
 
-**Próximo chat**: Sistema de login + métricas + emails (Cloudflare Workers + D1 + Access).
+## 👋 Saludo inicial sugerido
+
+"Hola, vengo del proyecto web-educativa. Acabo de actualizar toda la documentación en este repositorio:
+
+- `ESTADO_PROYECTO.md` → Estado general + pendientes
+- `GUIA_IA.md` → Manual técnico completo
+- `PROMPT_TRASPASO.md` → Este archivo
+- `TUTOR_PLAN.md` → Plan del tutor interactivo (próxima fase)
+- `NOTIFICACIONES_PLAN.md` → Plan de notificaciones por email
+
+Por favor, lee esos archivos primero y luego continuamos."
+
+---
+
+## 📊 Estado del proyecto (2026-09-28)
+
+**Web pública**: https://web-educativa.pages.dev
+**Panel admin**: https://web-educativa.pages.dev/admin
+**Repo**: https://github.com/Ferbeatriz/web-educativa
+**Stack**: Astro 7 + Tailwind v4 + Cloudflare Pages + Cloudflare Workers + D1
+
+---
+
+## ✅ Fases completadas
+
+| # | Fase | Estado |
+|---|------|--------|
+| 1 | Infraestructura Cloudflare (D1 + Worker) | ✅ |
+| 2a | Login alumnas (PBKDF2 + tokens) | ✅ |
+| 2b | Página `/login` + header dinámico | ✅ |
+| 2c | Perfil + validación automática | ✅ |
+| 2d | Dashboard privado + búho 🦉 | ✅ |
+| 3 | Progreso real (XP, niveles, anti-farmeo) | ✅ |
+| 3b | Barra de lectura + botón completar | ✅ |
+| 4a | Panel admin (login) | ✅ |
+| 4b | Gestión de clases + alumnas | ✅ |
+| 4c | Dashboard admin con estadísticas | ✅ |
+
+**Todo funciona en producción.**
+
+---
+
+## ⏳ Pendientes (por prioridad)
+
+### 🥇 1. TUTOR INTERACTIVO TIPO SYNTHESIS (próxima fase)
+
+Transformar las lecciones de "leer → responder trivia" a un formato interactivo tipo tutor guiado por pasos.
+
+**Ver `TUTOR_PLAN.md` para el diseño completo.**
+
+**Prioridad**: Alta. Es lo que la autora quiere hacer a continuación.
+
+---
+
+### 🥈 2. Notificaciones por email
+
+Informe mensual a apoderados, notificación de nuevo contenido a alumnas, resumen semanal para admin.
+
+**Ver `NOTIFICACIONES_PLAN.md` para el diseño completo.**
+
+---
+
+### 🥉 3. Métricas detalladas del panel admin
+
+Página `/admin/metricas` con:
+- Lecciones más/menos completadas.
+- Preguntas con más errores.
+- Gráfico de actividad.
+- Ranking de alumnas.
+
+---
+
+### 4. Embed de video por capítulo
+
+Bloque colapsable con video de YouTube al final de cada capítulo de cursos especiales.
+
+---
+
+### 5. Pruebas con alumnas reales
+
+Crear la clase "3° Básico D 2026" completa con 30-40 alumnas reales.
+
+---
+
+### 6. Crear más contenido educativo
+
+Cursos especiales pendientes: Creadoras de Mundos (Programación), Selk'nam (5 capítulos).
+Lecciones normales pendientes: Inglés, Ciencias, Lenguaje, Historia.
+
+---
+
+## 🎯 Estructura de datos clave
+
+**Tablas D1**:
+- `clases`, `alumnas`, `metodos_auth`, `sesiones`, `progreso`, `admin_sesiones`
+
+**Sistema de niveles**:
+| Nivel | XP | Emoji |
+|-------|-----|-------|
+| Aprendiz | 0-99 | 🥚 |
+| Curiosa | 100-249 | 🐣 |
+| Exploradora | 250-499 | 🦉 |
+| Aventurera | 500-999 | 🗺️ |
+| Sabia | 1000-1999 | 📚 |
+| Maestra | 2000+ | 👑 |
+
+**XP por lección**: 50 (fijo).
+
+---
+
+## 🔑 Datos importantes
+
+- **Database ID**: `dfe90365-c58f-4043-a79f-87dce0a5e313`
+- **Worker URL**: `https://web-educativa-api.ferbeatriz.workers.dev`
+- **Cuenta Cloudflare**: `ferbeatriz@proton.me`
+- **Secrets**: `ADMIN_PASSWORD_HASH`, `ADMIN_SESSION_SECRET`
+
+**Para probar el login admin**: contraseña maestra del usuario (no compartir en chat).
+
+---
+
+## 🚦 Cómo continuar
+
+**Opción A (recomendada)**: Empezar con el **tutor interactivo tipo Synthesis**.
+
+Pasos sugeridos:
+1. Leer `TUTOR_PLAN.md` completo.
+2. Confirmar el enfoque por fases (empezar simple, complejidad después).
+3. Empezar con **una sola lección modelo** (división 37÷5).
+4. Validar el enfoque con la autora.
+5. Expandir a más lecciones.
+
+**Tiempo estimado**: 3-4 sesiones para MVP completo.
+
+---
+
+## 💡 Notas para la IA nueva
+
+- **Tono**: profesor de enseñanza básica, serio pero cercano, español de Chile.
+- **Publicación obligatoria**: siempre entregar comandos `git add . && git commit && git push` después de cada cambio.
+- **Documentación**: leer los 5 archivos .md antes de empezar.
+- **Sin lenguaje infantil**: nada de "amiguitas", "genial", etc.
+- **Fases cortas**: preferir cambios incrementales, no reescrituras masivas.
+
+---
+
+**Fin del prompt de traspaso.**

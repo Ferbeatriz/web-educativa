@@ -1,6 +1,6 @@
 # 📊 ESTADO DEL PROYECTO — web-educativa
 
-> Última actualización: 2026-09-13
+> Última actualización: 2026-09-28
 > Proyecto: Plataforma educativa interactiva para niñas de 9-12 años
 
 ---
@@ -11,10 +11,10 @@ Plataforma web educativa modular con las siguientes características:
 
 - **Público objetivo**: niñas de 9-12 años (preadolescentes)
 - **Estética**: inspirada en Base44 (limpia, moderna, con panel modular)
-- **Materias**: Lenguaje, Matemáticas, Historia y Geografía, Inglés, Ciencias
+- **Materias**: Lenguaje, Matemáticas, Historia, Inglés, Ciencias, Programación
 - **Contenido**: generado con IA local (Ollama + Qwen 2.5 7B)
-- **Interactividad**: trivias de selección múltiple con feedback visual
-- **Proyecto especial**: Curso "El Ojo de Horus" (en diseño)
+- **Interactividad**: trivias + progreso real + sistema de niveles
+- **Proyectos especiales**: Curso Ojo de Horus, Creadoras de Mundos Digitales, Selk'nam
 
 ---
 
@@ -27,11 +27,15 @@ Plataforma web educativa modular con las siguientes características:
 | Runtime | Node.js | 22.x LTS |
 | Package Manager | npm | 10.x |
 | Framework | Astro | 7.3.2 |
-| CSS | Tailwind CSS | 4.3.3 |
+| CSS | Tailwind CSS (vía @tailwindcss/vite) | 4.x |
+| Backend | Cloudflare Workers | Wrangler 4.137+ |
+| Base de datos | Cloudflare D1 (SQLite) | - |
+| Autenticación | PBKDF2 (Web Crypto) + tokens en D1 | - |
 | IA Local | Ollama + Qwen 2.5 7B + llama3.2:3b | - |
 | Editor | VS Code + Continue | 1.137.0 |
 | Control de versiones | Git + GitHub | - |
-| Hosting | Cloudflare Pages | - |
+| Hosting frontend | Cloudflare Pages | - |
+| Hosting backend | Cloudflare Workers | - |
 
 ---
 
@@ -40,151 +44,220 @@ Plataforma web educativa modular con las siguientes características:
 | Recurso | URL |
 |---------|-----|
 | Web pública | https://web-educativa.pages.dev |
+| Panel admin | https://web-educativa.pages.dev/admin |
+| Worker API | https://web-educativa-api.ferbeatriz.workers.dev |
 | Repositorio GitHub | https://github.com/Ferbeatriz/web-educativa |
-| Panel Cloudflare | https://dash.cloudflare.com/ → Workers & Pages → web-educativa |
+| Panel Cloudflare | https://dash.cloudflare.com/ → Workers & Pages |
 | Servidor local | http://localhost:4321 |
-| Config Continue | `~/.continue/config.yaml` |
+
+---
+
+## 🗄️ Base de datos D1 (Cloudflare)
+
+**Database name**: `web-educativa-db`
+**Database ID**: `dfe90365-c58f-4043-a79f-87dce0a5e313`
+**Región**: ENAM (Eastern North America)
+
+### Tablas
+
+| Tabla | Propósito |
+|-------|-----------|
+| `clases` | Clases creadas por admin (nombre + código único) |
+| `alumnas` | Alumnas registradas (nombre, usuario único, clase_id, ultimo_login) |
+| `metodos_auth` | Métodos de autenticación (password con hash PBKDF2) |
+| `sesiones` | Tokens de sesión de alumnas |
+| `progreso` | Lecciones completadas por alumna (XP ganados) |
+| `admin_sesiones` | Tokens de sesión del panel admin |
+
+### Secrets del Worker (Cloudflare)
+
+- `ADMIN_PASSWORD_HASH`: hash PBKDF2 de la contraseña maestra
+- `ADMIN_SESSION_SECRET`: string aleatorio (reservado para firmas futuras)
 
 ---
 
 ## 📁 Estructura del proyecto
 web-educativa/
-├── PROMPT_PROFESOR.md ← Personalidad de la IA
 ├── ESTADO_PROYECTO.md ← Este archivo
 ├── GUIA_IA.md ← Manual técnico para IAs
 ├── PROMPT_TRASPASO.md ← Prompt para chat nuevo
+├── NOTIFICACIONES_PLAN.md ← Plan de notificaciones (pendiente)
+├── TUTOR_PLAN.md ← Plan del tutor interactivo (pendiente)
 ├── astro.config.mjs
+├── wrangler.toml
 ├── package.json
-├── package-lock.json
-├── tsconfig.json
-├── .gitignore
 ├── public/
 │ ├── favicon.ico
 │ └── favicon.svg
-└── src/
-├── styles/
-│ └── global.css ← Paleta + estilos markdown
-├── layouts/
-│ └── Layout.astro ← Layout base
+├── workers/api/ ← Backend
+│ ├── schema-01-nucleo.sql
+│ ├── schema-02-progreso.sql
+│ ├── schema-03-admin-sesiones.sql
+│ └── src/
+│ ├── index.ts ← Router principal
+│ ├── lib/
+│ │ ├── crypto.ts ← PBKDF2 + tokens
+│ │ ├── db.ts ← Helpers de BD
+│ │ ├── admin-sesion.ts ← Sesiones admin
+│ │ └── passwords.ts ← Generador de contraseñas
+│ └── routes/
+│ ├── auth.ts
+│ ├── progreso.ts
+│ ├── admin.ts
+│ ├── admin-clases.ts
+│ ├── admin-alumnas.ts
+│ └── admin-estadisticas.ts
+└── src/ ← Frontend
+├── layouts/Layout.astro
 ├── components/
-│ ├── MateriaCard.astro ← Tarjeta de materia
-│ └── TriviaQuiz.astro ← Trivia interactiva
+│ ├── Header.astro
+│ ├── Footer.astro
+│ ├── MateriaCard.astro
+│ ├── TriviaQuiz.astro
+│ ├── BarraProgresoLectura.astro
+│ └── BotonCompletar.astro
+├── lib/
+│ ├── auth.ts ← Auth alumnas
+│ ├── progreso.ts ← Progreso alumnas
+│ └── admin.ts ← Auth admin
 ├── pages/
-│ ├── index.astro ← Dashboard 5 materias
-│ ├── materia/[id].astro ← Vista de materia
-│ ├── submodulo/[...slug].astro ← Vista de submódulo
-│ └── leccion/[...slug].astro ← Vista de lección
+│ ├── index.astro
+│ ├── login.astro
+│ ├── perfil.astro
+│ ├── materia/[id].astro
+│ ├── submodulo/[...slug].astro
+│ ├── leccion/[...slug].astro
+│ └── admin/
+│ ├── login.astro
+│ ├── index.astro
+│ ├── clases.astro
+│ └── alumnas.astro
 └── data/
-├── materias.json ← Índice general
-└── materias/
-├── lenguaje/
-│ └── materia.json (vacío)
-├── matematicas/
-│ ├── materia.json ✅
-│ └── lecciones/
-│ └── propiedades-multiplicacion.json ✅
-├── historia/
-│ ├── materia.json ✅
-│ └── submodulos/
-│ ├── historia-universal/
-│ │ ├── submodulo.json ✅
-│ │ └── lecciones/
-│ │ ├── antigua-roma.json ✅
-│ │ ├── antigua-grecia.json ✅
-│ │ └── antiguo-egipto/
-│ │ ├── submodulo.json ✅
-│ │ ├── lecciones/ (vacío)
-│ │ └── curso-especial/ (vacío - Ojo de Horus)
-│ ├── historia-chile/
-│ │ └── submodulo.json (vacío)
-│ └── historia-precolombina/
-│ └── submodulo.json (vacío)
-├── ingles/
-│ └── materia.json (vacío)
-└── ciencias/
-└── materia.json (vacío)
+└── materias/ ← Contenido JSON
 
 
 ---
-## ✅ Estado actual
 
-### Completado
+## ✅ Estado actual (2026-09-28)
 
-| Elemento | Estado |
-|----------|--------|
-| Setup Astro + Tailwind v4 | ✅ |
-| Paleta personalizada (6 materias) | ✅ |
-| Dashboard con 6 materias | ✅ |
-| Navegación jerárquica | ✅ |
-| Renderizado de Markdown en lecciones | ✅ |
-| Trivia interactiva (verde/coral) | ✅ |
-| Deploy automático (git push → Cloudflare) | ✅ |
-| Continue + Ollama configurado (Qwen 2.5 7B) | ✅ |
-| Lección Matemáticas: Propiedades Multiplicación | ✅ Publicada |
-| Lección Historia: Antigua Roma | ✅ Publicada |
-| Lección Historia: Antigua Grecia | ✅ Publicada |
-| **Curso Ojo de Horus: Portada + 10 capítulos COMPLETO** | ✅ Publicado |
-| **Materia Programación creada (magenta #D946EF)** | ✅ |
-| **Curso Creadoras de Mundos Digitales: estructura + curso.json** | ✅ |
-| Refactor de CursoEspecial: colores dinámicos por materia | ✅ |
-| Fix de colores: HEX directos en lugar de variables CSS | ✅ |
-| Sistema de cursos especiales multi-materia | ✅ |
-| Documentación del proyecto (3 archivos .md) | ✅ |
-| Curso Selk'nam: Capítulos I, II, III, IV, V publicados | ✅ |
+### Fases completadas
 
-### Pendiente (en orden de prioridad)
+| Fase | Componente | Estado |
+|------|------------|--------|
+| **1** | Infraestructura Cloudflare (D1 + Worker) | ✅ |
+| **2a** | Login alumnas (PBKDF2 + tokens en D1) | ✅ |
+| **2b** | Página `/login` + header dinámico | ✅ |
+| **2c** | Perfil + validación automática de sesión | ✅ |
+| **2d** | Dashboard privado + búho 🦉 | ✅ |
+| **3** | Progreso real (XP, niveles, anti-farmeo) | ✅ |
+| **3b** | Barra de lectura + botón completar + hero dinámico | ✅ |
+| **4a** | Panel admin (login con token en localStorage) | ✅ |
+| **4b** | Gestión de clases + alumnas | ✅ |
+| **4c** | Dashboard admin con estadísticas reales | ✅ |
 
-| Tarea | Prioridad |
-|-------|-----------|
-| Curso Creadoras de Mundos Digitales: Capítulos I al X | Alta |
-| Lección introductoria de Antiguo Egipto (para el submódulo) | Media |
-| Historia de Chile (contenido) | Media |
-| Historia Precolombina (contenido) | Media |
-| Ciencias (contenido) | Media |
-| Lenguaje (contenido) | Baja |
-| Inglés (contenido) | Baja |
-| Embed de video por capítulo (colapsable) | Baja |
-| Sistema de progreso persistente (XP) | Baja |
+### Sistema de niveles (implementado)
 
-### 🎬 Nueva funcionalidad pendiente: Embed de video
+| Nivel | Nombre | XP requerido | Emoji |
+|-------|--------|--------------|-------|
+| 1 | Aprendiz | 0 - 99 | 🥚 |
+| 2 | Curiosa | 100 - 249 | 🐣 |
+| 3 | Exploradora | 250 - 499 | 🦉 |
+| 4 | Aventurera | 500 - 999 | 🗺️ |
+| 5 | Sabia | 1000 - 1999 | 📚 |
+| 6 | Maestra | 2000+ | 👑 |
 
-**Idea aprobada**: agregar al final de cada capítulo un bloque colapsable con el video original de YouTube del capítulo correspondiente.
+**XP por lección**: 50 XP (fijo). Repetir no da XP extra.
 
-**Diseño**:
-- Bloque `<details>` colapsable, discreto
-- Se expande para mostrar iframe 16:9 de YouTube
-- No interfiere con la lectura prioritaria
+---
 
-**Implementación pendiente**:
-1. Agregar campo `video_url` y `video_duracion` a cada `capitulo-XX.json`
-2. Crear componente `VideoEmbed.astro`
-3. Insertar al final de `[capitulo].astro` (después de la trivia)
+## ⏳ PENDIENTES (en orden de prioridad)
 
-**Referencia URL YouTube** (primer video de la serie):
-`https://www.youtube.com/watch?v=Q6D3gXq28hw`
+### 🅲️ TUTOR INTERACTIVO TIPO SYNTHESIS (próxima fase)
 
-### 🆕 Curso en desarrollo: Creadoras de Mundos Digitales
+**Objetivo**: transformar las lecciones de "leer → responder trivia" a un formato interactivo tipo tutor guiado por pasos.
 
-**Materia**: `programacion` (magenta `#D946EF`, emoji 💻)
-**Ubicación**: `src/data/materias/programacion/cursos/creadoras-de-mundos/`
-**Estructura**: 10 capítulos planificados, solo el I está activo
-**Tema**: Introducción a la programación para niñas de 9-12 años, usando Scratch
-**Enfoque**: Actividades prácticas + trivias + motivación
+**Características**:
+- Presentación del problema con contexto visual.
+- Guía paso a paso con feedback inmediato.
+- Manejo de errores comunes con explicaciones específicas.
+- Interacción por botones/clic (drag & drop en fase posterior).
+- **NO usa voz** (solo touch/clic).
+- Aplicable a TODAS las materias.
 
-**Capítulos planificados:**
+**Ver `TUTOR_PLAN.md` para el diseño completo.**
 
-| # | Capítulo | Estado |
-|---|----------|--------|
-| I | ¡Bienvenida, Programadora! | ⏳ Pendiente |
-| II | El Baile del Gato Naranja | ⏳ Pendiente |
-| III | Cazadoras de Errores | ⏳ Pendiente |
-| IV | Repite conmigo: ¡Bucles! | ⏳ Pendiente |
-| V | Toma de Decisiones | ⏳ Pendiente |
-| VI | Mi Primer Mini-Juego | ⏳ Pendiente |
-| VII | Historias Interactivas | ⏳ Pendiente |
-| VIII | IA: ¿Cómo Aprende una Computadora? | ⏳ Pendiente |
-| IX | Creadoras de Mundos | ⏳ Pendiente |
-| X | ¡Gran Presentación! | ⏳ Pendiente |
+**Tiempo estimado**: 3-4 sesiones para MVP.
+
+---
+
+### 🅰️ SISTEMA DE NOTIFICACIONES POR EMAIL
+
+**Objetivo**: notificaciones automáticas a apoderados, alumnas y admin.
+
+**Características**:
+- Informe mensual a apoderados (progreso de su hija).
+- Notificación a alumnas de nuevo contenido.
+- Resumen semanal para admin.
+- Formulario de apoderados (nombre + email + consentimiento).
+- Cumplimiento Ley 19.628 de Chile.
+
+**Ver `NOTIFICACIONES_PLAN.md` para el diseño completo.**
+
+**Tiempo estimado**: 1-2 sesiones.
+
+---
+
+### 🅱️ MÉTRICAS DETALLADAS
+
+**Objetivo**: ampliar el panel admin con análisis profundo.
+
+**Características**:
+- Página `/admin/metricas`.
+- Lecciones más/menos completadas.
+- Preguntas de trivia con más errores.
+- Gráfico de actividad por día.
+- Ranking de alumnas por XP.
+
+**Tiempo estimado**: 1 sesión.
+
+---
+
+### 🅳️ EMBED DE VIDEO POR CAPÍTULO
+
+**Objetivo**: agregar video de YouTube a cada capítulo de cursos especiales.
+
+**Características**:
+- Bloque `<details>` colapsable al final de cada capítulo.
+- iframe 16:9 de YouTube.
+- Campos `video_url` y `video_duracion` en los JSON.
+
+**Tiempo estimado**: 30 minutos.
+
+---
+
+### 🅴️ PRUEBAS CON ALUMNAS REALES
+
+**Objetivo**: usar la plataforma con el curso real.
+
+**Pasos**:
+- Crear la clase "3° Básico D 2026" completa.
+- Generar credenciales.
+- Preparar documentos para imprimir.
+- Probar el flujo end-to-end.
+
+**Tiempo estimado**: 30 minutos.
+
+---
+
+### 🅵️ CREAR MÁS CONTENIDO EDUCATIVO
+
+**Cursos especiales pendientes**:
+- Creadoras de Mundos Digitales — 10 capítulos (Programación).
+- Selk'nam — 5 capítulos pendientes.
+
+**Lecciones normales pendientes**:
+- Inglés (Unit 1 "Family Matters" + otras).
+- Ciencias, Lenguaje, Historia.
 
 ---
 
@@ -197,6 +270,7 @@ web-educativa/
 | Historia y Geografía | Ámbar dorado | `#F59E0B` |
 | Inglés | Turquesa | `#14B8A6` |
 | Ciencias | Verde lima | `#84CC16` |
+| Programación | Magenta | `#D946EF` |
 | Marca principal | Morado eléctrico | `#8B5CF6` |
 | Aciertos | Verde menta | `#10B981` |
 | Errores | Coral | `#F97316` |
@@ -208,111 +282,66 @@ web-educativa/
 
 ### Estructura de cada lección JSON
 
-- **id**: slug único en kebab-case
-- **titulo**: título con emoji
-- **categoria**: nombre de la materia o submódulo
-- **emoji**: emoji representativo
-- **progreso_puntos**: entero (100-200 XP)
-- **contenido_modulos**: array de strings (bloques markdown)
-- **trivia**: array de objetos con pregunta, opciones, respuesta_correcta, explicacion
+```json
+{
+  "id": "slug-en-kebab-case",
+  "titulo": "Título con Emoji 🎯",
+  "categoria": "Nombre de la materia",
+  "emoji": "🎯",
+  "progreso_puntos": 50,
+  "contenido_modulos": ["bloque 1", "bloque 2"],
+  "trivia": [
+    {
+      "pregunta": "...",
+      "opciones": ["A", "B", "C", "D"],
+      "respuesta_correcta": 1,
+      "explicacion": "..."
+    }
+  ]
+}
 
-### Formato del markdown (dentro de los strings)
+Estilo del profesor (ver PROMPT_PROFESOR.md)
+Tono serio pero cercano, no infantil.
 
-- `#` título principal
-- `##` secciones
-- `###` subsecciones
-- `**negrita**` para conceptos clave
-- `> **Idea fuerza**:` para ideas destacadas
-- Tablas con `|` cuando aplique
+Frases cortas (máximo 20 palabras).
 
-### Estilo del profesor (ver `PROMPT_PROFESOR.md`)
+Ejemplos cotidianos.
 
-- Tono serio pero cercano, no infantil
-- Frases cortas (máximo 20 palabras por oración)
-- Ejemplos cotidianos
-- Español de Chile
-- Sin "amiga", "lista", "amiguitas"
+Español de Chile.
 
----
+Sin "amiga", "lista", "amiguitas".
 
-## 🔄 Flujo de trabajo actual
-
-### Generación de contenido
-
-1. Elegir tema y dividir en 4-6 bloques temáticos
-2. Cada bloque: pedir a Qwen (o a IA del chat) que genere ~350 palabras en markdown
-3. Validar contenido (buscar errores factuales, matemáticos, conceptuales)
-4. Guardar bloques en `.temporal/bloque-XX.md`
-5. Generar trivia (10 preguntas) en JSON
-6. Ensamblar todo en un único JSON final
-7. Guardar en `src/data/materias/.../lecciones/<id>.json`
-8. Activar en `submodulo.json` o `materia.json` (`"activa": true`)
-
-
-## 🆕 Módulo: Club de Lectura (2026-09-23)
-
-**Ubicación**: `src/data/materias/lenguaje/lecturas/`
-**URL**: https://web-educativa.pages.dev/lenguaje
-
-### Sistema
-- Rotación aleatoria de preguntas
-- 3 tipos de ejercicios: comprensión (10), desarrollo (5), relectura (3)
-- Distribución: 30% media / 40% difícil / 30% muy difícil
-- Orden ascendente (fácil → difícil)
-- Persistencia en localStorage
-
-### Componentes
-- `src/scripts/seleccion-preguntas.js` — algoritmo de selección
-- `src/components/comprension/CuestionarioAleatorio.astro` — componente principal
-- `src/components/comprension/PreguntaComprension.astro`
-- `src/components/comprension/PreguntaDesarrollo.astro`
-- `src/components/comprension/DesafioRelectura.astro`
-
-### Páginas
-- `src/pages/lenguaje/index.astro` — listado de libros
-- `src/pages/lenguaje/comprension/[libro].astro` — página del libro
-
-### Primer libro
-- **La historia de Manú** (Ana María del Río)
-- 87 preguntas: 50 comprensión + 25 desarrollo + 12 relectura
-
-## 🆕 Lección: Introducción a la División (2026-09-23)
-
-**Materia**: Matemáticas
-**Archivo**: `src/data/materias/matematicas/lecciones/introduccion-division.json`
-**Bloques**: 6
-**Trivia**: 15 preguntas
-**Enfoque**: Entender qué es dividir antes de mecanizar
-**Vocabulario**: Dividendo, divisor, cociente, resto
-**Conexión**: División ↔ multiplicación
-
-## 🎯 Próxima fase: Login y métricas
-
-**Objetivo**: 
-- Sistema de login para alumnas
-- Panel admin con métricas
-- Notificaciones por email
-- Restricción de acceso
-
-**Stack propuesto**:
-- Cloudflare Workers (backend)
-- Cloudflare D1 (base de datos)
-- Cloudflare Access (autenticación)
-- Resend o MailChannels (emails)
-
-**Estimación**: 5-7 sesiones de chat
-
-**Consideraciones**:
-- Cambio de Astro Static → SSR
-- Consentimiento de apoderados (menores de edad)
-- Ley de protección de datos (Chile: 19.628)
-
-
-
-### Publicación
-
-```bash
+Flujo de trabajo (OBLIGATORIO)
+Publicación después de cada cambio
+bash
 cd ~/Escritorio/EstudioFernanda/web-educativa
 git add .
-git commit -m "Nueva leccion: <titulo>"
+git commit -m "Descripción breve del cambio"
 git push
+
+Formatos de mensaje de commit:
+
+Nueva lección: "Nueva lección: <título> (<materia>)"
+
+Nuevo capítulo: "Nuevo capítulo: <título> (<curso>)"
+
+Actualización: "Update: <descripción>"
+
+Fix: "Fix: <descripción>"
+
+Fase: "Fase X: <descripción>"
+
+Notas para el próximo chat
+Antes de empezar una nueva fase, consultar:
+
+Este archivo (ESTADO_PROYECTO.md) para el estado general.
+
+GUIA_IA.md para el manual técnico.
+
+PROMPT_TRASPASO.md para el prompt de traspaso.
+
+NOTIFICACIONES_PLAN.md o TUTOR_PLAN.md según corresponda.
+
+Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_PLAN.md).
+
+Fin del estado del proyecto.

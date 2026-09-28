@@ -8,15 +8,18 @@
 
 ## 🎯 Contexto del proyecto
 
-Plataforma educativa web para niñas de 9-12 años con contenido sobre:
+Plataforma educativa web para niñas de 9-12 años con contenido de:
 - Lenguaje
 - Matemáticas
 - Historia y Geografía
 - Inglés
 - Ciencias
+- Programación
 
-Stack: Astro 7 + Tailwind v4 + Cloudflare Pages.
-Contenido generado con IA y guardado como JSON estructurado.
+**Stack actual**: Astro 7 + Tailwind v4 + Cloudflare Pages (frontend) + Cloudflare Workers + D1 (backend).
+Contenido generado con IA, guardado como JSON estructurado.
+
+**Estado actual**: ver `ESTADO_PROYECTO.md`.
 
 ---
 
@@ -25,11 +28,11 @@ Contenido generado con IA y guardado como JSON estructurado.
 Actuar como **profesor de enseñanza básica** con 20 años de experiencia.
 
 **Tono**:
-- Serio pero cercano (no "buena onda" forzado)
-- Frases cortas (máximo 20 palabras)
-- Explicar lo complejo de forma simple sin perder rigor
-- Español de Chile
-- Cero lenguaje infantil ("amiguitas", "genial", emojis excesivos)
+- Serio pero cercano (no "buena onda" forzado).
+- Frases cortas (máximo 20 palabras).
+- Explicar lo complejo de forma simple sin perder rigor.
+- Español de Chile.
+- Cero lenguaje infantil ("amiguitas", "genial", emojis excesivos).
 
 **Público**: niñas de 9-12 años, educación básica, transición a media.
 
@@ -82,24 +85,21 @@ Párrafo normal.
 | Columna 1 | Columna 2 |
 |-----------|-----------|
 | dato 1    | dato 2    |
-```
 
-**IMPORTANTE**:
-- Los `#`, `##` sí van dentro del string JSON (se renderizan con `marked`)
-- Usar `\n` para saltos de línea dentro del string
-- Los emojis al inicio de títulos son bienvenidos (🎯, 📖, 💡, etc.)
+IMPORTANTE:
 
----
+Los #, ## sí van dentro del string JSON (se renderizan con marked)
 
-## 📦 Estructura del JSON de lección normal
+Usar \n para saltos de línea dentro del string
 
-```json
+Los emojis al inicio de títulos son bienvenidos (🎯, 📖, 💡, etc.)
+
 {
   "id": "slug-en-kebab-case",
   "titulo": "Título con Emoji 🎯",
   "categoria": "Nombre de la materia o submódulo",
   "emoji": "🎯",
-  "progreso_puntos": 150,
+  "progreso_puntos": 50,
   "contenido_modulos": [
     "Primer bloque en markdown...",
     "Segundo bloque...",
@@ -117,7 +117,6 @@ Párrafo normal.
     }
   ]
 }
-```
 
 ---
 
@@ -134,6 +133,7 @@ Cada lección se guarda en la carpeta correspondiente:
 | Historia Universal | `src/data/materias/historia/submodulos/historia-universal/lecciones/<id>.json` |
 | Historia Chile | `src/data/materias/historia/submodulos/historia-chile/lecciones/<id>.json` |
 | Historia Precolombina | `src/data/materias/historia/submodulos/historia-precolombina/lecciones/<id>.json` |
+| Programación | `src/data/materias/programacion/cursos/<curso>/capitulo-XX.json` |
 
 ---
 
@@ -156,13 +156,11 @@ Editar `src/data/materias/<materia>/materia.json` y agregar a `lecciones`:
   "archivo": "lecciones/slug-leccion.json",
   "activa": true
 }
-```
 
-### Para submódulos (Historia Universal, etc.)
+Para submódulos (Historia Universal, etc.)
+Editar src/data/materias/historia/submodulos/<submodulo>/submodulo.json y agregar a lecciones:
 
-Editar `src/data/materias/historia/submodulos/<submodulo>/submodulo.json` y agregar a `lecciones`:
-
-```json
+json
 {
   "id": "slug-leccion",
   "titulo": "Título",
@@ -173,373 +171,279 @@ Editar `src/data/materias/historia/submodulos/<submodulo>/submodulo.json` y agre
   "archivo": "lecciones/slug-leccion.json",
   "activa": true
 }
-```
+Nota: si "activa": false, la lección no se muestra en la web aunque el JSON exista.
 
-**Nota**: si `"activa": false`, la lección no se muestra en la web aunque el JSON exista.
+👁️ Cursos Especiales (Ojo de Horus, Selk'nam, Creadoras de Mundos)
+Los cursos especiales tienen estructura diferente a las lecciones normales.
 
----
+Ubicación típica: src/data/materias/<materia>/submodulos/<submodulo>/lecciones/<tema>/curso-especial/
 
-## 👁️ Curso Especial: El Ojo de Horus
+Estructura de datos:
 
-Este es un **curso especial** dentro de Antiguo Egipto, diferente a las lecciones normales.
+curso.json — info general + array de capítulos con activo: true/false
 
-**Ubicación**: `src/data/materias/historia/submodulos/historia-universal/lecciones/antiguo-egipto/curso-especial/`
+capitulo-XX.json — contenido de cada capítulo
 
-**Estructura de datos especial**:
+Campos especiales de un capítulo:
 
-- `curso.json` — info general + array de capítulos con `activo: true/false`
-- `capitulo-XX.json` — contenido de cada capítulo
+numero — número arábigo (1, 2, 3...)
 
-**Campos especiales** de un capítulo (diferentes a las lecciones normales):
+numero_romano — número romano (I, II, III...)
 
-- `numero` — número arábigo (1, 2, 3...)
-- `numero_romano` — número romano (I, II, III...)
-- `vocabulario[]` — array de `{ termino, definicion }`
-- `linea_tiempo[]` — array de `{ fecha, evento }`
-- `subtitulo` — subtítulo del capítulo
+vocabulario[] — array de { termino, definicion }
 
-**Estructura del JSON de un capítulo**:
+linea_tiempo[] — array de { fecha, evento }
 
-```json
-{
-  "id": "capitulo-XX",
-  "numero": 1,
-  "numero_romano": "I",
-  "titulo": "Título del capítulo",
-  "subtitulo": "Subtítulo",
-  "emoji": "🔺",
-  "progreso_puntos": 200,
-  "contenido_modulos": ["bloque 1", "bloque 2", "..."],
-  "vocabulario": [
-    { "termino": "...", "definicion": "..." }
-  ],
-  "linea_tiempo": [
-    { "fecha": "...", "evento": "..." }
-  ],
-  "trivia": [
-    { "pregunta": "...", "opciones": ["A","B","C","D"], "respuesta_correcta": 1, "explicacion": "..." }
-  ]
-}
-```
+subtitulo — subtítulo del capítulo
 
-**Componentes y páginas especiales**:
+actividades[] — (solo Creadoras de Mundos) array de { titulo, descripcion, nivel }
 
-- `src/components/CursoEspecial.astro` — portada con índice de capítulos
-- `src/pages/curso/[curso]/index.astro` — portada del curso
-- `src/pages/curso/[curso]/[capitulo].astro` — capítulo individual
+Cómo activar un capítulo nuevo:
 
-**Cómo activar un capítulo nuevo**:
+Crear el JSON del capítulo en curso-especial/capitulo-XX.json
 
-1. Crear el JSON del capítulo en `curso-especial/capitulo-XX.json`
-2. En `curso.json`, cambiar `"activo": false` a `"activo": true` para ese capítulo
-3. Reiniciar el servidor de Astro (`Ctrl+C` → `npm run dev`)
+En curso.json, cambiar "activo": false a "activo": true para ese capítulo
 
-**Capítulos publicados**:
+Reiniciar el servidor de Astro (Ctrl+C → npm run dev)
 
-| # | Capítulo | Estado |
-|---|----------|--------|
-| I | La Escuela de Misterios | ✅ Publicado |
-| II | La Esfinge | ✅ Publicado |
-| III | La Escritura Sagrada | ✅ Publicado |
-| IV | Los Templos de Giza y el Osirion | ✅ Publicado |
-| V | La Flor de la Vida | ✅ Publicado |
-| VI | Sakara | ✅ Publicado |
-| VII | Los Templos de Egipto | ✅ Publicado |
-| VIII | El Año Cósmico y el Zodíaco | ✅ Publicado |
-| IX | Los Niveles de Conciencia | ✅ Publicado |
-| X | Filae y el Principio Femenino | ✅ Publicado |
+🔍 Validación antes de publicar
+Siempre validar el JSON antes de hacer commit:
 
-**CURSO COMPLETO: 10 de 10 capítulos publicados.**
-
-**Transcripción completa del curso**: `ojohorus.txt` (en la raíz del proyecto).
-Contiene las transcripciones de los 10 videos. Los cortes entre capítulos se
-identifican por marcas de tiempo en silencios: `[102:00]`, `[152:50]`, etc.
-
----
-
-## 🔍 Validación antes de publicar
-
-**Siempre** validar el JSON antes de hacer commit:
-
-```bash
+bash
 cat <archivo>.json | python3 -m json.tool > /dev/null && echo "✓ VÁLIDO" || echo "✗ INVÁLIDO"
-```
-
 Si dice "INVÁLIDO", hay un error de sintaxis (coma extra, comilla mal cerrada, etc.).
 
 ---
 
-## 🎓 Errores comunes a evitar
+## 🖥️ Panel de Administración
 
-### En IA de modelos pequeños (llama3.2:3b)
+**URL en producción**: `https://web-educativa.pages.dev/admin`
+**URL en local**: `http://localhost:4321/admin`
 
-- ❌ Confundir suma con multiplicación
-- ❌ Repetir el mismo ejemplo dos veces
-- ❌ Saltarse la estructura de encabezados
-- ❌ Inventar datos históricos/científicos
-- ❌ Mezclar idiomas
+### Autenticación
 
-### En modelos grandes (Qwen 2.5 7B, Claude, GPT)
+- **Método**: token en `localStorage` (mismo patrón que las alumnas).
+- **Login**: `POST /api/admin/login` con body `{ password }`.
+- **Verificación**: `GET /api/admin/me` con header `Authorization: Bearer <token>`.
+- **Logout**: `POST /api/admin/logout`.
 
-- ⚠️ Ser demasiado extenso (superar las 400 palabras por bloque)
-- ⚠️ Usar lenguaje demasiado formal o académico
-- ⚠️ Poner demasiados emojis
-- ⚠️ Olvidar la sección "Idea fuerza"
+### Secrets de Cloudflare
 
-### En general
+- `ADMIN_PASSWORD_HASH`: hash PBKDF2 de la contraseña maestra.
+- `ADMIN_SESSION_SECRET`: string aleatorio (reservado).
 
-- ❌ No verificar la respuesta correcta de las trivias
-- ❌ Dejar emojis fuera del título
-- ❌ No probar el JSON localmente antes de publicar
+### Generar hash de contraseña admin
+
+Pasos:
+1. `cd workers/api`
+2. `node scripts-hash-admin.js`
+3. Ingresar contraseña, copiar el hash
+4. `cd ../..`
+5. `npx wrangler secret put ADMIN_PASSWORD_HASH`
+6. Pegar el hash
+7. `npx wrangler deploy`
+
+### Páginas del panel
+
+| Página | Función |
+|--------|---------|
+| `/admin/login` | Login con contraseña maestra |
+| `/admin` | Dashboard con estadísticas |
+| `/admin/clases` | Gestión de clases (crear, activar/desactivar) |
+| `/admin/alumnas` | Gestión de alumnas (crear, resetear password, ver progreso) |
+
+### Crear alumnas desde el panel
+
+1. Ir a `/admin/alumnas`
+2. Clic en "+ Nueva alumna"
+3. Rellenar: nombre, usuario, clase
+4. Clic en "Crear alumna"
+5. Se genera contraseña automáticamente (formato `animal-color-numero`, ej: `gato-azul-42`)
+6. El modal muestra la contraseña UNA SOLA VEZ → copiarla y dársela a la alumna
+
+---
+
+## 🔌 Endpoints del Worker API
+
+**Base URL**: `https://web-educativa-api.ferbeatriz.workers.dev`
+
+### Health & Info
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| GET | `/api/health` | Health check (Worker + BD) |
+| GET | `/api` | Info general + lista de endpoints |
+
+### Autenticación de alumnas
+
+| Método | Ruta | Body/Header | Descripción |
+|--------|------|-------------|-------------|
+| POST | `/api/auth/login` | `{ usuario, password }` | Login |
+| POST | `/api/auth/logout` | `Bearer <token>` | Logout |
+| GET | `/api/auth/me` | `Bearer <token>` | Info de la alumna |
+| GET | `/api/auth/perfil` | `Bearer <token>` | Perfil completo (con clase) |
+
+### Progreso
+
+| Método | Ruta | Body/Header | Descripción |
+|--------|------|-------------|-------------|
+| POST | `/api/progreso/completar` | `{ leccion_id, materia_id }` | Marcar lección como completada |
+| GET | `/api/progreso/resumen` | `Bearer <token>` | Resumen (XP, nivel) |
+| GET | `/api/progreso/completo` | `Bearer <token>` | Todas las lecciones completadas |
+| GET | `/api/progreso/leccion/:id` | `Bearer <token>` | ¿Completó esta lección? |
+
+### Panel admin
+
+| Método | Ruta | Body/Header | Descripción |
+|--------|------|-------------|-------------|
+| POST | `/api/admin/login` | `{ password }` | Login admin |
+| POST | `/api/admin/logout` | `Bearer <token>` | Logout admin |
+| GET | `/api/admin/me` | `Bearer <token>` | Verificar sesión |
+| GET | `/api/admin/estadisticas` | `Bearer <token>` | Stats para dashboard |
+| GET | `/api/admin/clases` | `Bearer <token>` | Listar clases |
+| POST | `/api/admin/clases` | `{ nombre, codigo }` | Crear clase |
+| PATCH | `/api/admin/clases/:id` | `{ activa: boolean }` | Activar/desactivar clase |
+| GET | `/api/admin/alumnas` | `Bearer <token>` | Listar alumnas (con progreso) |
+| POST | `/api/admin/alumnas` | `{ nombre, usuario, clase_id }` | Crear alumna |
+| PATCH | `/api/admin/alumnas/:id` | `{ activa: boolean }` | Activar/desactivar alumna |
+| POST | `/api/admin/alumnas/:id/resetear-password` | `Bearer <token>` | Resetear contraseña |
+| GET | `/api/admin/alumnas/:id/progreso` | `Bearer <token>` | Progreso detallado |
+
+---
+
+## 🗄️ Base de datos D1
+
+**Database**: `web-educativa-db`
+**ID**: `dfe90365-c58f-4043-a79f-87dce0a5e313`
+
+### Tablas
+
+| Tabla | Campos principales |
+|-------|-------------------|
+| `clases` | id, nombre, codigo (único), activa, creada_en |
+| `alumnas` | id, nombre, usuario (único), clase_id, activa, ultimo_login, creada_en |
+| `metodos_auth` | id, alumna_id, tipo (`password`), credencial_hash (PBKDF2), activo |
+| `sesiones` | id, alumna_id, token_hash, expira_en, creada_en |
+| `progreso` | id, alumna_id, leccion_id, materia_id, xp_ganados, completada_en |
+| `admin_sesiones` | id, token_hash (único), expira_en, creada_en |
+
+**Constraints importantes**:
+- `alumnas.usuario` es único.
+- `clases.codigo` es único.
+- `progreso` tiene `UNIQUE(alumna_id, leccion_id)` → evita duplicados.
+
+---
+
+## 🎯 Sistema de niveles
+
+| Nivel | Nombre | XP mínimo | Emoji |
+|-------|--------|-----------|-------|
+| 1 | Aprendiz | 0 | 🥚 |
+| 2 | Curiosa | 100 | 🐣 |
+| 3 | Exploradora | 250 | 🦉 |
+| 4 | Aventurera | 500 | 🗺️ |
+| 5 | Sabia | 1000 | 📚 |
+| 6 | Maestra | 2000 | 👑 |
+
+**Cálculo**: se hace con la función `calcularNivel(xp)` que está en `workers/api/src/routes/progreso.ts`.
+
+**XP por lección**: 50 (fijo). Repetir lección NO da XP.
 
 ---
 
 ## 🔄 Flujo de trabajo recomendado
 
-### Opción A: IA del chat genera todo (rápido)
-
-1. Pedir a la IA (chat) que genere el JSON completo de una lección
-2. Verificar contenido (búsqueda de errores)
-3. Guardar en la ubicación correcta
-4. Activar en `materia.json` o `submodulo.json`
-5. `git add . && git commit && git push`
-
-**Tiempo**: 15-20 minutos por lección.
-
-### Opción B: Qwen local genera (independiente)
-
-1. Pedir a Qwen bloque por bloque con prompts específicos
-2. Validar cada bloque antes de continuar
-3. Guardar en `.temporal/bloque-XX.md`
-4. Al terminar, ensamblar el JSON
-5. Guardar en la ubicación correcta
-6. Activar y publicar
-
-**Tiempo**: 40-60 minutos por lección (más lento, pero sin depender de internet).
-
----
-
-## 🎯 Lecciones ya publicadas
-
-| Materia | Lección | Archivo |
-|---------|---------|---------|
-| Matemáticas | Propiedades de la Multiplicación | `src/data/materias/matematicas/lecciones/propiedades-multiplicacion.json` |
-| Historia Universal | Antigua Roma | `src/data/materias/historia/submodulos/historia-universal/lecciones/antigua-roma.json` |
-| Historia Universal | Antigua Grecia | `src/data/materias/historia/submodulos/historia-universal/lecciones/antigua-grecia.json` |
-
----
-
-## 🎨 Paleta de colores (referencia rápida)
-
-- **Lenguaje**: rosa coral `#EC4899`
-- **Matemáticas**: azul eléctrico `#3B82F6`
-- **Historia**: ámbar dorado `#F59E0B`
-- **Inglés**: turquesa `#14B8A6`
-- **Ciencias**: verde lima `#84CC16`
-
----
-
----
-
-## 💻 Curso Especial: Creadoras de Mundos Digitales
-
-**Materia**: `programacion` (magenta `#D946EF`, emoji 💻)
-**Ubicación**: `src/data/materias/programacion/cursos/creadoras-de-mundos/`
-**Estructura**: igual a Ojo de Horus (curso.json + capitulo-XX.json)
-**Público**: niñas de 9-12 años sin experiencia previa en programación
-**Herramienta base**: Scratch (https://scratch.mit.edu)
-
-**Campos adicionales en cada capítulo:**
-
-- `actividades[]` — array de `{ titulo, descripcion, nivel }` con desafíos prácticos
-
-**Estructura del JSON de un capítulo**:
-
-```json
-{
-  "id": "capitulo-XX",
-  "numero": 1,
-  "numero_romano": "I",
-  "titulo": "Título del capítulo",
-  "subtitulo": "Subtítulo",
-  "emoji": "🎉",
-  "progreso_puntos": 200,
-  "contenido_modulos": ["bloque 1", "bloque 2", "..."],
-  "vocabulario": [
-    { "termino": "...", "definicion": "..." }
-  ],
-  "actividades": [
-    { "titulo": "...", "descripcion": "...", "nivel": "fácil" }
-  ],
-  "trivia": [
-    { "pregunta": "...", "opciones": ["A","B","C","D"], "respuesta_correcta": 1, "explicacion": "..." }
-  ]
-}
-
-
-
-
-Notas sobre el contenido:
-
-Tono motivador y alentador (no solemne como Ojo de Horus)
-
-Cero tecnicismos innecesarios
-
-Ejemplos cotidianos para explicar conceptos
-
-Cada capítulo incluye al menos 2-3 actividades prácticas
-
-Enfatizar que el error es parte del aprendizaje (cultura maker)
-
-Capítulos planificados:
-
-#	Capítulo	Estado
-I	¡Bienvenida, Programadora!	⏳ Pendiente
-II	El Baile del Gato Naranja	⏳ Pendiente
-III	Cazadoras de Errores	⏳ Pendiente
-IV	Repite conmigo: ¡Bucles!	⏳ Pendiente
-V	Toma de Decisiones	⏳ Pendiente
-VI	Mi Primer Mini-Juego	⏳ Pendiente
-VII	Historias Interactivas	⏳ Pendiente
-VIII	IA: ¿Cómo Aprende una Computadora?	⏳ Pendiente
-IX	Creadoras de Mundos	⏳ Pendiente
-X	¡Gran Presentación!	⏳ Pendiente
-🎨 Refactor de cursos multi-materia
-Desde el 15 de septiembre de 2026, CursoEspecial.astro y las páginas [curso]/*.astro son dinámicas por materia.
-
-Cómo funciona:
-
-Detectan la materia por el path del curso
-
-Mapean la materia a un color (definido en global.css como --color-<materia>-*)
-
-Usan códigos HEX directos dentro del componente (no variables CSS dinámicas) para evitar problemas de Tailwind v4
-
-El color se aplica a: portada, números de capítulo, links, vocabulario, línea de tiempo
-
-Materias soportadas actualmente:
-
-lenguaje, matematicas, historia, ingles, ciencias, programacion
-
-Para agregar una nueva materia:
-
-Agregar a src/data/materias.json
-
-Agregar sus variables CSS en global.css (--color-<materia>-50..700)
-
-Agregar el color HEX en el objeto colores de CursoEspecial.astro y [capitulo].astro
-
-Agregar la materia a la lista materiasConocidas en [curso]/index.astro y [capitulo].astro
-
-
-## Curso: El mundo espiritual de los Selk'nam
-- Ubicación: src/data/materias/historia/submodulos/historia-chile/curso-especial/
-- Materia: Historia de Chile
-- Color propio: rojo tierra (#DC2626)
-- 5 de 10 capítulos publicados (I a V)
-- Fuente: Secciones 1-4 del Tomo I narradas por NotebookLM
-- Material narrado pendiente: Secciones del Tomo II (Klóketen)
-
-
-## 🆕 Club de Lectura
-
-El Club de Lectura es un módulo de comprensión lectora adaptativa.
-
-
-### Estructura de archivos
-src/data/materias/lenguaje/lecturas/
-├── indice.json # Lista de libros activos
-└── <id-libro>/
-├── meta.json # Info del libro + configuración
-├── banco-comprension.json # 50 preguntas selección múltiple
-├── banco-desarrollo.json # 25 preguntas abiertas
-└── banco-relectura.json # 12 desafíos
-
-
-
-### Estructura de una pregunta de comprensión
-
-```json
-{
-  "id": "c01",
-  "dificultad": "media" | "dificil" | "muy_dificil",
-  "tema": "El sueño profético",
-  "pregunta": "...",
-  "opciones": ["A", "B", "C", "D"],
-  "respuesta_correcta": 1,
-  "explicacion": "...",
-  "pista": "Páginas 5 y 16"
-}
-
-
-{
-  "id": "d01",
-  "dificultad": "media" | "dificil" | "muy_dificil",
-  "tema": "...",
-  "pregunta": "...",
-  "criterios": ["...", "..."],
-  "extension": "5 a 8 oraciones"
-}
-
-
-
-{
-  "id": "r01",
-  "dificultad": "media" | "dificil" | "muy_dificil",
-  "tema": "...",
-  "titulo": "...",
-  "instrucciones": ["...", "..."],
-  "pista": "...",
-  "entregable": "Dibujo con anotaciones"
-}
-
-
-Cómo agregar un libro nuevo
-Crear carpeta src/data/materias/lenguaje/lecturas/<id-libro>/
-
-Crear meta.json con la info del libro
-
-Crear los 3 bancos (50 + 25 + 12 preguntas)
-
-Agregar el libro a src/data/materias/lenguaje/lecturas/indice.json
-
-Agregar el import en src/pages/lenguaje/comprension/[libro].astro
-
-Agregar la entrada en el objeto datosLibros
-
-Listo
-
-Distribución de dificultad
-30% media
-
-40% difícil
-
-30% muy difícil
-
-## 🚀 Publicación estándar (OBLIGATORIO)
-
-Después de crear o modificar cualquier lección, curso o módulo, 
-SIEMPRE entregar al usuario estos comandos para publicar:
-
-\`\`\`bash
+### Crear contenido (lecciones)
+
+1. Elegir tema y dividir en 4-6 bloques temáticos
+2. Generar contenido (~350 palabras por bloque)
+3. Validar contenido (errores factuales, matemáticos, conceptuales)
+4. Generar trivia (10 preguntas)
+5. Ensamblar JSON
+6. Guardar en la ubicación correcta
+7. Activar en `materia.json` o `submodulo.json`
+8. Validar el JSON con `python3 -m json.tool`
+9. Commit + push
+
+### Modificar el Worker (backend)
+
+1. Editar archivos en `workers/api/src/`
+2. Verificar TypeScript: `cd workers/api && npx tsc --noEmit`
+3. Deploy: `cd ../.. && npx wrangler deploy`
+4. Probar con curl
+
+### Modificar el frontend
+
+1. Editar archivos en `src/`
+2. Compilar: `npm run build`
+3. Commit + push (Cloudflare Pages hace el deploy automático)
+4. Esperar 1-2 minutos y probar en producción
+
+### Publicación (OBLIGATORIO después de cada cambio)
+
+```bash
 cd ~/Escritorio/EstudioFernanda/web-educativa
 git add .
-git commit -m "Descripción breve del cambio"
+git commit -m "Descripción breve"
 git push
-\`\`\`
+Formatos de mensaje de commit:
 
-El mensaje del commit debe seguir estos formatos:
-- Nueva lección: "Nueva lección: <título> (<materia>)"
-- Nuevo capítulo: "Nuevo capítulo: <título> (<curso>)"
-- Actualización: "Update: <descripción>"
-- Fix: "Fix: <descripción>"
+Nueva lección: "Nueva lección: <título> (<materia>)"
 
-## 📞 Contacto del proyecto
+Nuevo capítulo: "Nuevo capítulo: <título> (<curso>)"
 
-**Autora**: Ferbeatriz
-**GitHub**: https://github.com/Ferbeatriz/web-educativa
-**Web**: https://web-educativa.pages.dev
+Actualización: "Update: <descripción>"
 
----
+Fix: "Fix: <descripción>"
 
-**Fin de la guía.**
+Fase: "Fase X: <descripción>"
+
+🎓 Errores comunes a evitar
+En IA de modelos pequeños (llama3.2:3b)
+❌ Confundir suma con multiplicación
+
+❌ Repetir el mismo ejemplo dos veces
+
+❌ Saltarse la estructura de encabezados
+
+❌ Inventar datos históricos/científicos
+
+❌ Mezclar idiomas
+
+En modelos grandes (Qwen 2.5 7B, Claude, GPT)
+⚠️ Ser demasiado extenso (superar las 400 palabras por bloque)
+
+⚠️ Usar lenguaje demasiado formal o académico
+
+⚠️ Poner demasiados emojis
+
+⚠️ Olvidar la sección "Idea fuerza"
+
+En general
+❌ No verificar la respuesta correcta de las trivias
+
+❌ Dejar emojis fuera del título
+
+❌ No probar el JSON localmente antes de publicar
+
+🎨 Paleta de colores (referencia rápida)
+Lenguaje: rosa coral #EC4899
+
+Matemáticas: azul eléctrico #3B82F6
+
+Historia: ámbar dorado #F59E0B
+
+Inglés: turquesa #14B8A6
+
+Ciencias: verde lima #84CC16
+
+Programación: magenta #D946EF
+
+📌 Documentación relacionada
+Archivo	Contenido
+ESTADO_PROYECTO.md	Estado general + pendientes
+PROMPT_TRASPASO.md	Prompt para chat nuevo
+NOTIFICACIONES_PLAN.md	Plan de notificaciones por email
+TUTOR_PLAN.md	Plan del tutor interactivo tipo Synthesis
+PROMPT_PROFESOR.md	Personalidad de la IA
+Fin de la guía.
