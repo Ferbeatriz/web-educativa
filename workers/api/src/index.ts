@@ -38,6 +38,8 @@ import {
   handleActualizarAlumna,
 } from './routes/admin-alumnas';
 
+import { handleEstadisticas } from './routes/admin-estadisticas';
+
 type Env = EnvAuth & EnvAdmin;
 
 export default {
@@ -143,6 +145,9 @@ export default {
       }
       if (path === '/api/admin/me' && method === 'GET') {
         return await handleAdminMe(request, env);
+      }
+      if (path === '/api/admin/estadisticas' && method === 'GET') {
+        return await handleEstadisticas(request, env);
       }
 
       // ---------- Admin: clases ----------

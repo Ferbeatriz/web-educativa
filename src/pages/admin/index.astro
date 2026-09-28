@@ -1,5 +1,5 @@
 ---
-// Panel admin: dashboard principal (protegido por cookie)
+// Panel admin: dashboard principal con estadísticas
 ---
 
 <!DOCTYPE html>
@@ -32,56 +32,143 @@
       }
       header .brand { display: flex; align-items: center; gap: 12px; }
       header .brand-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
+        width: 36px; height: 36px; border-radius: 8px;
         background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        border: 1px solid #334155;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; border: 1px solid #334155;
       }
       header h1 { font-size: 15px; font-weight: 600; }
       header .acciones { display: flex; align-items: center; gap: 12px; }
       header .acciones a, header .acciones button {
-        font-family: inherit;
-        font-size: 13px;
-        color: #CBD5E1;
-        text-decoration: none;
-        background: transparent;
-        border: 1px solid #334155;
-        padding: 8px 14px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.15s;
+        font-family: inherit; font-size: 13px; color: #CBD5E1;
+        text-decoration: none; background: transparent;
+        border: 1px solid #334155; padding: 8px 14px;
+        border-radius: 6px; cursor: pointer; transition: all 0.15s;
       }
       header .acciones a:hover, header .acciones button:hover {
-        background: #1E293B;
-        color: #F1F5F9;
+        background: #1E293B; color: #F1F5F9;
       }
       main { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
       .page-title { margin-bottom: 32px; }
-      .page-title h2 { font-size: 24px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+      .page-title h2 {
+        font-size: 26px; font-weight: 700; color: #0F172A;
+        margin-bottom: 6px;
+      }
       .page-title p { font-size: 14px; color: #64748B; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-      .card {
+
+      /* Grid de estadísticas */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+      .stat-card {
         background: white;
         border: 1px solid #E2E8F0;
-        border-radius: 10px;
-        padding: 24px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.15s;
+        position: relative;
+        overflow: hidden;
       }
-      .card h3 { font-size: 15px; font-weight: 600; color: #0F172A; margin-bottom: 8px; }
-      .card p { font-size: 13px; color: #64748B; line-height: 1.5; margin-bottom: 16px; }
-      .card .placeholder {
-        display: inline-block;
-        font-size: 11px;
-        font-weight: 500;
-        padding: 3px 8px;
-        border-radius: 4px;
-        background: #F1F5F9;
+      .stat-card:hover {
+        border-color: #CBD5E1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      }
+      .stat-card .icon {
+        width: 40px; height: 40px;
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .stat-card .label {
+        font-size: 12px;
+        font-weight: 600;
         color: #64748B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+      }
+      .stat-card .value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #0F172A;
+        line-height: 1.2;
+      }
+      .stat-card .sub {
+        font-size: 12px;
+        color: #94A3B8;
+        margin-top: 4px;
+      }
+
+      /* Colores por tarjeta */
+      .stat-card.azul .icon { background: #EFF6FF; color: #2563EB; }
+      .stat-card.rosa .icon { background: #FDF2F8; color: #DB2777; }
+      .stat-card.ambar .icon { background: #FFFBEB; color: #D97706; }
+      .stat-card.verde .icon { background: #F0FDF4; color: #16A34A; }
+
+      /* Sección de acciones */
+      .section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0F172A;
+        margin-bottom: 20px;
+      }
+      .acciones-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .accion-card {
+        background: white;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 24px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.15s;
+        display: block;
+      }
+      .accion-card:hover {
+        border-color: #3B82F6;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1);
+      }
+      .accion-card .icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+        display: block;
+      }
+      .accion-card h3 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #0F172A;
+        margin-bottom: 6px;
+      }
+      .accion-card p {
+        font-size: 13px;
+        color: #64748B;
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+      .accion-card .cta {
+        font-size: 13px;
+        font-weight: 600;
+        color: #3B82F6;
+      }
+      .accion-card.placeholder {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .accion-card.placeholder:hover {
+        border-color: #E2E8F0;
+        transform: none;
+        box-shadow: none;
+      }
+      .accion-card.placeholder .cta {
+        color: #94A3B8;
       }
       .loading {
         text-align: center;
@@ -113,37 +200,72 @@
           <p>Este es el panel de administración de Web Educativa.</p>
         </div>
 
-        <div class="grid">
-          <div class="card">
-            <h3>📚 Clases</h3>
-            <p>Crear, editar y gestionar clases.</p>
-            <span class="placeholder">Próximamente</span>
+        <!-- Estadísticas -->
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card azul">
+            <div class="icon">📚</div>
+            <div class="label">Clases</div>
+            <div class="value" id="stat-clases">—</div>
+            <div class="sub" id="stat-clases-sub">—</div>
           </div>
-          <div class="card">
-            <h3>👧 Alumnas</h3>
+          <div class="stat-card rosa">
+            <div class="icon">👧</div>
+            <div class="label">Alumnas</div>
+            <div class="value" id="stat-alumnas">—</div>
+            <div class="sub" id="stat-alumnas-sub">—</div>
+          </div>
+          <div class="stat-card ambar">
+            <div class="icon">⭐</div>
+            <div class="label">XP Totales</div>
+            <div class="value" id="stat-xp">—</div>
+            <div class="sub" id="stat-xp-sub">—</div>
+          </div>
+          <div class="stat-card verde">
+            <div class="icon">📖</div>
+            <div class="label">Lecciones</div>
+            <div class="value" id="stat-lecciones">—</div>
+            <div class="sub" id="stat-lecciones-sub">—</div>
+          </div>
+        </div>
+
+        <!-- Acciones rápidas -->
+        <h3 class="section-title">Acceso rápido</h3>
+        <div class="acciones-grid">
+          <a href="/admin/clases" class="accion-card">
+            <span class="icon">📚</span>
+            <h3>Clases</h3>
+            <p>Crear, editar y gestionar las clases de tus alumnas.</p>
+            <span class="cta">Gestionar clases →</span>
+          </a>
+          <a href="/admin/alumnas" class="accion-card">
+            <span class="icon">👧</span>
+            <h3>Alumnas</h3>
             <p>Agregar alumnas, resetear contraseñas, ver progreso.</p>
-            <span class="placeholder">Próximamente</span>
-          </div>
-          <div class="card">
-            <h3>📊 Métricas</h3>
+            <span class="cta">Gestionar alumnas →</span>
+          </a>
+          <div class="accion-card placeholder">
+            <span class="icon">📊</span>
+            <h3>Métricas detalladas</h3>
             <p>Actividad, lecciones más completadas, preguntas con más errores.</p>
-            <span class="placeholder">Próximamente</span>
+            <span class="cta">Próximamente</span>
           </div>
-          <div class="card">
-            <h3>📧 Notificaciones</h3>
+          <div class="accion-card placeholder">
+            <span class="icon">📧</span>
+            <h3>Notificaciones</h3>
             <p>Envíos de informes por email a apoderados.</p>
-            <span class="placeholder">Próximamente</span>
+            <span class="cta">Próximamente</span>
           </div>
         </div>
       </main>
     </div>
 
     <script>
-      import { verificarAdmin, logoutAdmin } from '../../lib/admin';
+      import { verificarAdmin, logoutAdmin, getToken } from '../../lib/admin';
+
+      const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
 
       async function init() {
         const esAdmin = await verificarAdmin();
-
         if (!esAdmin) {
           window.location.href = '/admin/login';
           return;
@@ -156,6 +278,47 @@
           await logoutAdmin();
           window.location.href = '/admin/login';
         });
+
+        await cargarEstadisticas();
+      }
+
+      async function cargarEstadisticas() {
+        const token = getToken();
+
+        try {
+          const response = await fetch(`${API_URL}/api/admin/estadisticas`, {
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+
+          const data = await response.json();
+          if (!data.ok) return;
+
+          const e = data.estadisticas;
+
+          // Clases
+          document.getElementById('stat-clases')!.textContent = String(e.clases.total);
+          document.getElementById('stat-clases-sub')!.textContent =
+            e.clases.activas === e.clases.total
+              ? `${e.clases.activas} activas`
+              : `${e.clases.activas} de ${e.clases.total} activas`;
+
+          // Alumnas
+          document.getElementById('stat-alumnas')!.textContent = String(e.alumnas.total);
+          document.getElementById('stat-alumnas-sub')!.textContent =
+            `${e.alumnas.activas} activas · ${e.alumnas.total - e.alumnas.activas} inactivas`;
+
+          // XP
+          document.getElementById('stat-xp')!.textContent = String(e.progreso.xp_total);
+          document.getElementById('stat-xp-sub')!.textContent =
+            `${e.actividad.alumnas_activas_7dias} alumnas activas (7 días)`;
+
+          // Lecciones
+          document.getElementById('stat-lecciones')!.textContent = String(e.progreso.lecciones_completadas);
+          document.getElementById('stat-lecciones-sub')!.textContent =
+            'lecciones completadas en total';
+        } catch (err) {
+          console.error('Error al cargar estadísticas:', err);
+        }
       }
 
       init();
