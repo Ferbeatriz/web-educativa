@@ -1,199 +1,303 @@
 ---
 /**
- * Animación demostrativa para ejercicios de división.
- * Muestra los grupos (cajas) y/o el resto según el escenario.
+ * Web Component de animación demostrativa para división.
+ * Se monta dinámicamente desde el cliente pasándole el visual y el escenario.
  *
- * Sin librerías. HTML + Tailwind puro.
- * Los colores dependen del estado: falta / correcto / sobra / imposible.
+ * Uso:
+ *   <animacion-division></animacion-division>
+ *   const el = document.querySelector('animacion-division');
+ *   el.render(visual, escenario);
  */
-import type { Visual, EscenarioGrupos, EscenarioResto } from '../../lib/tutor/validador';
-
-interface Props {
-  visual: Visual;
-  escenario: EscenarioGrupos | EscenarioResto;
-}
-
-const { visual, escenario } = Astro.props;
-
-const colores = {
-  falta:     { bg: '#FEF3C7', border: '#F59E0B', text: '#92400E', label: 'Falta' },
-  correcto:  { bg: '#D1FAE5', border: '#10B981', text: '#065F46', label: 'Correcto' },
-  sobra:     { bg: '#FFEDD5', border: '#F97316', text: '#9A3412', label: 'Se pasa' },
-  imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B', label: 'Imposible' },
-};
-
-// ---------- Render para tipo "grupos" ----------
-let grupos: number[] = [];
-let porGrupo = 0;
-let resultado = 0;
-let estadoGrupos: keyof typeof colores = 'correcto';
-let total = 0;
-let etiquetaGrupo = 'caja';
-let cajasQueSobran = 0;
-let bloquesQueSobran = 0;
-let nota = '';
-
-if (visual.tipo === 'grupos' && 'grupos' in escenario) {
-  const e = escenario as EscenarioGrupos;
-  total = visual.total;
-  etiquetaGrupo = visual.etiqueta_grupo || 'grupo';
-  grupos = Array.from({ length: e.grupos }, (_, i) => i);
-  porGrupo = e.por_grupo;
-  resultado = e.resultado;
-  estadoGrupos = e.estado;
-  nota = e.nota || '';
-
-  // Cuántas cajas y cuántos bloques sobran/pasan
-  if (e.estado === 'sobra') {
-    const exceso = e.resultado - visual.total; // ej: 40 - 37 = 3
-    bloquesQueSobran = exceso;
-    cajasQueSobran = Math.ceil(exceso / e.por_grupo);
-  }
-}
-
-// ---------- Render para tipo "resto" ----------
-let resto = 0;
-let enCajas = 0;
-let estadoResto: keyof typeof colores = 'correcto';
-let notaResto = '';
-
-if (visual.tipo === 'resto' && 'resto' in escenario) {
-  const e = escenario as EscenarioResto;
-  total = visual.total;
-  enCajas = visual.en_cajas;
-  resto = e.resto;
-  estadoResto = e.estado === 'imposible' ? 'imposible' : 'correcto';
-  notaResto = e.nota || '';
-}
-
-const colorGrupos = colores[estadoGrupos];
-const colorResto = colores[estadoResto];
 ---
 
-{/* ================= TIPO GRUPOS ================= */}
-{visual.tipo === 'grupos' && (
-  <div class="mt-5 rounded-2xl border-2 p-4 md:p-5" style={`background: #F9FAFB; border-color: #E5E7EB;`}>
-    <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500 mb-3">
-      Así se ve
-    </p>
+<animacion-division></animacion-division>
 
-    {/* Total disponible */}
-    <div class="flex items-center gap-2 mb-4 flex-wrap">
-      <span class="text-sm font-bold text-gray-600">Tenemos:</span>
-      <span
-        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
-        style={`background: #DBEAFE; color: #1D4ED8;`}
-      >
-        {total} en total
-      </span>
-    </div>
+<script>
+  const COLORES = {
+    falta:     { bg: '#FEF3C7', border: '#F59E0B', text: '#92400E', bloque: '#FBBF24' },
+    correcto:  { bg: '#D1FAE5', border: '#10B981', text: '#065F46', bloque: '#34D399' },
+    sobra:     { bg: '#FFEDD5', border: '#F97316', text: '#9A3412', bloque: '#FB923C' },
+    imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B', bloque: '#F87171' },
+  } as const;
 
-    {/* Cajas */}
-    <div class="flex flex-wrap gap-2 mb-4">
-      {grupos.map((_, idx) => {
-        const esSobrante = estadoGrupos === 'sobra' && idx >= (grupos.length - cajasQueSobran);
-        const c = esSobrante ? colores.sobra : colorGrupos;
-        return (
-          <div
-            class="flex flex-col items-center justify-center rounded-xl font-extrabold text-sm border-2 min-w-[44px] min-h-[44px] px-2"
-            style={`background: ${c.bg}; border-color: ${c.border}; color: ${c.text};`}
-            title={`${etiquetaGrupo} ${idx + 1}`}
-          >
-            {porGrupo}
-          </div>
-        );
-      })}
-    </div>
+  const RITMO = 80;
 
-    {/* Resultado */}
-    <div class="flex items-center gap-2 mb-3 flex-wrap">
-      <span class="text-sm font-bold text-gray-600">Resultado:</span>
-      <span
-        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
-        style={`background: ${colorGrupos.bg}; color: ${colorGrupos.text};`}
-      >
-        {grupos.length} × {porGrupo} = {resultado}
-      </span>
-    </div>
+  class AnimacionDivision extends HTMLElement {
+    private escenarioActual: any = null;
+    private visualActual: any = null;
+    private intervaloContador: number | null = null;
 
-    {/* Mensaje según estado */}
-    {estadoGrupos === 'falta' && (
-      <p class="text-sm leading-relaxed" style={`color: ${colorGrupos.text};`}>
-        Con <strong>{grupos.length}</strong> {etiquetaGrupo}s solo llegamos a <strong>{resultado}</strong>.
-        Todavía falta para {total}. Prueba con más.
-      </p>
-    )}
-    {estadoGrupos === 'correcto' && (
-      <p class="text-sm leading-relaxed" style={`color: ${colorGrupos.text};`}>
-        Con <strong>{grupos.length}</strong> {etiquetaGrupo}s llegamos a <strong>{resultado}</strong>.
-        {total - resultado > 0 && (
-          <> Sobran <strong>{total - resultado}</strong>.</>
-        )}
-      </p>
-    )}
-    {estadoGrupos === 'sobra' && (
-      <p class="text-sm leading-relaxed" style={`color: ${colorGrupos.text};`}>
-        Con <strong>{grupos.length}</strong> {etiquetaGrupo}s llegamos a <strong>{resultado}</strong>,
-        pero solo tenemos <strong>{total}</strong>.
-        {bloquesQueSobran > 0 && (
-          <> Nos pasamos por <strong>{bloquesQueSobran}</strong>.</>
-        )}
-      </p>
-    )}
+    connectedCallback() {
+      this.style.display = 'block';
+    }
 
-    {nota && (
-      <p class="text-xs italic mt-2 text-gray-500">{nota}</p>
-    )}
-  </div>
-)}
+    render(visual: any, escenario: any) {
+      this.visualActual = visual;
+      this.escenarioActual = escenario;
+      this.innerHTML = '';
 
-{/* ================= TIPO RESTO ================= */}
-{visual.tipo === 'resto' && (
-  <div class="mt-5 rounded-2xl border-2 p-4 md:p-5" style={`background: #F9FAFB; border-color: #E5E7EB;`}>
-    <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500 mb-3">
-      Así se ve
-    </p>
+      if (!visual || !escenario) return;
 
-    <div class="flex items-center gap-2 mb-4 flex-wrap">
-      <span
-        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
-        style={`background: #D1FAE5; color: #065F46;`}
-      >
-        {enCajas} en las cajas
-      </span>
-      <span
-        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
-        style={`background: ${colorResto.bg}; color: ${colorResto.text};`}
-      >
-        {resto} sueltos
-      </span>
-    </div>
+      const wrapper = document.createElement('div');
+      wrapper.className = 'mt-5 rounded-2xl border-2 p-4 md:p-5';
+      wrapper.style.background = '#F9FAFB';
+      wrapper.style.borderColor = '#E5E7EB';
 
-    {/* Representación visual del resto */}
-    <div class="flex flex-wrap gap-2 mb-3">
-      {Array.from({ length: resto }, (_, i) => (
-        <div
-          class="flex items-center justify-center rounded-lg font-extrabold text-sm border-2 w-10 h-10"
-          style={`background: ${colorResto.bg}; border-color: ${colorResto.border}; color: ${colorResto.text};`}
-        >
-          1
-        </div>
-      ))}
-    </div>
+      if (visual.tipo === 'grupos') {
+        this.renderGrupos(wrapper, visual, escenario);
+      } else if (visual.tipo === 'resto') {
+        this.renderResto(wrapper, visual, escenario);
+      }
 
-    {resto === 0 && (
-      <p class="text-sm text-gray-600">No sobra nada.</p>
-    )}
+      this.appendChild(wrapper);
+      this.iniciarContador();
+      this.conectarRepetir();
+    }
 
-    <p class="text-sm leading-relaxed" style={`color: ${colorResto.text};`}>
-      Total: <strong>{enCajas}</strong> + <strong>{resto}</strong> = <strong>{enCajas + resto}</strong>
-      {enCajas + resto !== total && (
-        <> · Ojo: el total real es <strong>{total}</strong>.</>
-      )}
-    </p>
+    private renderGrupos(wrapper: HTMLElement, visual: any, escenario: any) {
+      const e = escenario;
+      const c = COLORES[e.estado as keyof typeof COLORES];
+      const total = visual.total;
+      const porGrupo = e.por_grupo;
+      const emoji = visual.emoji_bloque || '🟦';
+      const etiqueta = visual.etiqueta_grupo || 'caja';
 
-    {notaResto && (
-      <p class="text-xs italic mt-2 text-gray-500">{notaResto}</p>
-    )}
-  </div>
-)}
+      let grupos = e.grupos;
+      let cajasCompletas = 0;
+      let bloquesEnCajas = 0;
+      let bloquesSobrantes = 0;
+      let bloquesEnIncompleta = 0;
+
+      if (e.estado === 'falta' || e.estado === 'correcto') {
+        cajasCompletas = e.grupos;
+        bloquesEnCajas = e.resultado;
+        bloquesSobrantes = total - e.resultado;
+      } else if (e.estado === 'sobra') {
+        cajasCompletas = Math.floor(total / porGrupo);
+        bloquesEnCajas = cajasCompletas * porGrupo;
+        bloquesEnIncompleta = total - bloquesEnCajas;
+      }
+
+      // Cabecera
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between mb-3 flex-wrap gap-2';
+      header.innerHTML = `
+        <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500">Así se reparte</p>
+        <button type="button" class="btn-repetir text-xs font-bold text-gray-500 hover:text-gray-800 underline cursor-pointer">↻ Repetir</button>
+      `;
+      wrapper.appendChild(header);
+
+      // Contador
+      const info = document.createElement('div');
+      info.className = 'flex items-center gap-2 mb-4 flex-wrap';
+      info.innerHTML = `
+        <span class="text-sm font-bold text-gray-600">Tenemos:</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #DBEAFE; color: #1D4ED8;">${total} ${emoji}</span>
+        <span class="contador text-sm font-bold" style="color: ${c.text};">Van 0 de ${total}</span>
+      `;
+      wrapper.appendChild(info);
+
+      // Cajas
+      const cajasRow = document.createElement('div');
+      cajasRow.className = 'flex flex-wrap gap-2 mb-4';
+
+      for (let i = 0; i < grupos; i++) {
+        const esIncompleta = i >= cajasCompletas;
+        const cajaColor = esIncompleta ? COLORES.sobra : c;
+        const bloquesDeEsta = i < cajasCompletas ? porGrupo : bloquesEnIncompleta;
+
+        const caja = document.createElement('div');
+        caja.className = 'flex flex-col items-center rounded-xl border-2 p-1';
+        caja.style.background = 'white';
+        caja.style.borderColor = cajaColor.border;
+        caja.style.minWidth = '44px';
+        caja.style.minHeight = '44px';
+
+        for (let j = 0; j < bloquesDeEsta; j++) {
+          const ordenGlobal = i * porGrupo + j;
+          const b = document.createElement('div');
+          b.className = 'bloque-tutor flex items-center justify-center leading-none';
+          b.style.fontSize = '18px';
+          b.style.animationDelay = `${ordenGlobal * RITMO}ms`;
+          b.textContent = emoji;
+          caja.appendChild(b);
+        }
+
+        if (esIncompleta && bloquesDeEsta < porGrupo) {
+          const faltan = document.createElement('div');
+          faltan.className = 'text-xs font-extrabold mt-1';
+          faltan.style.color = COLORES.sobra.text;
+          faltan.textContent = `faltan ${porGrupo - bloquesDeEsta}`;
+          caja.appendChild(faltan);
+        }
+
+        cajasRow.appendChild(caja);
+      }
+      wrapper.appendChild(cajasRow);
+
+      // Sobrantes
+      if (bloquesSobrantes > 0) {
+        const sobraBox = document.createElement('div');
+        sobraBox.className = 'mb-4 p-3 rounded-xl';
+        sobraBox.style.background = COLORES.falta.bg;
+        sobraBox.style.border = `2px dashed ${COLORES.falta.border}`;
+
+        const sobraTitulo = document.createElement('p');
+        sobraTitulo.className = 'text-xs font-extrabold uppercase tracking-wide mb-2';
+        sobraTitulo.style.color = COLORES.falta.text;
+        sobraTitulo.textContent = `No caben, sobran ${bloquesSobrantes}`;
+        sobraBox.appendChild(sobraTitulo);
+
+        const sobraRow = document.createElement('div');
+        sobraRow.className = 'flex flex-wrap gap-1';
+        for (let i = 0; i < bloquesSobrantes; i++) {
+          const b = document.createElement('div');
+          b.className = 'bloque-tutor flex items-center justify-center leading-none';
+          b.style.fontSize = '18px';
+          b.style.animationDelay = `${(bloquesEnCajas + i) * RITMO}ms`;
+          b.textContent = emoji;
+          sobraRow.appendChild(b);
+        }
+        sobraBox.appendChild(sobraRow);
+        wrapper.appendChild(sobraBox);
+      }
+
+      // Resultado
+      const res = document.createElement('div');
+      res.className = 'flex items-center gap-2 mb-3 flex-wrap';
+      res.innerHTML = `
+        <span class="text-sm font-bold text-gray-600">Resultado:</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: ${c.bg}; color: ${c.text};">${grupos} × ${porGrupo} = ${e.resultado}</span>
+      `;
+      wrapper.appendChild(res);
+
+      // Mensaje
+      const msg = document.createElement('p');
+      msg.className = 'text-sm leading-relaxed';
+      msg.style.color = c.text;
+
+      if (e.estado === 'falta') {
+        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s solo usamos <strong>${e.resultado}</strong>. Todavía quedan <strong>${bloquesSobrantes}</strong> sin repartir.`;
+      } else if (e.estado === 'correcto') {
+        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s usamos <strong>${e.resultado}</strong>.${bloquesSobrantes > 0 ? ` Sobran <strong>${bloquesSobrantes}</strong>.` : ''}`;
+      } else if (e.estado === 'sobra') {
+        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s necesitaríamos <strong>${e.resultado}</strong>, pero solo tenemos <strong>${total}</strong>. La última caja queda incompleta.`;
+      }
+      wrapper.appendChild(msg);
+
+      if (e.nota) {
+        const nota = document.createElement('p');
+        nota.className = 'text-xs italic mt-2 text-gray-500';
+        nota.textContent = e.nota;
+        wrapper.appendChild(nota);
+      }
+    }
+
+    private renderResto(wrapper: HTMLElement, visual: any, escenario: any) {
+      const e = escenario;
+      const c = e.estado === 'imposible' ? COLORES.imposible : COLORES.correcto;
+      const emoji = visual.emoji_bloque || '🟦';
+
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between mb-3 flex-wrap gap-2';
+      header.innerHTML = `
+        <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500">Así queda el reparto</p>
+        <button type="button" class="btn-repetir text-xs font-bold text-gray-500 hover:text-gray-800 underline cursor-pointer">↻ Repetir</button>
+      `;
+      wrapper.appendChild(header);
+
+      const info = document.createElement('div');
+      info.className = 'flex items-center gap-2 mb-4 flex-wrap';
+      info.innerHTML = `
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #D1FAE5; color: #065F46;">${visual.en_cajas} en las cajas</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: ${c.bg}; color: ${c.text};">${e.resto} sueltos</span>
+      `;
+      wrapper.appendChild(info);
+
+      const row = document.createElement('div');
+      row.className = 'flex flex-wrap gap-1 mb-3';
+      for (let i = 0; i < e.resto; i++) {
+        const b = document.createElement('div');
+        b.className = 'bloque-tutor flex items-center justify-center leading-none';
+        b.style.fontSize = '20px';
+        b.style.animationDelay = `${i * RITMO}ms`;
+        b.textContent = emoji;
+        row.appendChild(b);
+      }
+      if (e.resto === 0) {
+        const p = document.createElement('p');
+        p.className = 'text-sm text-gray-600';
+        p.textContent = 'No sobra nada.';
+        row.appendChild(p);
+      }
+      wrapper.appendChild(row);
+
+      const totalP = document.createElement('p');
+      totalP.className = 'text-sm leading-relaxed';
+      totalP.style.color = c.text;
+      const suma = visual.en_cajas + e.resto;
+      totalP.innerHTML = `Total: <strong>${visual.en_cajas}</strong> + <strong>${e.resto}</strong> = <strong>${suma}</strong>${suma !== visual.total ? ` · Ojo: el total real es <strong>${visual.total}</strong>.` : ''}`;
+      wrapper.appendChild(totalP);
+
+      if (e.nota) {
+        const nota = document.createElement('p');
+        nota.className = 'text-xs italic mt-2 text-gray-500';
+        nota.textContent = e.nota;
+        wrapper.appendChild(nota);
+      }
+    }
+
+    private iniciarContador() {
+      const contador = this.querySelector<HTMLElement>('.contador');
+      if (!contador) return;
+
+      const match = contador.textContent?.match(/de (\d+)/);
+      const total = match ? parseInt(match[1], 10) : 0;
+      if (total === 0) return;
+
+      if (this.intervaloContador) {
+        clearInterval(this.intervaloContador);
+        this.intervaloContador = null;
+      }
+
+      let actual = 0;
+      contador.textContent = `Van 0 de ${total}`;
+      this.intervaloContador = window.setInterval(() => {
+        actual += 1;
+        contador.textContent = `Van ${actual} de ${total}`;
+        if (actual >= total && this.intervaloContador) {
+          clearInterval(this.intervaloContador);
+          this.intervaloContador = null;
+        }
+      }, RITMO);
+    }
+
+    private conectarRepetir() {
+      const btn = this.querySelector<HTMLButtonElement>('.btn-repetir');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        if (this.visualActual && this.escenarioActual) {
+          this.render(this.visualActual, this.escenarioActual);
+        }
+      });
+    }
+  }
+
+  if (!customElements.get('animacion-division')) {
+    customElements.define('animacion-division', AnimacionDivision);
+  }
+</script>
+
+<style>
+  .bloque-tutor {
+    opacity: 0;
+    transform: scale(0.4) translateY(-8px);
+    animation: aparecerBloque 380ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes aparecerBloque {
+    0%   { opacity: 0; transform: scale(0.4) translateY(-8px); }
+    60%  { opacity: 1; transform: scale(1.15) translateY(0); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+</style>

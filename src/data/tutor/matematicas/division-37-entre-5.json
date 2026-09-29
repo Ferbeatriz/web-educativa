@@ -36,6 +36,7 @@
         "total": 37,
         "divisor": 5,
         "etiqueta_grupo": "caja",
+        "emoji_bloque": "✏️",
         "escenarios": {
           "5": { "grupos": 5, "por_grupo": 5, "resultado": 25, "estado": "falta" },
           "6": { "grupos": 6, "por_grupo": 5, "resultado": 30, "estado": "falta" },
@@ -63,6 +64,7 @@
         "total": 37,
         "divisor": 5,
         "etiqueta_grupo": "caja",
+        "emoji_bloque": "✏️",
         "escenarios": {
           "30": { "grupos": 6, "por_grupo": 5, "resultado": 30, "estado": "falta" },
           "32": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto", "nota": "Cada caja tiene 7 × 5 = 35, no 32." },
@@ -88,6 +90,7 @@
         "tipo": "resto",
         "total": 37,
         "en_cajas": 35,
+        "emoji_bloque": "✏️",
         "escenarios": {
           "1": { "resto": 2, "estado": "correcto", "nota": "En realidad sobran 2, no 1." },
           "2": { "resto": 2, "estado": "correcto" },
