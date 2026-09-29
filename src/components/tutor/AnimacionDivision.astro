@@ -16,7 +16,7 @@
     imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B', bloque: '#F87171' },
   } as const;
 
-  const RITMO_RONDA = 100; // ms entre rondas (cada ronda toca todas las cajas)
+  const RITMO_RONDA = 500; // ms entre rondas (cada ronda toca todas las cajas)
 
   class AnimacionDivision extends HTMLElement {
     private escenarioActual: any = null;
@@ -264,8 +264,7 @@
   }
 </script>
 
-<style>
-  /* Cada bloque SALTA en su lugar: cae desde arriba con rebote */
+<style is:global>
   .bloque-tutor {
     opacity: 0;
     transform: translateY(-18px) scale(0.6);
@@ -287,7 +286,6 @@
     }
   }
 
-  /* La etiqueta "faltan X" aparece con fade suave, no con salto */
   .faltan-label {
     opacity: 0;
     animation: aparecerSuave 300ms ease forwards;
