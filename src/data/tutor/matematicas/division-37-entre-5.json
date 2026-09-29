@@ -30,6 +30,19 @@
         "6": "6 × 5 = 30. Quedan 7 lápices, y 7 todavía se puede repartir entre 5. Sube un poco más.",
         "8": "8 × 5 = 40. Te pasaste: 40 es más que 37. Prueba con un número más chico.",
         "9": "9 × 5 = 45. Te pasaste por mucho. Busca un número más chico."
+      },
+      "visual": {
+        "tipo": "grupos",
+        "total": 37,
+        "divisor": 5,
+        "etiqueta_grupo": "caja",
+        "escenarios": {
+          "5": { "grupos": 5, "por_grupo": 5, "resultado": 25, "estado": "falta" },
+          "6": { "grupos": 6, "por_grupo": 5, "resultado": 30, "estado": "falta" },
+          "7": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto" },
+          "8": { "grupos": 8, "por_grupo": 5, "resultado": 40, "estado": "sobra" },
+          "9": { "grupos": 9, "por_grupo": 5, "resultado": 45, "estado": "sobra" }
+        }
       }
     },
     {
@@ -44,6 +57,19 @@
         "32": "Repasa la tabla del 5: 7 × 5 no da 32.",
         "37": "37 es el total que teníamos. Pero no todos se repartieron, porque sobra algo. Multiplica 7 × 5.",
         "40": "40 es 8 × 5. Pero elegimos 7 por caja. Vuelve a multiplicar."
+      },
+      "visual": {
+        "tipo": "grupos",
+        "total": 37,
+        "divisor": 5,
+        "etiqueta_grupo": "caja",
+        "escenarios": {
+          "30": { "grupos": 6, "por_grupo": 5, "resultado": 30, "estado": "falta" },
+          "32": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto", "nota": "Cada caja tiene 7 × 5 = 35, no 32." },
+          "35": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto" },
+          "37": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto", "nota": "En las cajas van 35. Los otros 2 son los que sobran." },
+          "40": { "grupos": 8, "por_grupo": 5, "resultado": 40, "estado": "sobra" }
+        }
       }
     },
     {
@@ -57,6 +83,17 @@
         "1": "Casi. 37 − 35 no es 1. Intenta restar de nuevo.",
         "3": "37 − 35 no es 3. Revisa la resta con calma.",
         "5": "El resto siempre es menor que el divisor. Si sobraran 5, alcanzaría para una caja más."
+      },
+      "visual": {
+        "tipo": "resto",
+        "total": 37,
+        "en_cajas": 35,
+        "escenarios": {
+          "1": { "resto": 2, "estado": "correcto", "nota": "En realidad sobran 2, no 1." },
+          "2": { "resto": 2, "estado": "correcto" },
+          "3": { "resto": 2, "estado": "correcto", "nota": "En realidad sobran 2, no 3." },
+          "5": { "resto": 5, "estado": "imposible", "nota": "Si sobraran 5, alcanzaría para una caja más. El resto siempre es menor que el divisor." }
+        }
       }
     }
   ],

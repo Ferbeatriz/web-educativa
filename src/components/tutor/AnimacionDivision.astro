@@ -1,0 +1,199 @@
+---
+/**
+ * Animación demostrativa para ejercicios de división.
+ * Muestra los grupos (cajas) y/o el resto según el escenario.
+ *
+ * Sin librerías. HTML + Tailwind puro.
+ * Los colores dependen del estado: falta / correcto / sobra / imposible.
+ */
+import type { Visual, EscenarioGrupos, EscenarioResto } from '../../lib/tutor/validador';
+
+interface Props {
+  visual: Visual;
+  escenario: EscenarioGrupos | EscenarioResto;
+}
+
+const { visual, escenario } = Astro.props;
+
+const colores = {
+  falta:     { bg: '#FEF3C7', border: '#F59E0B', text: '#92400E', label: 'Falta' },
+  correcto:  { bg: '#D1FAE5', border: '#10B981', text: '#065F46', label: 'Correcto' },
+  sobra:     { bg: '#FFEDD5', border: '#F97316', text: '#9A3412', label: 'Se pasa' },
+  imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B', label: 'Imposible' },
+};
+
+// ---------- Render para tipo "grupos" ----------
+let grupos: number[] = [];
+let porGrupo = 0;
+let resultado = 0;
+let estadoGrupos: keyof typeof colores = 'correcto';
+let total = 0;
+let etiquetaGrupo = 'caja';
+let cajasQueSobran = 0;
+let bloquesQueSobran = 0;
+let nota = '';
+
+if (visual.tipo === 'grupos' && 'grupos' in escenario) {
+  const e = escenario as EscenarioGrupos;
+  total = visual.total;
+  etiquetaGrupo = visual.etiqueta_grupo || 'grupo';
+  grupos = Array.from({ length: e.grupos }, (_, i) => i);
+  porGrupo = e.por_grupo;
+  resultado = e.resultado;
+  estadoGrupos = e.estado;
+  nota = e.nota || '';
+
+  // Cuántas cajas y cuántos bloques sobran/pasan
+  if (e.estado === 'sobra') {
+    const exceso = e.resultado - visual.total; // ej: 40 - 37 = 3
+    bloquesQueSobran = exceso;
+    cajasQueSobran = Math.ceil(exceso / e.por_grupo);
+  }
+}
+
+// ---------- Render para tipo "resto" ----------
+let resto = 0;
+let enCajas = 0;
+let estadoResto: keyof typeof colores = 'correcto';
+let notaResto = '';
+
+if (visual.tipo === 'resto' && 'resto' in escenario) {
+  const e = escenario as EscenarioResto;
+  total = visual.total;
+  enCajas = visual.en_cajas;
+  resto = e.resto;
+  estadoResto = e.estado === 'imposible' ? 'imposible' : 'correcto';
+  notaResto = e.nota || '';
+}
+
+const colorGrupos = colores[estadoGrupos];
+const colorResto = colores[estadoResto];
+---
+
+{/* ================= TIPO GRUPOS ================= */}
+{visual.tipo === 'grupos' && (
+  <div class="mt-5 rounded-2xl border-2 p-4 md:p-5" style={`background: #F9FAFB; border-color: #E5E7EB;`}>
+    <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500 mb-3">
+      Así se ve
+    </p>
+
+    {/* Total disponible */}
+    <div class="flex items-center gap-2 mb-4 flex-wrap">
+      <span class="text-sm font-bold text-gray-600">Tenemos:</span>
+      <span
+        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
+        style={`background: #DBEAFE; color: #1D4ED8;`}
+      >
+        {total} en total
+      </span>
+    </div>
+
+    {/* Cajas */}
+    <div class="flex flex-wrap gap-2 mb-4">
+      {grupos.map((_, idx) => {
+        const esSobrante = estadoGrupos === 'sobra' && idx >= (grupos.length - cajasQueSobran);
+        const c = esSobrante ? colores.sobra : colorGrupos;
+        return (
+          <div
+            class="flex flex-col items-center justify-center rounded-xl font-extrabold text-sm border-2 min-w-[44px] min-h-[44px] px-2"
+            style={`background: ${c.bg}; border-color: ${c.border}; color: ${c.text};`}
+            title={`${etiquetaGrupo} ${idx + 1}`}
+          >
+            {porGrupo}
+          </div>
+        );
+      })}
+    </div>
+
+    {/* Resultado */}
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="text-sm font-bold text-gray-600">Resultado:</span>
+      <span
+        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
+        style={`background: ${colorGrupos.bg}; color: ${colorGrupos.text};`}
+      >
+        {grupos.length} × {porGrupo} = {resultado}
+      </span>
+    </div>
+
+    {/* Mensaje según estado */}
+    {estadoGrupos === 'falta' && (
+      <p class="text-sm leading-relaxed" style={`color: ${colorGrupos.text};`}>
+        Con <strong>{grupos.length}</strong> {etiquetaGrupo}s solo llegamos a <strong>{resultado}</strong>.
+        Todavía falta para {total}. Prueba con más.
+      </p>
+    )}
+    {estadoGrupos === 'correcto' && (
+      <p class="text-sm leading-relaxed" style={`color: ${colorGrupos.text};`}>
+        Con <strong>{grupos.length}</strong> {etiquetaGrupo}s llegamos a <strong>{resultado}</strong>.
+        {total - resultado > 0 && (
+          <> Sobran <strong>{total - resultado}</strong>.</>
+        )}
+      </p>
+    )}
+    {estadoGrupos === 'sobra' && (
+      <p class="text-sm leading-relaxed" style={`color: ${colorGrupos.text};`}>
+        Con <strong>{grupos.length}</strong> {etiquetaGrupo}s llegamos a <strong>{resultado}</strong>,
+        pero solo tenemos <strong>{total}</strong>.
+        {bloquesQueSobran > 0 && (
+          <> Nos pasamos por <strong>{bloquesQueSobran}</strong>.</>
+        )}
+      </p>
+    )}
+
+    {nota && (
+      <p class="text-xs italic mt-2 text-gray-500">{nota}</p>
+    )}
+  </div>
+)}
+
+{/* ================= TIPO RESTO ================= */}
+{visual.tipo === 'resto' && (
+  <div class="mt-5 rounded-2xl border-2 p-4 md:p-5" style={`background: #F9FAFB; border-color: #E5E7EB;`}>
+    <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500 mb-3">
+      Así se ve
+    </p>
+
+    <div class="flex items-center gap-2 mb-4 flex-wrap">
+      <span
+        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
+        style={`background: #D1FAE5; color: #065F46;`}
+      >
+        {enCajas} en las cajas
+      </span>
+      <span
+        class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold"
+        style={`background: ${colorResto.bg}; color: ${colorResto.text};`}
+      >
+        {resto} sueltos
+      </span>
+    </div>
+
+    {/* Representación visual del resto */}
+    <div class="flex flex-wrap gap-2 mb-3">
+      {Array.from({ length: resto }, (_, i) => (
+        <div
+          class="flex items-center justify-center rounded-lg font-extrabold text-sm border-2 w-10 h-10"
+          style={`background: ${colorResto.bg}; border-color: ${colorResto.border}; color: ${colorResto.text};`}
+        >
+          1
+        </div>
+      ))}
+    </div>
+
+    {resto === 0 && (
+      <p class="text-sm text-gray-600">No sobra nada.</p>
+    )}
+
+    <p class="text-sm leading-relaxed" style={`color: ${colorResto.text};`}>
+      Total: <strong>{enCajas}</strong> + <strong>{resto}</strong> = <strong>{enCajas + resto}</strong>
+      {enCajas + resto !== total && (
+        <> · Ojo: el total real es <strong>{total}</strong>.</>
+      )}
+    </p>
+
+    {notaResto && (
+      <p class="text-xs italic mt-2 text-gray-500">{notaResto}</p>
+    )}
+  </div>
+)}

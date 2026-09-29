@@ -8,6 +8,37 @@ export interface ErrorComun {
   [respuestaIncorrecta: string]: string;
 }
 
+export interface EscenarioGrupos {
+  grupos: number;
+  por_grupo: number;
+  resultado: number;
+  estado: 'falta' | 'correcto' | 'sobra';
+  nota?: string;
+}
+
+export interface VisualGrupos {
+  tipo: 'grupos';
+  total: number;
+  divisor: number;
+  etiqueta_grupo?: string;
+  escenarios: Record<string, EscenarioGrupos>;
+}
+
+export interface EscenarioResto {
+  resto: number;
+  estado: 'correcto' | 'imposible';
+  nota?: string;
+}
+
+export interface VisualResto {
+  tipo: 'resto';
+  total: number;
+  en_cajas: number;
+  escenarios: Record<string, EscenarioResto>;
+}
+
+export type Visual = VisualGrupos | VisualResto;
+
 export interface Paso {
   n: number;
   pregunta: string;
@@ -16,6 +47,7 @@ export interface Paso {
   respuesta_correcta: string;
   feedback_correcto: string;
   errores_comunes?: ErrorComun;
+  visual?: Visual;
 }
 
 export interface Ejercicio {
@@ -36,6 +68,12 @@ export interface ResultadoValidacion {
   tipo_error?: string;
   siguiente_paso?: number;
   completo?: boolean;
+  /** Escenario visual a mostrar, si el paso lo tiene definido. */
+  visual_escenario?: EscenarioGrupos | EscenarioResto;
+  /** Tipo de visual, para que la UI sepa qué componente usar. */
+  visual_tipo?: 'grupos' | 'resto';
+  /** Datos completos del visual (total, divisor, etc.). */
+  visual_datos?: Visual;
 }
 
 export function validarPaso(
@@ -56,6 +94,17 @@ export function validarPaso(
   const normalizar = (s: string) => s.trim().toLowerCase();
   const esCorrecto = normalizar(respuesta) === normalizar(paso.respuesta_correcta);
 
+  // Resolver el visual ANTES, porque aplica tanto a acierto como a error
+  let visual_escenario: EscenarioGrupos | EscenarioResto | undefined;
+  let visual_tipo: 'grupos' | 'resto' | undefined;
+  if (paso.visual && paso.visual.escenarios) {
+    const esc = paso.visual.escenarios[respuesta];
+    if (esc) {
+      visual_escenario = esc;
+      visual_tipo = paso.visual.tipo;
+    }
+  }
+
   if (esCorrecto) {
     const esUltimo = pasoActual >= ejercicio.pasos.length;
     return {
@@ -63,6 +112,9 @@ export function validarPaso(
       feedback: paso.feedback_correcto,
       siguiente_paso: esUltimo ? undefined : pasoActual + 1,
       completo: esUltimo,
+      visual_escenario,
+      visual_tipo,
+      visual_datos: paso.visual,
     };
   }
 
@@ -79,5 +131,12 @@ export function validarPaso(
     }
   }
 
-  return { correcto: false, feedback, tipo_error };
+  return {
+    correcto: false,
+    feedback,
+    tipo_error,
+    visual_escenario,
+    visual_tipo,
+    visual_datos: paso.visual,
+  };
 }

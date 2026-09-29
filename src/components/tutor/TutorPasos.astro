@@ -21,7 +21,6 @@ const primerPaso = ejercicio.pasos[0];
   data-ejercicio-id={ejercicio.id}
   data-total-pasos={ejercicio.pasos.length}
 >
-  <!-- Datos del ejercicio para el cliente -->
   <script
     id="tutor-data"
     type="application/json"
@@ -76,6 +75,8 @@ const primerPaso = ejercicio.pasos[0];
 
     <div id="tutor-feedback" class="hidden mt-5 rounded-2xl p-4 text-sm leading-relaxed"></div>
 
+    <div id="tutor-visual-wrap" class="hidden"></div>
+
     <div id="tutor-continuar-wrap" class="hidden mt-5 text-center">
       <button
         id="tutor-continuar"
@@ -96,7 +97,7 @@ const primerPaso = ejercicio.pasos[0];
 </div>
 
 <script>
-  import { validarPaso, type Ejercicio, type ResultadoValidacion } from '../../lib/tutor/validador';
+  import { validarPaso, type Ejercicio, type ResultadoValidacion, type Visual, type EscenarioGrupos, type EscenarioResto } from '../../lib/tutor/validador';
 
   const container = document.getElementById('tutor-container');
   const dataEl = document.getElementById('tutor-data');
@@ -108,6 +109,7 @@ const primerPaso = ejercicio.pasos[0];
     const pregunta = document.getElementById('tutor-pregunta')!;
     const opciones = document.getElementById('tutor-opciones')!;
     const feedback = document.getElementById('tutor-feedback')!;
+    const visualWrap = document.getElementById('tutor-visual-wrap')!;
     const continuarWrap = document.getElementById('tutor-continuar-wrap')!;
     const btnContinuar = document.getElementById('tutor-continuar') as HTMLButtonElement;
     const cierre = document.getElementById('tutor-cierre')!;
@@ -115,6 +117,103 @@ const primerPaso = ejercicio.pasos[0];
 
     let pasoActual = 1;
     let acerto = false;
+
+    const COLORES = {
+      falta:     { bg: '#FEF3C7', border: '#F59E0B', text: '#92400E' },
+      correcto:  { bg: '#D1FAE5', border: '#10B981', text: '#065F46' },
+      sobra:     { bg: '#FFEDD5', border: '#F97316', text: '#9A3412' },
+      imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B' },
+    } as const;
+
+    function renderVisual(v: Visual, esc: EscenarioGrupos | EscenarioResto) {
+      visualWrap.innerHTML = '';
+
+      if (v.tipo === 'grupos' && 'grupos' in esc) {
+        const e = esc as EscenarioGrupos;
+        const c = COLORES[e.estado];
+        const etiqueta = v.etiqueta_grupo || 'grupo';
+        const cajasRestantes = e.estado === 'sobra' ? Math.ceil((e.resultado - v.total) / e.por_grupo) : 0;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'mt-5 rounded-2xl border-2 p-4 md:p-5';
+        wrapper.style.background = '#F9FAFB';
+        wrapper.style.borderColor = '#E5E7EB';
+
+        let html = `<p class="text-xs font-extrabold uppercase tracking-wide text-gray-500 mb-3">Así se ve</p>`;
+        html += `<div class="flex items-center gap-2 mb-4 flex-wrap">
+          <span class="text-sm font-bold text-gray-600">Tenemos:</span>
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #DBEAFE; color: #1D4ED8;">${v.total} en total</span>
+        </div>`;
+
+        html += `<div class="flex flex-wrap gap-2 mb-4">`;
+        for (let i = 0; i < e.grupos; i++) {
+          const esSobrante = e.estado === 'sobra' && i >= (e.grupos - cajasRestantes);
+          const cc = esSobrante ? COLORES.sobra : c;
+          html += `<div class="flex flex-col items-center justify-center rounded-xl font-extrabold text-sm border-2 px-2" style="background: ${cc.bg}; border-color: ${cc.border}; color: ${cc.text}; min-width: 44px; min-height: 44px;">${e.por_grupo}</div>`;
+        }
+        html += `</div>`;
+
+        html += `<div class="flex items-center gap-2 mb-3 flex-wrap">
+          <span class="text-sm font-bold text-gray-600">Resultado:</span>
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: ${c.bg}; color: ${c.text};">${e.grupos} × ${e.por_grupo} = ${e.resultado}</span>
+        </div>`;
+
+        if (e.estado === 'falta') {
+          html += `<p class="text-sm leading-relaxed" style="color: ${c.text};">Con <strong>${e.grupos}</strong> ${etiqueta}s solo llegamos a <strong>${e.resultado}</strong>. Todavía falta para ${v.total}. Prueba con más.</p>`;
+        } else if (e.estado === 'correcto') {
+          const sobra = v.total - e.resultado;
+          html += `<p class="text-sm leading-relaxed" style="color: ${c.text};">Con <strong>${e.grupos}</strong> ${etiqueta}s llegamos a <strong>${e.resultado}</strong>.${sobra > 0 ? ` Sobran <strong>${sobra}</strong>.` : ''}</p>`;
+        } else if (e.estado === 'sobra') {
+          const exceso = e.resultado - v.total;
+          html += `<p class="text-sm leading-relaxed" style="color: ${c.text};">Con <strong>${e.grupos}</strong> ${etiqueta}s llegamos a <strong>${e.resultado}</strong>, pero solo tenemos <strong>${v.total}</strong>. Nos pasamos por <strong>${exceso}</strong>.</p>`;
+        }
+
+        if (e.nota) {
+          html += `<p class="text-xs italic mt-2 text-gray-500">${e.nota}</p>`;
+        }
+
+        wrapper.innerHTML = html;
+        visualWrap.appendChild(wrapper);
+      }
+
+      if (v.tipo === 'resto' && 'resto' in esc) {
+        const e = esc as EscenarioResto;
+        const c = e.estado === 'imposible' ? COLORES.imposible : COLORES.correcto;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'mt-5 rounded-2xl border-2 p-4 md:p-5';
+        wrapper.style.background = '#F9FAFB';
+        wrapper.style.borderColor = '#E5E7EB';
+
+        let html = `<p class="text-xs font-extrabold uppercase tracking-wide text-gray-500 mb-3">Así se ve</p>`;
+
+        html += `<div class="flex items-center gap-2 mb-4 flex-wrap">
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #D1FAE5; color: #065F46;">${v.en_cajas} en las cajas</span>
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: ${c.bg}; color: ${c.text};">${e.resto} sueltos</span>
+        </div>`;
+
+        html += `<div class="flex flex-wrap gap-2 mb-3">`;
+        for (let i = 0; i < e.resto; i++) {
+          html += `<div class="flex items-center justify-center rounded-lg font-extrabold text-sm border-2" style="width: 40px; height: 40px; background: ${c.bg}; border-color: ${c.border}; color: ${c.text};">1</div>`;
+        }
+        html += `</div>`;
+
+        if (e.resto === 0) {
+          html += `<p class="text-sm text-gray-600">No sobra nada.</p>`;
+        }
+
+        html += `<p class="text-sm leading-relaxed" style="color: ${c.text};">Total: <strong>${v.en_cajas}</strong> + <strong>${e.resto}</strong> = <strong>${v.en_cajas + e.resto}</strong>${(v.en_cajas + e.resto !== v.total) ? ` · Ojo: el total real es <strong>${v.total}</strong>.` : ''}</p>`;
+
+        if (e.nota) {
+          html += `<p class="text-xs italic mt-2 text-gray-500">${e.nota}</p>`;
+        }
+
+        wrapper.innerHTML = html;
+        visualWrap.appendChild(wrapper);
+      }
+
+      visualWrap.classList.remove('hidden');
+    }
 
     function pintarPaso(n: number) {
       const paso = ejercicio.pasos[n - 1];
@@ -136,6 +235,8 @@ const primerPaso = ejercicio.pasos[0];
 
       feedback.classList.add('hidden');
       feedback.innerHTML = '';
+      visualWrap.classList.add('hidden');
+      visualWrap.innerHTML = '';
       continuarWrap.classList.add('hidden');
       acerto = false;
     }
@@ -150,12 +251,15 @@ const primerPaso = ejercicio.pasos[0];
         feedback.className = 'mt-5 rounded-2xl p-4 text-sm leading-relaxed bg-green-50 text-green-800 border-2 border-green-200';
         feedback.innerHTML = `✅ ${r.feedback}`;
 
-        // Marcar todos los botones como deshabilitados visualmente
         opciones.querySelectorAll<HTMLButtonElement>('button').forEach((b) => {
           b.disabled = true;
           b.classList.add('opacity-60', 'cursor-not-allowed');
           b.classList.remove('cursor-pointer', 'hover:border-gray-300');
         });
+
+        if (r.visual_datos && r.visual_escenario) {
+          renderVisual(r.visual_datos, r.visual_escenario);
+        }
 
         if (r.completo) {
           setTimeout(() => {
@@ -170,6 +274,10 @@ const primerPaso = ejercicio.pasos[0];
       } else {
         feedback.className = 'mt-5 rounded-2xl p-4 text-sm leading-relaxed bg-orange-50 text-orange-800 border-2 border-orange-200';
         feedback.innerHTML = `💡 ${r.feedback}`;
+
+        if (r.visual_datos && r.visual_escenario) {
+          renderVisual(r.visual_datos, r.visual_escenario);
+        }
       }
     }
 
