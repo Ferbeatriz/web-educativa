@@ -1,12 +1,8 @@
 ---
 /**
  * Web Component de animación demostrativa para división.
- * Se monta dinámicamente desde el cliente pasándole el visual y el escenario.
- *
- * Uso:
- *   <animacion-division></animacion-division>
- *   const el = document.querySelector('animacion-division');
- *   el.render(visual, escenario);
+ * Reparto por rondas: cada ronda entrega 1 bloque a cada caja, en orden.
+ * Salto en el lugar (sin traslado desde un montón). Sin contador.
  */
 ---
 
@@ -20,12 +16,11 @@
     imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B', bloque: '#F87171' },
   } as const;
 
-  const RITMO = 80;
+  const RITMO_RONDA = 100; // ms entre rondas (cada ronda toca todas las cajas)
 
   class AnimacionDivision extends HTMLElement {
     private escenarioActual: any = null;
     private visualActual: any = null;
-    private intervaloContador: number | null = null;
 
     connectedCallback() {
       this.style.display = 'block';
@@ -50,7 +45,6 @@
       }
 
       this.appendChild(wrapper);
-      this.iniciarContador();
       this.conectarRepetir();
     }
 
@@ -62,7 +56,7 @@
       const emoji = visual.emoji_bloque || '🟦';
       const etiqueta = visual.etiqueta_grupo || 'caja';
 
-      let grupos = e.grupos;
+      const grupos = e.grupos;
       let cajasCompletas = 0;
       let bloquesEnCajas = 0;
       let bloquesSobrantes = 0;
@@ -87,13 +81,12 @@
       `;
       wrapper.appendChild(header);
 
-      // Contador
+      // Info sin contador dinámico
       const info = document.createElement('div');
       info.className = 'flex items-center gap-2 mb-4 flex-wrap';
       info.innerHTML = `
         <span class="text-sm font-bold text-gray-600">Tenemos:</span>
         <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #DBEAFE; color: #1D4ED8;">${total} ${emoji}</span>
-        <span class="contador text-sm font-bold" style="color: ${c.text};">Van 0 de ${total}</span>
       `;
       wrapper.appendChild(info);
 
@@ -114,19 +107,26 @@
         caja.style.minHeight = '44px';
 
         for (let j = 0; j < bloquesDeEsta; j++) {
-          const ordenGlobal = i * porGrupo + j;
+          // ORDEN POR RONDAS:
+          // Ronda r entrega el bloque r+1 a cada caja.
+          // Este bloque es el j-ésimo de la caja i → pertenece a la ronda j.
+          // Todos los bloques de la ronda j aparecen al mismo tiempo.
+          const ordenRonda = j;
           const b = document.createElement('div');
           b.className = 'bloque-tutor flex items-center justify-center leading-none';
           b.style.fontSize = '18px';
-          b.style.animationDelay = `${ordenGlobal * RITMO}ms`;
+          b.style.animationDelay = `${ordenRonda * RITMO_RONDA}ms`;
           b.textContent = emoji;
           caja.appendChild(b);
         }
 
         if (esIncompleta && bloquesDeEsta < porGrupo) {
+          // La etiqueta "faltan X" aparece al final de todas las rondas
+          const totalRondas = cajasCompletas > 0 ? porGrupo : bloquesEnIncompleta;
           const faltan = document.createElement('div');
-          faltan.className = 'text-xs font-extrabold mt-1';
+          faltan.className = 'text-xs font-extrabold mt-1 faltan-label';
           faltan.style.color = COLORES.sobra.text;
+          faltan.style.animationDelay = `${(totalRondas + 1) * RITMO_RONDA}ms`;
           faltan.textContent = `faltan ${porGrupo - bloquesDeEsta}`;
           caja.appendChild(faltan);
         }
@@ -135,7 +135,7 @@
       }
       wrapper.appendChild(cajasRow);
 
-      // Sobrantes
+      // Sobrantes (aparecen después de la última ronda)
       if (bloquesSobrantes > 0) {
         const sobraBox = document.createElement('div');
         sobraBox.className = 'mb-4 p-3 rounded-xl';
@@ -154,7 +154,8 @@
           const b = document.createElement('div');
           b.className = 'bloque-tutor flex items-center justify-center leading-none';
           b.style.fontSize = '18px';
-          b.style.animationDelay = `${(bloquesEnCajas + i) * RITMO}ms`;
+          // Los sobrantes aparecen tras todas las rondas
+          b.style.animationDelay = `${(porGrupo + i) * RITMO_RONDA}ms`;
           b.textContent = emoji;
           sobraRow.appendChild(b);
         }
@@ -181,7 +182,7 @@
       } else if (e.estado === 'correcto') {
         msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s usamos <strong>${e.resultado}</strong>.${bloquesSobrantes > 0 ? ` Sobran <strong>${bloquesSobrantes}</strong>.` : ''}`;
       } else if (e.estado === 'sobra') {
-        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s necesitaríamos <strong>${e.resultado}</strong>, pero solo tenemos <strong>${total}</strong>. La última caja queda incompleta.`;
+        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s necesitaríamos <strong>${e.resultado}</strong>, pero solo tenemos <strong>${total}</strong>. Las últimas cajas quedan incompletas.`;
       }
       wrapper.appendChild(msg);
 
@@ -220,7 +221,7 @@
         const b = document.createElement('div');
         b.className = 'bloque-tutor flex items-center justify-center leading-none';
         b.style.fontSize = '20px';
-        b.style.animationDelay = `${i * RITMO}ms`;
+        b.style.animationDelay = `${i * RITMO_RONDA}ms`;
         b.textContent = emoji;
         row.appendChild(b);
       }
@@ -247,31 +248,6 @@
       }
     }
 
-    private iniciarContador() {
-      const contador = this.querySelector<HTMLElement>('.contador');
-      if (!contador) return;
-
-      const match = contador.textContent?.match(/de (\d+)/);
-      const total = match ? parseInt(match[1], 10) : 0;
-      if (total === 0) return;
-
-      if (this.intervaloContador) {
-        clearInterval(this.intervaloContador);
-        this.intervaloContador = null;
-      }
-
-      let actual = 0;
-      contador.textContent = `Van 0 de ${total}`;
-      this.intervaloContador = window.setInterval(() => {
-        actual += 1;
-        contador.textContent = `Van ${actual} de ${total}`;
-        if (actual >= total && this.intervaloContador) {
-          clearInterval(this.intervaloContador);
-          this.intervaloContador = null;
-        }
-      }, RITMO);
-    }
-
     private conectarRepetir() {
       const btn = this.querySelector<HTMLButtonElement>('.btn-repetir');
       if (!btn) return;
@@ -289,15 +265,36 @@
 </script>
 
 <style>
+  /* Cada bloque SALTA en su lugar: cae desde arriba con rebote */
   .bloque-tutor {
     opacity: 0;
-    transform: scale(0.4) translateY(-8px);
-    animation: aparecerBloque 380ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transform: translateY(-18px) scale(0.6);
+    animation: saltarBloque 420ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
 
-  @keyframes aparecerBloque {
-    0%   { opacity: 0; transform: scale(0.4) translateY(-8px); }
-    60%  { opacity: 1; transform: scale(1.15) translateY(0); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
+  @keyframes saltarBloque {
+    0% {
+      opacity: 0;
+      transform: translateY(-18px) scale(0.6);
+    }
+    55% {
+      opacity: 1;
+      transform: translateY(2px) scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* La etiqueta "faltan X" aparece con fade suave, no con salto */
+  .faltan-label {
+    opacity: 0;
+    animation: aparecerSuave 300ms ease forwards;
+  }
+
+  @keyframes aparecerSuave {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 </style>

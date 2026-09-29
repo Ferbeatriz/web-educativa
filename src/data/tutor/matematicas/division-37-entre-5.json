@@ -1,300 +1,104 @@
----
-/**
- * Web Component de animación demostrativa para división.
- * Reparto por rondas: cada ronda entrega 1 bloque a cada caja, en orden.
- * Salto en el lugar (sin traslado desde un montón). Sin contador.
- */
----
-
-<animacion-division></animacion-division>
-
-<script>
-  const COLORES = {
-    falta:     { bg: '#FEF3C7', border: '#F59E0B', text: '#92400E', bloque: '#FBBF24' },
-    correcto:  { bg: '#D1FAE5', border: '#10B981', text: '#065F46', bloque: '#34D399' },
-    sobra:     { bg: '#FFEDD5', border: '#F97316', text: '#9A3412', bloque: '#FB923C' },
-    imposible: { bg: '#FEE2E2', border: '#DC2626', text: '#991B1B', bloque: '#F87171' },
-  } as const;
-
-  const RITMO_RONDA = 100; // ms entre rondas (cada ronda toca todas las cajas)
-
-  class AnimacionDivision extends HTMLElement {
-    private escenarioActual: any = null;
-    private visualActual: any = null;
-
-    connectedCallback() {
-      this.style.display = 'block';
-    }
-
-    render(visual: any, escenario: any) {
-      this.visualActual = visual;
-      this.escenarioActual = escenario;
-      this.innerHTML = '';
-
-      if (!visual || !escenario) return;
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'mt-5 rounded-2xl border-2 p-4 md:p-5';
-      wrapper.style.background = '#F9FAFB';
-      wrapper.style.borderColor = '#E5E7EB';
-
-      if (visual.tipo === 'grupos') {
-        this.renderGrupos(wrapper, visual, escenario);
-      } else if (visual.tipo === 'resto') {
-        this.renderResto(wrapper, visual, escenario);
+{
+  "id": "division-37-entre-5",
+  "materia_id": "matematicas",
+  "tema": "division",
+  "dificultad": "facil",
+  "titulo": "División con resto: 37 ÷ 5",
+  "emoji": "➗",
+  "contexto": "Tienes 37 lápices y quieres repartirlos en 5 cajas iguales. ¿Cuántos lápices van en cada caja y cuántos sobran?",
+  "pasos": [
+    {
+      "n": 1,
+      "pregunta": "Para empezar: ¿podemos dividir el 3 (la primera cifra de 37) entre 5?",
+      "tipo": "si_no",
+      "opciones": ["Sí", "No"],
+      "respuesta_correcta": "No",
+      "feedback_correcto": "Exacto. 3 es más chico que 5, así que no alcanza. Vamos a usar las dos cifras: 37.",
+      "errores_comunes": {
+        "Sí": "Cuidado: 3 es más chico que 5. No se puede repartir 3 lápices en 5 cajas sin que sobre todo. Usaremos las dos cifras: 37."
       }
-
-      this.appendChild(wrapper);
-      this.conectarRepetir();
-    }
-
-    private renderGrupos(wrapper: HTMLElement, visual: any, escenario: any) {
-      const e = escenario;
-      const c = COLORES[e.estado as keyof typeof COLORES];
-      const total = visual.total;
-      const porGrupo = e.por_grupo;
-      const emoji = visual.emoji_bloque || '🟦';
-      const etiqueta = visual.etiqueta_grupo || 'caja';
-
-      const grupos = e.grupos;
-      let cajasCompletas = 0;
-      let bloquesEnCajas = 0;
-      let bloquesSobrantes = 0;
-      let bloquesEnIncompleta = 0;
-
-      if (e.estado === 'falta' || e.estado === 'correcto') {
-        cajasCompletas = e.grupos;
-        bloquesEnCajas = e.resultado;
-        bloquesSobrantes = total - e.resultado;
-      } else if (e.estado === 'sobra') {
-        cajasCompletas = Math.floor(total / porGrupo);
-        bloquesEnCajas = cajasCompletas * porGrupo;
-        bloquesEnIncompleta = total - bloquesEnCajas;
-      }
-
-      // Cabecera
-      const header = document.createElement('div');
-      header.className = 'flex items-center justify-between mb-3 flex-wrap gap-2';
-      header.innerHTML = `
-        <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500">Así se reparte</p>
-        <button type="button" class="btn-repetir text-xs font-bold text-gray-500 hover:text-gray-800 underline cursor-pointer">↻ Repetir</button>
-      `;
-      wrapper.appendChild(header);
-
-      // Info sin contador dinámico
-      const info = document.createElement('div');
-      info.className = 'flex items-center gap-2 mb-4 flex-wrap';
-      info.innerHTML = `
-        <span class="text-sm font-bold text-gray-600">Tenemos:</span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #DBEAFE; color: #1D4ED8;">${total} ${emoji}</span>
-      `;
-      wrapper.appendChild(info);
-
-      // Cajas
-      const cajasRow = document.createElement('div');
-      cajasRow.className = 'flex flex-wrap gap-2 mb-4';
-
-      for (let i = 0; i < grupos; i++) {
-        const esIncompleta = i >= cajasCompletas;
-        const cajaColor = esIncompleta ? COLORES.sobra : c;
-        const bloquesDeEsta = i < cajasCompletas ? porGrupo : bloquesEnIncompleta;
-
-        const caja = document.createElement('div');
-        caja.className = 'flex flex-col items-center rounded-xl border-2 p-1';
-        caja.style.background = 'white';
-        caja.style.borderColor = cajaColor.border;
-        caja.style.minWidth = '44px';
-        caja.style.minHeight = '44px';
-
-        for (let j = 0; j < bloquesDeEsta; j++) {
-          // ORDEN POR RONDAS:
-          // Ronda r entrega el bloque r+1 a cada caja.
-          // Este bloque es el j-ésimo de la caja i → pertenece a la ronda j.
-          // Todos los bloques de la ronda j aparecen al mismo tiempo.
-          const ordenRonda = j;
-          const b = document.createElement('div');
-          b.className = 'bloque-tutor flex items-center justify-center leading-none';
-          b.style.fontSize = '18px';
-          b.style.animationDelay = `${ordenRonda * RITMO_RONDA}ms`;
-          b.textContent = emoji;
-          caja.appendChild(b);
+    },
+    {
+      "n": 2,
+      "pregunta": "Ahora buscamos un número que, multiplicado por 5, se acerque a 37 sin pasarse. ¿Cuál es?",
+      "tipo": "opciones",
+      "opciones": ["5", "6", "7", "8", "9"],
+      "respuesta_correcta": "7",
+      "feedback_correcto": "¡Muy bien! 7 × 5 = 35, y 35 es lo más cerca de 37 sin pasarse.",
+      "errores_comunes": {
+        "5": "5 × 5 = 25. Quedan 12 lápices, todavía alcanza para más. Prueba con un número más grande.",
+        "6": "6 × 5 = 30. Quedan 7 lápices, y 7 todavía se puede repartir entre 5. Sube un poco más.",
+        "8": "8 × 5 = 40. Te pasaste: 40 es más que 37. Prueba con un número más chico.",
+        "9": "9 × 5 = 45. Te pasaste por mucho. Busca un número más chico."
+      },
+      "visual": {
+        "tipo": "grupos",
+        "total": 37,
+        "divisor": 5,
+        "etiqueta_grupo": "caja",
+        "emoji_bloque": "✏️",
+        "escenarios": {
+          "5": { "grupos": 5, "por_grupo": 5, "resultado": 25, "estado": "falta" },
+          "6": { "grupos": 6, "por_grupo": 5, "resultado": 30, "estado": "falta" },
+          "7": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto" },
+          "8": { "grupos": 8, "por_grupo": 5, "resultado": 40, "estado": "sobra" },
+          "9": { "grupos": 9, "por_grupo": 5, "resultado": 45, "estado": "sobra" }
         }
-
-        if (esIncompleta && bloquesDeEsta < porGrupo) {
-          // La etiqueta "faltan X" aparece al final de todas las rondas
-          const totalRondas = cajasCompletas > 0 ? porGrupo : bloquesEnIncompleta;
-          const faltan = document.createElement('div');
-          faltan.className = 'text-xs font-extrabold mt-1 faltan-label';
-          faltan.style.color = COLORES.sobra.text;
-          faltan.style.animationDelay = `${(totalRondas + 1) * RITMO_RONDA}ms`;
-          faltan.textContent = `faltan ${porGrupo - bloquesDeEsta}`;
-          caja.appendChild(faltan);
+      }
+    },
+    {
+      "n": 3,
+      "pregunta": "Si en cada caja pusimos 7 lápices, ¿cuántos lápices usamos en total?",
+      "tipo": "opciones",
+      "opciones": ["30", "32", "35", "37", "40"],
+      "respuesta_correcta": "35",
+      "feedback_correcto": "Correcto: 7 × 5 = 35. Usamos 35 lápices.",
+      "errores_comunes": {
+        "30": "30 es 6 × 5. Pero elegimos 7 por caja. Multiplica otra vez: 7 × 5.",
+        "32": "Repasa la tabla del 5: 7 × 5 no da 32.",
+        "37": "37 es el total que teníamos. Pero no todos se repartieron, porque sobra algo. Multiplica 7 × 5.",
+        "40": "40 es 8 × 5. Pero elegimos 7 por caja. Vuelve a multiplicar."
+      },
+      "visual": {
+        "tipo": "grupos",
+        "total": 37,
+        "divisor": 5,
+        "etiqueta_grupo": "caja",
+        "emoji_bloque": "✏️",
+        "escenarios": {
+          "30": { "grupos": 6, "por_grupo": 5, "resultado": 30, "estado": "falta" },
+          "32": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto", "nota": "Cada caja tiene 7 × 5 = 35, no 32." },
+          "35": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto" },
+          "37": { "grupos": 7, "por_grupo": 5, "resultado": 35, "estado": "correcto", "nota": "En las cajas van 35. Los otros 2 son los que sobran." },
+          "40": { "grupos": 8, "por_grupo": 5, "resultado": 40, "estado": "sobra" }
         }
-
-        cajasRow.appendChild(caja);
       }
-      wrapper.appendChild(cajasRow);
-
-      // Sobrantes (aparecen después de la última ronda)
-      if (bloquesSobrantes > 0) {
-        const sobraBox = document.createElement('div');
-        sobraBox.className = 'mb-4 p-3 rounded-xl';
-        sobraBox.style.background = COLORES.falta.bg;
-        sobraBox.style.border = `2px dashed ${COLORES.falta.border}`;
-
-        const sobraTitulo = document.createElement('p');
-        sobraTitulo.className = 'text-xs font-extrabold uppercase tracking-wide mb-2';
-        sobraTitulo.style.color = COLORES.falta.text;
-        sobraTitulo.textContent = `No caben, sobran ${bloquesSobrantes}`;
-        sobraBox.appendChild(sobraTitulo);
-
-        const sobraRow = document.createElement('div');
-        sobraRow.className = 'flex flex-wrap gap-1';
-        for (let i = 0; i < bloquesSobrantes; i++) {
-          const b = document.createElement('div');
-          b.className = 'bloque-tutor flex items-center justify-center leading-none';
-          b.style.fontSize = '18px';
-          // Los sobrantes aparecen tras todas las rondas
-          b.style.animationDelay = `${(porGrupo + i) * RITMO_RONDA}ms`;
-          b.textContent = emoji;
-          sobraRow.appendChild(b);
+    },
+    {
+      "n": 4,
+      "pregunta": "Si usamos 35 lápices de los 37, ¿cuántos sobran?",
+      "tipo": "opciones",
+      "opciones": ["1", "2", "3", "5"],
+      "respuesta_correcta": "2",
+      "feedback_correcto": "¡Listo! 37 − 35 = 2. Entonces: 37 ÷ 5 = 7 y sobran 2.",
+      "errores_comunes": {
+        "1": "Casi. 37 − 35 no es 1. Intenta restar de nuevo.",
+        "3": "37 − 35 no es 3. Revisa la resta con calma.",
+        "5": "El resto siempre es menor que el divisor. Si sobraran 5, alcanzaría para una caja más."
+      },
+      "visual": {
+        "tipo": "resto",
+        "total": 37,
+        "en_cajas": 35,
+        "emoji_bloque": "✏️",
+        "escenarios": {
+          "1": { "resto": 2, "estado": "correcto", "nota": "En realidad sobran 2, no 1." },
+          "2": { "resto": 2, "estado": "correcto" },
+          "3": { "resto": 2, "estado": "correcto", "nota": "En realidad sobran 2, no 3." },
+          "5": { "resto": 5, "estado": "imposible", "nota": "Si sobraran 5, alcanzaría para una caja más. El resto siempre es menor que el divisor." }
         }
-        sobraBox.appendChild(sobraRow);
-        wrapper.appendChild(sobraBox);
-      }
-
-      // Resultado
-      const res = document.createElement('div');
-      res.className = 'flex items-center gap-2 mb-3 flex-wrap';
-      res.innerHTML = `
-        <span class="text-sm font-bold text-gray-600">Resultado:</span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: ${c.bg}; color: ${c.text};">${grupos} × ${porGrupo} = ${e.resultado}</span>
-      `;
-      wrapper.appendChild(res);
-
-      // Mensaje
-      const msg = document.createElement('p');
-      msg.className = 'text-sm leading-relaxed';
-      msg.style.color = c.text;
-
-      if (e.estado === 'falta') {
-        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s solo usamos <strong>${e.resultado}</strong>. Todavía quedan <strong>${bloquesSobrantes}</strong> sin repartir.`;
-      } else if (e.estado === 'correcto') {
-        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s usamos <strong>${e.resultado}</strong>.${bloquesSobrantes > 0 ? ` Sobran <strong>${bloquesSobrantes}</strong>.` : ''}`;
-      } else if (e.estado === 'sobra') {
-        msg.innerHTML = `Con <strong>${grupos}</strong> ${etiqueta}s necesitaríamos <strong>${e.resultado}</strong>, pero solo tenemos <strong>${total}</strong>. Las últimas cajas quedan incompletas.`;
-      }
-      wrapper.appendChild(msg);
-
-      if (e.nota) {
-        const nota = document.createElement('p');
-        nota.className = 'text-xs italic mt-2 text-gray-500';
-        nota.textContent = e.nota;
-        wrapper.appendChild(nota);
       }
     }
-
-    private renderResto(wrapper: HTMLElement, visual: any, escenario: any) {
-      const e = escenario;
-      const c = e.estado === 'imposible' ? COLORES.imposible : COLORES.correcto;
-      const emoji = visual.emoji_bloque || '🟦';
-
-      const header = document.createElement('div');
-      header.className = 'flex items-center justify-between mb-3 flex-wrap gap-2';
-      header.innerHTML = `
-        <p class="text-xs font-extrabold uppercase tracking-wide text-gray-500">Así queda el reparto</p>
-        <button type="button" class="btn-repetir text-xs font-bold text-gray-500 hover:text-gray-800 underline cursor-pointer">↻ Repetir</button>
-      `;
-      wrapper.appendChild(header);
-
-      const info = document.createElement('div');
-      info.className = 'flex items-center gap-2 mb-4 flex-wrap';
-      info.innerHTML = `
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: #D1FAE5; color: #065F46;">${visual.en_cajas} en las cajas</span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg font-extrabold" style="background: ${c.bg}; color: ${c.text};">${e.resto} sueltos</span>
-      `;
-      wrapper.appendChild(info);
-
-      const row = document.createElement('div');
-      row.className = 'flex flex-wrap gap-1 mb-3';
-      for (let i = 0; i < e.resto; i++) {
-        const b = document.createElement('div');
-        b.className = 'bloque-tutor flex items-center justify-center leading-none';
-        b.style.fontSize = '20px';
-        b.style.animationDelay = `${i * RITMO_RONDA}ms`;
-        b.textContent = emoji;
-        row.appendChild(b);
-      }
-      if (e.resto === 0) {
-        const p = document.createElement('p');
-        p.className = 'text-sm text-gray-600';
-        p.textContent = 'No sobra nada.';
-        row.appendChild(p);
-      }
-      wrapper.appendChild(row);
-
-      const totalP = document.createElement('p');
-      totalP.className = 'text-sm leading-relaxed';
-      totalP.style.color = c.text;
-      const suma = visual.en_cajas + e.resto;
-      totalP.innerHTML = `Total: <strong>${visual.en_cajas}</strong> + <strong>${e.resto}</strong> = <strong>${suma}</strong>${suma !== visual.total ? ` · Ojo: el total real es <strong>${visual.total}</strong>.` : ''}`;
-      wrapper.appendChild(totalP);
-
-      if (e.nota) {
-        const nota = document.createElement('p');
-        nota.className = 'text-xs italic mt-2 text-gray-500';
-        nota.textContent = e.nota;
-        wrapper.appendChild(nota);
-      }
-    }
-
-    private conectarRepetir() {
-      const btn = this.querySelector<HTMLButtonElement>('.btn-repetir');
-      if (!btn) return;
-      btn.addEventListener('click', () => {
-        if (this.visualActual && this.escenarioActual) {
-          this.render(this.visualActual, this.escenarioActual);
-        }
-      });
-    }
-  }
-
-  if (!customElements.get('animacion-division')) {
-    customElements.define('animacion-division', AnimacionDivision);
-  }
-</script>
-
-<style>
-  /* Cada bloque SALTA en su lugar: cae desde arriba con rebote */
-  .bloque-tutor {
-    opacity: 0;
-    transform: translateY(-18px) scale(0.6);
-    animation: saltarBloque 420ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-
-  @keyframes saltarBloque {
-    0% {
-      opacity: 0;
-      transform: translateY(-18px) scale(0.6);
-    }
-    55% {
-      opacity: 1;
-      transform: translateY(2px) scale(1.1);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  /* La etiqueta "faltan X" aparece con fade suave, no con salto */
-  .faltan-label {
-    opacity: 0;
-    animation: aparecerSuave 300ms ease forwards;
-  }
-
-  @keyframes aparecerSuave {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-</style>
+  ],
+  "cierre": "Muy bien. Aprendiste que en una división con resto el cociente es 7 y el resto es 2. El resto siempre es menor que el divisor. En este caso, 2 es menor que 5."
+}
