@@ -13,6 +13,18 @@
       "duracion_estimada_min": 20,
       "archivo": "lecciones/places-in-town.json",
       "activa": true
+    },
+
+    {
+  "id": "places-in-town-practice",
+  "titulo": "Places in Town · Practice",
+  "emoji": "🗺️",
+  "orden": 2,
+  "nivel": "básico",
+  "duracion_estimada_min": 25,
+  "archivo": "lecciones/places-in-town-practice.json",
+  "activa": true
     }
+
   ]
 }
