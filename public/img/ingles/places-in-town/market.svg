@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#FFFBEB"/>
+  <rect x="40" y="140" width="320" height="120" fill="#FDE68A" stroke="#B45309" stroke-width="3"/>
+  <polygon points="20,140 60,80 340,80 380,140" fill="#F59E0B" stroke="#B45309" stroke-width="3"/>
+  <line x1="60" y1="80" x2="60" y2="140" stroke="#B45309" stroke-width="2"/>
+  <line x1="120" y1="80" x2="120" y2="140" stroke="#B45309" stroke-width="2"/>
+  <line x1="180" y1="80" x2="180" y2="140" stroke="#B45309" stroke-width="2"/>
+  <line x1="240" y1="80" x2="240" y2="140" stroke="#B45309" stroke-width="2"/>
+  <line x1="300" y1="80" x2="300" y2="140" stroke="#B45309" stroke-width="2"/>
+  <line x1="360" y1="80" x2="360" y2="140" stroke="#B45309" stroke-width="2"/>
+  <circle cx="100" cy="190" r="14" fill="#EF4444"/>
+  <circle cx="160" cy="190" r="14" fill="#F59E0B"/>
+  <circle cx="220" cy="190" r="14" fill="#84CC16"/>
+  <circle cx="280" cy="190" r="14" fill="#EF4444"/>
+  <circle cx="130" cy="220" r="12" fill="#84CC16"/>
+  <circle cx="190" cy="220" r="12" fill="#F59E0B"/>
+  <circle cx="250" cy="220" r="12" fill="#EF4444"/>
+  <rect x="0" y="260" width="400" height="40" fill="#FCD34D"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#FEF3C7"/>
+  <rect x="60" y="80" width="280" height="180" fill="#FBBF24" stroke="#B45309" stroke-width="3"/>
+  <rect x="80" y="100" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="140" y="100" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="200" y="100" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="260" y="100" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="80" y="160" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="140" y="160" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="200" y="160" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="260" y="160" width="40" height="40" fill="#FFFFFF" stroke="#B45309" stroke-width="2"/>
+  <rect x="170" y="210" width="60" height="50" fill="#B45309"/>
+  <rect x="0" y="260" width="400" height="40" fill="#FDE68A"/>
+  <text x="200" y="60" font-family="Arial" font-size="24" font-weight="bold" fill="#B45309" text-anchor="middle">HOTEL</text>
+</svg>

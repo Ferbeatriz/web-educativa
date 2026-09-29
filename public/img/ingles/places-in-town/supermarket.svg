@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#F0FDFA"/>
+  <rect x="50" y="90" width="300" height="170" fill="#CCFBF1" stroke="#0D9488" stroke-width="3"/>
+  <rect x="70" y="120" width="260" height="80" fill="#FFFFFF" stroke="#0D9488" stroke-width="2"/>
+  <rect x="120" y="200" width="60" height="60" fill="#0D9488"/>
+  <rect x="240" y="200" width="60" height="60" fill="#0D9488"/>
+  <rect x="80" y="140" width="40" height="40" fill="#FBBF24" stroke="#0D9488" stroke-width="2"/>
+  <rect x="140" y="140" width="40" height="40" fill="#F87171" stroke="#0D9488" stroke-width="2"/>
+  <rect x="200" y="140" width="40" height="40" fill="#34D399" stroke="#0D9488" stroke-width="2"/>
+  <rect x="260" y="140" width="40" height="40" fill="#60A5FA" stroke="#0D9488" stroke-width="2"/>
+  <rect x="0" y="260" width="400" height="40" fill="#99F6E4"/>
+  <text x="200" y="70" font-family="Arial" font-size="22" font-weight="bold" fill="#0D9488" text-anchor="middle">SUPERMARKET</text>
+</svg>
