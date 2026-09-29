@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TutorPasos from '../../components/tutor/TutorPasos.astro';
+import type { Ejercicio } from '../../lib/tutor/validador';
+
+export async function getStaticPaths() {
+  const archivos = import.meta.glob('../../data/tutor/**/*.json', { eager: true });
+  const paths = [];
+
+  for (const path in archivos) {
+    let ejercicio: Ejercicio;
+    try {
+      ejercicio = (archivos[path] as any).default;
+    } catch (e) {
+      console.warn(`⚠️ JSON inválido en tutor: ${path}`);
+      continue;
+    }
+    if (!ejercicio || !ejercicio.id) continue;
+
+    paths.push({
+      params: { ejercicio: ejercicio.id },
+      props: { ejercicio },
+    });
+  }
+
+  return paths;
+}
+
+const { ejercicio } = Astro.props;
+
+const coloresMateria: Record<string, { c500: string; c600: string; c700: string; c50: string }> = {
+  matematicas:  { c50: '#EFF6FF', c500: '#3B82F6', c600: '#2563EB', c700: '#1D4ED8' },
+  lenguaje:     { c50: '#FDF2F8', c500: '#EC4899', c600: '#DB2777', c700: '#BE185D' },
+  historia:     { c50: '#FFFBEB', c500: '#F59E0B', c600: '#D97706', c700: '#B45309' },
+  ingles:       { c50: '#F0FDFA', c500: '#14B8A6', c600: '#0D9488', c700: '#0F766E' },
+  ciencias:     { c50: '#F7FEE7', c500: '#84CC16', c600: '#65A30D', c700: '#4D7C0F' },
+  programacion: { c50: '#FDF4FF', c500: '#D946EF', c600: '#C026D3', c700: '#A21CAF' },
+};
+const c = coloresMateria[ejercicio.materia_id] || coloresMateria.matematicas;
+
+const estiloHero = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
+---
+
+<Layout title={`${ejercicio.titulo} · Tutor`}>
+  <main class="max-w-3xl mx-auto px-4 py-8 md:py-12">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
+      <a href="/" class="text-brand-600 hover:underline">Inicio</a>
+      <span class="text-gray-300">›</span>
+      <a href="/perfil" class="text-brand-600 hover:underline">Mi perfil</a>
+      <span class="text-gray-300">›</span>
+      <span class="text-gray-500">Tutor</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="mb-10">
+      <div class="relative overflow-hidden rounded-[2rem] p-6 md:p-10 shadow-xl text-white" style={estiloHero}>
+        <div class="absolute -top-6 -right-6 text-[180px] leading-none opacity-10 select-none pointer-events-none">
+          {ejercicio.emoji}
+        </div>
+        <div class="relative z-10">
+          <span class="inline-block text-xs font-extrabold px-3 py-1 rounded-full bg-white/20 backdrop-blur mb-4 tracking-wide uppercase">
+            🎓 Tutor interactivo
+          </span>
+          <div class="flex items-start gap-5">
+            <div class="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-white/20 backdrop-blur flex items-center justify-center text-5xl md:text-6xl shadow-lg flex-shrink-0">
+              {ejercicio.emoji}
+            </div>
+            <div>
+              <h1 class="text-2xl md:text-4xl font-extrabold leading-tight mb-2">
+                {ejercicio.titulo}
+              </h1>
+              <span class="inline-flex items-center gap-2 bg-white/15 backdrop-blur rounded-full px-4 py-2 text-sm font-bold">
+                ⭐ Aprende paso a paso
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Componente del tutor -->
+    <TutorPasos ejercicio={ejercicio} color={c.c500} />
+
+  </main>
+</Layout>

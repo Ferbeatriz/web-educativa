@@ -1,0 +1,64 @@
+{
+  "id": "division-37-entre-5",
+  "materia_id": "matematicas",
+  "tema": "division",
+  "dificultad": "facil",
+  "titulo": "División con resto: 37 ÷ 5",
+  "emoji": "➗",
+  "contexto": "Tienes 37 lápices y quieres repartirlos en 5 cajas iguales. ¿Cuántos lápices van en cada caja y cuántos sobran?",
+  "pasos": [
+    {
+      "n": 1,
+      "pregunta": "Para empezar: ¿podemos dividir el 3 (la primera cifra de 37) entre 5?",
+      "tipo": "si_no",
+      "opciones": ["Sí", "No"],
+      "respuesta_correcta": "No",
+      "feedback_correcto": "Exacto. 3 es más chico que 5, así que no alcanza. Vamos a usar las dos cifras: 37.",
+      "errores_comunes": {
+        "Sí": "Cuidado: 3 es más chico que 5. No se puede repartir 3 lápices en 5 cajas sin que sobre todo. Usaremos las dos cifras: 37."
+      }
+    },
+    {
+      "n": 2,
+      "pregunta": "Ahora buscamos un número que, multiplicado por 5, se acerque a 37 sin pasarse. ¿Cuál es?",
+      "tipo": "opciones",
+      "opciones": ["5", "6", "7", "8", "9"],
+      "respuesta_correcta": "7",
+      "feedback_correcto": "¡Muy bien! 7 × 5 = 35, y 35 es lo más cerca de 37 sin pasarse.",
+      "errores_comunes": {
+        "5": "5 × 5 = 25. Quedan 12 lápices, todavía alcanza para más. Prueba con un número más grande.",
+        "6": "6 × 5 = 30. Quedan 7 lápices, y 7 todavía se puede repartir entre 5. Sube un poco más.",
+        "8": "8 × 5 = 40. Te pasaste: 40 es más que 37. Prueba con un número más chico.",
+        "9": "9 × 5 = 45. Te pasaste por mucho. Busca un número más chico."
+      }
+    },
+    {
+      "n": 3,
+      "pregunta": "Si en cada caja pusimos 7 lápices, ¿cuántos lápices usamos en total?",
+      "tipo": "opciones",
+      "opciones": ["30", "32", "35", "37", "40"],
+      "respuesta_correcta": "35",
+      "feedback_correcto": "Correcto: 7 × 5 = 35. Usamos 35 lápices.",
+      "errores_comunes": {
+        "30": "30 es 6 × 5. Pero elegimos 7 por caja. Multiplica otra vez: 7 × 5.",
+        "32": "Repasa la tabla del 5: 7 × 5 no da 32.",
+        "37": "37 es el total que teníamos. Pero no todos se repartieron, porque sobra algo. Multiplica 7 × 5.",
+        "40": "40 es 8 × 5. Pero elegimos 7 por caja. Vuelve a multiplicar."
+      }
+    },
+    {
+      "n": 4,
+      "pregunta": "Si usamos 35 lápices de los 37, ¿cuántos sobran?",
+      "tipo": "opciones",
+      "opciones": ["1", "2", "3", "5"],
+      "respuesta_correcta": "2",
+      "feedback_correcto": "¡Listo! 37 − 35 = 2. Entonces: 37 ÷ 5 = 7 y sobran 2.",
+      "errores_comunes": {
+        "1": "Casi. 37 − 35 no es 1. Intenta restar de nuevo.",
+        "3": "37 − 35 no es 3. Revisa la resta con calma.",
+        "5": "El resto siempre es menor que el divisor. Si sobraran 5, alcanzaría para una caja más."
+      }
+    }
+  ],
+  "cierre": "Muy bien. Aprendiste que en una división con resto el cociente es 7 y el resto es 2. El resto siempre es menor que el divisor. En este caso, 2 es menor que 5."
+}

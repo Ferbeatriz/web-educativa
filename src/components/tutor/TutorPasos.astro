@@ -1,0 +1,183 @@
+---
+/**
+ * Componente de tutor interactivo por pasos.
+ * El estudiante avanza haciendo clic en opciones.
+ * Sin voz. Solo clic/touch.
+ */
+import type { Ejercicio } from '../../lib/tutor/validador';
+
+interface Props {
+  ejercicio: Ejercicio;
+  color?: string;
+}
+
+const { ejercicio, color = '#3B82F6' } = Astro.props;
+const primerPaso = ejercicio.pasos[0];
+---
+
+<div
+  id="tutor-container"
+  class="max-w-2xl mx-auto"
+  data-ejercicio-id={ejercicio.id}
+  data-total-pasos={ejercicio.pasos.length}
+>
+  <!-- Datos del ejercicio para el cliente -->
+  <script
+    id="tutor-data"
+    type="application/json"
+    set:html={JSON.stringify(ejercicio)}
+  />
+
+  {ejercicio.contexto && (
+    <div
+      class="rounded-3xl p-5 mb-6 border-l-4"
+      style={`background: #EFF6FF; border-color: ${color};`}
+    >
+      <p class="text-sm font-bold uppercase tracking-wide mb-1" style={`color: ${color};`}>
+        Situación
+      </p>
+      <p class="text-gray-700 leading-relaxed">{ejercicio.contexto}</p>
+    </div>
+  )}
+
+  <!-- Barra de progreso -->
+  <div class="mb-6">
+    <div class="flex justify-between items-center mb-2">
+      <span id="tutor-paso-label" class="text-sm font-bold text-gray-500">
+        Paso 1 de {ejercicio.pasos.length}
+      </span>
+    </div>
+    <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div
+        id="tutor-barra"
+        class="h-full rounded-full transition-all duration-500"
+        style={`width: 0%; background: ${color};`}
+      ></div>
+    </div>
+  </div>
+
+  <!-- Tarjeta del paso actual -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+    <p id="tutor-pregunta" class="text-lg md:text-xl font-bold text-gray-800 mb-6 leading-snug">
+      {primerPaso.pregunta}
+    </p>
+
+    <div id="tutor-opciones" class="grid grid-cols-2 gap-3">
+      {primerPaso.opciones.map((op) => (
+        <button
+          type="button"
+          class="tutor-opcion px-4 py-4 rounded-2xl border-2 border-gray-200 bg-white font-bold text-gray-700 hover:border-gray-300 transition-all cursor-pointer"
+          data-respuesta={op}
+        >
+          {op}
+        </button>
+      ))}
+    </div>
+
+    <div id="tutor-feedback" class="hidden mt-5 rounded-2xl p-4 text-sm leading-relaxed"></div>
+
+    <div id="tutor-continuar-wrap" class="hidden mt-5 text-center">
+      <button
+        id="tutor-continuar"
+        type="button"
+        class="inline-flex items-center gap-2 px-6 py-3 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer"
+        style={`background: ${color};`}
+      >
+        Continuar →
+      </button>
+    </div>
+  </div>
+
+  <div id="tutor-cierre" class="hidden mt-6 bg-green-50 border-2 border-green-200 rounded-3xl p-6 text-center">
+    <div class="text-5xl mb-3">🎉</div>
+    <h3 class="text-xl font-extrabold text-green-800 mb-2">¡Ejercicio completado!</h3>
+    <p id="tutor-cierre-texto" class="text-green-700 leading-relaxed"></p>
+  </div>
+</div>
+
+<script>
+  import { validarPaso, type Ejercicio, type ResultadoValidacion } from '../../lib/tutor/validador';
+
+  const container = document.getElementById('tutor-container');
+  const dataEl = document.getElementById('tutor-data');
+  if (container && dataEl) {
+    const ejercicio: Ejercicio = JSON.parse(dataEl.textContent || '{}');
+
+    const pasoLabel = document.getElementById('tutor-paso-label')!;
+    const barra = document.getElementById('tutor-barra')!;
+    const pregunta = document.getElementById('tutor-pregunta')!;
+    const opciones = document.getElementById('tutor-opciones')!;
+    const feedback = document.getElementById('tutor-feedback')!;
+    const continuarWrap = document.getElementById('tutor-continuar-wrap')!;
+    const btnContinuar = document.getElementById('tutor-continuar') as HTMLButtonElement;
+    const cierre = document.getElementById('tutor-cierre')!;
+    const cierreTexto = document.getElementById('tutor-cierre-texto')!;
+
+    let pasoActual = 1;
+    let acerto = false;
+
+    function pintarPaso(n: number) {
+      const paso = ejercicio.pasos[n - 1];
+      pasoLabel.textContent = `Paso ${n} de ${ejercicio.pasos.length}`;
+      const pct = ((n - 1) / ejercicio.pasos.length) * 100;
+      barra.style.width = `${pct}%`;
+      pregunta.textContent = paso.pregunta;
+
+      opciones.innerHTML = '';
+      paso.opciones.forEach((op) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tutor-opcion px-4 py-4 rounded-2xl border-2 border-gray-200 bg-white font-bold text-gray-700 hover:border-gray-300 transition-all cursor-pointer';
+        btn.dataset.respuesta = op;
+        btn.textContent = op;
+        btn.addEventListener('click', () => responder(op));
+        opciones.appendChild(btn);
+      });
+
+      feedback.classList.add('hidden');
+      feedback.innerHTML = '';
+      continuarWrap.classList.add('hidden');
+      acerto = false;
+    }
+
+    function responder(respuesta: string) {
+      if (acerto) return;
+      const r: ResultadoValidacion = validarPaso(ejercicio, pasoActual, respuesta);
+      feedback.classList.remove('hidden');
+
+      if (r.correcto) {
+        acerto = true;
+        feedback.className = 'mt-5 rounded-2xl p-4 text-sm leading-relaxed bg-green-50 text-green-800 border-2 border-green-200';
+        feedback.innerHTML = `✅ ${r.feedback}`;
+
+        // Marcar todos los botones como deshabilitados visualmente
+        opciones.querySelectorAll<HTMLButtonElement>('button').forEach((b) => {
+          b.disabled = true;
+          b.classList.add('opacity-60', 'cursor-not-allowed');
+          b.classList.remove('cursor-pointer', 'hover:border-gray-300');
+        });
+
+        if (r.completo) {
+          setTimeout(() => {
+            cierreTexto.textContent = ejercicio.cierre || 'Terminaste todos los pasos.';
+            cierre.classList.remove('hidden');
+            barra.style.width = '100%';
+            pasoLabel.textContent = `Paso ${ejercicio.pasos.length} de ${ejercicio.pasos.length} · ¡Completo!`;
+          }, 400);
+        } else {
+          continuarWrap.classList.remove('hidden');
+        }
+      } else {
+        feedback.className = 'mt-5 rounded-2xl p-4 text-sm leading-relaxed bg-orange-50 text-orange-800 border-2 border-orange-200';
+        feedback.innerHTML = `💡 ${r.feedback}`;
+      }
+    }
+
+    btnContinuar.addEventListener('click', () => {
+      pasoActual += 1;
+      pintarPaso(pasoActual);
+    });
+
+    pintarPaso(1);
+  }
+</script>
