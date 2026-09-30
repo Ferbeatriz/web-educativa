@@ -15,6 +15,17 @@
       "nivel": "avanzado",
       "activo": true,
       "carpeta": "la-historia-de-manu"
+    },
+    {
+      "id": "el-lugar-mas-bonito-del-mundo",
+      "titulo": "El lugar más bonito del mundo",
+      "autora": "Ann Cameron",
+      "ilustradora": "Ann Cameron",
+      "editorial": "Alfaguara Infantil",
+      "emoji": "🌋",
+      "nivel": "avanzado",
+      "activo": true,
+      "carpeta": "el-lugar-mas-bonito-del-mundo"
     }
   ]
 }

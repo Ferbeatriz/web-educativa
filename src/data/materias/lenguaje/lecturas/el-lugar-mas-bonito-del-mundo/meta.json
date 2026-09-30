@@ -1,0 +1,65 @@
+{
+  "id": "el-lugar-mas-bonito-del-mundo",
+  "titulo": "El lugar más bonito del mundo",
+  "autora": "Ann Cameron",
+  "ilustradora": "Ann Cameron",
+  "editorial": "Alfaguara Infantil",
+  "genero": "Novela infantil",
+  "año": "1988",
+  "pais": "Estados Unidos (ambientada en Guatemala)",
+  "emoji": "🌋",
+  "color": "lenguaje",
+  "nivel": "avanzado",
+  "sinopsis": "Juan es un niño de siete años que vive en las montañas de Guatemala, cerca de un lago rodeado de volcanes. Su madre lo dejó al cuidado de su abuela cuando se casó con otro hombre. Juan trabaja como limpiabotas en el mercado, pero sueña con algo más: quiere aprender a leer, ir a la escuela y quizás algún día a la universidad. Con la ayuda de su abuela, una mujer fuerte y sabia que vende arroz con leche, Juan descubrirá que el lugar más bonito del mundo no es un lugar en el mapa, sino aquel donde puedes llevar la cabeza alta y estar orgulloso de ti mismo.",
+  "temas": [
+    "El abandono y la resiliencia",
+    "El trabajo infantil y la dignidad",
+    "El derecho a la educación",
+    "La sabiduría de los mayores",
+    "La pobreza y la vergüenza",
+    "La comunidad y la solidaridad",
+    "La identidad y el orgullo propio",
+    "La amistad entre generaciones"
+  ],
+  "personajes": [
+    { "nombre": "Juan", "rol": "Protagonista. Niño de 7 años que trabaja como limpiabotas" },
+    { "nombre": "La abuela", "rol": "Figura central. Vende arroz con leche en el mercado" },
+    { "nombre": "La madre de Juan", "rol": "Lo abandona al casarse con su padrastro" },
+    { "nombre": "El padrastro", "rol": "No quiere a Juan en su casa" },
+    { "nombre": "Tío Miguel", "rol": "Pinta cuadros. Vive en la casa de la abuela" },
+    { "nombre": "Tío Luis", "rol": "Arregla la cama de Juan con una sierra" },
+    { "nombre": "Tía Tina", "rol": "Madre de Angélica. Vive en la casa de la abuela" },
+    { "nombre": "Carlitos", "rol": "Primo pequeño de Juan" },
+    { "nombre": "Angélica", "rol": "Prima pequeña de Juan" },
+    { "nombre": "Doña Irene", "rol": "Maestra de primero en la escuela de San Pablo" },
+    { "nombre": "Roberto", "rol": "Amigo huérfano que cuida la caja de limpiabotas de Juan" }
+  ],
+  "estructura": {
+  "total_capitulos": 6,
+  "nota": "El libro original no numera los capítulos con títulos, solo con dígitos al margen. Los títulos son descriptivos, creados para esta guía.",
+  "capitulos": [
+    { "numero": 1, "titulo": "San Pablo y la llegada a la casa de la abuela", "pagina_inicio": 14, "pagina_fin": 21 },
+    { "numero": 2, "titulo": "La partida de la madre", "pagina_inicio": 22, "pagina_fin": 27 },
+    { "numero": 3, "titulo": "La cama nueva y el oficio de limpiabotas", "pagina_inicio": 28, "pagina_fin": 47 },
+    { "numero": 4, "titulo": "El deseo de ir a la escuela", "pagina_inicio": 48, "pagina_fin": 55 },
+    { "numero": 5, "titulo": "Doña Irene y la admisión", "pagina_inicio": 56, "pagina_fin": 59 },
+    { "numero": 6, "titulo": "La nota de doña Irene y el paseo final", "pagina_inicio": 60, "pagina_fin": 69 }
+  ]
+},
+  "configuracion": {
+    "preguntas_por_sesion": {
+      "comprension": 10,
+      "desarrollo": 5,
+      "relectura": 3
+    },
+    "distribucion_dificultad": {
+      "media": 0.30,
+      "dificil": 0.40,
+      "muy_dificil": 0.30
+    },
+    "orden_presentacion": "ascendente",
+    "persistencia": true,
+    "mezclar_opciones": true,
+    "mostrar_pistas": true
+  }
+}

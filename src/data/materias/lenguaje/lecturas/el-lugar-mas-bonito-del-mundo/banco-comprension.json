@@ -1,0 +1,462 @@
+{
+  "libro": "el-lugar-mas-bonito-del-mundo",
+  "tipo": "comprension",
+  "total_preguntas": 30,
+  "distribucion": {
+    "media": 9,
+    "dificil": 12,
+    "muy_dificil": 9
+  },
+  "preguntas": [
+    {
+      "id": "c01",
+      "dificultad": "media",
+      "tema": "El narrador",
+      "pregunta": "La historia está contada en primera persona, por Juan. ¿Qué efecto tiene que sea él quien narra?",
+      "opciones": [
+        "Ninguno, da lo mismo quién narre",
+        "Que el lector ve el mundo desde los ojos de un niño de siete años, con su mirada inocente pero también profunda",
+        "Que la historia es menos confiable",
+        "Que el autor no sabía escribir en tercera persona"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Al narrar en primera persona, Ann Cameron nos mete en la cabeza de Juan. Vemos el abandono, la pobreza y la esperanza desde la mirada de un niño. Esa mirada es más potente porque no juzga: solo cuenta lo que ve.",
+      "pista": "Piensa en la diferencia entre 'Juan estaba triste' y 'yo estaba triste'."
+    },
+    {
+      "id": "c02",
+      "dificultad": "media",
+      "tema": "El escenario",
+      "pregunta": "Juan vive en San Pablo, un pueblo rodeado de volcanes y junto a un lago. ¿Por qué crees que la autora eligió este lugar y no una ciudad grande?",
+      "opciones": [
+        "Porque es más fácil de describir",
+        "Porque el aislamiento del pueblo hace más fuerte el contraste cuando Juan conoce la ciudad y reflexiona sobre su hogar",
+        "Porque no conocía otras ciudades",
+        "Porque el lago es importante para la historia"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "San Pablo es un pueblo pequeño, apartado, con una vida comunitaria fuerte. Ese aislamiento hace que el contraste con la ciudad (donde vive su madre) sea más potente. Además, el pueblo es lo que Juan ama: su hogar, su familia, su abuela.",
+      "pista": "Fíjate en cómo describe Juan su pueblo al inicio del libro."
+    },
+    {
+      "id": "c03",
+      "dificultad": "media",
+      "tema": "La abuela",
+      "pregunta": "La abuela es una figura central del libro. ¿Qué oficio tiene y qué representa ese oficio?",
+      "opciones": [
+        "Es costurera, representa la paciencia",
+        "Vende arroz con leche en el mercado, representa el trabajo constante y la tradición familiar",
+        "Es profesora, representa la educación",
+        "Es pintora, representa el arte"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela vende arroz con leche desde los trece años. Se levanta a las cinco de la mañana. Su oficio representa la constancia, la tradición y el esfuerzo silencioso. No es un trabajo glamoroso, pero es un trabajo digno.",
+      "pista": "Capítulo 1: la descripción del negocio de la abuela."
+    },
+    {
+      "id": "c04",
+      "dificultad": "media",
+      "tema": "La casa de la abuela",
+      "pregunta": "La casa de la abuela tiene agua corriente pero no electricidad ni agua caliente. ¿Qué nos dice esa decisión de la abuela sobre ella?",
+      "opciones": [
+        "Que es tacaña",
+        "Que sabe distinguir entre lo necesario y lo superfluo: el agua corriente es para el negocio, la electricidad es un lujo",
+        "Que no puede pagar la electricidad",
+        "Que no le gusta la tecnología"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela es pragmática. El agua corriente la necesita para su negocio de arroz con leche. La electricidad y el agua caliente los considera 'cosas caras y no necesarias'. Esto muestra su sabiduría práctica: sabe qué es esencial y qué no.",
+      "pista": "Capítulo 1: la descripción de la casa."
+    },
+    {
+      "id": "c05",
+      "dificultad": "media",
+      "tema": "La madre",
+      "pregunta": "La madre de Juan lo abandona al casarse con su padrastro. ¿Qué nos dice esa decisión sobre la situación de las mujeres en ese contexto?",
+      "opciones": [
+        "Que las mujeres son malas madres",
+        "Que una mujer joven y sin recursos, en ese contexto, tenía pocas opciones: casarse era su forma de sobrevivir",
+        "Que no quería a Juan",
+        "Que el padrastro la obligó"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La autora no juzga a la madre de Juan. La presenta como una mujer joven, sin dinero, sin apoyo. Su decisión de casarse es una decisión de supervivencia, no de falta de amor. La novela es sutil: muestra el abandono sin condenar a la madre.",
+      "pista": "Capítulo 2: cuando la madre se va."
+    },
+    {
+      "id": "c06",
+      "dificultad": "media",
+      "tema": "La cama",
+      "pregunta": "Cuando la madre se va, se lleva la cama que compartía con Juan. ¿Qué simboliza esa acción?",
+      "opciones": [
+        "Que la cama era de ella",
+        "Que no solo se lleva su presencia, sino también el último espacio físico que compartían: el abandono es completo",
+        "Que necesitaba la cama",
+        "Que no había otras camas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El detalle de la cama es brutal. La madre no solo se va: se lleva el objeto donde Juan dormía a su lado. Es un símbolo del abandono total. La autora lo describe sin dramatizar: Juan simplemente se queda sin cama, sin madre, sin nada.",
+      "pista": "Capítulo 2: la escena de la cama."
+    },
+    {
+      "id": "c07",
+      "dificultad": "media",
+      "tema": "El limpiabotas",
+      "pregunta": "Juan aprende a lustrar zapatos y se gana un dólar diario. ¿Por qué la abuela le exige que haga un buen trabajo 'cada vez y todas las veces'?",
+      "opciones": [
+        "Porque quería el dinero",
+        "Porque entiende que su oficio es su dignidad: si hace un buen trabajo, será respetado y podrá ganarse la vida",
+        "Porque era exigente",
+        "Porque quería enseñarle a ser obediente"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La frase de la abuela es una lección de vida: 'Tiene que hacer un buen trabajo cada vez y todas las veces. Si no lo hace, no será capaz de ganarse la vida'. La abuela sabe que el oficio es la dignidad. No importa qué trabajo hagas, sino cómo lo hagas.",
+      "pista": "Capítulo 3: cuando el cliente no queda conforme con el lustrado."
+    },
+    {
+      "id": "c08",
+      "dificultad": "media",
+      "tema": "El deseo de aprender",
+      "pregunta": "Juan aprende a leer solo, preguntando a sus clientes qué dicen los carteles. ¿Por qué esa forma de aprender es significativa?",
+      "opciones": [
+        "Porque era más rápido",
+        "Porque muestra su inteligencia, su curiosidad y su determinación: no espera a que alguien le enseñe, busca el conocimiento",
+        "Porque no tenía otra opción",
+        "Porque los clientes eran profesores"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Juan no es un niño pasivo que espera a que le enseñen. Es curioso, activo, determinado. Aprende a leer solo porque necesita aprender. Esto muestra que la educación no es solo un derecho: es también un deseo profundo del ser humano.",
+      "pista": "Capítulo 4: cuando Juan aprende a leer los carteles."
+    },
+    {
+      "id": "c09",
+      "dificultad": "media",
+      "tema": "La nota de doña Irene",
+      "pregunta": "Doña Irene escribe una nota a la abuela elogiando a Juan. ¿Por qué la abuela no deja que Juan lea la nota en voz alta?",
+      "opciones": [
+        "Porque quería que la leyera la tía Tina",
+        "Porque la nota habla de él, y según la abuela, no es él quien debe leerla: hay algo de humildad y de respeto en eso",
+        "Porque no confiaba en Juan",
+        "Porque la letra era difícil"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela dice: 'Habla de ti, así que no eres tú el que debe leerla'. Es una lección de humildad y también de dignidad. No es que Juan no pueda leerla: es que la abuela quiere que la lea otro, para que Juan escuche las palabras de su maestra sin tener que decirlas él mismo.",
+      "pista": "Capítulo 6: cuando llega la nota de doña Irene."
+    },
+    {
+      "id": "c10",
+      "dificultad": "dificil",
+      "tema": "La abuela y la escuela",
+      "pregunta": "Cuando la abuela era niña, sus padres la escondieron cuando los maestros fueron a inscribir a los niños. ¿Por qué lo hicieron?",
+      "opciones": [
+        "Porque no la querían",
+        "Porque temían que si iba a la escuela no aprendería a trabajar, y el trabajo era su única garantía de supervivencia",
+        "Porque la escuela era muy cara",
+        "Porque no había escuelas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela cuenta: 'Lo hicieron porque temían que si yo iba a la escuela no aprendería a trabajar. Lo hicieron por mi bien, y yo no me quejé nunca, aunque siempre he sabido que fue un error'. Es un momento clave: la abuela reconoce que su educación fue negada por amor mal entendido.",
+      "pista": "Capítulo 6: la confesión de la abuela."
+    },
+    {
+      "id": "c11",
+      "dificultad": "dificil",
+      "tema": "El silencio de la abuela",
+      "pregunta": "En varios momentos del libro, la abuela se queda callada o cambia de tema. ¿Qué revela ese silencio sobre ella?",
+      "opciones": [
+        "Que no le importaba lo que decía Juan",
+        "Que es una mujer que guarda sus emociones más profundas: su amor se muestra en acciones, no en palabras",
+        "Que no sabía qué decir",
+        "Que estaba distraída"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela es una mujer de pocas palabras pero de muchas acciones. Cuando se queda callada, no es indiferencia: es emoción contenida. Su amor por Juan se muestra en lo que hace (le consigue una cama, lo ayuda a instalar su negocio, le exige un buen trabajo), no en lo que dice.",
+      "pista": "Fíjate en los momentos en que la abuela se queda callada (capítulos 3 y 6)."
+    },
+    {
+      "id": "c12",
+      "dificultad": "dificil",
+      "tema": "El padrastro",
+      "pregunta": "El padrastro de Juan es un personaje que nunca aparece directamente, solo es mencionado. ¿Por qué crees que la autora decidió no mostrarlo?",
+      "opciones": [
+        "Porque no sabía cómo describirlo",
+        "Porque su ausencia física refuerza su rol simbólico: es el obstáculo invisible que impide a Juan estar con su madre",
+        "Porque no era importante",
+        "Porque el libro era muy corto"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El padrastro es una presencia negativa, pero no se muestra. Su ausencia física es una decisión literaria: Juan no lo ve, solo ve sus efectos (su madre se va, él se queda sin casa, sin cama). El padrastro es un símbolo del obstáculo, no un personaje con carne.",
+      "pista": "Observa que el padrastro nunca aparece en escena directamente."
+    },
+    {
+      "id": "c13",
+      "dificultad": "dificil",
+      "tema": "La vergüenza",
+      "pregunta": "Juan siente vergüenza cuando ve a los niños que van limpios a la escuela y él está sucio de betún. ¿Qué nos dice esa vergüenza sobre su situación?",
+      "opciones": [
+        "Que era un niño sucio",
+        "Que la pobreza no es solo material: también es una experiencia emocional de exclusión y de no pertenencia",
+        "Que no le gustaba trabajar",
+        "Que quería ser como los otros niños"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La vergüenza de Juan es uno de los momentos más duros del libro. No es solo que trabaje y esté sucio: es que se siente excluido del mundo al que aspira. La pobreza no es solo no tener cosas: es sentirse fuera, sentirse menos. La autora lo dice sin dramatizar.",
+      "pista": "Capítulo 4: cuando Juan mira a los niños que van al colegio."
+    },
+    {
+      "id": "c14",
+      "dificultad": "dificil",
+      "tema": "La petición de Juan",
+      "pregunta": "Juan no pide regalos materiales: pide ir a la escuela. ¿Por qué esa petición es tan poderosa en el contexto del libro?",
+      "opciones": [
+        "Porque la escuela era gratis",
+        "Porque pide algo que no es un objeto sino una oportunidad, y en un contexto de pobreza, la educación es el único camino de transformación",
+        "Porque era lo que pedían todos los niños",
+        "Porque quería estar con otros niños"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La petición de Juan es simbólica. No pide juguetes, ropa, comida. Pide educación. En un contexto donde el trabajo infantil es la norma, pedir ir a la escuela es un acto de rebeldía y de esperanza. Es la petición más poderosa del libro.",
+      "pista": "Capítulo 4: cuando Juan decide preguntarle a la abuela."
+    },
+    {
+      "id": "c15",
+      "dificultad": "dificil",
+      "tema": "El arroz con leche",
+      "pregunta": "El arroz con leche de la abuela es especial: 'no se come con cuchara, se bebe caliente en un vaso'. ¿Qué función tiene este detalle en la historia?",
+      "opciones": [
+        "Es solo una receta",
+        "Es un elemento de identidad: representa la tradición familiar, el oficio de la abuela, y el orgullo de hacer algo único y bien hecho",
+        "Es una costumbre de Guatemala",
+        "Es un detalle sin importancia"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El arroz con leche es un símbolo. La abuela no hace cualquier arroz con leche: hace el mejor del pueblo. Se levanta a las cinco de la mañana. Lo hace desde los trece años. Es su oficio, su identidad, su orgullo. Y ese orgullo es lo que le enseña a Juan.",
+      "pista": "Capítulo 1: la descripción del arroz con leche."
+    },
+    {
+      "id": "c16",
+      "dificultad": "dificil",
+      "tema": "La escuela y el trabajo",
+      "pregunta": "Cuando Juan entra a la escuela, sigue trabajando como limpiabotas por las tardes. ¿Qué nos dice eso sobre la realidad de muchos niños en el mundo?",
+      "opciones": [
+        "Que era muy trabajador",
+        "Que la educación no siempre libera del trabajo infantil: para muchos niños, estudiar y trabajar son actividades simultáneas, no excluyentes",
+        "Que quería ganar más dinero",
+        "Que la escuela era solo por la mañana"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Juan va a la escuela de ocho a dos, y después limpia zapatos. Su realidad refleja la de millones de niños en el mundo: la educación no reemplaza el trabajo, se suma a él. La autora muestra esto sin moraleja, solo como un hecho.",
+      "pista": "Capítulo 5: la rutina de Juan después de entrar a la escuela."
+    },
+    {
+      "id": "c17",
+      "dificultad": "dificil",
+      "tema": "El deseo de aprender",
+      "pregunta": "Juan dice: 'Algunas veces me pregunto si mi abuela me querría de verdad o solo porque gano dinero para ella'. ¿Qué revela esa duda sobre Juan?",
+      "opciones": [
+        "Que no confiaba en su abuela",
+        "Que su experiencia de abandono lo ha dejado inseguro: teme que el amor sea condicional, y necesita asegurarse de que es querido por sí mismo",
+        "Que era un niño desconfiado",
+        "Que su abuela le daba poco dinero"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Juan ha sido abandonado por su padre, por su madre, por su padrastro. Es natural que dude del amor de su abuela. Su duda no es un defecto: es una herida. La autora muestra cómo el abandono deja marcas profundas en la autoestima de un niño.",
+      "pista": "Capítulo 4: cuando Juan duda del amor de la abuela."
+    },
+    {
+      "id": "c18",
+      "dificultad": "dificil",
+      "tema": "El papel de Roberto",
+      "pregunta": "Roberto es un amigo de Juan, huérfano, que vive en la calle. ¿Qué función tiene este personaje en la historia?",
+      "opciones": [
+        "Es un personaje decorativo",
+        "Muestra otra realidad infantil: la de los niños que no tienen ni siquiera una abuela, y ayuda a Juan a valorar lo que sí tiene",
+        "Es un compañero de trabajo",
+        "Es el mejor amigo de Juan"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Roberto es un espejo. Juan, que se siente abandonado, conoce a alguien que está aún más solo que él. Roberto no tiene a nadie. Su presencia ayuda a Juan a valorar lo que tiene: una abuela, un techo, un oficio. La comparación es implícita, no moralizante.",
+      "pista": "Capítulo 4: cuando Juan le pide a Roberto que le cuide la caja."
+    },
+    {
+      "id": "c19",
+      "dificultad": "muy_dificil",
+      "tema": "La construcción del personaje",
+      "pregunta": "Juan no se presenta como un niño triste, aunque tiene razones para estarlo. ¿Cómo logra la autora que Juan sea un personaje resiliente y no un personaje víctima?",
+      "opciones": [
+        "Haciendo que Juan no sienta nada",
+        "Mostrando su dolor, pero también su curiosidad, su capacidad de asombro, su sentido del humor y su deseo de aprender: Juan siente pero no se rinde",
+        "Haciendo que todo le salga bien",
+        "Ignorando sus problemas"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Este es uno de los mayores logros de Ann Cameron. Juan no es un personaje triste que solo sufre. Es un niño que sufre, sí, pero también se asombra, aprende, ríe, trabaja bien, quiere a su abuela. La resiliencia no es no sentir dolor: es sentir dolor y seguir adelante.",
+      "pista": "Piensa en los momentos de alegría de Juan: cuando aprende a leer, cuando lustra bien un zapato, cuando descubre el lago."
+    },
+    {
+      "id": "c20",
+      "dificultad": "muy_dificil",
+      "tema": "El punto de vista",
+      "pregunta": "El libro está narrado por Juan, un niño de siete años. Pero hay momentos en que su voz suena mayor, más sabia. ¿Cómo se explica esto sin que parezca un error?",
+      "opciones": [
+        "Es un error de la autora",
+        "Porque es un adulto recordando su infancia, o porque la autora le presta su voz en los momentos más reflexivos: es una voz infantil pero con profundidad",
+        "Porque Juan era muy inteligente",
+        "Porque la autora no sabía escribir como niño"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Este es un tema literario interesante. La voz de Juan es infantil, pero en algunos momentos reflexiona con una sabiduría que parece adulta. Esto puede leerse como un adulto recordando, o como la voz de la autora filtrándose. Es un recurso frecuente en la literatura infantil y le da al libro su profundidad.",
+      "pista": "Compara cómo habla Juan cuando describe una escena y cuando reflexiona sobre la vida."
+    },
+    {
+      "id": "c21",
+      "dificultad": "muy_dificil",
+      "tema": "La abuela como maestra",
+      "pregunta": "La abuela no fue a la escuela, pero es la verdadera maestra de Juan. ¿Qué le enseña que ninguna escuela podría enseñarle?",
+      "opciones": [
+        "A leer y escribir",
+        "La dignidad del trabajo bien hecho, la importancia de luchar por lo que uno quiere, y el valor de la humildad",
+        "A hacer arroz con leche",
+        "A ahorrar dinero"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela es la maestra más importante de Juan. Le enseña que el trabajo bien hecho es dignidad, que hay que luchar por lo que uno quiere ('Tienes que luchar por tus cosas, y no importa si pierdes'), y que la humildad es una forma de grandeza. Son lecciones que no están en ningún libro de texto.",
+      "pista": "Capítulos 3 y 4: las lecciones de la abuela."
+    },
+    {
+      "id": "c22",
+      "dificultad": "muy_dificil",
+      "tema": "La estructura del libro",
+      "pregunta": "El libro tiene siete capítulos y cada uno marca un momento del crecimiento de Juan. ¿Cuál es el momento en que Juan 'crece' y deja de ser solo un niño abandonado?",
+      "opciones": [
+        "Cuando su madre se va",
+        "Cuando decide preguntarle a la abuela si puede ir a la escuela, a pesar del miedo al rechazo",
+        "Cuando aprende a leer",
+        "Cuando conoce a Roberto"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El momento en que Juan decide preguntarle a la abuela es su primer acto verdaderamente adulto. No es un capricho: es una decisión que implica valentía, porque teme la respuesta. Juan arriesga el rechazo para pedir algo que quiere profundamente. Ese es su primer paso hacia la autonomía.",
+      "pista": "Capítulo 4: cuando Juan se arma de valor para hablar con la abuela."
+    },
+    {
+      "id": "c23",
+      "dificultad": "muy_dificil",
+      "tema": "El significado del título",
+      "pregunta": "El título del libro es 'El lugar más bonito del mundo'. ¿Qué significa esa frase en el contexto del libro?",
+      "opciones": [
+        "Es el pueblo de Juan",
+        "Es cualquier lugar donde puedas llevar la cabeza alta y estar orgulloso de ti mismo, sin importar dónde estés",
+        "Es la casa de la abuela",
+        "Es el mercado donde trabaja Juan"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La abuela le dice a Juan: 'El lugar más bonito del mundo puede ser cualquiera, cualquiera en el que puedas llevar la cabeza alta y en el que te puedas mostrar orgulloso de ti mismo'. La frase es la clave del libro: el lugar no es geográfico, es emocional. Es donde uno se siente digno.",
+      "pista": "Capítulo 6: la conversación final entre Juan y la abuela frente a la foto de San Pablo."
+    },
+    {
+      "id": "c24",
+      "dificultad": "muy_dificil",
+      "tema": "El final",
+      "pregunta": "El libro termina con la conversación entre Juan y la abuela sobre el lugar más bonito del mundo. ¿Por qué ese final y no, por ejemplo, con Juan en la escuela?",
+      "opciones": [
+        "Porque el libro se quedó sin páginas",
+        "Porque el tema central del libro no es la escuela, sino la dignidad: la escuela es el medio, pero el fin es aprender a llevar la cabeza alta",
+        "Porque era más fácil de escribir",
+        "Porque la escuela no era importante"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El final no es sobre la escuela: es sobre la dignidad. Juan ya consiguió lo que quería (ir a la escuela). Pero el libro no termina ahí, porque ese no es el punto. El punto es que Juan aprendió algo más importante: que el lugar más bonito del mundo es donde puede estar orgulloso de sí mismo.",
+      "pista": "Piensa en qué aprende Juan más allá de la escuela."
+    },
+    {
+      "id": "c25",
+      "dificultad": "muy_dificil",
+      "tema": "La justicia social",
+      "pregunta": "El libro retrata un mundo donde los niños trabajan y las mujeres jóvenes se casan para sobrevivir. ¿Qué postura toma la autora frente a esa realidad?",
+      "opciones": [
+        "La denuncia abiertamente",
+        "La muestra sin juzgar: no la justifica, pero tampoco moraliza. Deja que el lector saque sus conclusiones",
+        "La acepta como normal",
+        "La ignora"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Ann Cameron es una autora sutil. No hace panfletos. Muestra la realidad sin adornos y sin juicios. No dice 'esto está mal': simplemente cuenta cómo es. Esa contención hace que el libro sea más potente que cualquier denuncia explícita. El lector saca sus propias conclusiones.",
+      "pista": "Piensa en cómo describe la autora la pobreza, el abandono, el trabajo infantil."
+    },
+    {
+      "id": "c26",
+      "dificultad": "muy_dificil",
+      "tema": "La comunidad",
+      "pregunta": "La casa de la abuela está siempre llena: tíos, primos, sobrinos, todos vienen cuando tienen problemas. ¿Qué dice esto sobre la comunidad en el libro?",
+      "opciones": [
+        "Que la casa era grande",
+        "Que la comunidad funciona como una red de apoyo: cuando alguien cae, la familia lo sostiene, aunque a veces la abuela esté cansada",
+        "Que la abuela era rica",
+        "Que todos eran parientes"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La casa de la abuela es un símbolo de la comunidad. No es solo una casa: es un refugio. Los que caen, van. La abuela sostiene a todos, aunque a veces le gustaría que se fueran. Esta red de apoyo es lo opuesto al abandono que sufre Juan de sus padres.",
+      "pista": "Capítulo 1: la descripción de la casa de la abuela."
+    },
+    {
+      "id": "c27",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis del lenguaje",
+      "pregunta": "La autora usa frases cortas y un lenguaje sencillo. ¿Qué efecto tiene ese estilo en la narración?",
+      "opciones": [
+        "Que el libro sea para niños pequeños",
+        "Que la historia se sienta inmediata, honesta, sin adornos: como si Juan nos hablara directamente, sin filtros",
+        "Que sea aburrido",
+        "Que sea más fácil de traducir"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El estilo de Ann Cameron es directo y limpio. Frases cortas, palabras simples. Esto hace que la voz de Juan suene auténtica: no es un adulto disfrazado de niño, es un niño contando su vida. La sencillez del estilo no es simpleza: es una elección literaria muy consciente.",
+      "pista": "Lee cualquier párrafo en voz alta: el ritmo es corto, seco, honesto."
+    },
+    {
+      "id": "c28",
+      "dificultad": "muy_dificil",
+      "tema": "La evolución del personaje",
+      "pregunta": "Al inicio del libro, Juan es un niño abandonado que no sabe qué hacer con su vida. Al final, es un niño que trabaja, estudia y se siente orgulloso. ¿Qué produjo ese cambio?",
+      "opciones": [
+        "La suerte",
+        "La combinación de su propio esfuerzo (aprender a leer solo, trabajar bien) y el apoyo de su abuela (que lo acoge, le enseña, le da un oficio)",
+        "El dinero que ganó",
+        "La escuela"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El cambio de Juan no es mágico. Es el resultado de dos fuerzas: su propio esfuerzo y el apoyo de su abuela. Juan no se salvó solo, pero tampoco fue salvado: fue acompañado. Esta es una lección importante: la resiliencia no es individual, es relacional.",
+      "pista": "Compara a Juan del capítulo 1 (cuando llega a la casa de la abuela) con Juan del capítulo 6 (al final del libro)."
+    },
+    {
+      "id": "c29",
+      "dificultad": "muy_dificil",
+      "tema": "Reflexión sobre el título",
+      "pregunta": "Si tuvieras que decir en una frase de qué trata realmente este libro, ¿cuál elegirías?",
+      "opciones": [
+        "Un niño que quiere ir a la escuela",
+        "Un niño que descubre, con ayuda de su abuela, que la dignidad no depende de las circunstancias, sino de la forma en que uno vive",
+        "Un niño que trabaja como limpiabotas",
+        "Un niño que pierde a su madre"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Este es un ejercicio de síntesis. El libro trata sobre muchas cosas, pero el tema central es la dignidad. Juan aprende que, aunque sea pobre, aunque su madre lo haya abandonado, aunque trabaje limpiando zapatos, puede vivir con la cabeza alta si hace las cosas bien. Ese es el mensaje del libro.",
+      "pista": "Piensa en las últimas palabras de la abuela a Juan."
+    },
+    {
+      "id": "c30",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis comparativo",
+      "pregunta": "Compara a la madre de Juan con la abuela. Ambas son mujeres, ambas pobres. ¿Por qué una abandona y la otra acoge?",
+      "opciones": [
+        "Porque la madre era mala y la abuela buena",
+        "Porque la diferencia no es moral sino de recursos y experiencia: la madre es joven, sin apoyo, sin oficio; la abuela tiene un oficio, una casa, una red familiar y años de experiencia",
+        "Porque la abuela tenía más dinero",
+        "Porque la madre no quería a Juan"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Este es un análisis sutil. No se trata de buenos y malos. La madre abandona porque no tiene recursos: es joven, sin oficio, sin casa propia. La abuela acoge porque tiene un oficio, una casa, una red familiar. La diferencia no es de amor, es de condiciones. Esta lectura evita juzgar a la madre y enriquece la comprensión del libro.",
+      "pista": "Vuelve a leer la descripción de la madre joven y la descripción de la abuela."
+    }
+  ]
+}

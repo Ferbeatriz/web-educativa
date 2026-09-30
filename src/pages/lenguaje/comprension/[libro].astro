@@ -8,12 +8,23 @@ import bancoComprensionManu from '../../../data/materias/lenguaje/lecturas/la-hi
 import bancoDesarrolloManu from '../../../data/materias/lenguaje/lecturas/la-historia-de-manu/banco-desarrollo.json';
 import bancoRelecturaManu from '../../../data/materias/lenguaje/lecturas/la-historia-de-manu/banco-relectura.json';
 
+import metaLugar from '../../../data/materias/lenguaje/lecturas/el-lugar-mas-bonito-del-mundo/meta.json';
+import bancoComprensionLugar from '../../../data/materias/lenguaje/lecturas/el-lugar-mas-bonito-del-mundo/banco-comprension.json';
+import bancoDesarrolloLugar from '../../../data/materias/lenguaje/lecturas/el-lugar-mas-bonito-del-mundo/banco-desarrollo.json';
+import bancoRelecturaLugar from '../../../data/materias/lenguaje/lecturas/el-lugar-mas-bonito-del-mundo/banco-relectura.json';
+
 const datosLibros = {
   'la-historia-de-manu': {
     meta: metaManu,
     bancoComprension: bancoComprensionManu.preguntas,
     bancoDesarrollo: bancoDesarrolloManu.preguntas,
     bancoRelectura: bancoRelecturaManu.desafios,
+  },
+  'el-lugar-mas-bonito-del-mundo': {
+    meta: metaLugar,
+    bancoComprension: bancoComprensionLugar.preguntas,
+    bancoDesarrollo: bancoDesarrolloLugar.preguntas,
+    bancoRelectura: bancoRelecturaLugar.desafios,
   },
 };
 
@@ -36,7 +47,6 @@ if (!libroActivo || !datosLibros[libroId]) {
 const datos = datosLibros[libroId];
 const meta = datos.meta;
 
-// Datos que se pasan al cliente vía define:vars
 const datosParaElCliente = {
   libroId,
   libroTitulo: meta.titulo,
@@ -49,7 +59,6 @@ const datosParaElCliente = {
 
 <Layout titulo={`${meta.titulo} — Comprensión lectora`}>
   <main class="pagina-libro">
-    <!-- Portada del libro -->
     <header class="portada">
       <a href="/lenguaje" class="volver">← Volver al Club de Lectura</a>
 
@@ -89,12 +98,10 @@ const datosParaElCliente = {
       </div>
     </header>
 
-    <!-- Datos para el cliente (via define:vars, sin escape HTML) -->
     <script is:inline define:vars={{ datosParaElCliente }}>
       window.__CUESTIONARIO_DATOS__ = datosParaElCliente;
     </script>
 
-    <!-- Cuestionario aleatorio -->
     <CuestionarioAleatorio
       libroId={libroId}
       libroTitulo={meta.titulo}

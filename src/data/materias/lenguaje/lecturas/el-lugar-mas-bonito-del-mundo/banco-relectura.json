@@ -1,0 +1,145 @@
+{
+  "libro": "el-lugar-mas-bonito-del-mundo",
+  "tipo": "relectura",
+  "total_desafios": 10,
+  "distribucion": {
+    "media": 3,
+    "dificil": 4,
+    "muy_dificil": 3
+  },
+  "desafios": [
+    {
+      "id": "r01",
+      "dificultad": "media",
+      "tema": "Mapa del pueblo",
+      "titulo": "El mapa de San Pablo",
+      "instrucciones": [
+        "Dibuja un mapa simple de San Pablo, el pueblo de Juan.",
+        "Marca los lugares que aparecen en el libro: la casa de la abuela, el mercado, la Oficina de Turismo, el lago, el colegio, la casa de la madre.",
+        "Al lado de cada lugar, escribe una frase sobre lo que ocurre ahí en la historia."
+      ],
+      "pista": "Puedes encontrar las descripciones en los capítulos 1, 3 y 4.",
+      "entregable": "Dibujo del mapa con anotaciones"
+    },
+    {
+      "id": "r02",
+      "dificultad": "media",
+      "tema": "Los personajes",
+      "titulo": "Ficha de personajes",
+      "instrucciones": [
+        "Elige cuatro personajes del libro (Juan, la abuela, la madre, Roberto, la tía Tina).",
+        "Para cada uno, completa una ficha con: nombre, rol en la historia, dos características, un momento importante.",
+        "Al final, escribe una frase sobre cómo ese personaje influye en la vida de Juan."
+      ],
+      "pista": "Puedes buscar en todo el libro.",
+      "entregable": "Cuatro fichas completas"
+    },
+    {
+      "id": "r03",
+      "dificultad": "media",
+      "tema": "Los objetos",
+      "titulo": "Los objetos importantes",
+      "instrucciones": [
+        "En el libro hay varios objetos con significado: la cama, la caja de limpiabotas, el arroz con leche, la caja de hierro de la abuela.",
+        "Elige tres objetos y escribe: qué son, dónde aparecen, y qué significan para Juan.",
+        "Al final, dibuja uno de los objetos."
+      ],
+      "pista": "Puedes buscar en los capítulos 1, 2 y 3.",
+      "entregable": "Análisis de tres objetos + un dibujo"
+    },
+    {
+      "id": "r04",
+      "dificultad": "dificil",
+      "tema": "El trabajo",
+      "titulo": "La ruta del limpiabotas",
+      "instrucciones": [
+        "Juan trabaja como limpiabotas en varios lugares: junto a la Oficina de Turismo, en el mercado, en la calle.",
+        "Dibuja una ruta con esos lugares.",
+        "Al lado de cada uno, escribe qué tipo de clientes tiene y qué aprende ahí."
+      ],
+      "pista": "Puedes encontrar la información en los capítulos 3 y 4.",
+      "entregable": "Ruta dibujada con anotaciones"
+    },
+    {
+      "id": "r05",
+      "dificultad": "dificil",
+      "tema": "Los sueños",
+      "titulo": "Los sueños de Juan",
+      "instrucciones": [
+        "Juan tiene varios sueños a lo largo del libro: aprender a leer, ir a la escuela, ser alguien en la vida.",
+        "Escribe cada sueño y en qué momento aparece.",
+        "Al final, escribe un párrafo sobre si esos sueños se cumplen o no, y cómo."
+      ],
+      "pista": "Puedes encontrar la información en el capítulo 4 y el capítulo 6.",
+      "entregable": "Lista de sueños + párrafo de análisis"
+    },
+    {
+      "id": "r06",
+      "dificultad": "dificil",
+      "tema": "Las comparaciones",
+      "titulo": "La abuela y la madre",
+      "instrucciones": [
+        "La abuela y la madre de Juan son dos mujeres muy distintas.",
+        "Haz un cuadro comparativo con dos columnas: 'Abuela' y 'Madre'.",
+        "En cada columna, escribe: edad aproximada, situación económica, oficio, forma de relacionarse con Juan.",
+        "Al final, escribe un párrafo reflexionando: ¿por qué una abandona y la otra acoge?"
+      ],
+      "pista": "Puedes encontrar la información en los capítulos 1 y 2.",
+      "entregable": "Cuadro comparativo + párrafo de reflexión"
+    },
+    {
+      "id": "r07",
+      "dificultad": "dificil",
+      "tema": "El aprendizaje",
+      "titulo": "El cuaderno de Juan",
+      "instrucciones": [
+        "Imagina que Juan lleva un cuaderno donde anota todo lo que aprende.",
+        "Escribe cinco 'apuntes' que Juan habría hecho: uno sobre el trabajo, uno sobre la abuela, uno sobre la escuela, uno sobre la pobreza, uno sobre la dignidad.",
+        "Cada apunte debe estar escrito con la voz de Juan."
+      ],
+      "pista": "Usa todo lo que sabes del personaje.",
+      "entregable": "Cinco apuntes escritos con la voz de Juan"
+    },
+    {
+      "id": "r08",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis profundo",
+      "titulo": "Juan: la construcción del personaje",
+      "instrucciones": [
+        "Juan cambia durante el libro.",
+        "Elige cuatro momentos: uno del inicio, uno de la mitad, uno antes del final, y uno del final.",
+        "Para cada momento, describe: cómo es Juan, qué piensa, qué siente, qué aprende.",
+        "Al final, escribe un párrafo sobre cómo cambió Juan del principio al final."
+      ],
+      "pista": "Relee todo el libro prestando atención a las emociones de Juan.",
+      "entregable": "Cuatro fichas + párrafo de síntesis"
+    },
+    {
+      "id": "r09",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis cultural",
+      "titulo": "Guatemala y los volcanes",
+      "instrucciones": [
+        "El libro está ambientado en Guatemala, un país de Centroamérica con volcanes y lagos.",
+        "Investiga: ¿dónde está Guatemala? ¿Cómo es su geografía? ¿Qué pueblos indígenas viven ahí?",
+        "Dibuja un mapa simple de Guatemala, marcando la capital y los volcanes.",
+        "Escribe tres cosas que aprendiste sobre Guatemala al leer el libro."
+      ],
+      "pista": "Puedes usar internet o una enciclopedia.",
+      "entregable": "Mapa + tres aprendizajes"
+    },
+    {
+      "id": "r10",
+      "dificultad": "muy_dificil",
+      "tema": "Escritura creativa",
+      "titulo": "La carta de Juan",
+      "instrucciones": [
+        "Imagina que Juan, ya adulto, le escribe una carta a su abuela contándole lo que hizo con su vida.",
+        "La carta debe mencionar: el oficio de limpiabotas, la escuela, el arroz con leche, la frase 'el lugar más bonito del mundo'.",
+        "Escribe la carta con la voz de Juan adulto, agradecido."
+      ],
+      "pista": "Usa todo lo que sabes del personaje.",
+      "entregable": "Carta de una página"
+    }
+  ]
+}

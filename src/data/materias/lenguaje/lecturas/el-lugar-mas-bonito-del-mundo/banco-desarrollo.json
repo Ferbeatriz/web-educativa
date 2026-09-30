@@ -1,0 +1,207 @@
+{
+  "libro": "el-lugar-mas-bonito-del-mundo",
+  "tipo": "desarrollo",
+  "total_preguntas": 15,
+  "distribucion": {
+    "media": 5,
+    "dificil": 6,
+    "muy_dificil": 4
+  },
+  "preguntas": [
+    {
+      "id": "d01",
+      "dificultad": "media",
+      "tema": "La abuela",
+      "pregunta": "La abuela es una figura central en la vida de Juan. ¿Qué tres cosas le enseña? Describe cada una con un ejemplo del libro.",
+      "criterios": [
+        "Menciona al menos tres enseñanzas distintas",
+        "Da un ejemplo concreto del libro para cada una",
+        "Reflexiona sobre por qué esas enseñanzas son importantes",
+        "No se limita a resumir la historia"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d02",
+      "dificultad": "media",
+      "tema": "La madre",
+      "pregunta": "La madre de Juan lo abandona. ¿Crees que fue una decisión egoísta o una decisión de supervivencia? Explica tu respuesta con razones del libro.",
+      "criterios": [
+        "Reconoce el abandono como hecho central",
+        "Reflexiona sobre el contexto de la madre (joven, sin recursos)",
+        "Toma una postura fundamentada (no solo 'es mala' o 'es buena')",
+        "Menciona al menos un detalle del libro"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d03",
+      "dificultad": "media",
+      "tema": "El trabajo",
+      "pregunta": "Juan trabaja como limpiabotas desde los siete años. ¿Qué opinas del trabajo infantil? ¿Crees que hay casos en que es necesario?",
+      "criterios": [
+        "Reconoce el trabajo infantil como una realidad del libro",
+        "Reflexiona sobre el contexto (pobreza, falta de opciones)",
+        "Toma una postura fundamentada",
+        "Diferencia entre trabajo formativo y explotación"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d04",
+      "dificultad": "media",
+      "tema": "El deseo de aprender",
+      "pregunta": "Juan aprende a leer solo, preguntando a sus clientes. ¿Qué nos dice eso sobre su carácter? ¿Conoces a alguien con esa determinación?",
+      "criterios": [
+        "Reconoce la determinación de Juan",
+        "Menciona el método que usó para aprender (preguntar a clientes)",
+        "Comparte una observación propia o conocida",
+        "Reflexiona sobre el valor de la curiosidad"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d05",
+      "dificultad": "media",
+      "tema": "El significado del título",
+      "pregunta": "¿Qué crees que significa la frase 'el lugar más bonito del mundo' según la abuela? ¿Estás de acuerdo?",
+      "criterios": [
+        "Cita la definición de la abuela",
+        "Explica con sus propias palabras qué significa",
+        "Toma una postura personal fundamentada",
+        "Menciona al menos un momento del libro que ilustre su respuesta"
+      ],
+      "extension": "5 a 8 oraciones"
+    },
+    {
+      "id": "d06",
+      "dificultad": "dificil",
+      "tema": "La dignidad",
+      "pregunta": "La abuela le dice a Juan: 'Lo que tienes que hacer es hacerlo todo de la mejor manera que puedas'. ¿Qué relación tiene esa frase con la dignidad?",
+      "criterios": [
+        "Explica qué significa 'dignidad' en el contexto del libro",
+        "Relaciona la frase de la abuela con el trabajo de Juan",
+        "Reflexiona sobre la diferencia entre hacer las cosas bien y hacerlas para ser visto",
+        "Menciona un ejemplo del libro"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d07",
+      "dificultad": "dificil",
+      "tema": "El abandono",
+      "pregunta": "Juan es abandonado por su padre primero y por su madre después. ¿Cómo crees que esas experiencias lo marcaron? ¿Qué hace para sobreponerse?",
+      "criterios": [
+        "Reconoce los dos abandonos",
+        "Reflexiona sobre las secuelas emocionales (inseguridad, duda del amor de la abuela)",
+        "Menciona las estrategias de Juan para sobreponerse (trabajo, aprendizaje, relación con la abuela)",
+        "No reduce el personaje a 'pobrecito'"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d08",
+      "dificultad": "dificil",
+      "tema": "La escuela",
+      "pregunta": "Juan dice que quiere ir a la escuela 'para aprender a leer y ser alguien en la vida'. ¿Qué significa 'ser alguien' en su contexto?",
+      "criterios": [
+        "Reconoce la frase de Juan",
+        "Reflexiona sobre qué significa 'ser alguien' en un contexto de pobreza",
+        "Relaciona con el deseo de dignidad, no solo de conocimiento",
+        "Reflexiona sobre el valor social de la educación"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d09",
+      "dificultad": "dificil",
+      "tema": "Roberto",
+      "pregunta": "Roberto es un amigo huérfano de Juan que vive en la calle. ¿Qué función tiene este personaje? ¿Qué nos dice su presencia sobre la realidad de los niños en situación de calle?",
+      "criterios": [
+        "Reconoce a Roberto como personaje secundario",
+        "Reflexiona sobre su función narrativa (espejo de Juan)",
+        "Reflexiona sobre la realidad social que representa",
+        "Menciona al menos una escena donde aparece"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d10",
+      "dificultad": "dificil",
+      "tema": "El oficio",
+      "pregunta": "La abuela le enseña a Juan el oficio de limpiabotas. ¿Por qué crees que el oficio, para la abuela, es más que un trabajo?",
+      "criterios": [
+        "Reconoce la enseñanza del oficio",
+        "Reflexiona sobre la relación entre oficio y dignidad",
+        "Menciona la frase 'un buen trabajo cada vez y todas las veces'",
+        "Reflexiona sobre el valor del trabajo bien hecho"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d11",
+      "dificultad": "dificil",
+      "tema": "La abuela y la escuela",
+      "pregunta": "La abuela nunca fue a la escuela porque sus padres la escondieron. ¿Qué consecuencias tuvo eso en su vida? ¿Por qué decidió que Juan sí fuera?",
+      "criterios": [
+        "Reconoce la historia de la abuela",
+        "Reflexiona sobre las consecuencias (analfabetismo, limitaciones)",
+        "Explica la decisión de la abuela (no repetir el error)",
+        "Menciona el momento en que la abuela llora al contarlo"
+      ],
+      "extension": "6 a 10 oraciones"
+    },
+    {
+      "id": "d12",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis literario",
+      "pregunta": "El libro está narrado por Juan, un niño de siete años. Pero en algunos momentos su voz suena más adulta. ¿Cómo explicarías esa mezcla? ¿Le quita o le suma al libro?",
+      "criterios": [
+        "Reconoce la mezcla de voces",
+        "Propone al menos dos explicaciones (autor adulto recordando, voz de la autora filtrándose)",
+        "Toma una postura sobre si suma o resta",
+        "Argumenta con ejemplos del libro"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d13",
+      "dificultad": "muy_dificil",
+      "tema": "Análisis profundo",
+      "pregunta": "El título del libro es 'El lugar más bonito del mundo'. ¿Crees que el libro responde a la pregunta de cuál es ese lugar? ¿O la deja abierta?",
+      "criterios": [
+        "Reconoce la pregunta del título",
+        "Reflexiona sobre las posibles respuestas (la casa de la abuela, el pueblo, cualquier lugar donde uno esté orgulloso)",
+        "Toma una postura fundamentada",
+        "Conecta con el final del libro"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d14",
+      "dificultad": "muy_dificil",
+      "tema": "Reflexión personal",
+      "pregunta": "Después de leer este libro, ¿qué te llevas? ¿Cambió algo en tu forma de ver la pobreza, el trabajo o la familia?",
+      "criterios": [
+        "Reflexiona sobre el impacto del libro en sí misma",
+        "Menciona al menos una idea central que se lleva",
+        "Comparte una reflexión personal genuina",
+        "Relaciona el libro con su propia vida o visión del mundo"
+      ],
+      "extension": "8 a 12 oraciones"
+    },
+    {
+      "id": "d15",
+      "dificultad": "muy_dificil",
+      "tema": "Escritura creativa",
+      "pregunta": "Imagina que eres Juan, diez años después. ¿Qué habrá pasado con él? ¿Fue a la universidad? ¿Volvió a su pueblo? ¿Qué pasó con la abuela? Escribe un pequeño relato sobre el futuro de Juan.",
+      "criterios": [
+        "Se mantiene coherente con el personaje de Juan",
+        "Considera su contexto (Guatemala, pueblo, familia)",
+        "Menciona al menos un personaje secundario (la abuela, Roberto, la madre)",
+        "Usa un lenguaje adecuado al tono del libro"
+      ],
+      "extension": "10 a 15 oraciones"
+    }
+  ]
+}

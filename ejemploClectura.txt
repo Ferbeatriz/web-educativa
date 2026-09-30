@@ -1,0 +1,708 @@
+quiero que ahora siguiendo los mismos procedimientos pedagógicos me ayudes a construir un cuestionario o ayuda para estudiar la comprensión de lectura del libro que te adjunto. Actúa como un connotado profesor experto en comprensión de lectura y hazme una propuesta, para agregar en el módulo de lenguaje, ejercicios, formas o alguna estrategía para que las alumnas se entrenen en la comprensión del texto, quiero que sea de un nivel avanzado o difícil, que no sean prguntas sólo de memorirazión, si no de compresnión del texto, inlcuoso con detalles.
+📚 Propuesta pedagógica: Comprensión lectora avanzada
+"La historia de Manú" — Ana María del Río
+Antes de armar el JSON, te dejo la propuesta pedagógica completa. Es un material distinto a los cursos Selk'nam y Ojo de Horus: aquí no hay contenido narrativo, hay ejercicios de comprensión lectora. Necesitamos diseñar una estructura nueva que se adapte al módulo de Lenguaje.
+
+🎯 Enfoque pedagógico
+Nivel: Avanzado
+Las preguntas no son de memorización. Son de:
+
+Inferencia (deducir lo que no está dicho explícitamente)
+
+Interpretación (qué significa tal gesto, tal silencio, tal decisión)
+
+Análisis (por qué la autora escribió algo de cierta manera)
+
+Conexión (relacionar con la vida propia, con otros textos)
+
+Evaluación (juzgar decisiones de los personajes)
+
+Público: niñas de 9-12 años
+"La historia de Manú" es un libro perfecto para esta edad:
+
+Protagonista niña de 7 años (identificación)
+
+Temas profundos (identidad, discriminación, valentía, comunidad)
+
+Lenguaje accesible pero con capas
+
+Ilustraciones de Carmen Cardemil
+
+Autora chilena (Ana María del Río)
+
+📊 Estructura propuesta del módulo
+Propongo 3 tipos de ejercicios que se complementan:
+
+1. Cuestionario de comprensión avanzada (10 preguntas)
+Preguntas de inferencia y análisis, no de memoria. Cada una con:
+
+4 opciones
+
+Respuesta correcta
+
+Explicación
+
+Pista de relectura (dónde buscar la respuesta)
+
+2. Preguntas de desarrollo (5 preguntas abiertas)
+Preguntas que invitan a escribir un párrafo, con:
+
+Enunciado
+
+Qué se espera en la respuesta (criterios)
+
+Extensión sugerida
+
+3. Desafíos de relectura (3 actividades)
+Actividades que vuelven al texto para:
+
+Encontrar detalles específicos
+
+Comparar momentos
+
+Descubrir símbolos o patrones
+
+🔍 Análisis del libro: temas y símbolos
+Antes de escribir las preguntas, identifiqué los temas profundos del libro:
+
+Tema	Dónde aparece
+El sueño como profecía	Manú sueña con la ola antes de ver el mar
+La amistad incondicional	Kunturo, el cóndor
+La discriminación lingüística	Los niños se ríen del aymara
+La tensión campo/ciudad	Chipana vs. Iquique
+El valor de la propia cultura	El papá quiere una escuela en aymara
+La mentira piadosa	Manú miente sobre sus vuelos
+La transformación del padre	De "no puedes ir" a "confío en la ciudad"
+El mar como símbolo	Belleza, peligro, salvación
+La comunidad	Chipana acoge a los evacuados
+La reconciliación	Los niños piden perdón
+Cada pregunta del cuestionario apunta a uno de estos temas.
+
+📝 Propuesta detallada
+1️⃣ CUESTIONARIO DE COMPRENSIÓN AVANZADA (10 preguntas)
+Pregunta 1 — El sueño profético
+
+¿Por qué la autora hace que Manú sueñe con la ola ANTES de haber visto el mar?
+
+a) Porque Manú había leído sobre tsunamis en algún libro.
+b) Porque los sueños de Manú se cumplían, y esto prepara al lector para el momento en que reconoce el peligro real.
+c) Porque su papá le había contado sobre el mar.
+d) Porque era una coincidencia sin importancia.
+
+Respuesta correcta: b)
+Explicación: Los sueños de Manú son un elemento clave del libro. Ya antes había soñado con la sequía y con la luz eléctrica. Al soñar con la ola sin conocer el mar, la autora muestra que Manú tiene un don especial, y prepara al lector para el momento culminante.
+Pista de relectura: Páginas 5 y 16.
+
+Pregunta 2 — El nombre de Kunturo
+
+Manú le pone "Kunturo" al cóndor. ¿Qué nos dice ese nombre sobre la relación entre ambos?
+
+a) Que Manú no sabía cómo se llamaban los cóndores.
+b) Que Manú lo nombra como un igual: "cóndor pequeño" no es un nombre despectivo, es un nombre cariñoso entre amigos.
+c) Que Kunturo era un cóndor de verdad y Manú le tenía miedo.
+d) Que Manú quería tenerlo como mascota.
+
+Respuesta correcta: b)
+Explicación: En aymara, "Kunturo" significa "cóndor pequeño". Manú no lo llama "cóndor" a secas. Le pone un nombre que reconoce su grandeza ("cóndor") y al mismo tiempo su cercanía ("pequeño"). Es un nombre entre iguales.
+Pista de relectura: Página 19.
+
+Pregunta 3 — La risa de los niños
+
+Cuando Manú llega al colegio de Iquique, los niños se ríen de ella. ¿Qué revela esa risa sobre la sociedad que la autora está retratando?
+
+a) Que los niños eran malos por naturaleza.
+b) Que la risa es una reacción natural a lo desconocido, y revela la ignorancia y el prejuicio de quienes no conocen otras culturas.
+c) Que Manú tenía algo raro en la cara.
+d) Que los niños ya la conocían de antes.
+
+Respuesta correcta: b)
+Explicación: La autora no presenta a los niños como villanos. Los presenta como ignorantes: se ríen porque no entienden. Esta es una crítica sutil a la sociedad que discrimina por no conocer. Más adelante, esos mismos niños piden perdón, lo que muestra que la ignorancia se puede superar.
+Pista de relectura: Páginas 23-26.
+
+Pregunta 4 — El nombre de la niña aymara
+
+La niña que traduce para Manú en el colegio nunca recibe un nombre. ¿Por qué crees que la autora decidió no nombrarla?
+
+a) Porque era un personaje sin importancia.
+b) Porque representa a todas las niñas aymaras que han tenido que aprender castellano para sobrevivir en la ciudad.
+c) Porque la autora olvidó ponerle nombre.
+d) Porque su nombre era muy difícil de pronunciar.
+
+Respuesta correcta: b)
+Explicación: Este es un recurso literario: cuando un personaje no tiene nombre, representa a un grupo entero. La niña sin nombre simboliza a todas las personas que han sufrido lo mismo: aprender un idioma ajeno para no quedarse fuera.
+Pista de relectura: Páginas 25-27.
+
+Pregunta 5 — El papá que cambia de opinión
+
+Al comienzo, el papá de Manú se enoja porque quiere ir al colegio en la ciudad. Al final, le dice: "Creo que ahora confío en la ciudad". ¿Qué produjo ese cambio?
+
+a) Que Manú le desobedeció y él se rindió.
+b) Que el alcalde le pidió un favor.
+c) Que la ciudad demostró que podía ser aliada, no enemiga: la evacuación al altiplano unió a ambos mundos.
+d) Que la mamá de Manú lo convenció.
+
+Respuesta correcta: c)
+Explicación: El cambio del papá no es por debilidad ni por presión. Es porque la ciudad se transformó a sus ojos. Cuando los habitantes de Iquique suben al altiplano, el papá de Manú ve que la ciudad puede ser hermana, no enemiga. Su confianza no es ingenua: está basada en la experiencia del tsunami.
+Pista de relectura: Páginas 43-46.
+
+Pregunta 6 — La mentira de Manú
+
+Manú le miente a sus papás sobre sus vuelos con Kunturo. ¿Por qué la autora permite que Manú mienta sin castigarla?
+
+a) Porque la mentira no era importante.
+b) Porque los papás no se dieron cuenta de nada.
+c) Porque la mentira de Manú no era egoísta: era para proteger algo valioso (su amistad con Kunturo y su misión de salvar a la gente).
+d) Porque los niños siempre mienten a esa edad.
+
+Respuesta correcta: c)
+Explicación: La autora no castiga a Manú por mentir porque la mentira no era un engaño egoísta. Era una forma de proteger algo sagrado. Este es un tema profundo: a veces, decir la verdad completa pone en peligro lo más importante. Y Manú elige proteger su amistad y, sin saberlo, su misión salvadora.
+Pista de relectura: Páginas 31-32.
+
+Pregunta 7 — El mar antes y después
+
+El mar aparece dos veces en el libro: cuando Manú lo ve por primera vez y cuando ve el tsunami. ¿Qué simboliza cada uno?
+
+a) El mar siempre es el mismo, solo cambia el clima.
+b) La primera vez simboliza la belleza y el sueño; la segunda vez simboliza la amenaza y el deber.
+c) El mar no tiene símbolo, es solo un lugar.
+d) La primera vez es para asustar a Manú, la segunda para calmarla.
+
+Respuesta correcta: b)
+Explicación: Este es un contraste literario central. El primer mar es azul, luminoso, pacífico: es el mar del sueño, de la belleza, de la madre que lo describe. El segundo mar es oscuro, furioso, mortal: es el mar de la amenaza y del deber. Manú primero lo ama; después lo teme; y finalmente lo comprende.
+Pista de relectura: Páginas 28-30 y 34-36.
+
+Pregunta 8 — "Ser como hermanos"
+
+Al final del libro, cuando la gente de Iquique y de Chipana duerme en la plaza, la autora escribe: "toda la gente de la ciudad y del pueblo de Manú durmió como si fueran hermanos". ¿Qué significa esa frase?
+
+a) Que todos eran parientes.
+b) Que la experiencia compartida del tsunami borró las diferencias entre los dos mundos.
+c) Que estaban muy cansados.
+d) Que los hermanos siempre duermen juntos.
+
+Respuesta correcta: b)
+Explicación: "Como si fueran hermanos" es un símil que dice mucho. No eran hermanos de sangre, pero la experiencia compartida del peligro los transformó. La autora cierra el libro con esta imagen porque el tema central es la unión entre mundos distintos (campo y ciudad, aymara y castellano, ricos y pobres).
+Pista de relectura: Página 46.
+
+Pregunta 9 — La desobediencia de Manú
+
+Manú desobedece a sus papás para ir al colegio. Sin embargo, el libro no la presenta como una niña rebelde sin causa. ¿Cuál es la diferencia?
+
+a) Que Manú pidió perdón al final.
+b) Que Manú desobedeció por un sueño que resultó ser real y salvó a la gente.
+c) Que sus papás eran malos.
+d) Que Manú tenía razón en todo.
+
+Respuesta correcta: b)
+Explicación: Este es un punto clave del libro. La desobediencia de Manú no es capricho: es respuesta a un llamado interior. Ella siente que debe ir al colegio porque su sueño se lo exige. Al final, su desobediencia salva a toda la ciudad. La autora no juzga a Manú: la presenta como alguien que sigue un llamado más grande que las reglas.
+Pista de relectura: Páginas 12-13 y 42-44.
+
+Pregunta 10 — El verdadero regalo de cumpleaños
+
+Manú pide un solo regalo de cumpleaños: ir a la escuela. Al final del libro, su papá acepta. Pero Manú no consigue exactamente lo que pidió. ¿Qué consiguió en realidad?
+
+a) Nada, porque al final no fue al colegio.
+b) Una escuela en aymara para su pueblo.
+c) Algo mucho más grande que una escuela: una comunidad unida, la reconciliación con la ciudad, y la confianza de su padre.
+d) Un cóndor amaestrado.
+
+Respuesta correcta: c)
+Explicación: Este es el clímax temático del libro. Manú pidió algo pequeño (ir al colegio). Lo que recibió fue algo enorme: su sueño se cumplió en una escala más grande. No solo va a poder ir al colegio, sino que su pueblo y la ciudad se unieron, los niños pidieron perdón, y su papá recuperó la confianza. La vida a veces responde a nuestros deseos con algo más grande de lo que pedimos.
+Pista de relectura: Páginas 44-46.
+
+2️⃣ PREGUNTAS DE DESARROLLO (5 preguntas)
+Estas preguntas no tienen una única respuesta. La niña debe escribir un párrafo (o varios). Se evalúan según:
+
+Coherencia con el texto
+
+Profundidad de la reflexión
+
+Uso de ejemplos del libro
+
+Escritura clara
+
+Pregunta 1
+
+Manú le dice a Kunturo: "Sabía que podría contar contigo". ¿Qué significa la confianza en una amistad? Escribe un párrafo sobre una amistad que hayas tenido o que conozcas, y explica por qué se parece (o no) a la amistad entre Manú y Kunturo.
+
+Criterios de evaluación:
+
+Menciona al menos un momento específico del libro
+
+Describe una amistad propia o conocida
+
+Establece una comparación clara
+
+Extensión: 5-8 oraciones
+
+Pregunta 2
+
+El papá de Manú dice al final: "Ya la ciudad no será una enemiga". ¿Por qué crees que antes la veía como enemiga? ¿Qué cambió?
+
+Criterios:
+
+Explica qué temía el papá (que los niños se fueran y el pueblo muriera)
+
+Menciona el tsunami como punto de cambio
+
+Reconoce que los prejuicios se superan con experiencias compartidas
+
+Extensión: 5-8 oraciones
+
+Pregunta 3
+
+En el colegio, los niños se ríen de Manú porque habla aymara. Pero cuando la ven llegar volando sobre Kunturo, no pueden reírse. ¿Qué nos enseña esto sobre cómo tratamos a las personas que son diferentes?
+
+Criterios:
+
+Reconoce el prejuicio inicial
+
+Menciona la transformación (del desprecio a la admiración)
+
+Reflexiona sobre la diferencia entre apariencia y valor
+
+Extensión: 5-8 oraciones
+
+Pregunta 4
+
+Manú tuvo un sueño que se cumplió. ¿Crees que los sueños pueden avisarnos de cosas importantes? ¿Qué sueños has tenido tú que te hayan hecho pensar?
+
+Criterios:
+
+Menciona el sueño de Manú y su cumplimiento
+
+Reflexiona sobre el valor de los sueños
+
+Comparte una experiencia propia o conocida
+
+Extensión: 5-8 oraciones
+
+Pregunta 5
+
+Al final del libro, Manú no consigue exactamente lo que pidió. Pero consigue algo más grande. ¿Te ha pasado algo parecido? ¿Has pedido algo pequeño y recibido algo más grande?
+
+Criterios:
+
+Reconoce la diferencia entre lo pedido y lo recibido en el libro
+
+Reflexiona sobre su propia experiencia
+
+Establece una conexión entre ambas
+
+Extensión: 5-8 oraciones
+
+3️⃣ DESAFÍOS DE RELECTURA (3 actividades)
+Estas actividades vuelven al texto para descubrir detalles.
+
+Desafío 1 — El mapa de los vuelos
+
+Manú vuela con Kunturo a tres lugares: los bofedales, el cerro Dragón (colegio) y el mar. Haz un pequeño mapa con estos tres lugares y escribe qué aprende Manú en cada uno.
+
+Instrucciones:
+
+Dibuja un mapa simple
+
+Marca los tres lugares
+
+Al lado de cada uno, escribe:
+
+Qué ve Manú ahí
+
+Qué siente
+
+Qué aprende
+
+Pista: Puedes encontrar la información en las páginas 20, 24 y 28.
+
+Desafío 2 — Las mentiras y las verdades
+
+Manú miente tres veces en el libro. Encuentra esos momentos y escribe:
+
+¿Qué dice Manú?
+
+¿Por qué miente?
+
+¿Qué habría pasado si hubiera dicho la verdad?
+
+Pista: Busca en las páginas 30, 32 y 44.
+
+Desafío 3 — La palabra "tsunami"
+
+Cuando Manú dice "viene una montaña de agua", la directora del colegio piensa en la palabra "tsunami" y se le "erizan los cabellos". ¿Por qué esa palabra tiene tanto poder?
+
+Instrucciones:
+
+Busca en el diccionario qué significa "tsunami"
+
+Explica por qué la directora reacciona así
+
+Reflexiona: ¿qué diferencia hay entre "montaña de agua" y "tsunami"?
+
+¿Por qué una palabra puede salvar vidas?
+
+Pista: Página 41.
+
+Estructura del JSON propuesta
+Aquí está mi propuesta de cómo estructurar el JSON para que funcione en el módulo de Lenguaje:
+
+json
+{
+  "id": "comprension-la-historia-de-manu",
+  "titulo": "Comprensión lectora: La historia de Manú 📚",
+  "categoria": "Lenguaje",
+  "emoji": "📚",
+  "nivel": "avanzado",
+  "tipo": "comprension_lectora",
+  "libro": {
+    "titulo": "La historia de Manú",
+    "autora": "Ana María del Río",
+    "ilustradora": "Carmen Cardemil",
+    "editorial": "Alfaguara Infantil",
+    "genero": "Novela infantil",
+    "tema_principal": "La identidad, la amistad y el valor de la propia cultura"
+  },
+  "progreso_puntos": 250,
+  "secciones": [
+    {
+      "tipo": "cuestionario",
+      "titulo": "Cuestionario de comprensión avanzada",
+      "descripcion": "10 preguntas de inferencia y análisis. No son de memoria.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "tema": "El sueño profético",
+          "pregunta": "...",
+          "opciones": ["...", "...", "...", "..."],
+          "respuesta_correcta": 1,
+          "explicacion": "...",
+          "pista_relectura": "Páginas 5 y 16"
+        }
+      ]
+    },
+    {
+      "tipo": "desarrollo",
+      "titulo": "Preguntas de desarrollo",
+      "descripcion": "Escribe un párrafo para cada pregunta.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "...",
+          "criterios": ["...", "..."],
+          "extension": "5-8 oraciones"
+        }
+      ]
+    },
+    {
+      "tipo": "relectura",
+      "titulo": "Desafíos de relectura",
+      "descripcion": "Vuelve al texto para descubrir detalles.",
+      "desafios": [
+        {
+          "numero": 1,
+          "titulo": "El mapa de los vuelos",
+          "instrucciones": ["...", "..."],
+          "pista": "..."
+        }
+      ]
+    }
+  ]
+}
+🎯 Lo que necesito que confirmes
+Antes de armar el JSON completo, respóndeme:
+
+1. ¿La propuesta pedagógica te parece adecuada?
+10 preguntas de comprensión avanzada ✅
+
+5 preguntas de desarrollo ✅
+
+3 desafíos de relectura ✅
+
+¿O quieres más preguntas de algún tipo? ¿Menos?
+
+2. ¿El nivel es el correcto?
+Las preguntas son de inferencia y análisis. ¿Son suficientemente desafiantes? ¿O quieres subir/bajar el nivel?
+
+3. ¿Cómo integramos esto en el proyecto?
+Tres opciones:
+
+Opción A — Nueva página específica para comprensión lectora
+
+Crear:
+
+src/pages/comprension-lectora/[libro].astro
+
+Componente CuestionarioComprension.astro
+
+Página específica para "La historia de Manú"
+
+Opción B — Integrarlo al módulo de Lenguaje existente
+
+Guardar el JSON en src/data/materias/lenguaje/lecturas/la-historia-de-manu.json
+
+Reutilizar el componente TriviaQuiz.astro para el cuestionario
+
+Crear un componente nuevo DesarrolloPreguntas.astro para las preguntas abiertas
+
+Opción C — Curso especial "Club de Lectura"
+
+Similar a los cursos Ojo de Horus y Selk'nam
+
+Cada libro es un "capítulo"
+
+Los ejercicios son parte de la estructura del curso
+
+Mi recomendación: Opción B. Es lo más simple y se integra con lo que ya existe.
+
+4. ¿El libro se incluye completo o solo las preguntas?
+El PDF de "La historia de Manú" son 23 páginas de cuento. ¿Quieres que:
+
+A) Solo se incluya el cuestionario y las preguntas (las niñas leen el libro físico o en PDF aparte)
+
+B) Se incluya el texto completo también en el JSON (riesgo de derechos de autor)
+
+C) Se incluya un resumen del libro + las preguntas
+
+Recomendación: A. Las niñas leen el libro por su cuenta, y en la web solo se hacen los ejercicios.
+
+5. ¿Cuánto XP vale este módulo?
+El cuestionario tiene más contenido que una trivia común. Propongo 250 puntos.
+
+6. ¿Quieres que diseñe también el componente Astro?
+Si sí, puedo armarte:
+
+CuestionarioAvanzado.astro (para las 10 preguntas)
+
+PreguntasDesarrollo.astro (para las 5 preguntas abiertas)
+
+DesafioRelectura.astro (para los 3 desafíos)
+
+💭 Reflexión sobre este nuevo tipo de contenido
+Este es un tipo de contenido nuevo en el proyecto:
+
+Antes: cursos narrativos (Ojo de Horus, Selk'nam)
+
+Ahora: ejercicios de comprensión lectora
+
+Es un recurso valioso porque:
+
+Trabaja con literatura chilena (Ana María del Río es chilena)
+
+Aborda temas profundos: identidad, discriminación, comunidad
+
+Entrena pensamiento crítico, no memorización
+
+Sirve para cualquier niña que lea el libro
+
+Si funciona bien, podemos replicarlo con otros libros chilenos:
+
+"Papelucho" de Marcela Paz
+
+"La casa de los espíritus" (adaptación juvenil)
+
+"Mundo de cartón" de José María Memet
+
+"El lugar sin límites" (adaptación)
+
+Y así construir un "Club de Lectura" dentro de Lenguaje.
+
+🎯 Resumen de lo que necesito
+Respóndeme estas 6 preguntas:
+
+✅ ¿Apruebas la propuesta pedagógica?
+
+✅ ¿El nivel es correcto?
+
+✅ ¿Opción A, B o C para la integración?
+
+✅ ¿Solo el cuestionario o también el texto?
+
+✅ ¿Cuánto XP?
+
+✅ ¿Armo también los componentes Astro?
+
+Con esas respuestas, te armo:
+
+El JSON completo de la comprensión lectora
+
+Los componentes Astro si los quieres
+
+Las instrucciones de instalación en el proyecto
+
+Esta es una excelente adición al proyecto. "La historia de Manú" es un libro precioso, chileno, y las preguntas que propongo van a hacer que las niñas piensen mientras leen, no solo memoricen.
+
+Cuando me confirmes, avanzamos. 📚
+
+consulta; cada vez que se completen los ejercicios tendremos que volver a desarrollar más preguntas. Existe la posibilidad de crear una batería de preguntas, por ejemplo, pero crear un sistema que solamente muestre sólo diez por sesión y vaya iterándolas, de forma que puedan hacer los cuestionarios varias veces, sin encontrarse con la mismas preguntas siempre. Me refiero no sólo en los cuestionarios, si no en todos los ejercicios
+🎯 Excelente pregunta — Sistema de banco de preguntas aleatorias
+Sí, se puede. Y es mucho mejor que tener un cuestionario fijo. Te explico la arquitectura completa.
+
+🧠 Concepto: "Banco de preguntas" con rotación
+En lugar de tener 10 preguntas fijas, tienes:
+
+Un banco grande de preguntas (por ejemplo, 30-40 por libro)
+
+Un sistema que selecciona 10 al azar cada vez que la niña entra
+
+Las preguntas pueden repetirse entre sesiones, pero nunca las mismas 10 juntas
+
+Opcionalmente: recordar qué preguntas ya vio y priorizar las nuevas
+
+🏗️ Arquitectura propuesta
+Nivel 1 — Banco de preguntas por tipo
+Cada libro tiene un archivo JSON de banco:
+
+json
+{
+  "libro": "La historia de Manú",
+  "banco": {
+    "comprension": [
+      { "id": "c01", "pregunta": "...", "opciones": [...], "respuesta_correcta": 1, "explicacion": "...", "pista": "..." },
+      { "id": "c02", ... },
+      { "id": "c03", ... },
+      ...hasta 30-40 preguntas
+    ],
+    "desarrollo": [
+      { "id": "d01", "pregunta": "...", "criterios": [...], "extension": "..." },
+      ...hasta 15-20 preguntas
+    ],
+    "relectura": [
+      { "id": "r01", "titulo": "...", "instrucciones": [...], "pista": "..." },
+      ...hasta 8-10 desafíos
+    ]
+  }
+}
+Nivel 2 — Sistema de selección aleatoria
+Cuando la niña entra al módulo, un script:
+
+Lee el banco completo
+
+Mezcla las preguntas (shuffle)
+
+Toma las primeras 10 de comprensión, 5 de desarrollo, 3 de relectura
+
+Las muestra
+
+Al terminar, guarda las que ya hizo (opcional) para la próxima sesión
+
+Resultado: cada sesión es diferente.
+
+🎯 ¿Dónde guardar el progreso?
+Aquí hay dos opciones:
+
+Opción A — Solo sesión (sin persistencia)
+Cada vez que entra, es una sesión nueva
+
+No se guarda nada
+
+Ventaja: simple, no requiere backend
+
+Desventaja: no sabe qué preguntas ya vio
+
+Implementación: localStorage o simplemente aleatorio puro.
+
+Opción B — Con persistencia local (recomendada)
+Se guarda en el navegador de la niña (localStorage)
+
+Sabe qué preguntas ya vio
+
+Prioriza las que no ha visto antes
+
+Cuando las haya visto todas, reinicia el ciclo
+
+Ventaja: mejor experiencia, sin servidor
+Desventaja: si cambia de navegador, se pierde
+
+Opción C — Con persistencia en servidor
+Requiere backend (base de datos, login)
+
+Guarda progreso en la nube
+
+Ventaja: funciona en cualquier dispositivo
+
+Desventaja: mucho más complejo. No lo recomiendo para este proyecto
+
+Mi recomendación: Opción B (localStorage). Simple, efectivo, sin costo.
+
+🛠️ Cómo se implementaría
+1. Estructura de archivos
+text
+src/data/materias/lenguaje/
+  lecturas/
+    la-historia-de-manu/
+      banco-preguntas.json      ← 40 preguntas de comprensión
+      banco-desarrollo.json     ← 20 preguntas de desarrollo
+      banco-relectura.json      ← 10 desafíos
+      meta.json                 ← info del libro
+O todo junto:
+
+text
+src/data/materias/lenguaje/
+  lecturas/
+    la-historia-de-manu.json    ← todo: meta + bancos
+Recomendación: separado. Más fácil de mantener.
+
+2. Componente CuestionarioAleatorio.astro
+Este componente:
+
+Lee el banco
+
+Selecciona N preguntas al azar
+
+Las muestra
+
+Guarda el resultado en localStorage
+
+Al reiniciar, prioriza las no vistas
+
+3. Lógica de selección (pseudocódigo)
+text
+1. Leer banco completo (40 preguntas)
+2. Leer historial de la niña (localStorage)
+3. Separar en:
+   - "nuevas" (nunca vistas)
+   - "vistas" (ya aparecieron)
+4. Si hay >= 10 nuevas:
+   - Tomar 10 al azar de las nuevas
+5. Si hay < 10 nuevas:
+   - Tomar todas las nuevas
+   - Completar con las vistas menos recientes
+6. Mostrar las 10
+7. Al terminar: guardar en localStorage
+Resultado: la niña ve preguntas nuevas primero, y solo repite cuando ya las vio todas.
+
+📊 ¿Cuántas preguntas necesita cada banco?
+Para que la rotación sea efectiva:
+
+Tipo	Preguntas por sesión	Banco mínimo	Banco recomendado
+Comprensión	10	30	40-50
+Desarrollo	5	15	20-25
+Relectura	3	8	10-12
+Con esos números, una niña puede hacer el cuestionario 4-5 veces sin repetir la misma combinación.
+
+🎯 Ventajas del sistema
+Para las niñas
+No se aburren: cada sesión es diferente
+
+Pueden practicar varias veces sin memorizar
+
+Se enfocan en entender, no en recordar la respuesta correcta
+
+Aprenden del error: si fallan, la próxima vez pueden ver la pregunta de nuevo (pero en otro contexto)
+
+Para el proyecto
+Reutilización: un banco sirve para muchas sesiones
+
+Escalabilidad: agregar preguntas al banco no requiere tocar el código
+
+Métricas (si se quiere): se puede ver qué preguntas fallan más
+
+Sin costos: no requiere backend
+
+Para ti como autora
+Un banco por libro: escribes 40 preguntas y ya tienes material para meses
+
+Fácil mantenimiento: agregar una pregunta es agregar un objeto al JSON
+
+Modularidad: cada libro es independiente
+
+
