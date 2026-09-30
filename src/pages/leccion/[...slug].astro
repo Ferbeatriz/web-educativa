@@ -4,6 +4,8 @@ import TriviaQuiz from '../../components/TriviaQuiz.astro';
 import { marked } from 'marked';
 import BarraProgresoLectura from '../../components/BarraProgresoLectura.astro';
 import BotonCompletar from '../../components/BotonCompletar.astro';
+import Glosario from '../../components/Glosario.astro';
+import TutorPasos from '../../components/tutor/TutorPasos.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -56,6 +58,16 @@ export async function getStaticPaths() {
 
 const { leccion, materia } = Astro.props;
 
+// Cargar todos los tutores disponibles (para embeber por marcador)
+const tutoresFiles = import.meta.glob('../../data/tutor/**/*.json', { eager: true });
+const tutoresMap: Record<string, any> = {};
+for (const path in tutoresFiles) {
+  const data = (tutoresFiles[path] as any).default;
+  if (data && data.id) {
+    tutoresMap[data.id] = data;
+  }
+}
+
 // Colores HEX directos por materia
 const colores: Record<string, { c50: string; c100: string; c200: string; c300: string; c400: string; c500: string; c600: string; c700: string }> = {
   lenguaje:     { c50: '#FDF2F8', c100: '#FCE7F3', c200: '#FBCFE8', c300: '#F9A8D4', c400: '#F472B6', c500: '#EC4899', c600: '#DB2777', c700: '#BE185D' },
@@ -69,9 +81,12 @@ const c = colores[materia.color] || colores.ciencias;
 
 const estiloHero = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
 
-
 const contenido = leccion.contenido_modulos || [];
 const trivia = leccion.trivia || [];
+const glosario = leccion.glosario || [];
+
+// Expresión regular para detectar el marcador del tutor
+const TUTOR_REGEX = /<!--\s*TUTOR:\s*([a-z0-9-]+)\s*-->/i;
 ---
 
 <Layout title={`${leccion.titulo} · ${materia.nombre}`}>
@@ -125,22 +140,54 @@ const trivia = leccion.trivia || [];
     <!-- 📖 CONTENIDO MODULAR -->
     {contenido.length > 0 ? (
       <section class="space-y-5 mb-10">
-        {contenido.map((parrafo: string, idx: number) => (
-          <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
-            <div class="flex items-start gap-4">
-              <span
-                class="flex-shrink-0 w-9 h-9 rounded-full font-extrabold flex items-center justify-center text-sm"
-                style={`background: ${c.c100}; color: ${c.c700};`}
-              >
-                {idx + 1}
-              </span>
-              <div
-                class="prose-markdown max-w-none flex-1"
-                set:html={marked.parse(parrafo)}
-              />
+        {contenido.map((parrafo: string, idx: number) => {
+          const match = parrafo.match(TUTOR_REGEX);
+          const tutorId = match ? match[1] : null;
+          const tutorData = tutorId ? tutoresMap[tutorId] : null;
+
+          if (tutorId && tutorData) {
+            // Renderizar el bloque como texto introductorio + tutor embebido
+            const textoAntes = parrafo.replace(TUTOR_REGEX, '').trim();
+            return (
+              <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                <div class="flex items-start gap-4">
+                  <span
+                    class="flex-shrink-0 w-9 h-9 rounded-full font-extrabold flex items-center justify-center text-sm"
+                    style={`background: ${c.c100}; color: ${c.c700};`}
+                  >
+                    {idx + 1}
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    {textoAntes && (
+                      <div
+                        class="prose-markdown max-w-none mb-5"
+                        set:html={marked.parse(textoAntes)}
+                      />
+                    )}
+                    <TutorPasos ejercicio={tutorData} color={c.c500} />
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+              <div class="flex items-start gap-4">
+                <span
+                  class="flex-shrink-0 w-9 h-9 rounded-full font-extrabold flex items-center justify-center text-sm"
+                  style={`background: ${c.c100}; color: ${c.c700};`}
+                >
+                  {idx + 1}
+                </span>
+                <div
+                  class="prose-markdown max-w-none flex-1"
+                  set:html={marked.parse(parrafo)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
     ) : (
       <div class="bg-white rounded-3xl p-10 text-center shadow-sm border border-gray-100 mb-10">
@@ -154,6 +201,9 @@ const trivia = leccion.trivia || [];
       </div>
     )}
 
+    <!-- 📖 GLOSARIO -->
+    <Glosario palabras={glosario} />
+
     <!-- 🧠 TRIVIA -->
     {trivia.length > 0 && (
       <section class="mb-10">
@@ -166,7 +216,6 @@ const trivia = leccion.trivia || [];
         <TriviaQuiz trivia={trivia} />
       </section>
     )}
-
 
     <BotonCompletar leccionId={leccion.id} materiaId={materia.color} color={c.c500} xp={50} />
     <!-- BOTÓN VOLVER -->

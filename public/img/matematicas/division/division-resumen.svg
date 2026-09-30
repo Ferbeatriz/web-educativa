@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340">
+  <!-- División grande al centro -->
+  <text x="250" y="100" font-family="Nunito, sans-serif" font-size="64" font-weight="900" fill="#1F2937" text-anchor="middle">15 ÷ 3 = 5</text>
+
+  <!-- Dividendo -->
+  <line x1="98" y1="105" x2="98" y2="160" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="98" cy="105" r="4" fill="#3B82F6"/>
+  <text x="98" y="185" font-family="Nunito, sans-serif" font-size="14" font-weight="800" fill="#1D4ED8" text-anchor="middle">Dividendo</text>
+  <text x="98" y="202" font-family="Nunito, sans-serif" font-size="11" fill="#6B7280" text-anchor="middle">(lo que reparto)</text>
+
+  <!-- Divisor -->
+  <line x1="250" y1="105" x2="250" y2="230" stroke="#10B981" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="250" cy="105" r="4" fill="#10B981"/>
+  <text x="250" y="255" font-family="Nunito, sans-serif" font-size="14" font-weight="800" fill="#047857" text-anchor="middle">Divisor</text>
+  <text x="250" y="272" font-family="Nunito, sans-serif" font-size="11" fill="#6B7280" text-anchor="middle">(entre cuántos)</text>
+
+  <!-- Cociente -->
+  <line x1="402" y1="105" x2="402" y2="160" stroke="#D946EF" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="402" cy="105" r="4" fill="#D946EF"/>
+  <text x="402" y="185" font-family="Nunito, sans-serif" font-size="14" font-weight="800" fill="#A21CAF" text-anchor="middle">Cociente</text>
+  <text x="402" y="202" font-family="Nunito, sans-serif" font-size="11" fill="#6B7280" text-anchor="middle">(el resultado)</text>
+
+  <!-- Resto -->
+  <text x="250" y="315" font-family="Nunito, sans-serif" font-size="14" font-weight="800" fill="#9A3412" text-anchor="middle">Resto = 0 (no sobra nada)</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 260">
+  <!-- Panel izquierdo: Multiplicación -->
+  <text x="125" y="30" font-family="Nunito, sans-serif" font-size="16" font-weight="800" fill="#1D4ED8" text-anchor="middle">Multiplicar</text>
+  <text x="125" y="50" font-family="Nunito, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">juntar grupos iguales</text>
+
+  <!-- 3 grupos de 4 puntos -->
+  <circle cx="55" cy="110" r="35" fill="none" stroke="#93C5FD" stroke-width="3"/>
+  <circle cx="55" cy="95" r="6" fill="#3B82F6"/>
+  <circle cx="45" cy="110" r="6" fill="#3B82F6"/>
+  <circle cx="65" cy="110" r="6" fill="#3B82F6"/>
+  <circle cx="55" cy="125" r="6" fill="#3B82F6"/>
+
+  <circle cx="125" cy="110" r="35" fill="none" stroke="#93C5FD" stroke-width="3"/>
+  <circle cx="125" cy="95" r="6" fill="#3B82F6"/>
+  <circle cx="115" cy="110" r="6" fill="#3B82F6"/>
+  <circle cx="135" cy="110" r="6" fill="#3B82F6"/>
+  <circle cx="125" cy="125" r="6" fill="#3B82F6"/>
+
+  <circle cx="195" cy="110" r="35" fill="none" stroke="#93C5FD" stroke-width="3"/>
+  <circle cx="195" cy="95" r="6" fill="#3B82F6"/>
+  <circle cx="185" cy="110" r="6" fill="#3B82F6"/>
+  <circle cx="205" cy="110" r="6" fill="#3B82F6"/>
+  <circle cx="195" cy="125" r="6" fill="#3B82F6"/>
+
+  <text x="125" y="185" font-family="Nunito, sans-serif" font-size="18" font-weight="800" fill="#1F2937" text-anchor="middle">3 × 4 = 12</text>
+  <text x="125" y="215" font-family="Nunito, sans-serif" font-size="13" fill="#6B7280" text-anchor="middle">3 grupos de 4 son 12</text>
+
+  <!-- Panel derecho: División -->
+  <text x="375" y="30" font-family="Nunito, sans-serif" font-size="16" font-weight="800" fill="#047857" text-anchor="middle">Dividir</text>
+  <text x="375" y="50" font-family="Nunito, sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">separar en grupos iguales</text>
+
+  <!-- 12 puntos repartidos en 3 grupos -->
+  <circle cx="305" cy="110" r="35" fill="none" stroke="#6EE7B7" stroke-width="3"/>
+  <circle cx="305" cy="95" r="6" fill="#10B981"/>
+  <circle cx="295" cy="110" r="6" fill="#10B981"/>
+  <circle cx="315" cy="110" r="6" fill="#10B981"/>
+  <circle cx="305" cy="125" r="6" fill="#10B981"/>
+
+  <circle cx="375" cy="110" r="35" fill="none" stroke="#6EE7B7" stroke-width="3"/>
+  <circle cx="375" cy="95" r="6" fill="#10B981"/>
+  <circle cx="365" cy="110" r="6" fill="#10B981"/>
+  <circle cx="385" cy="110" r="6" fill="#10B981"/>
+  <circle cx="375" cy="125" r="6" fill="#10B981"/>
+
+  <circle cx="445" cy="110" r="35" fill="none" stroke="#6EE7B7" stroke-width="3"/>
+  <circle cx="445" cy="95" r="6" fill="#10B981"/>
+  <circle cx="435" cy="110" r="6" fill="#10B981"/>
+  <circle cx="455" cy="110" r="6" fill="#10B981"/>
+  <circle cx="445" cy="125" r="6" fill="#10B981"/>
+
+  <text x="375" y="185" font-family="Nunito, sans-serif" font-size="18" font-weight="800" fill="#1F2937" text-anchor="middle">12 ÷ 3 = 4</text>
+  <text x="375" y="215" font-family="Nunito, sans-serif" font-size="13" fill="#6B7280" text-anchor="middle">12 en grupos de 3 son 4</text>
+
+  <!-- Flecha central -->
+  <text x="250" y="120" font-family="Nunito, sans-serif" font-size="32" font-weight="800" fill="#D1D5DB" text-anchor="middle">↔</text>
+</svg>

@@ -1,0 +1,143 @@
+---
+/**
+ * Glosario de palabras nuevas de una lección.
+ * Se muestra antes de la trivia.
+ * Estilo: fondo beige, borde punteado, tipografía serif (Georgia).
+ */
+interface Palabra {
+  termino: string;
+  emoji?: string;
+  definicion: string;
+}
+
+interface Props {
+  palabras: Palabra[];
+}
+
+const { palabras } = Astro.props;
+---
+
+{palabras && palabras.length > 0 && (
+  <section class="glosario mb-10">
+    <div class="glosario-header">
+      <div class="glosario-titulo">
+        <span class="emoji-libro">📖</span>
+        <span>Palabras nuevas de esta lección</span>
+      </div>
+      <span class="glosario-contador">{palabras.length} palabras</span>
+    </div>
+
+    <p class="glosario-subtitulo">
+      Estas son las palabras que aparecieron en la lección. Léelas con calma antes de la trivia.
+    </p>
+
+    <div class="glosario-grid">
+      {palabras.map((p) => (
+        <div class="glosario-item">
+          <div class="glosario-termino">
+            {p.emoji && <span class="glosario-emoji">{p.emoji}</span>}
+            <span class="glosario-palabra">{p.termino}</span>
+          </div>
+          <p class="glosario-definicion">{p.definicion}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
+<style is:global>
+  .glosario {
+    background: #FFFBEB;
+    border: 2px dashed #F59E0B;
+    border-radius: 1.5rem;
+    padding: 1.75rem;
+  }
+
+  .glosario-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .glosario-titulo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #92400E;
+  }
+
+  .glosario-titulo .emoji-libro {
+    font-size: 1.5rem;
+  }
+
+  .glosario-contador {
+    background: #FDE68A;
+    color: #92400E;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .glosario-subtitulo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #78350F;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #FDE68A;
+  }
+
+  .glosario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+
+  @media (max-width: 640px) {
+    .glosario-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .glosario-item {
+    background: #FFFFFF;
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid #FDE68A;
+    box-shadow: 0 1px 2px rgba(146, 64, 14, 0.04);
+  }
+
+  .glosario-termino {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .glosario-termino .glosario-emoji {
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .glosario-termino .glosario-palabra {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #78350F;
+    letter-spacing: 0.01em;
+  }
+
+  .glosario-definicion {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.92rem;
+    color: #57534E;
+    line-height: 1.6;
+  }
+</style>

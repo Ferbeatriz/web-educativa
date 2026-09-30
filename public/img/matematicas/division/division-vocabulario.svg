@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
+  <!-- División grande -->
+  <text x="200" y="90" font-family="Nunito, sans-serif" font-size="56" font-weight="900" fill="#1F2937" text-anchor="middle">12 ÷ 3 = 4</text>
+
+  <!-- Etiqueta: Dividendo -->
+  <line x1="78" y1="95" x2="78" y2="150" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="78" cy="95" r="4" fill="#3B82F6"/>
+  <text x="78" y="175" font-family="Nunito, sans-serif" font-size="13" font-weight="800" fill="#1D4ED8" text-anchor="middle">Dividendo</text>
+  <text x="78" y="192" font-family="Nunito, sans-serif" font-size="11" fill="#6B7280" text-anchor="middle">(lo que reparto)</text>
+
+  <!-- Etiqueta: Divisor -->
+  <line x1="200" y1="95" x2="200" y2="220" stroke="#10B981" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="200" cy="95" r="4" fill="#10B981"/>
+  <text x="200" y="245" font-family="Nunito, sans-serif" font-size="13" font-weight="800" fill="#047857" text-anchor="middle">Divisor</text>
+  <text x="200" y="262" font-family="Nunito, sans-serif" font-size="11" fill="#6B7280" text-anchor="middle">(entre cuántos)</text>
+
+  <!-- Etiqueta: Cociente -->
+  <line x1="322" y1="95" x2="322" y2="150" stroke="#D946EF" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="322" cy="95" r="4" fill="#D946EF"/>
+  <text x="322" y="175" font-family="Nunito, sans-serif" font-size="13" font-weight="800" fill="#A21CAF" text-anchor="middle">Cociente</text>
+  <text x="322" y="192" font-family="Nunito, sans-serif" font-size="11" fill="#6B7280" text-anchor="middle">(el resultado)</text>
+
+  <!-- Etiqueta: Resto -->
+  <text x="200" y="305" font-family="Nunito, sans-serif" font-size="13" font-weight="800" fill="#9A3412" text-anchor="middle">Resto = 0 (no sobra nada)</text>
+</svg>

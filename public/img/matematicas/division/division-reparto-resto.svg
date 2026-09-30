@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+  <!-- Caso sin resto -->
+  <text x="200" y="22" font-family="Nunito, sans-serif" font-size="14" font-weight="800" fill="#065F46" text-anchor="middle">12 ÷ 3 = 4 (sin resto)</text>
+
+  <circle cx="70" cy="100" r="40" fill="none" stroke="#10B981" stroke-width="3"/>
+  <circle cx="70" cy="82" r="7" fill="#10B981"/>
+  <circle cx="57" cy="100" r="7" fill="#10B981"/>
+  <circle cx="83" cy="100" r="7" fill="#10B981"/>
+  <circle cx="70" cy="118" r="7" fill="#10B981"/>
+
+  <circle cx="180" cy="100" r="40" fill="none" stroke="#10B981" stroke-width="3"/>
+  <circle cx="180" cy="82" r="7" fill="#10B981"/>
+  <circle cx="167" cy="100" r="7" fill="#10B981"/>
+  <circle cx="193" cy="100" r="7" fill="#10B981"/>
+  <circle cx="180" cy="118" r="7" fill="#10B981"/>
+
+  <circle cx="290" cy="100" r="40" fill="none" stroke="#10B981" stroke-width="3"/>
+  <circle cx="290" cy="82" r="7" fill="#10B981"/>
+  <circle cx="277" cy="100" r="7" fill="#10B981"/>
+  <circle cx="303" cy="100" r="7" fill="#10B981"/>
+  <circle cx="290" cy="118" r="7" fill="#10B981"/>
+
+  <!-- Caso con resto -->
+  <text x="200" y="185" font-family="Nunito, sans-serif" font-size="14" font-weight="800" fill="#9A3412" text-anchor="middle">13 ÷ 3 = 4, sobra 1</text>
+
+  <circle cx="70" cy="225" r="25" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  <circle cx="70" cy="214" r="5" fill="#F59E0B"/>
+  <circle cx="62" cy="225" r="5" fill="#F59E0B"/>
+  <circle cx="78" cy="225" r="5" fill="#F59E0B"/>
+  <circle cx="70" cy="236" r="5" fill="#F59E0B"/>
+
+  <circle cx="180" cy="225" r="25" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  <circle cx="180" cy="214" r="5" fill="#F59E0B"/>
+  <circle cx="172" cy="225" r="5" fill="#F59E0B"/>
+  <circle cx="188" cy="225" r="5" fill="#F59E0B"/>
+  <circle cx="180" cy="236" r="5" fill="#F59E0B"/>
+
+  <circle cx="290" cy="225" r="25" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  <circle cx="290" cy="214" r="5" fill="#F59E0B"/>
+  <circle cx="282" cy="225" r="5" fill="#F59E0B"/>
+  <circle cx="298" cy="225" r="5" fill="#F59E0B"/>
+  <circle cx="290" cy="236" r="5" fill="#F59E0B"/>
+
+  <!-- Sobrante destacado a la derecha -->
+  <circle cx="360" cy="225" r="14" fill="#FED7AA" stroke="#F97316" stroke-width="3"/>
+  <text x="360" y="230" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#9A3412" text-anchor="middle">1</text>
+</svg>

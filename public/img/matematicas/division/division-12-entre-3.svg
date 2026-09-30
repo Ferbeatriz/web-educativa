@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240">
+  <!-- Grupo 1 -->
+  <circle cx="80" cy="80" r="55" fill="none" stroke="#93C5FD" stroke-width="3"/>
+  <circle cx="80" cy="55" r="10" fill="#3B82F6"/>
+  <circle cx="60" cy="80" r="10" fill="#3B82F6"/>
+  <circle cx="100" cy="80" r="10" fill="#3B82F6"/>
+  <circle cx="80" cy="105" r="10" fill="#3B82F6"/>
+  <text x="80" y="170" font-family="Nunito, sans-serif" font-size="16" font-weight="800" fill="#1D4ED8" text-anchor="middle">Grupo 1</text>
+
+  <!-- Grupo 2 -->
+  <circle cx="200" cy="80" r="55" fill="none" stroke="#93C5FD" stroke-width="3"/>
+  <circle cx="200" cy="55" r="10" fill="#3B82F6"/>
+  <circle cx="180" cy="80" r="10" fill="#3B82F6"/>
+  <circle cx="220" cy="80" r="10" fill="#3B82F6"/>
+  <circle cx="200" cy="105" r="10" fill="#3B82F6"/>
+  <text x="200" y="170" font-family="Nunito, sans-serif" font-size="16" font-weight="800" fill="#1D4ED8" text-anchor="middle">Grupo 2</text>
+
+  <!-- Grupo 3 -->
+  <circle cx="320" cy="80" r="55" fill="none" stroke="#93C5FD" stroke-width="3"/>
+  <circle cx="320" cy="55" r="10" fill="#3B82F6"/>
+  <circle cx="300" cy="80" r="10" fill="#3B82F6"/>
+  <circle cx="340" cy="80" r="10" fill="#3B82F6"/>
+  <circle cx="320" cy="105" r="10" fill="#3B82F6"/>
+  <text x="320" y="170" font-family="Nunito, sans-serif" font-size="16" font-weight="800" fill="#1D4ED8" text-anchor="middle">Grupo 3</text>
+
+  <!-- Etiqueta final -->
+  <text x="200" y="215" font-family="Nunito, sans-serif" font-size="18" font-weight="800" fill="#1F2937" text-anchor="middle">12 ÷ 3 = 4</text>
+</svg>
