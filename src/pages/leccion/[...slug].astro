@@ -6,6 +6,7 @@ import BarraProgresoLectura from '../../components/BarraProgresoLectura.astro';
 import BotonCompletar from '../../components/BotonCompletar.astro';
 import Glosario from '../../components/Glosario.astro';
 import TutorPasos from '../../components/tutor/TutorPasos.astro';
+import TriviaRotativa from '../../components/TriviaRotativa.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -203,9 +204,16 @@ const TUTOR_REGEX = /<!--\s*TUTOR:\s*([a-z0-9-]+)\s*-->/i;
 
     <!-- 📖 GLOSARIO -->
     <Glosario palabras={glosario} />
-
-    <!-- 🧠 TRIVIA -->
-    {trivia.length > 0 && (
+    <!-- 🧠 TRIVIA (fija o rotativa) -->
+    {leccion.banco_trivia && leccion.banco_trivia.length > 0 ? (
+      <section class="mb-10">
+        <TriviaRotativa
+          banco={leccion.banco_trivia}
+          leccionId={leccion.id}
+          cantidadPorSesion={leccion.trivia_por_sesion || 10}
+        />
+      </section>
+    ) : trivia.length > 0 ? (
       <section class="mb-10">
         <div class="flex items-center gap-3 mb-5">
           <span class="text-3xl">🧠</span>
@@ -215,7 +223,7 @@ const TUTOR_REGEX = /<!--\s*TUTOR:\s*([a-z0-9-]+)\s*-->/i;
         </div>
         <TriviaQuiz trivia={trivia} />
       </section>
-    )}
+    ) : null}
 
     <BotonCompletar leccionId={leccion.id} materiaId={materia.color} color={c.c500} xp={50} />
     <!-- BOTÓN VOLVER -->

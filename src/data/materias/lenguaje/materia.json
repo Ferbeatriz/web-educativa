@@ -7,5 +7,26 @@
   "color_hex": "#EC4899",
   "orden": 1,
   "activo": true,
-  "lecciones": []
+  "lecciones": [
+    {
+      "id": "los-textos-narrativos",
+      "titulo": "Los textos narrativos",
+      "emoji": "📖",
+      "orden": 1,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/los-textos-narrativos.json",
+      "activa": true
+    },
+    {
+      "id": "cuento-fabula-leyenda",
+      "titulo": "Cuento, fábula y leyenda",
+      "emoji": "📚",
+      "orden": 2,
+      "nivel": "básico",
+      "duracion_estimada_min": 25,
+      "archivo": "lecciones/cuento-fabula-leyenda.json",
+      "activa": true
+    }
+  ]
 }

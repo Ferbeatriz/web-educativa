@@ -1,0 +1,583 @@
+---
+// TriviaRotativa.astro
+// Componente de trivia con rotación de preguntas por dificultad.
+// Se usa en lecciones normales (Matemáticas, Lenguaje, Inglés, etc.).
+// Reutiliza el mismo sistema de selección que el Club de Lectura.
+
+interface Pregunta {
+  id: string;
+  dificultad: 'media' | 'dificil' | 'muy_dificil';
+  pregunta: string;
+  opciones: string[];
+  respuesta_correcta: number;
+  explicacion: string;
+  tema?: string;
+}
+
+interface Props {
+  banco: Pregunta[];
+  leccionId: string;
+  cantidadPorSesion?: number;
+}
+
+const {
+  banco,
+  leccionId,
+  cantidadPorSesion = 10,
+} = Astro.props;
+---
+
+<div
+  class="trivia-rotativa"
+  id="trivia-rotativa"
+  data-leccion-id={leccionId}
+  data-cantidad={cantidadPorSesion}
+>
+  <script
+    id="trivia-data"
+    type="application/json"
+    set:html={JSON.stringify({ banco })}
+  />
+
+  <div class="trivia-header">
+    <div class="trivia-titulo">
+      <span class="trivia-emoji">🧠</span>
+      <div>
+        <h2>¡Ahora te toca!</h2>
+        <p class="trivia-sub">Cada sesión es diferente. Las preguntas se seleccionan al azar.</p>
+      </div>
+    </div>
+
+    <div class="trivia-progreso">
+      <div class="progreso-barra">
+        <div class="progreso-fill" id="trivia-progreso-fill"></div>
+      </div>
+      <span class="progreso-texto" id="trivia-progreso-texto">0 / 0</span>
+    </div>
+  </div>
+
+  <div id="trivia-preguntas" class="trivia-preguntas"></div>
+
+  <div class="trivia-acciones">
+    <button id="btn-corregir" class="btn-principal">✓ Corregir respuestas</button>
+    <button id="btn-nueva-sesion" class="btn-secundario" hidden>🎲 Nueva sesión</button>
+  </div>
+
+  <div id="trivia-resultado" class="trivia-resultado" hidden></div>
+</div>
+
+<script>
+  import {
+    seleccionarPreguntas,
+    guardarVistas,
+    leerVistas,
+  } from '../scripts/seleccion-preguntas.js';
+
+  function iniciarTrivia() {
+    const contenedor = document.getElementById('trivia-rotativa');
+    const dataEl = document.getElementById('trivia-data');
+    if (!contenedor || !dataEl) return;
+
+    const { banco } = JSON.parse(dataEl.textContent || '{}');
+    const leccionId = contenedor.dataset.leccionId!;
+    const cantidadPorSesion = parseInt(contenedor.dataset.cantidad || '10', 10);
+
+    const preguntasDiv = document.getElementById('trivia-preguntas');
+    const btnCorregir = document.getElementById('btn-corregir');
+    const btnNuevaSesion = document.getElementById('btn-nueva-sesion');
+    const resultadoDiv = document.getElementById('trivia-resultado');
+    const progresoFill = document.getElementById('trivia-progreso-fill');
+    const progresoTexto = document.getElementById('trivia-progreso-texto');
+
+    if (!preguntasDiv || !btnCorregir || !btnNuevaSesion || !resultadoDiv || !progresoFill || !progresoTexto) {
+      return;
+    }
+
+    const distribucion = { media: 0.30, dificil: 0.40, muy_dificil: 0.30 };
+
+    const COLORES_DIFICULTAD = {
+      media: { bg: '#FEF3C7', texto: '#92400E', borde: '#FCD34D', etiqueta: 'Media' },
+      dificil: { bg: '#FED7AA', texto: '#9A3412', borde: '#FB923C', etiqueta: 'Difícil' },
+      muy_dificil: { bg: '#FECACA', texto: '#991B1B', borde: '#F87171', etiqueta: 'Muy difícil' },
+    };
+
+    let seleccionActual = [];
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function actualizarProgreso() {
+      const vistas = leerVistas(leccionId, 'trivia').length;
+      const total = banco.length;
+      const pct = total > 0 ? Math.round((vistas / total) * 100) : 0;
+      progresoFill.style.width = pct + '%';
+      progresoTexto.textContent = `${vistas} / ${total}`;
+    }
+
+    function renderPregunta(p, i, total) {
+      const c = COLORES_DIFICULTAD[p.dificultad] || COLORES_DIFICULTAD.media;
+
+      const opcionesHtml = p.opciones.map((op, j) => `
+        <li>
+          <label class="opcion" data-indice="${j}">
+            <input type="radio" name="p-${p.id}" value="${j}">
+            <span class="letra">${String.fromCharCode(65 + j)}</span>
+            <span class="texto">${escapeHtml(op)}</span>
+          </label>
+        </li>
+      `).join('');
+
+      return `
+        <article class="pregunta" data-id="${p.id}" data-correcta="${p.respuesta_correcta}">
+          <header class="preg-header">
+            <span class="preg-num">Pregunta ${i + 1} de ${total}</span>
+            <span class="preg-etiqueta" style="background:${c.bg};color:${c.texto};border:1px solid ${c.borde}">
+              ${c.etiqueta}
+            </span>
+          </header>
+          ${p.tema ? `<div class="preg-tema"><strong>Tema:</strong> ${escapeHtml(p.tema)}</div>` : ''}
+          <h3 class="preg-enunciado">${escapeHtml(p.pregunta)}</h3>
+          <ul class="opciones">${opcionesHtml}</ul>
+          <div class="preg-feedback" hidden></div>
+        </article>
+      `;
+    }
+
+    function renderizarSesion() {
+      seleccionActual = seleccionarPreguntas(
+        banco,
+        cantidadPorSesion,
+        leccionId,
+        'trivia',
+        distribucion
+      );
+
+      preguntasDiv.innerHTML = seleccionActual
+        .map((p, i) => renderPregunta(p, i, seleccionActual.length))
+        .join('');
+
+      resultadoDiv.hidden = true;
+      btnNuevaSesion.hidden = true;
+      btnCorregir.hidden = false;
+      actualizarProgreso();
+    }
+
+    function corregir() {
+      const preguntasDOM = document.querySelectorAll('.pregunta');
+      let correctas = 0;
+      let sinResponder = 0;
+
+      preguntasDOM.forEach(preg => {
+        const id = preg.dataset.id;
+        const correcta = parseInt(preg.dataset.correcta);
+        const seleccionada = preg.querySelector('input[type="radio"]:checked');
+        const feedback = preg.querySelector('.preg-feedback');
+
+        preg.classList.remove('correcta', 'incorrecta', 'corregida');
+
+        if (!seleccionada) {
+          sinResponder++;
+          preg.classList.add('corregida');
+          feedback.className = 'preg-feedback visible error';
+          feedback.innerHTML = '<strong>⚠️ Sin responder</strong>Esta pregunta quedó en blanco.';
+          return;
+        }
+
+        const valor = parseInt(seleccionada.value);
+        const esCorrecta = valor === correcta;
+        const explicacion = seleccionActual.find(x => x.id === id)?.explicacion || '';
+
+        if (esCorrecta) {
+          correctas++;
+          preg.classList.add('correcta', 'corregida');
+          feedback.className = 'preg-feedback visible exito';
+          feedback.innerHTML = `<strong>✓ ¡Correcto!</strong>${escapeHtml(explicacion)}`;
+        } else {
+          preg.classList.add('incorrecta', 'corregida');
+          const respuestaCorrectaTexto = preg.querySelectorAll('.opcion')[correcta]?.querySelector('.texto')?.textContent || '';
+          feedback.className = 'preg-feedback visible error';
+          feedback.innerHTML = `<strong>✗ Incorrecto</strong>La respuesta correcta era: <em>${escapeHtml(respuestaCorrectaTexto)}</em><br><br>${escapeHtml(explicacion)}`;
+        }
+      });
+
+      const total = preguntasDOM.length;
+      const porcentaje = total > 0 ? Math.round((correctas / total) * 100) : 0;
+      resultadoDiv.hidden = false;
+      resultadoDiv.className = 'trivia-resultado ' + (
+        porcentaje >= 80 ? 'exito' : porcentaje >= 50 ? 'parcial' : 'bajo'
+      );
+      resultadoDiv.innerHTML = `
+        <div>${correctas} de ${total} correctas (${porcentaje}%)</div>
+        ${sinResponder > 0 ? `<div style="font-size:0.85rem;margin-top:0.5rem">⚠️ ${sinResponder} sin responder</div>` : ''}
+      `;
+
+      const ids = Array.from(preguntasDOM).map(p => p.dataset.id);
+      guardarVistas(leccionId, 'trivia', ids);
+
+      btnNuevaSesion.hidden = false;
+      actualizarProgreso();
+    }
+
+    btnCorregir.addEventListener('click', corregir);
+
+    btnNuevaSesion.addEventListener('click', () => {
+      renderizarSesion();
+    });
+
+    renderizarSesion();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarTrivia);
+  } else {
+    iniciarTrivia();
+  }
+</script>
+
+<style is:global>
+  .trivia-rotativa {
+    max-width: 780px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: 'Nunito', system-ui, sans-serif;
+  }
+
+  .trivia-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #E5E7EB;
+  }
+
+  .trivia-titulo {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .trivia-emoji {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .trivia-titulo h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1F2937;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .trivia-sub {
+    color: #6B7280;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .trivia-progreso {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #F3F4F6;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+  }
+
+  .progreso-barra {
+    flex: 1;
+    height: 8px;
+    background: #E5E7EB;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progreso-fill {
+    height: 100%;
+    background: #8B5CF6;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progreso-texto {
+    color: #6B7280;
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  .trivia-preguntas {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .pregunta {
+    background: white;
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border-left: 5px solid #8B5CF6;
+  }
+
+  .preg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .preg-num {
+    font-size: 0.85rem;
+    color: #6B7280;
+    font-weight: 700;
+  }
+
+  .preg-etiqueta {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .preg-tema {
+    font-size: 0.85rem;
+    color: #8B5CF6;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .preg-tema strong {
+    font-weight: 700;
+  }
+
+  .preg-enunciado {
+    font-size: 1.1rem;
+    color: #111827;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.6;
+    font-weight: 600;
+  }
+
+  .opciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border-radius: 10px;
+    border: 2px solid #E5E7EB;
+    background: #FAFBFC;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+
+  .opcion:hover {
+    border-color: #C4B5FD;
+    background: #F5F3FF;
+    transform: translateX(2px);
+  }
+
+  .opcion input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .letra {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #D1D5DB;
+    background: white;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #6B7280;
+    transition: all 0.18s ease;
+  }
+
+  .texto {
+    flex: 1;
+    color: #374151;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    padding-top: 0.25rem;
+  }
+
+  .opcion:has(input:checked) {
+    border-color: #8B5CF6;
+    background: #F5F3FF;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
+  }
+
+  .opcion:has(input:checked) .letra {
+    background: #8B5CF6;
+    color: white;
+    border-color: #8B5CF6;
+  }
+
+  .opcion:has(input:checked) .texto {
+    color: #5B21B6;
+    font-weight: 600;
+  }
+
+  .pregunta.correcta .opcion:has(input:checked) {
+    border-color: #10B981;
+    background: #D1FAE5;
+  }
+
+  .pregunta.correcta .opcion:has(input:checked) .letra {
+    background: #10B981;
+    border-color: #10B981;
+  }
+
+  .pregunta.incorrecta .opcion:has(input:checked) {
+    border-color: #F97316;
+    background: #FFEDD5;
+  }
+
+  .pregunta.incorrecta .opcion:has(input:checked) .letra {
+    background: #F97316;
+    border-color: #F97316;
+  }
+
+  .pregunta.corregida .opcion {
+    pointer-events: none;
+  }
+
+  .preg-feedback {
+    margin-top: 1.25rem;
+    padding: 1.15rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    display: none;
+  }
+
+  .preg-feedback.visible {
+    display: block;
+  }
+
+  .preg-feedback.exito {
+    background: #D1FAE5;
+    color: #065F46;
+    border-left: 4px solid #10B981;
+  }
+
+  .preg-feedback.error {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid #EF4444;
+  }
+
+  .preg-feedback strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+  }
+
+  .trivia-acciones {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .btn-principal,
+  .btn-secundario {
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-principal {
+    background: #8B5CF6;
+    color: white;
+  }
+
+  .btn-principal:hover {
+    background: #7C3AED;
+    transform: translateY(-1px);
+  }
+
+  .btn-secundario {
+    background: transparent;
+    color: #8B5CF6;
+    border: 2px solid #8B5CF6;
+  }
+
+  .btn-secundario:hover {
+    background: #F5F3FF;
+  }
+
+  .trivia-resultado {
+    padding: 1.25rem;
+    border-radius: 10px;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+
+  .trivia-resultado.exito {
+    background: #D1FAE5;
+    color: #065F46;
+    border-left: 4px solid #10B981;
+  }
+
+  .trivia-resultado.parcial {
+    background: #FEF3C7;
+    color: #92400E;
+    border-left: 4px solid #F59E0B;
+  }
+
+  .trivia-resultado.bajo {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid #EF4444;
+  }
+
+  @media (max-width: 640px) {
+    .pregunta {
+      padding: 1.15rem;
+    }
+    .preg-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .trivia-acciones {
+      flex-direction: column;
+    }
+    .btn-principal, .btn-secundario {
+      width: 100%;
+    }
+  }
+</style>
