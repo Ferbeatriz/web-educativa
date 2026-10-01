@@ -39,8 +39,11 @@ import {
 } from './routes/admin-alumnas';
 
 import { handleEstadisticas } from './routes/admin-estadisticas';
+import { handleTestEmail } from './routes/admin-email';
 
-type Env = EnvAuth & EnvAdmin;
+
+import type { EnvEmail } from './lib/email';
+type Env = EnvAuth & EnvAdmin & EnvEmail & { DB: D1Database; ENVIRONMENT: string; APP_NAME: string };
 
 export default {
   async fetch(
@@ -81,7 +84,7 @@ export default {
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.6.0',
+          version: '1.7.0',
           endpoints: [
             'GET    /api/health',
             'POST   /api/auth/login',
@@ -95,6 +98,7 @@ export default {
             'POST   /api/admin/login',
             'POST   /api/admin/logout',
             'GET    /api/admin/me',
+            'POST   /api/admin/test-email',
             'GET    /api/admin/clases',
             'POST   /api/admin/clases',
             'PATCH  /api/admin/clases/:id',
@@ -148,6 +152,11 @@ export default {
       }
       if (path === '/api/admin/estadisticas' && method === 'GET') {
         return await handleEstadisticas(request, env);
+      }
+
+      // ---------- Admin: email ----------
+      if (path === '/api/admin/test-email' && method === 'POST') {
+        return await handleTestEmail(request, env);
       }
 
       // ---------- Admin: clases ----------
