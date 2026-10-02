@@ -17,6 +17,16 @@
       "duracion_estimada_min": 20,
       "archivo": "lecciones/las-plantas.json",
       "activa": true
+    },
+    {
+      "id": "la-fotosintesis",
+      "titulo": "La fotosíntesis 🌞",
+      "emoji": "🌞",
+      "orden": 2,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/la-fotosintesis.json",
+      "activa": true
     }
   ]
 }
