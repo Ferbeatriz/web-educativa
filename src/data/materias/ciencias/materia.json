@@ -7,5 +7,16 @@
   "color_hex": "#84CC16",
   "orden": 5,
   "activo": true,
-  "lecciones": []
+  "lecciones": [
+    {
+      "id": "las-plantas",
+      "titulo": "Las plantas 🌱",
+      "emoji": "🌱",
+      "orden": 1,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/las-plantas.json",
+      "activa": true
+    }
+  ]
 }
