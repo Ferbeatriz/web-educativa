@@ -238,3 +238,22 @@ const TUTOR_REGEX = /<!--\s*TUTOR:\s*([a-z0-9-]+)\s*-->/i;
 
   </main>
 </Layout>
+
+<style>
+  /* Control del tamaño de las imágenes dentro de las lecciones */
+  .prose-markdown img {
+    display: block;
+    max-width: 60%;
+    height: auto;
+    margin: 1.5rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* En tablets y móviles, las imágenes pueden ocupar más ancho */
+  @media (max-width: 768px) {
+    .prose-markdown img {
+      max-width: 100%;
+    }
+  }
+</style>

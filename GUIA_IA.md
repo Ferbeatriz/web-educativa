@@ -40,25 +40,43 @@ Actuar como **profesor de enseñanza básica** con 20 años de experiencia.
 
 ## 📋 Estructura de una lección normal
 
-Cada lección consta de **4-6 bloques temáticos** + **1 trivia**.
+Cada lección consta de **6-7 bloques temáticos** + **1 trivia**.
 
-### Bloques temáticos (cada uno ~350-400 palabras)
+### Bloques temáticos (estilo narrativo, todas las materias)
 
-1. **Introducción** — Presenta el tema, activa curiosidad
-2. **Desarrollo 1** — Primer aspecto clave
-3. **Desarrollo 2** — Segundo aspecto clave
-4. **Desarrollo 3** — Tercer aspecto clave
-5. **Legado/Aplicación** — Conexión con el presente
-6. **Resumen** — Tabla + cierre
+Todas las lecciones —Ciencias, Matemáticas, Historia, Inglés, Lenguaje, Programación— usan **narración continua**. No se enumeran datos sueltos: se explica con historias, analogías y ejemplos.
 
-### Trivia (10 preguntas)
+**Estructura sugerida**:
 
-- 4 opciones por pregunta (siempre 4, nunca 3 ni 5)
-- `respuesta_correcta` es índice 0-3
-- `explicacion` de 1-2 oraciones
-- Distractores plausibles (no absurdos)
-- Variedad: comprensión, aplicación, reconocimiento
+1. **Introducción** — Presenta el tema, activa curiosidad con pregunta retórica.
+2. **Desarrollo 1** — Primer aspecto clave.
+3. **Desarrollo 2** — Segundo aspecto clave.
+4. **Desarrollo 3** — Tercer aspecto clave.
+5. **Aplicación** — Conexión con la vida cotidiana.
+6. **Resumen** — Tabla o lista al final del bloque (nunca como contenido principal).
+7. **Cierre** — Frase de idea fuerza + puente a la próxima lección.
 
+**Reglas de escritura**:
+
+- **Narrar, no enumerar.** Cada concepto se explica con una historia, una analogía o un ejemplo.
+- **Preguntas retóricas** para invitar a pensar ("¿Te has preguntado por qué...?").
+- **Ejemplos cotidianos chilenos** ("como cuando riegas el jardín de tu abuela...").
+- **Tablas y listas solo como resumen** al final del bloque, nunca como contenido principal.
+- **Extensión**: hasta **3.000 palabras** por lección (techo, no objetivo).
+- **Sin lenguaje infantil** ("amiguitas", "genial"). Español de Chile.
+- **Idea fuerza** al final de cada bloque (frase destacada en blockquote).
+- **Imágenes**: máximo 60% del ancho en desktop, 100% en móvil (CSS ya configurado).
+
+**Referencia de estilo**: ver `src/data/materias/lenguaje/lecciones/los-textos-narrativos.json`.
+
+### Trivia (10-15 preguntas en el banco)
+
+- 4 opciones por pregunta (siempre 4, nunca 3 ni 5).
+- `respuesta_correcta` es índice 0-3.
+- `explicacion` de 1-2 oraciones.
+- Distractores plausibles (no absurdos).
+- Variedad: comprensión, aplicación, reconocimiento.
+- Distribución de dificultad: 30% media / 40% difícil / 30% muy difícil.
 ---
 
 ## 📝 Formato del contenido (markdown)
