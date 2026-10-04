@@ -5,7 +5,18 @@
   "emoji": "🇨🇱",
   "orden": 2,
   "activo": true,
-  "lecciones": [],
+  "lecciones": [
+    {
+      "id": "la-comunidad-y-sus-instituciones",
+      "titulo": "La comunidad y sus instituciones 🏛️",
+      "emoji": "🏛️",
+      "orden": 1,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/la-comunidad-y-sus-instituciones.json",
+      "activa": true
+    }
+  ],
   "cursos_especiales": [
     {
       "id": "mundo-espiritual-selknam",
