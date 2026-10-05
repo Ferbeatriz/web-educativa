@@ -14,8 +14,12 @@ import {
   getProgresoCompleto,
   leccionCompletada,
 } from '../lib/db';
+import {
+  notificarAdminLeccionCompletada,
+  type EnvNotificacionAdmin,
+} from '../lib/email';
 
-export interface Env {
+export interface Env extends EnvNotificacionAdmin {
   DB: D1Database;
   ENVIRONMENT: string;
   APP_NAME: string;
@@ -91,7 +95,6 @@ function jsonResponse(data: unknown, status = 200): Response {
 
 /**
  * Middleware: obtiene la alumna logueada del token.
- * Devuelve null si no hay sesión válida.
  */
 async function getAlumnaAutenticada(
   request: Request,
@@ -118,6 +121,7 @@ async function getAlumnaAutenticada(
 /**
  * POST /api/progreso/completar
  * Body: { leccion_id, materia_id }
+ * Además del progreso, dispara una notificación por email al admin.
  */
 export async function handleCompletarLeccion(
   request: Request,
@@ -158,9 +162,28 @@ export async function handleCompletarLeccion(
     materia_id
   );
 
-  // Devolver también el resumen actualizado
   const resumen = await getResumenProgreso(env.DB, alumna.id);
   const nivel = calcularNivel(resumen.xp_total);
+
+  // 🔔 Notificación por email al admin (no bloquea la respuesta)
+  // Solo se envía si es una lección nueva (no repetida)
+  if (resultado.insertado) {
+    // Ejecutamos sin await para no hacer esperar a la alumna
+    // ctx.waitUntil sería lo ideal, pero no lo tenemos disponible aquí sin pasar ctx
+    notificarAdminLeccionCompletada(env, {
+      alumnaNombre: alumna.nombre,
+      alumnaUsuario: alumna.usuario,
+      leccionTitulo: leccion_id, // usamos el ID como título temporal
+      materiaNombre: materia_id,
+      xpGanados: resultado.xp_ganados,
+      xpTotal: resumen.xp_total,
+      nivelNombre: nivel.nombre,
+      nivelEmoji: nivel.emoji,
+      esNueva: true,
+    }).catch((err) => {
+      console.error('[progreso] Error al notificar admin:', err);
+    });
+  }
 
   return jsonResponse({
     ok: true,

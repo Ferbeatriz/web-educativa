@@ -43,7 +43,12 @@ import { handleTestEmail } from './routes/admin-email';
 
 
 import type { EnvEmail } from './lib/email';
-type Env = EnvAuth & EnvAdmin & EnvEmail & { DB: D1Database; ENVIRONMENT: string; APP_NAME: string };
+type Env = EnvAuth & EnvAdmin & EnvEmail & { 
+  DB: D1Database; 
+  ENVIRONMENT: string; 
+  APP_NAME: string;
+  ADMIN_EMAIL: string;
+};
 
 export default {
   async fetch(
@@ -84,7 +89,7 @@ export default {
       if (path === '/api' && method === 'GET') {
         return json({
           name: 'web-educativa-api',
-          version: '1.7.0',
+          version: '1.8.0',
           endpoints: [
             'GET    /api/health',
             'POST   /api/auth/login',
@@ -106,6 +111,7 @@ export default {
             'POST   /api/admin/alumnas',
             'POST   /api/admin/alumnas/:id/resetear-password',
             'GET    /api/admin/alumnas/:id/progreso',
+            'POST   /api/progreso/completar  (ahora notifica al admin)',
           ],
         });
       }
