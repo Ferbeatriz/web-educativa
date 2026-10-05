@@ -10,7 +10,7 @@
   "lecciones": [
     {
       "id": "los-textos-narrativos",
-      "titulo": "Los textos narrativos",
+      "titulo": "Los textos narrativos 📖",
       "emoji": "📖",
       "orden": 1,
       "nivel": "básico",
@@ -20,12 +20,32 @@
     },
     {
       "id": "cuento-fabula-leyenda",
-      "titulo": "Cuento, fábula y leyenda",
+      "titulo": "Cuento, fábula y leyenda 📚",
       "emoji": "📚",
       "orden": 2,
       "nivel": "básico",
       "duracion_estimada_min": 25,
       "archivo": "lecciones/cuento-fabula-leyenda.json",
+      "activa": true
+    },
+    {
+      "id": "figuras-literarias",
+      "titulo": "Figuras literarias ✍️",
+      "emoji": "✍️",
+      "orden": 3,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/figuras-literarias.json",
+      "activa": true
+    },
+    {
+      "id": "la-rima",
+      "titulo": "La rima 🎵",
+      "emoji": "🎵",
+      "orden": 4,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/la-rima.json",
       "activa": true
     }
   ]
