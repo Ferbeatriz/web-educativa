@@ -125,7 +125,8 @@ async function getAlumnaAutenticada(
  */
 export async function handleCompletarLeccion(
   request: Request,
-  env: Env
+  env: Env,
+  ctx: ExecutionContext
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
   if (!alumna) {
@@ -165,24 +166,31 @@ export async function handleCompletarLeccion(
   const resumen = await getResumenProgreso(env.DB, alumna.id);
   const nivel = calcularNivel(resumen.xp_total);
 
-  // 🔔 Notificación por email al admin (no bloquea la respuesta)
-  // Solo se envía si es una lección nueva (no repetida)
+  // 🔔 Notificación por email al admin
+  // Solo se envía si es una lección nueva (no repetida).
+  // Usamos ctx.waitUntil para que Cloudflare no corte la promesa.
   if (resultado.insertado) {
-    // Ejecutamos sin await para no hacer esperar a la alumna
-    // ctx.waitUntil sería lo ideal, pero no lo tenemos disponible aquí sin pasar ctx
-    notificarAdminLeccionCompletada(env, {
-      alumnaNombre: alumna.nombre,
-      alumnaUsuario: alumna.usuario,
-      leccionTitulo: leccion_id, // usamos el ID como título temporal
-      materiaNombre: materia_id,
-      xpGanados: resultado.xp_ganados,
-      xpTotal: resumen.xp_total,
-      nivelNombre: nivel.nombre,
-      nivelEmoji: nivel.emoji,
-      esNueva: true,
-    }).catch((err) => {
-      console.error('[progreso] Error al notificar admin:', err);
-    });
+    ctx.waitUntil(
+      notificarAdminLeccionCompletada(env, {
+        alumnaNombre: alumna.nombre,
+        alumnaUsuario: alumna.usuario,
+        leccionTitulo: leccion_id,
+        materiaNombre: materia_id,
+        xpGanados: resultado.xp_ganados,
+        xpTotal: resumen.xp_total,
+        nivelNombre: nivel.nombre,
+        nivelEmoji: nivel.emoji,
+        esNueva: true,
+      })
+        .then((res) => {
+          console.log('[notif] Resultado:', JSON.stringify(res));
+        })
+        .catch((err) => {
+          console.error('[notif] Error:', err);
+        })
+    );
+  } else {
+    console.log('[notif] Lección ya completada, no se notifica.');
   }
 
   return jsonResponse({
@@ -197,6 +205,7 @@ export async function handleCompletarLeccion(
     nivel,
   });
 }
+
 
 /**
  * GET /api/progreso/resumen

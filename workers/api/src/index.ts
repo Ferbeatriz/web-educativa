@@ -132,7 +132,7 @@ export default {
 
       // ---------- Progreso ----------
       if (path === '/api/progreso/completar' && method === 'POST') {
-        return await handleCompletarLeccion(request, env);
+        return await handleCompletarLeccion(request, env, ctx);
       }
       if (path === '/api/progreso/resumen' && method === 'GET') {
         return await handleResumenProgreso(request, env);
