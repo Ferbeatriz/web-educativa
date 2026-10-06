@@ -151,7 +151,7 @@ no está alineado con el currículum y debe rediseñarse.
 | `MOTOR_TUTOR_ESPECIFICACION.md` | Especificación del motor (pendiente) |
 | `NOTIFICACIONES_PLAN.md` | Plan de notificaciones |
 | `TUTOR_PLAN.md` | Plan del tutor interactivo |
-
+| `OA_MATEMATICA.md` | OA de Matemática 1° a 6° (consulta rápida) |
 ---
 
 **Fin del documento de alineación curricular.**
