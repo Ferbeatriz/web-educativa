@@ -47,6 +47,17 @@
       "duracion_estimada_min": 20,
       "archivo": "lecciones/la-rima.json",
       "activa": true
+    },
+
+    {
+      "id": "los-textos-poeticos",
+      "titulo": "Los Textos Poéticos",
+      "emoji": "📜",
+      "orden": 5,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/los-textos-poeticos.json",
+      "activa": true
     }
   ]
 }

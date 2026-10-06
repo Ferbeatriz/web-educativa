@@ -1,0 +1,126 @@
+{
+  "id": "los-textos-poeticos",
+  "titulo": "Los Textos Poéticos 📜",
+  "categoria": "Lenguaje y Comunicación",
+  "emoji": "📜",
+  "progreso_puntos": 50,
+  "contenido_modulos": [
+    "# Los Textos Poéticos 📜\n\n¿Has leído alguna vez algo que suena como una canción, pero no se canta? Eso es un poema. La poesía es una forma de escribir donde las palabras no solo dicen cosas: también suenan, sugieren y emocionan. A diferencia de un cuento, un poema no siempre cuenta una historia con inicio, desarrollo y final. Más bien captura un momento, una emoción o una imagen.\n\n> **Idea fuerza:** La poesía no cuenta historias: las sugiere.",
+    "## ¿Cómo está construido un poema? 📝\n\nUn poema se organiza en **versos** y **estrofas**. El verso es cada línea del poema. La estrofa es un grupo de versos separados por un espacio en blanco. Mira este ejemplo:\n\n> *Me gustas cuando callas porque estás como ausente,*\n> *y me oyes desde lejos, y mi voz no te toca.*\n> *Parece que los ojos se te hubieran volado*\n> *y parece que un beso te cerrara la boca.*\n>\n> — Pablo Neruda, *Poema 15*\n\nEste poema tiene **4 versos** y **1 estrofa**. Cada línea es un verso. Los cuatro juntos forman una estrofa.\n\n> **Idea fuerza:** El verso es una línea; la estrofa es un grupo de versos.",
+    "## La rima: la música del poema 🎵\n\nLa **rima** es la repetición de sonidos al final de dos o más versos. Hay dos tipos:\n\n- **Rima consonante:** coinciden vocales y consonantes. Ejemplo: *amor* / *dolor*.\n- **Rima asonante:** coinciden solo las vocales. Ejemplo: *casa* / *pala*.\n\nNo todos los poemas tienen rima. Muchos poemas modernos usan **verso libre**, que no rima pero mantiene un ritmo interno. Lo importante es que el poema suene bien al leerlo en voz alta.\n\n> **Idea fuerza:** La rima es la música del poema.",
+    "## Las partes del poema 🔍\n\n| Parte | ¿Qué es? | Ejemplo |\n|-------|----------|---------|\n| **Verso** | Cada línea del poema | \"Me gustas cuando callas...\" |\n| **Rima** | Repetición de sonidos al final de los versos | *amor* / *dolor* |\n| **Estrofa** | Grupo de versos separados por un espacio | Los 4 versos del ejemplo |\n\nUn poema puede tener muchas estrofas. Cada estrofa puede tener distinta cantidad de versos. No hay una regla fija: el poeta decide cómo organizarlos.\n\n> **Idea fuerza:** Un poema es un cuerpo: los versos son sus huesos, la rima su sangre, la estrofa su forma.",
+    "## Cierre y puente ✨\n\nLos poemas son una forma única de expresar lo que sentimos y vemos. No necesitan contar una historia completa: basta con capturar un momento. Cuando leas un poema, léelo en voz alta. Escucha cómo suenan las palabras. Ahí está la poesía.\n\nEn la próxima lección aprenderás a crear tus propios versos.\n\n> **Idea fuerza:** Leer poesía es escuchar el mundo con otros oídos."
+  ],
+  "trivia": [
+    {
+      "pregunta": "¿Qué es un verso?",
+      "opciones": [
+        "Un grupo de palabras que riman",
+        "Cada línea de un poema",
+        "El título del poema",
+        "La emoción que transmite el poema"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Un verso es cada línea del poema. La estrofa es el grupo de versos."
+    },
+    {
+      "pregunta": "¿Qué es una estrofa?",
+      "opciones": [
+        "Cada palabra del poema",
+        "Un grupo de versos separados por un espacio",
+        "La rima del poema",
+        "El autor del poema"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La estrofa es un conjunto de versos agrupados y separados por un espacio en blanco."
+    },
+    {
+      "pregunta": "¿Qué es la rima?",
+      "opciones": [
+        "La repetición de sonidos al final de dos o más versos",
+        "El número de estrofas de un poema",
+        "El tema del poema",
+        "La primera palabra del poema"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "La rima es la coincidencia de sonidos al final de los versos."
+    },
+    {
+      "pregunta": "En el poema \"Me gustas cuando callas porque estás como ausente\", ¿cuántos versos hay en la estrofa?",
+      "opciones": [
+        "2 versos",
+        "3 versos",
+        "4 versos",
+        "5 versos"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "La estrofa tiene 4 versos. Cada línea es un verso."
+    },
+    {
+      "pregunta": "¿Cuál es la diferencia entre verso y prosa?",
+      "opciones": [
+        "El verso rima y la prosa no",
+        "El verso es cada línea del poema; la prosa se escribe en párrafos",
+        "La prosa es más antigua que el verso",
+        "No hay diferencia"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El verso se organiza en líneas; la prosa, en párrafos continuos."
+    },
+    {
+      "pregunta": "¿Qué tipo de rima tienen las palabras \"amor\" y \"dolor\"?",
+      "opciones": [
+        "Rima asonante",
+        "Rima consonante",
+        "No riman",
+        "Rima libre"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Amor y dolor comparten vocales y consonantes finales: es rima consonante."
+    },
+    {
+      "pregunta": "¿Qué tipo de rima tienen las palabras \"casa\" y \"pala\"?",
+      "opciones": [
+        "Rima consonante",
+        "Rima asonante",
+        "No riman",
+        "Rima perfecta"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Casa y pala comparten solo las vocales finales: es rima asonante."
+    },
+    {
+      "pregunta": "¿Qué es el verso libre?",
+      "opciones": [
+        "Un poema que no tiene rima pero mantiene un ritmo",
+        "Un poema sin autor",
+        "Un poema que no tiene versos",
+        "Un poema escrito en otro idioma"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "El verso libre no rima, pero conserva un ritmo interno."
+    },
+    {
+      "pregunta": "¿Cuál de estos elementos NO es una parte del poema?",
+      "opciones": [
+        "Verso",
+        "Rima",
+        "Estrofa",
+        "Párrafo"
+      ],
+      "respuesta_correcta": 3,
+      "explicacion": "El párrafo es propio de la prosa, no del poema."
+    },
+    {
+      "pregunta": "¿Qué hace que un texto sea poético?",
+      "opciones": [
+        "Que tenga muchas palabras difíciles",
+        "Que use versos, ritmo y un lenguaje que sugiere imágenes y emociones",
+        "Que sea muy largo",
+        "Que tenga un título llamativo"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Lo poético está en el uso del verso, el ritmo y el lenguaje que sugiere."
+    }
+  ]
+}

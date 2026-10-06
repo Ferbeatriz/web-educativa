@@ -1,0 +1,243 @@
+{
+  "id": "resta-52-menos-27",
+  "materia_id": "matematicas",
+  "tema": "resta_con_reserva",
+  "dificultad": "facil",
+  "titulo": "Resta con reserva: 52 − 27",
+  "emoji": "➖",
+  "contexto": "Tienes 52 láminas y le regalas 27 a tu hermano. ¿Cuántas láminas te quedan?",
+  "pasos": [
+    {
+      "n": 1,
+      "pregunta": "Para empezar: ¿podemos restar 2 − 7 (las unidades)?",
+      "tipo": "si_no",
+      "opciones": ["Sí", "No"],
+      "respuesta_correcta": "No",
+      "feedback_correcto": "Exacto. 2 es más chico que 7, así que no alcanza. Vamos a pedir prestado.",
+      "errores_comunes": {
+        "Sí": "Cuidado: 2 es más chico que 7. No se puede restar directamente. Hay que pedir prestado a la decena."
+      }
+    },
+    {
+      "n": 2,
+      "pregunta": "Para poder restar, le pedimos prestado a la decena. ¿De dónde sacamos el préstamo?",
+      "tipo": "opciones",
+      "opciones": ["De las unidades", "De las decenas", "De las centenas"],
+      "respuesta_correcta": "De las decenas",
+      "feedback_correcto": "¡Muy bien! Le pedimos 10 a la decena. El 5 se convierte en 4 y el 2 se convierte en 12.",
+      "errores_comunes": {
+        "De las unidades": "No se puede. Las unidades no tienen de dónde prestar. Le pedimos a la decena, que vale 10.",
+        "De las centenas": "No hay centenas en este número. 52 tiene decenas y unidades. Le pedimos a las decenas."
+      },
+      "visual": {
+        "tipo": "resta",
+        "minuendo": 52,
+        "sustraendo": 27,
+        "emoji_bloque": "🃏",
+        "escenarios": {
+          "De las unidades": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "El préstamo siempre sale de la columna de la izquierda."
+          },
+          "De las decenas": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "correcto",
+            "prestamo": {
+              "columna": "decenas",
+              "desde": 5,
+              "hacia": 2,
+              "nuevo_desde": 4,
+              "nuevo_hacia": 12
+            }
+          },
+          "De las centenas": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "No hay centenas en 52. Solo decenas y unidades."
+          }
+        }
+      }
+    },
+    {
+      "n": 3,
+      "pregunta": "Después de pedir prestado, ¿cuánto vale ahora la unidad del minuendo?",
+      "tipo": "opciones",
+      "opciones": ["2", "10", "12", "52"],
+      "respuesta_correcta": "12",
+      "feedback_correcto": "¡Correcto! 2 + 10 = 12. Ahora sí podemos restar 12 − 7.",
+      "errores_comunes": {
+        "2": "El 2 sigue igual solo si no pedimos prestado. Pero le sumamos 10. Entonces vale 12.",
+        "10": "10 es lo que le pedimos a la decena. Pero la unidad tenía 2, entonces ahora vale 2 + 10 = 12.",
+        "52": "52 es el número completo. Ahora solo hablamos de la unidad. La unidad vale 12 después del préstamo."
+      },
+      "visual": {
+        "tipo": "resta",
+        "minuendo": 52,
+        "sustraendo": 27,
+        "emoji_bloque": "🃏",
+        "escenarios": {
+          "2": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "El 2 ya no vale 2. Con el préstamo vale 12."
+          },
+          "10": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "La unidad valía 2. Con los 10 prestados, ahora vale 12."
+          },
+          "12": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "correcto",
+            "prestamo": {
+              "columna": "decenas",
+              "desde": 5,
+              "hacia": 2,
+              "nuevo_desde": 4,
+              "nuevo_hacia": 12
+            }
+          },
+          "52": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "52 es el número completo. La unidad ahora vale 12."
+          }
+        }
+      }
+    },
+    {
+      "n": 4,
+      "pregunta": "Ahora restamos las unidades: 12 − 7. ¿Cuánto es?",
+      "tipo": "opciones",
+      "opciones": ["3", "4", "5", "6"],
+      "respuesta_correcta": "5",
+      "feedback_correcto": "¡Muy bien! 12 − 7 = 5. Escribimos el 5 en las unidades.",
+      "errores_comunes": {
+        "3": "Casi. 12 − 7 no es 3. Prueba contando hacia atrás desde 12.",
+        "4": "12 − 7 no es 4. Revisa con calma.",
+        "6": "12 − 7 no es 6. Intenta de nuevo."
+      },
+      "visual": {
+        "tipo": "resta",
+        "minuendo": 52,
+        "sustraendo": 27,
+        "emoji_bloque": "🃏",
+        "escenarios": {
+          "3": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "12 − 7 = 5, no 3."
+          },
+          "4": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "12 − 7 = 5, no 4."
+          },
+          "5": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "correcto",
+            "prestamo": {
+              "columna": "decenas",
+              "desde": 5,
+              "hacia": 2,
+              "nuevo_desde": 4,
+              "nuevo_hacia": 12
+            },
+            "parcial": {
+              "unidades": 5,
+              "decenas": null
+            }
+          },
+          "6": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "12 − 7 = 5, no 6."
+          }
+        }
+      }
+    },
+    {
+      "n": 5,
+      "pregunta": "Por último, restamos las decenas: 4 − 2 (porque el 5 se convirtió en 4 después del préstamo). ¿Cuánto es?",
+      "tipo": "opciones",
+      "opciones": ["1", "2", "3", "4"],
+      "respuesta_correcta": "2",
+      "feedback_correcto": "¡Listo! 4 − 2 = 2. Entonces 52 − 27 = 25. Te quedan 25 láminas.",
+      "errores_comunes": {
+        "1": "Casi. 4 − 2 no es 1. Prueba de nuevo.",
+        "3": "4 − 2 no es 3. Revisa la resta.",
+        "4": "4 − 2 no es 4. El 5 se convirtió en 4 por el préstamo, pero todavía hay que restarle 2."
+      },
+      "visual": {
+        "tipo": "resta",
+        "minuendo": 52,
+        "sustraendo": 27,
+        "emoji_bloque": "🃏",
+        "escenarios": {
+          "1": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "4 − 2 = 2, no 1."
+          },
+          "2": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "correcto",
+            "prestamo": {
+              "columna": "decenas",
+              "desde": 5,
+              "hacia": 2,
+              "nuevo_desde": 4,
+              "nuevo_hacia": 12
+            },
+            "parcial": {
+              "unidades": 5,
+              "decenas": 2
+            }
+          },
+          "3": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "4 − 2 = 2, no 3."
+          },
+          "4": {
+            "minuendo": 52,
+            "sustraendo": 27,
+            "resultado": 25,
+            "estado": "error",
+            "nota": "4 − 2 = 2. No olvides restar el 2 después del préstamo."
+          }
+        }
+      }
+    }
+  ],
+  "cierre": "Muy bien. Aprendiste que cuando la unidad del minuendo es más chica que la del sustraendo, hay que pedir prestado a la decena. En 52 − 27, el préstamo convirtió el 5 en 4 y el 2 en 12. Después restamos normal: 12 − 7 = 5 y 4 − 2 = 2. El resultado es 25."
+}

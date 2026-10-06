@@ -30,6 +30,39 @@ export interface EscenarioResto {
   nota?: string;
 }
 
+export interface PrestamoResta {
+  columna: 'unidades' | 'decenas' | 'centenas';
+  desde: number;
+  hacia: number;
+  nuevo_desde: number;
+  nuevo_hacia: number;
+}
+
+export interface ParcialResta {
+  unidades: number | null;
+  decenas: number | null;
+}
+
+export interface EscenarioResta {
+  minuendo: number;
+  sustraendo: number;
+  resultado: number;
+  estado: 'correcto' | 'error';
+  prestamo?: PrestamoResta;
+  parcial?: ParcialResta;
+  nota?: string;
+}
+
+export interface VisualResta {
+  tipo: 'resta';
+  minuendo: number;
+  sustraendo: number;
+  emoji_bloque?: string;
+  escenarios: Record<string, EscenarioResta>;
+}
+
+
+
 export interface VisualResto {
   tipo: 'resto';
   total: number;
@@ -37,7 +70,7 @@ export interface VisualResto {
   escenarios: Record<string, EscenarioResto>;
 }
 
-export type Visual = VisualGrupos | VisualResto;
+export type Visual = VisualGrupos | VisualResto | VisualResta;
 
 export interface Paso {
   n: number;
@@ -71,7 +104,7 @@ export interface ResultadoValidacion {
   /** Escenario visual a mostrar, si el paso lo tiene definido. */
   visual_escenario?: EscenarioGrupos | EscenarioResto;
   /** Tipo de visual, para que la UI sepa qué componente usar. */
-  visual_tipo?: 'grupos' | 'resto';
+  visual_tipo?: 'grupos' | 'resto' | 'resta';
   /** Datos completos del visual (total, divisor, etc.). */
   visual_datos?: Visual;
 }
