@@ -1,10 +1,10 @@
 # 📚 ALINEACIÓN CURRICULAR — web-educativa
 
-> Este documento es la referencia obligatoria para todo el desarrollo
-> de la plataforma. Ninguna funcionalidad, lección o motor se aprueba
-> si no está alineada con los OA del MINEDUC.
+> **Documento de referencia obligatoria.**
+> Ninguna funcionalidad, lección, motor o componente se aprueba
+> si no está alineado con los OA y OAT del MINEDUC.
 >
-> Léelo antes de diseñar cualquier contenido o componente.
+> **Léelo antes de diseñar cualquier contenido o componente.**
 
 ---
 
@@ -15,7 +15,7 @@ Toda la plataforma está diseñada para apoyar el logro de los
 Transversales (OAT)** definidos en las Bases Curriculares del MINEDUC
 para la Educación Básica (1° a 6°).
 
-La plataforma no reemplaza al docente: lo **potencia** con datos,
+La plataforma **no reemplaza al docente**: lo **potencia** con datos,
 herramientas y contenido alineado al currículum.
 
 ---
@@ -147,7 +147,7 @@ no está alineado con el currículum y debe rediseñarse.
 | `ESTADO_PROYECTO.md` | Estado general + pendientes |
 | `GUIA_IA.md` | Manual técnico completo |
 | `PROMPT_TRASPASO.md` | Prompt para chat nuevo |
-| `ALINEACION_MINEDUC.md` | Este archivo |
+| `ALINEACION_MINEDUC.md` | **Este archivo** (lectura obligatoria) |
 | `MOTOR_TUTOR_ESPECIFICACION.md` | Especificación del motor (pendiente) |
 | `NOTIFICACIONES_PLAN.md` | Plan de notificaciones |
 | `TUTOR_PLAN.md` | Plan del tutor interactivo |
