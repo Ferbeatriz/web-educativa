@@ -23,6 +23,17 @@ Contenido generado con IA, guardado como JSON estructurado.
 
 ---
 
+
+## 📚 Alineación curricular (LECTURA OBLIGATORIA)
+
+Antes de generar cualquier contenido o diseñar cualquier componente,
+lee `ALINEACION_MINEDUC.md`. Toda la plataforma está alineada con los
+OA y OAT del MINEDUC para la Educación Básica.
+
+
+
+
+
 ## 👤 Rol de la IA
 
 Actuar como **profesor de enseñanza básica** con 20 años de experiencia.

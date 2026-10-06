@@ -4,6 +4,7 @@
 > Copia este archivo al inicio de un chat nuevo para que la IA
 > tenga todo el contexto necesario para continuar el proyecto.
 
+
 ---
 
 ## 👋 Saludo inicial sugerido
@@ -16,8 +17,15 @@
 - `PROTOCOLO_NUEVA_COMPRENSION.md` → Cómo agregar libros al Club de Lectura
 - `TUTOR_PLAN.md` → Plan del tutor interactivo
 - `NOTIFICACIONES_PLAN.md` → Plan de notificaciones
+- `ALINEACION_MINEDUC.md` → Referencia curricular obligatoria (LEER PRIMERO)
 
 Por favor, lee esos archivos primero y luego continuamos."
+
+## 📚 LECTURA OBLIGATORIA ANTES DE CUALQUIER ACCIÓN
+
+- `ALINEACION_MINEDUC.md` → **Referencia curricular obligatoria.**
+  Ninguna funcionalidad, lección o motor se aprueba si no está
+  alineado con los OA y OAT del MINEDUC.
 
 ---
 

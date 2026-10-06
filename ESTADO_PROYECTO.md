@@ -344,4 +344,6 @@ NOTIFICACIONES_PLAN.md o TUTOR_PLAN.md según corresponda.
 
 Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_PLAN.md).
 
+| `ALINEACION_MINEDUC.md` | Referencia curricular obligatoria |
+
 Fin del estado del proyecto.
