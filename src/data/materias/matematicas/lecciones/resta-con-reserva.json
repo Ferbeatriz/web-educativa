@@ -1,0 +1,132 @@
+{
+  "id": "resta-con-reserva",
+  "titulo": "Resta con reserva ➖",
+  "categoria": "Matemáticas",
+  "emoji": "➖",
+  "progreso_puntos": 150,
+  "contenido_modulos": [
+    "# ➖ ¿Qué es restar?\n\nRestar es **quitar una cantidad de otra**. Es una de las cuatro operaciones básicas, junto con sumar, multiplicar y dividir.\n\n\n\nCuando restamos, respondemos preguntas como:\n\n- Si tenía **52 láminas** y regalé **27**, ¿cuántas me quedan?\n- Si en una caja había **80 huevos** y se rompieron **15**, ¿cuántos quedan?\n- Si caminé **1.200 metros** y ya llevo **450**, ¿cuánto me falta?\n\nLa resta se escribe con el símbolo **−** (menos).\n\n> **Idea fuerza**: Restar es quitar. Si tienes una cantidad y le quitas otra, el resultado es lo que queda.",
+
+    "# 🔢 Las partes de la resta\n\nLa resta tiene **tres partes**. No son difíciles: solo hay que aprenderlas.\n\n\n\n## Minuendo\n\nEs **la cantidad de la que se quita**. En el ejemplo **52 − 27**, el minuendo es **52**.\n\n## Sustraendo\n\nEs **la cantidad que se quita**. En **52 − 27**, el sustraendo es **27**.\n\n## Diferencia\n\nEs **el resultado**, lo que queda. En **52 − 27**, la diferencia es **25**.\n\n## Tabla resumen\n\n| Palabra | Qué significa | Ejemplo en 52 − 27 = 25 |\n|---------|--------------|------------------------|\n| Minuendo | La cantidad inicial | 52 |\n| Sustraendo | Lo que se quita | 27 |\n| Diferencia | El resultado | 25 |\n\n**Truco para recordar**: el **minuendo** es el grande (está arriba), el **sustraendo** es el chico (está abajo), y la **diferencia** es lo que queda.",
+
+    "# 🧱 Resta sin reserva y con reserva\n\nNo todas las restas son iguales. Hay dos tipos.\n\n## Resta sin reserva\n\nEs cuando **cada cifra del minuendo es mayor o igual que la del sustraendo**. Se resta columna por columna, sin problemas.\n\n**Ejemplo**: 47 − 23\n\n- Unidades: 7 − 3 = 4\n- Decenas: 4 − 2 = 2\n- Resultado: **24**\n\n## Resta con reserva\n\nEs cuando **alguna cifra del minuendo es menor que la del sustraendo**. Ahí hay que **pedir prestado**.\n\n**Ejemplo**: 52 − 27\n\n- Unidades: 2 − 7 → **no se puede** (2 es más chico que 7).\n- Hay que pedir prestado a la decena.\n- La decena 5 se convierte en **4**.\n- La unidad 2 se convierte en **12**.\n- Ahora sí: 12 − 7 = 5, y 4 − 2 = 2.\n- Resultado: **25**.\n\n> **Idea fuerza**: Cuando la cifra de arriba es más chica que la de abajo, hay que pedir prestado a la columna de la izquierda.",
+
+    "# 🃏 El préstamo paso a paso\n\nVamos a hacer la resta **52 − 27** con calma. Es el ejemplo que vamos a practicar después.\n\n## Paso 1: mirar las unidades\n\nLas unidades son **2 − 7**.\n\n¿Se puede? **No**, porque 2 es más chico que 7.\n\n## Paso 2: pedir prestado\n\nLe pedimos **10** a la decena. La decena del minuendo es 5, entonces:\n\n- La decena 5 se convierte en **4**.\n- La unidad 2 se convierte en **12**.\n\n## Paso 3: restar las unidades\n\nAhora sí: **12 − 7 = 5**.\n\n## Paso 4: restar las decenas\n\nLa decena del minuendo ahora vale 4. Entonces: **4 − 2 = 2**.\n\n## Resultado final\n\n**52 − 27 = 25**.\n\n## Un truco para no olvidar\n\nCuando pides prestado, **siempre** la columna de la izquierda baja 1, y la columna actual sube 10.",
+
+    "# 🎮 Ahora te toca practicar\n\nVamos a hacer la resta **52 − 27** paso a paso. Te voy a ir preguntando uno por uno. Si te equivocas, te explico por qué.\n\n<!-- TUTOR: resta-52-menos-27 -->"
+  ],
+  "glosario": [
+    {
+      "termino": "Restar",
+      "emoji": "➖",
+      "definicion": "Quitar una cantidad de otra. Es una de las cuatro operaciones básicas."
+    },
+    {
+      "termino": "Minuendo",
+      "emoji": "📦",
+      "definicion": "La cantidad de la que se quita. En 52 − 27, el minuendo es 52."
+    },
+    {
+      "termino": "Sustraendo",
+      "emoji": "🗑️",
+      "definicion": "La cantidad que se quita. En 52 − 27, el sustraendo es 27."
+    },
+    {
+      "termino": "Diferencia",
+      "emoji": "🎯",
+      "definicion": "El resultado de la resta. En 52 − 27, la diferencia es 25."
+    },
+    {
+      "termino": "Reserva",
+      "emoji": "🤝",
+      "definicion": "Pedir prestado 10 a la columna de la izquierda cuando la cifra de arriba es más chica que la de abajo."
+    },
+    {
+      "termino": "Préstamo",
+      "emoji": "🔟",
+      "definicion": "Los 10 que se le suman a la columna actual y que se le restan a la columna de la izquierda."
+    }
+  ],
+  "trivia": [
+    {
+      "pregunta": "¿Qué significa restar?",
+      "opciones": [
+        "Sumar dos números",
+        "Quitar una cantidad de otra",
+        "Multiplicar por 2",
+        "Dividir en partes iguales"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Restar es quitar una cantidad de otra. Es una de las cuatro operaciones básicas."
+    },
+    {
+      "pregunta": "En la resta 52 − 27, ¿cuál es el minuendo?",
+      "opciones": ["25", "27", "52", "79"],
+      "respuesta_correcta": 2,
+      "explicacion": "El minuendo es la cantidad de la que se quita. En 52 − 27, el minuendo es 52."
+    },
+    {
+      "pregunta": "En la resta 80 − 15, ¿cuál es el sustraendo?",
+      "opciones": ["80", "15", "65", "95"],
+      "respuesta_correcta": 1,
+      "explicacion": "El sustraendo es la cantidad que se quita. En 80 − 15, el sustraendo es 15."
+    },
+    {
+      "pregunta": "¿Cuándo hay que pedir prestado en una resta?",
+      "opciones": [
+        "Cuando el minuendo es más grande",
+        "Cuando la cifra de arriba es más chica que la de abajo",
+        "Cuando el resultado es 0",
+        "Cuando los números son pares"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Se pide prestado cuando la cifra del minuendo es menor que la del sustraendo en esa columna."
+    },
+    {
+      "pregunta": "En la resta 52 − 27, ¿qué pasa con el 5 de las decenas después del préstamo?",
+      "opciones": [
+        "Se queda igual",
+        "Se convierte en 4",
+        "Se convierte en 6",
+        "Se convierte en 15"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La decena 5 presta 10 a la unidad, entonces baja a 4."
+    },
+    {
+      "pregunta": "En la resta 52 − 27, ¿qué pasa con el 2 de las unidades después del préstamo?",
+      "opciones": [
+        "Se queda igual",
+        "Se convierte en 12",
+        "Se convierte en 10",
+        "Se convierte en 20"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "La unidad 2 recibe 10 prestados de la decena, entonces se convierte en 12."
+    },
+    {
+      "pregunta": "Después del préstamo, ¿cuánto es 12 − 7?",
+      "opciones": ["3", "4", "5", "6"],
+      "respuesta_correcta": 2,
+      "explicacion": "12 − 7 = 5. Ese es el resultado de restar las unidades."
+    },
+    {
+      "pregunta": "Después del préstamo, ¿cuánto es 4 − 2?",
+      "opciones": ["1", "2", "3", "4"],
+      "respuesta_correcta": 1,
+      "explicacion": "4 − 2 = 2. Ese es el resultado de restar las decenas."
+    },
+    {
+      "pregunta": "¿Cuánto es 52 − 27?",
+      "opciones": ["24", "25", "26", "35"],
+      "respuesta_correcta": 1,
+      "explicacion": "52 − 27 = 25. Lo verificamos sumando: 25 + 27 = 52."
+    },
+    {
+      "pregunta": "Si tienes 52 láminas y regalas 27, ¿cuántas te quedan?",
+      "opciones": ["25 láminas", "27 láminas", "35 láminas", "79 láminas"],
+      "respuesta_correcta": 0,
+      "explicacion": "52 − 27 = 25. Te quedan 25 láminas."
+    }
+  ]
+}

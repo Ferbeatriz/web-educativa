@@ -29,7 +29,25 @@
       "duracion_estimada_min": 15,
       "archivo": "lecciones/introduccion-division.json",
       "activa": true
+    },
+
+
+    {
+      "id": "resta-con-reserva",
+      "titulo": "Resta con reserva",
+      "emoji": "➖",
+      "orden": 3,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/resta-con-reserva.json",
+      "activa": true
     }
+
+
+
+
+
+
 
   ]
 }

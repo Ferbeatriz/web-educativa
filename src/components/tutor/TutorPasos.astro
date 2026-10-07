@@ -3,9 +3,15 @@
  * Componente de tutor interactivo por pasos.
  * El estudiante avanza haciendo clic en opciones.
  * Sin voz. Solo clic/touch.
+ *
+ * Elige automáticamente la animación según `visual.tipo`:
+ * - 'grupos' o 'resto' → <animacion-division>
+ * - 'resta' → <animacion-resta>
  */
 import type { Ejercicio } from '../../lib/tutor/validador';
 import AnimacionDivision from './AnimacionDivision.astro';
+import AnimacionResta from './AnimacionResta.astro';
+
 
 interface Props {
   ejercicio: Ejercicio;
@@ -75,6 +81,7 @@ const primerPaso = ejercicio.pasos[0];
     <div id="tutor-feedback" class="hidden mt-5 rounded-2xl p-4 text-sm leading-relaxed"></div>
 
     <AnimacionDivision />
+    <AnimacionResta />
 
     <div id="tutor-continuar-wrap" class="hidden mt-5 text-center">
       <button
@@ -108,7 +115,8 @@ const primerPaso = ejercicio.pasos[0];
     const pregunta = document.getElementById('tutor-pregunta')!;
     const opciones = document.getElementById('tutor-opciones')!;
     const feedback = document.getElementById('tutor-feedback')!;
-    const animacion = document.querySelector('animacion-division') as any;
+    const animacionDivision = document.querySelector('animacion-division') as any;
+    const animacionResta = document.querySelector('animacion-resta') as any;
     const continuarWrap = document.getElementById('tutor-continuar-wrap')!;
     const btnContinuar = document.getElementById('tutor-continuar') as HTMLButtonElement;
     const cierre = document.getElementById('tutor-cierre')!;
@@ -117,12 +125,20 @@ const primerPaso = ejercicio.pasos[0];
     let pasoActual = 1;
     let acerto = false;
 
+    function getAnimacion(tipo: string | undefined) {
+      if (tipo === 'resta') return animacionResta;
+      return animacionDivision;
+    }
+
     function limpiarAnimacion() {
-      if (animacion && typeof animacion.render === 'function') {
-        animacion.render(null, null);
-      } else if (animacion) {
-        animacion.innerHTML = '';
-      }
+      [animacionDivision, animacionResta].forEach((a) => {
+        if (!a) return;
+        if (typeof a.render === 'function') {
+          a.render(null, null);
+        } else {
+          a.innerHTML = '';
+        }
+      });
     }
 
     function pintarPaso(n: number) {
@@ -172,10 +188,13 @@ const primerPaso = ejercicio.pasos[0];
 
       // Mostrar la animación si el paso tiene visual
       const paso = ejercicio.pasos[pasoActual - 1];
-      if (paso.visual && paso.visual.escenarios && paso.visual.escenarios[respuesta] && animacion) {
-        setTimeout(() => {
-          animacion.render(paso.visual, paso.visual.escenarios[respuesta]);
-        }, 250);
+      if (paso.visual && paso.visual.escenarios && paso.visual.escenarios[respuesta]) {
+        const anim = getAnimacion(paso.visual.tipo);
+        if (anim) {
+          setTimeout(() => {
+            anim.render(paso.visual, paso.visual.escenarios[respuesta]);
+          }, 250);
+        }
       }
 
       if (r.correcto) {

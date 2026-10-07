@@ -21,6 +21,7 @@ export interface VisualGrupos {
   total: number;
   divisor: number;
   etiqueta_grupo?: string;
+  emoji_bloque?: string;
   escenarios: Record<string, EscenarioGrupos>;
 }
 
@@ -28,6 +29,14 @@ export interface EscenarioResto {
   resto: number;
   estado: 'correcto' | 'imposible';
   nota?: string;
+}
+
+export interface VisualResto {
+  tipo: 'resto';
+  total: number;
+  en_cajas: number;
+  emoji_bloque?: string;
+  escenarios: Record<string, EscenarioResto>;
 }
 
 export interface PrestamoResta {
@@ -59,15 +68,6 @@ export interface VisualResta {
   sustraendo: number;
   emoji_bloque?: string;
   escenarios: Record<string, EscenarioResta>;
-}
-
-
-
-export interface VisualResto {
-  tipo: 'resto';
-  total: number;
-  en_cajas: number;
-  escenarios: Record<string, EscenarioResto>;
 }
 
 export type Visual = VisualGrupos | VisualResto | VisualResta;
@@ -102,7 +102,7 @@ export interface ResultadoValidacion {
   siguiente_paso?: number;
   completo?: boolean;
   /** Escenario visual a mostrar, si el paso lo tiene definido. */
-  visual_escenario?: EscenarioGrupos | EscenarioResto;
+  visual_escenario?: EscenarioGrupos | EscenarioResto | EscenarioResta;
   /** Tipo de visual, para que la UI sepa qué componente usar. */
   visual_tipo?: 'grupos' | 'resto' | 'resta';
   /** Datos completos del visual (total, divisor, etc.). */
@@ -128,8 +128,8 @@ export function validarPaso(
   const esCorrecto = normalizar(respuesta) === normalizar(paso.respuesta_correcta);
 
   // Resolver el visual ANTES, porque aplica tanto a acierto como a error
-  let visual_escenario: EscenarioGrupos | EscenarioResto | undefined;
-  let visual_tipo: 'grupos' | 'resto' | undefined;
+  let visual_escenario: EscenarioGrupos | EscenarioResto | EscenarioResta | undefined;
+  let visual_tipo: 'grupos' | 'resto' | 'resta' | undefined;
   if (paso.visual && paso.visual.escenarios) {
     const esc = paso.visual.escenarios[respuesta];
     if (esc) {
