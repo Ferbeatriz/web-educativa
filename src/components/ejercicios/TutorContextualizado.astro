@@ -34,22 +34,25 @@ const pasos = problema.tutor.pasos;
         <div class="paso-opciones">
           {paso.opciones.map((opcion) => (
             <button
+              type="button"
               class="opcion-btn"
               data-opcion={opcion}
-              data-problema-id={problema.id}
-              data-paso-n={paso.n}
             >
               {opcion}
             </button>
           ))}
         </div>
 
-        <div class="paso-feedback" data-paso-n={paso.n} hidden></div>
+        <div
+          class="paso-feedback"
+          data-paso-n={paso.n}
+          aria-live="polite"
+          hidden
+        ></div>
 
         <button
+          type="button"
           class="btn-siguiente"
-          data-problema-id={problema.id}
-          data-paso-n={paso.n}
           hidden
         >
           Siguiente paso →
@@ -58,7 +61,7 @@ const pasos = problema.tutor.pasos;
     ))}
   </div>
 
-  <div class="tutor-cierre" data-problema-id={problema.id} hidden>
+  <div class="tutor-cierre" hidden>
     <p>🎉 ¡Muy bien! Has completado el razonamiento paso a paso.</p>
     <p class="cierre-respuesta">
       La respuesta correcta es: <strong>Cociente {problema.cociente_esperado}, Resto {problema.resto_esperado}</strong>.
@@ -67,85 +70,7 @@ const pasos = problema.tutor.pasos;
 </div>
 
 <script>
-  // Manejar clic en opciones del tutor
-  document.querySelectorAll('.opcion-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const problemaId = btn.getAttribute('data-problema-id');
-      const pasoN = btn.getAttribute('data-paso-n');
-      const opcionElegida = btn.getAttribute('data-opcion');
-      const pasoDiv = document.querySelector(`.tutor-paso[data-paso-n="${pasoN}"][data-problema-id="${problemaId}"]`);
-      if (!pasoDiv) return;
-
-      const respuestaCorrecta = pasoDiv.getAttribute('data-respuesta-correcta');
-      const errores = JSON.parse(pasoDiv.getAttribute('data-errores') || '{}');
-      const feedback = pasoDiv.querySelector('.paso-feedback') as HTMLElement;
-      const btnSiguiente = pasoDiv.querySelector('.btn-siguiente') as HTMLButtonElement;
-
-      // Deshabilitar todas las opciones del paso
-      pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
-        b.setAttribute('disabled', 'true');
-      });
-
-      if (opcionElegida === respuestaCorrecta) {
-        // ✅ Correcto
-        feedback.hidden = false;
-        feedback.className = 'paso-feedback feedback-correcto';
-        feedback.innerHTML = `✅ ${pasoDiv.querySelector('.paso-pregunta')?.textContent ? '' : ''} ¡Correcto!`;
-
-        // Marcar opción correcta en verde
-        btn.classList.add('opcion-correcta');
-
-        // Mostrar botón siguiente
-        btnSiguiente.hidden = false;
-      } else {
-        // ❌ Incorrecto
-        feedback.hidden = false;
-        feedback.className = 'paso-feedback feedback-incorrecto';
-        const mensajeError = errores[opcionElegida] || 'Casi. Revisa tu respuesta.';
-        feedback.innerHTML = `❌ ${mensajeError}`;
-
-        // Marcar opción incorrecta en rojo
-        btn.classList.add('opcion-incorrecta');
-
-        // Marcar la correcta en verde
-        pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
-          if (b.getAttribute('data-opcion') === respuestaCorrecta) {
-            b.classList.add('opcion-correcta');
-          }
-        });
-
-        // Permitir reintentar después de 2 segundos
-        setTimeout(() => {
-          pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
-            if (b.getAttribute('data-opcion') !== respuestaCorrecta) {
-              b.removeAttribute('disabled');
-              b.classList.remove('opcion-incorrecta');
-            }
-          });
-        }, 2000);
-      }
-    });
-  });
-
-  // Manejar clic en "Siguiente paso"
-  document.querySelectorAll('.btn-siguiente').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const problemaId = btn.getAttribute('data-problema-id');
-      const pasoN = parseInt(btn.getAttribute('data-paso-n') || '0');
-      const pasoActual = document.querySelector(`.tutor-paso[data-paso-n="${pasoN}"][data-problema-id="${problemaId}"]`);
-      const pasoSiguiente = document.querySelector(`.tutor-paso[data-paso-n="${pasoN + 1}"][data-problema-id="${problemaId}"]`);
-
-      if (pasoActual) pasoActual.setAttribute('hidden', 'true');
-
-      if (pasoSiguiente) {
-        pasoSiguiente.removeAttribute('hidden');
-      } else {
-        // No hay siguiente paso: mostrar cierre
-        const cierre = document.querySelector(`.tutor-cierre[data-problema-id="${problemaId}"]`);
-        if (cierre) cierre.removeAttribute('hidden');
-      }
-    });
-  });
+  import '../../scripts/tutor-contextualizado.js';
 </script>
 
 <style>
@@ -174,6 +99,10 @@ const pasos = problema.tutor.pasos;
 
   .tutor-paso {
     margin-bottom: 1.5rem;
+  }
+
+  .tutor-paso[hidden] {
+    display: none;
   }
 
   .paso-header {
@@ -213,6 +142,7 @@ const pasos = problema.tutor.pasos;
     cursor: pointer;
     transition: all 0.2s;
     min-width: 60px;
+    font-family: inherit;
   }
 
   .opcion-btn:hover:not(:disabled) {
@@ -243,6 +173,7 @@ const pasos = problema.tutor.pasos;
     border-radius: 8px;
     font-size: 0.95rem;
     margin-bottom: 1rem;
+    line-height: 1.5;
   }
 
   .feedback-correcto {
@@ -266,6 +197,8 @@ const pasos = problema.tutor.pasos;
     border-radius: 8px;
     cursor: pointer;
     margin-top: 0.5rem;
+    font-family: inherit;
+    transition: background 0.2s;
   }
 
   .btn-siguiente:hover {
@@ -278,6 +211,10 @@ const pasos = problema.tutor.pasos;
     border-radius: 12px;
     text-align: center;
     color: #2e7d32;
+  }
+
+  .tutor-cierre[hidden] {
+    display: none;
   }
 
   .cierre-respuesta {

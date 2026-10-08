@@ -13,7 +13,6 @@ const { problema } = Astro.props;
   data-problema-id={problema.id}
   data-cociente={problema.cociente_esperado}
   data-resto={problema.resto_esperado}
-  data-tutor={JSON.stringify(problema.tutor)}
 >
   <div class="problema-header">
     <span class="dificultad-badge" data-dificultad={problema.dificultad}>
@@ -48,85 +47,19 @@ const { problema } = Astro.props;
     </div>
   </div>
 
-  <button class="btn-comprobar" data-problema-id={problema.id}>
+  <button type="button" class="btn-comprobar">
     Comprobar
   </button>
 
-  <div class="feedback" data-problema-id={problema.id} hidden>
-    <!-- Aquí se muestra el feedback -->
-  </div>
+  <div class="feedback" aria-live="polite" hidden></div>
 
-  <div class="tutor-container" data-problema-id={problema.id} hidden>
+  <div class="tutor-container" hidden>
     <TutorContextualizado problema={problema} />
   </div>
 </div>
 
 <script>
-  // Script del cliente: maneja la validación y el feedback
-  document.querySelectorAll('.btn-comprobar').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const problemaId = btn.getAttribute('data-problema-id');
-      const card = document.querySelector(`[data-problema-id="${problemaId}"]`);
-      if (!card) return;
-
-      const cocienteEsperado = parseInt(card.getAttribute('data-cociente') || '0');
-      const restoEsperado = parseInt(card.getAttribute('data-resto') || '0');
-
-      const inputCociente = card.querySelector('.input-cociente') as HTMLInputElement;
-      const inputResto = card.querySelector('.input-resto') as HTMLInputElement;
-      const feedback = card.querySelector('.feedback') as HTMLElement;
-      const tutorContainer = card.querySelector('.tutor-container') as HTMLElement;
-
-      const cocienteUsuario = parseInt(inputCociente.value);
-      const restoUsuario = parseInt(inputResto.value);
-
-      // Validar que ambos campos estén llenos
-      if (isNaN(cocienteUsuario) || isNaN(restoUsuario)) {
-        feedback.hidden = false;
-        feedback.className = 'feedback feedback-error';
-        feedback.innerHTML = '⚠️ Completa ambos campos antes de comprobar.';
-        return;
-      }
-
-      // Validar respuesta
-      const cocienteCorrecto = cocienteUsuario === cocienteEsperado;
-      const restoCorrecto = restoUsuario === restoEsperado;
-
-      if (cocienteCorrecto && restoCorrecto) {
-        // ✅ Correcto
-        feedback.hidden = false;
-        feedback.className = 'feedback feedback-correcto';
-        feedback.innerHTML = `✅ ¡Muy bien! Cociente: ${cocienteEsperado}, Resto: ${restoEsperado}.`;
-        btn.setAttribute('disabled', 'true');
-        inputCociente.setAttribute('disabled', 'true');
-        inputResto.setAttribute('disabled', 'true');
-
-        // Registrar éxito (futuro: enviar al backend)
-        console.log(`[Problema ${problemaId}] Correcto`);
-      } else {
-        // ❌ Incorrecto → activar tutor
-        feedback.hidden = false;
-        feedback.className = 'feedback feedback-incorrecto';
-
-        let mensaje = '❌ Casi. ';
-        if (!cocienteCorrecto && !restoCorrecto) {
-          mensaje += 'Revisa el cociente y el resto. ';
-        } else if (!cocienteCorrecto) {
-          mensaje += 'Revisa el cociente. ';
-        } else {
-          mensaje += 'Revisa el resto. ';
-        }
-        mensaje += 'Vamos a resolverlo juntos.';
-        feedback.innerHTML = mensaje;
-
-        // Activar tutor
-        tutorContainer.hidden = false;
-
-        // Registrar error (futuro: enviar al backend)
-        console.log(`[Problema ${problemaId}] Error: cociente=${cocienteUsuario} (esperado ${cocienteEsperado}), resto=${restoUsuario} (esperado ${restoEsperado})`);
-      }
-    });
-  });
+  import '../../scripts/problema-card.js';
 </script>
 
 <style>
@@ -206,6 +139,7 @@ const { problema } = Astro.props;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s;
+    font-family: inherit;
   }
 
   .btn-comprobar:hover:not(:disabled) {
@@ -222,6 +156,11 @@ const { problema } = Astro.props;
     padding: 1rem;
     border-radius: 8px;
     font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .feedback[hidden] {
+    display: none;
   }
 
   .feedback-correcto {
@@ -246,5 +185,9 @@ const { problema } = Astro.props;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px dashed #ddd;
+  }
+
+  .tutor-container[hidden] {
+    display: none;
   }
 </style>
