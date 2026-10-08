@@ -1,0 +1,250 @@
+---
+import TutorContextualizado from './TutorContextualizado.astro';
+
+interface Props {
+  problema: any;
+}
+
+const { problema } = Astro.props;
+---
+
+<div
+  class="problema-card"
+  data-problema-id={problema.id}
+  data-cociente={problema.cociente_esperado}
+  data-resto={problema.resto_esperado}
+  data-tutor={JSON.stringify(problema.tutor)}
+>
+  <div class="problema-header">
+    <span class="dificultad-badge" data-dificultad={problema.dificultad}>
+      {problema.dificultad === 'media' ? '🟢' : problema.dificultad === 'dificil' ? '🟡' : '🔴'}
+      {problema.dificultad.replace('_', ' ')}
+    </span>
+    <span class="problema-id">#{problema.id.split('-').pop()}</span>
+  </div>
+
+  <p class="enunciado">{problema.enunciado}</p>
+
+  <div class="campos-respuesta">
+    <div class="campo">
+      <label for={`cociente-${problema.id}`}>Cociente:</label>
+      <input
+        type="number"
+        id={`cociente-${problema.id}`}
+        class="input-cociente"
+        placeholder="?"
+        min="0"
+      />
+    </div>
+    <div class="campo">
+      <label for={`resto-${problema.id}`}>Resto:</label>
+      <input
+        type="number"
+        id={`resto-${problema.id}`}
+        class="input-resto"
+        placeholder="?"
+        min="0"
+      />
+    </div>
+  </div>
+
+  <button class="btn-comprobar" data-problema-id={problema.id}>
+    Comprobar
+  </button>
+
+  <div class="feedback" data-problema-id={problema.id} hidden>
+    <!-- Aquí se muestra el feedback -->
+  </div>
+
+  <div class="tutor-container" data-problema-id={problema.id} hidden>
+    <TutorContextualizado problema={problema} />
+  </div>
+</div>
+
+<script>
+  // Script del cliente: maneja la validación y el feedback
+  document.querySelectorAll('.btn-comprobar').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const problemaId = btn.getAttribute('data-problema-id');
+      const card = document.querySelector(`[data-problema-id="${problemaId}"]`);
+      if (!card) return;
+
+      const cocienteEsperado = parseInt(card.getAttribute('data-cociente') || '0');
+      const restoEsperado = parseInt(card.getAttribute('data-resto') || '0');
+
+      const inputCociente = card.querySelector('.input-cociente') as HTMLInputElement;
+      const inputResto = card.querySelector('.input-resto') as HTMLInputElement;
+      const feedback = card.querySelector('.feedback') as HTMLElement;
+      const tutorContainer = card.querySelector('.tutor-container') as HTMLElement;
+
+      const cocienteUsuario = parseInt(inputCociente.value);
+      const restoUsuario = parseInt(inputResto.value);
+
+      // Validar que ambos campos estén llenos
+      if (isNaN(cocienteUsuario) || isNaN(restoUsuario)) {
+        feedback.hidden = false;
+        feedback.className = 'feedback feedback-error';
+        feedback.innerHTML = '⚠️ Completa ambos campos antes de comprobar.';
+        return;
+      }
+
+      // Validar respuesta
+      const cocienteCorrecto = cocienteUsuario === cocienteEsperado;
+      const restoCorrecto = restoUsuario === restoEsperado;
+
+      if (cocienteCorrecto && restoCorrecto) {
+        // ✅ Correcto
+        feedback.hidden = false;
+        feedback.className = 'feedback feedback-correcto';
+        feedback.innerHTML = `✅ ¡Muy bien! Cociente: ${cocienteEsperado}, Resto: ${restoEsperado}.`;
+        btn.setAttribute('disabled', 'true');
+        inputCociente.setAttribute('disabled', 'true');
+        inputResto.setAttribute('disabled', 'true');
+
+        // Registrar éxito (futuro: enviar al backend)
+        console.log(`[Problema ${problemaId}] Correcto`);
+      } else {
+        // ❌ Incorrecto → activar tutor
+        feedback.hidden = false;
+        feedback.className = 'feedback feedback-incorrecto';
+
+        let mensaje = '❌ Casi. ';
+        if (!cocienteCorrecto && !restoCorrecto) {
+          mensaje += 'Revisa el cociente y el resto. ';
+        } else if (!cocienteCorrecto) {
+          mensaje += 'Revisa el cociente. ';
+        } else {
+          mensaje += 'Revisa el resto. ';
+        }
+        mensaje += 'Vamos a resolverlo juntos.';
+        feedback.innerHTML = mensaje;
+
+        // Activar tutor
+        tutorContainer.hidden = false;
+
+        // Registrar error (futuro: enviar al backend)
+        console.log(`[Problema ${problemaId}] Error: cociente=${cocienteUsuario} (esperado ${cocienteEsperado}), resto=${restoUsuario} (esperado ${restoEsperado})`);
+      }
+    });
+  });
+</script>
+
+<style>
+  .problema-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .problema-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .dificultad-badge {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: #f0f0f0;
+    text-transform: capitalize;
+  }
+
+  .problema-id {
+    color: #999;
+    font-size: 0.85rem;
+  }
+
+  .enunciado {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .campos-respuesta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .campo label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .campo input {
+    width: 100px;
+    padding: 0.6rem;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .campo input:focus {
+    outline: none;
+    border-color: #4a90d9;
+  }
+
+  .btn-comprobar {
+    background: #4a90d9;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-comprobar:hover:not(:disabled) {
+    background: #357ab8;
+  }
+
+  .btn-comprobar:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+
+  .feedback-correcto {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #4caf50;
+  }
+
+  .feedback-incorrecto {
+    background: #fff3e0;
+    color: #e65100;
+    border-left: 4px solid #ff9800;
+  }
+
+  .feedback-error {
+    background: #fce4ec;
+    color: #c62828;
+    border-left: 4px solid #e53935;
+  }
+
+  .tutor-container {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #ddd;
+  }
+</style>

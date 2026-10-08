@@ -1,0 +1,123 @@
+---
+interface Props {
+  niveles: any;
+  titulo: string;
+  emoji: string;
+  descripcion: string;
+}
+
+import ProblemaCard from './ProblemaCard.astro';
+
+const { niveles, titulo, emoji, descripcion } = Astro.props;
+
+const totalProblemas =
+  (niveles.media?.problemas?.length || 0) +
+  (niveles.dificil?.problemas?.length || 0) +
+  (niveles.muy_dificil?.problemas?.length || 0);
+---
+
+<div class="lista-problemas">
+  <header class="lista-header">
+    <h1>{titulo} {emoji}</h1>
+    <p class="descripcion">{descripcion}</p>
+    <p class="contador">Total: {totalProblemas} problemas</p>
+  </header>
+
+  <!-- Nivel Media -->
+  {niveles.media?.problemas?.length > 0 && (
+    <section class="nivel nivel-media">
+      <h2>🟢 Media <span class="porcentaje">({niveles.media.porcentaje}%)</span></h2>
+      <p class="tematica">{niveles.media.tematica}</p>
+      <div class="problemas-grid">
+        {niveles.media.problemas.map((problema: any) => (
+          <ProblemaCard problema={problema} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Nivel Difícil -->
+  {niveles.dificil?.problemas?.length > 0 && (
+    <section class="nivel nivel-dificil">
+      <h2>🟡 Difícil <span class="porcentaje">({niveles.dificil.porcentaje}%)</span></h2>
+      <p class="tematica">{niveles.dificil.tematica}</p>
+      <div class="problemas-grid">
+        {niveles.dificil.problemas.map((problema: any) => (
+          <ProblemaCard problema={problema} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Nivel Muy Difícil -->
+  {niveles.muy_dificil?.problemas?.length > 0 && (
+    <section class="nivel nivel-muy-dificil">
+      <h2>🔴 Muy difícil <span class="porcentaje">({niveles.muy_dificil.porcentaje}%)</span></h2>
+      <p class="tematica">{niveles.muy_dificil.tematica}</p>
+      <div class="problemas-grid">
+        {niveles.muy_dificil.problemas.map((problema: any) => (
+          <ProblemaCard problema={problema} />
+        ))}
+      </div>
+    </section>
+  )}
+</div>
+
+<style>
+  .lista-problemas {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .lista-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .lista-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .descripcion {
+    color: #666;
+    font-size: 1.1rem;
+  }
+
+  .contador {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .nivel {
+    margin-bottom: 3rem;
+  }
+
+  .nivel h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .porcentaje {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: normal;
+  }
+
+  .tematica {
+    color: #777;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .problemas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+</style>

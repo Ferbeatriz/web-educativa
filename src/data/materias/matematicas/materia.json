@@ -41,9 +41,19 @@
       "duracion_estimada_min": 15,
       "archivo": "lecciones/resta-con-reserva.json",
       "activa": true
+    },
+
+    {
+      "id": "division-problemas",
+      "titulo": "Problemas de división",
+      "emoji": "➗",
+      "orden": 4,
+      "nivel": "básico",
+      "duracion_estimada_min": 30,
+      "archivo": "ejercicios/division-problemas.json",
+      "tipo": "ejercicios",
+      "activa": true
     }
-
-
 
 
 

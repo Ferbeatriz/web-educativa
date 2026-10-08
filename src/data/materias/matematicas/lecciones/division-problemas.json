@@ -1,0 +1,2030 @@
+{
+  "id": "division-problemas",
+  "materia_id": "matematicas",
+  "tema": "division",
+  "subtema": "problemas_contextualizados",
+  "titulo": "Problemas de división",
+  "emoji": "➗",
+  "descripcion": "Resuelve problemas de división con cociente y resto",
+  "niveles": {
+    "media": {
+      "porcentaje": 30,
+      "tematica": "repartir objetos en grupos iguales",
+      "problemas": [
+        {
+          "id": "div-prob-001",
+          "dificultad": "media",
+          "contexto": {
+            "sujeto": "Pablo",
+            "objeto": "tomates",
+            "objeto_singular": "tomate",
+            "cantidad_total": 10,
+            "cantidad_grupos": 2,
+            "verbo": "repartir",
+            "situacion": "Pablo compró 10 tomates y los repartirá entre 2 personas"
+          },
+          "enunciado": "Pablo compró 10 tomates y los repartirá entre 2 personas. ¿Cuántos tomates recibe cada persona?",
+          "pregunta": "¿Cuántos tomates recibe cada persona?",
+          "dividendo": 10,
+          "divisor": 2,
+          "cociente_esperado": 5,
+          "resto_esperado": 0,
+          "explicacion_breve": "10 tomates ÷ 2 personas = 5 tomates por persona. No sobra ninguno.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Pablo tiene 10 tomates y los reparte entre 2 personas. ¿Cuántas veces cabe 2 en 10?",
+                "tipo": "opciones",
+                "opciones": ["5", "4", "6", "10"],
+                "respuesta_correcta": "5",
+                "feedback_correcto": "¡Exacto! 2 cabe 5 veces en 10. Cada persona recibe 5 tomates.",
+                "errores_comunes": {
+                  "4": "4 no es correcto. 2 × 4 = 8 tomates, y sobrarían 2 sin repartir.",
+                  "6": "6 no es correcto. 2 × 6 = 12 tomates, y solo hay 10.",
+                  "10": "10 no es correcto. Si repartes 10 tomates entre 2 personas, cada una recibe 5, no 10."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si cada persona recibe 5 tomates, ¿cuántos tomates se repartieron en total?",
+                "tipo": "opciones",
+                "opciones": ["10", "8", "12", "5"],
+                "respuesta_correcta": "10",
+                "feedback_correcto": "¡Correcto! 2 personas × 5 tomates = 10 tomates repartidos.",
+                "errores_comunes": {
+                  "8": "8 tomates no es correcto. 2 × 5 = 10, no 8.",
+                  "12": "12 tomates no es correcto. Solo hay 10 tomates para repartir.",
+                  "5": "5 tomates es lo que recibe cada persona, pero hay 2 personas. 2 × 5 = 10."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Se repartieron los 10 tomates. ¿Cuántos tomates quedaron sin repartir?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "2", "10"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 10 tomates − 10 tomates = 0. No sobra ningún tomate.",
+                "errores_comunes": {
+                  "1": "1 tomate no es correcto. Si se repartieron los 10, no sobra ninguno.",
+                  "2": "2 tomates no es correcto. Todos los tomates se repartieron.",
+                  "10": "10 tomates no es correcto. Los 10 se repartieron entre las 2 personas."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-002",
+          "dificultad": "media",
+          "contexto": {
+            "sujeto": "María",
+            "objeto": "láminas",
+            "objeto_singular": "lámina",
+            "cantidad_total": 248,
+            "cantidad_grupos": 4,
+            "verbo": "repartir",
+            "situacion": "María tiene 248 láminas y las repartirá en 4 sobres iguales"
+          },
+          "enunciado": "María tiene 248 láminas y las repartirá en 4 sobres iguales. ¿Cuántas láminas van en cada sobre?",
+          "pregunta": "¿Cuántas láminas van en cada sobre?",
+          "dividendo": 248,
+          "divisor": 4,
+          "cociente_esperado": 62,
+          "resto_esperado": 0,
+          "explicacion_breve": "248 láminas ÷ 4 sobres = 62 láminas por sobre. No sobra ninguna.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "María tiene 248 láminas y las reparte en 4 sobres. ¿Cuántas veces cabe 4 en 24?",
+                "tipo": "opciones",
+                "opciones": ["6", "5", "7", "8"],
+                "respuesta_correcta": "6",
+                "feedback_correcto": "¡Exacto! 4 cabe 6 veces en 24. Van 6 láminas por sobre.",
+                "errores_comunes": {
+                  "5": "5 no es correcto. 4 × 5 = 20 láminas, y faltarían 4 por repartir.",
+                  "7": "7 no es correcto. 4 × 7 = 28 láminas, y solo hay 24 en ese grupo.",
+                  "8": "8 no es correcto. 4 × 8 = 32 láminas, y solo hay 24."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 6 láminas por sobre, ¿cuántas láminas se usaron en los primeros 4 sobres?",
+                "tipo": "opciones",
+                "opciones": ["24", "20", "28", "30"],
+                "respuesta_correcta": "24",
+                "feedback_correcto": "¡Correcto! 4 sobres × 6 láminas = 24 láminas usadas.",
+                "errores_comunes": {
+                  "20": "20 láminas no es correcto. 4 × 6 = 24, no 20.",
+                  "28": "28 láminas no es correcto. 4 × 6 = 24, no 28.",
+                  "30": "30 láminas no es correcto. 4 × 6 = 24, no 30."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "María tenía 248 láminas y ya usó 24. ¿Cuántas láminas quedan por repartir?",
+                "tipo": "opciones",
+                "opciones": ["224", "234", "214", "204"],
+                "respuesta_correcta": "224",
+                "feedback_correcto": "¡Bien! 248 − 24 = 224 láminas quedan por repartir.",
+                "errores_comunes": {
+                  "234": "234 no es correcto. 248 − 24 = 224, no 234.",
+                  "214": "214 no es correcto. 248 − 24 = 224, no 214.",
+                  "204": "204 no es correcto. 248 − 24 = 224, no 204."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora repartimos las 224 láminas que quedan en los 4 sobres. ¿Cuántas veces cabe 4 en 22?",
+                "tipo": "opciones",
+                "opciones": ["5", "4", "6", "7"],
+                "respuesta_correcta": "5",
+                "feedback_correcto": "¡Exacto! 4 cabe 5 veces en 22. Van 5 láminas más por sobre.",
+                "errores_comunes": {
+                  "4": "4 no es correcto. 4 × 4 = 16 láminas, y faltarían 6 por repartir.",
+                  "6": "6 no es correcto. 4 × 6 = 24 láminas, y solo hay 22 en ese grupo.",
+                  "7": "7 no es correcto. 4 × 7 = 28 láminas, y solo hay 22."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 5 láminas más por sobre, ¿cuántas láminas se usaron en total?",
+                "tipo": "opciones",
+                "opciones": ["44", "40", "48", "50"],
+                "respuesta_correcta": "44",
+                "feedback_correcto": "¡Correcto! 4 sobres × 5 láminas = 20 láminas más. En total: 24 + 20 = 44 láminas usadas.",
+                "errores_comunes": {
+                  "40": "40 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.",
+                  "48": "48 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.",
+                  "50": "50 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántas láminas quedaron sin repartir?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "2", "4"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 248 − 248 = 0. No sobra ninguna lámina.",
+                "errores_comunes": {
+                  "1": "1 lámina no es correcto. Todas las láminas se repartieron.",
+                  "2": "2 láminas no es correcto. Todas las láminas se repartieron.",
+                  "4": "4 láminas no es correcto. Todas las láminas se repartieron."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-003",
+          "dificultad": "media",
+          "contexto": {
+            "sujeto": "la profesora",
+            "objeto": "sillas",
+            "objeto_singular": "silla",
+            "cantidad_total": 369,
+            "cantidad_grupos": 3,
+            "verbo": "ordenar",
+            "situacion": "En el colegio hay 369 sillas y se ordenan en 3 filas iguales"
+          },
+          "enunciado": "En el colegio hay 369 sillas y se ordenan en 3 filas iguales. ¿Cuántas sillas hay en cada fila?",
+          "pregunta": "¿Cuántas sillas hay en cada fila?",
+          "dividendo": 369,
+          "divisor": 3,
+          "cociente_esperado": 123,
+          "resto_esperado": 0,
+          "explicacion_breve": "369 sillas ÷ 3 filas = 123 sillas por fila. No sobra ninguna.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 369 sillas y se ordenan en 3 filas. ¿Cuántas veces cabe 3 en 3?",
+                "tipo": "opciones",
+                "opciones": ["1", "2", "3", "0"],
+                "respuesta_correcta": "1",
+                "feedback_correcto": "¡Exacto! 3 cabe 1 vez en 3. Van 1 silla por fila en ese grupo.",
+                "errores_comunes": {
+                  "2": "2 no es correcto. 3 × 2 = 6 sillas, y solo hay 3 en ese grupo.",
+                  "3": "3 no es correcto. 3 × 3 = 9 sillas, y solo hay 3.",
+                  "0": "0 no es correcto. 3 sí cabe en 3, exactamente 1 vez."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 1 silla por fila, ¿cuántas sillas se usaron?",
+                "tipo": "opciones",
+                "opciones": ["3", "1", "6", "9"],
+                "respuesta_correcta": "3",
+                "feedback_correcto": "¡Correcto! 3 filas × 1 silla = 3 sillas usadas.",
+                "errores_comunes": {
+                  "1": "1 silla no es correcto. Son 3 filas, entonces 3 × 1 = 3.",
+                  "6": "6 sillas no es correcto. 3 × 1 = 3, no 6.",
+                  "9": "9 sillas no es correcto. 3 × 1 = 3, no 9."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Quedan 366 sillas por ordenar. ¿Cuántas veces cabe 3 en 36?",
+                "tipo": "opciones",
+                "opciones": ["12", "11", "13", "10"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 3 cabe 12 veces en 36. Van 12 sillas más por fila.",
+                "errores_comunes": {
+                  "11": "11 no es correcto. 3 × 11 = 33 sillas, y faltarían 3 por ordenar.",
+                  "13": "13 no es correcto. 3 × 13 = 39 sillas, y solo hay 36.",
+                  "10": "10 no es correcto. 3 × 10 = 30 sillas, y faltarían 6 por ordenar."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Si usamos 12 sillas más por fila, ¿cuántas sillas se usaron en total?",
+                "tipo": "opciones",
+                "opciones": ["39", "36", "42", "33"],
+                "respuesta_correcta": "39",
+                "feedback_correcto": "¡Correcto! 3 filas × 12 sillas = 36 sillas más. En total: 3 + 36 = 39 sillas usadas.",
+                "errores_comunes": {
+                  "36": "36 no es correcto. 36 son las sillas del segundo grupo, pero hay que sumar las 3 anteriores.",
+                  "42": "42 no es correcto. 3 × 12 = 36, más 3 = 39.",
+                  "33": "33 no es correcto. 3 × 12 = 36, más 3 = 39."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "¿Cuántas sillas quedaron sin ordenar?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "3", "6"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 369 − 369 = 0. No sobra ninguna silla.",
+                "errores_comunes": {
+                  "1": "1 silla no es correcto. Todas las sillas se ordenaron.",
+                  "3": "3 sillas no es correcto. Todas las sillas se ordenaron.",
+                  "6": "6 sillas no es correcto. Todas las sillas se ordenaron."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-004",
+          "dificultad": "media",
+          "contexto": {
+            "sujeto": "la cocinera",
+            "objeto": "huevos",
+            "objeto_singular": "huevo",
+            "cantidad_total": 484,
+            "cantidad_grupos": 4,
+            "verbo": "repartir",
+            "situacion": "Una caja tiene 484 huevos y se reparten en 4 bandejas iguales"
+          },
+          "enunciado": "Una caja tiene 484 huevos y se reparten en 4 bandejas iguales. ¿Cuántos huevos van en cada bandeja?",
+          "pregunta": "¿Cuántos huevos van en cada bandeja?",
+          "dividendo": 484,
+          "divisor": 4,
+          "cociente_esperado": 121,
+          "resto_esperado": 0,
+          "explicacion_breve": "484 huevos ÷ 4 bandejas = 121 huevos por bandeja. No sobra ninguno.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 484 huevos y se reparten en 4 bandejas. ¿Cuántas veces cabe 4 en 4?",
+                "tipo": "opciones",
+                "opciones": ["1", "2", "4", "0"],
+                "respuesta_correcta": "1",
+                "feedback_correcto": "¡Exacto! 4 cabe 1 vez en 4. Van 1 huevo por bandeja en ese grupo.",
+                "errores_comunes": {
+                  "2": "2 no es correcto. 4 × 2 = 8 huevos, y solo hay 4.",
+                  "4": "4 no es correcto. 4 × 4 = 16 huevos, y solo hay 4.",
+                  "0": "0 no es correcto. 4 sí cabe en 4, exactamente 1 vez."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 1 huevo por bandeja, ¿cuántos huevos se usaron?",
+                "tipo": "opciones",
+                "opciones": ["4", "1", "8", "16"],
+                "respuesta_correcta": "4",
+                "feedback_correcto": "¡Correcto! 4 bandejas × 1 huevo = 4 huevos usados.",
+                "errores_comunes": {
+                  "1": "1 huevo no es correcto. Son 4 bandejas, entonces 4 × 1 = 4.",
+                  "8": "8 huevos no es correcto. 4 × 1 = 4, no 8.",
+                  "16": "16 huevos no es correcto. 4 × 1 = 4, no 16."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Quedan 480 huevos por repartir. ¿Cuántas veces cabe 4 en 48?",
+                "tipo": "opciones",
+                "opciones": ["12", "11", "13", "10"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 4 cabe 12 veces en 48. Van 12 huevos más por bandeja.",
+                "errores_comunes": {
+                  "11": "11 no es correcto. 4 × 11 = 44 huevos, y faltarían 4 por repartir.",
+                  "13": "13 no es correcto. 4 × 13 = 52 huevos, y solo hay 48.",
+                  "10": "10 no es correcto. 4 × 10 = 40 huevos, y faltarían 8 por repartir."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Si usamos 12 huevos más por bandeja, ¿cuántos huevos se usaron en total?",
+                "tipo": "opciones",
+                "opciones": ["52", "48", "56", "44"],
+                "respuesta_correcta": "52",
+                "feedback_correcto": "¡Correcto! 4 bandejas × 12 huevos = 48 huevos más. En total: 4 + 48 = 52 huevos usados.",
+                "errores_comunes": {
+                  "48": "48 no es correcto. 48 son los del segundo grupo, pero hay que sumar los 4 anteriores.",
+                  "56": "56 no es correcto. 4 × 12 = 48, más 4 = 52.",
+                  "44": "44 no es correcto. 4 × 12 = 48, más 4 = 52."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "¿Cuántos huevos quedaron sin repartir?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "4", "8"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 484 − 484 = 0. No sobra ningún huevo.",
+                "errores_comunes": {
+                  "1": "1 huevo no es correcto. Todos los huevos se repartieron.",
+                  "4": "4 huevos no es correcto. Todos los huevos se repartieron.",
+                  "8": "8 huevos no es correcto. Todos los huevos se repartieron."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-005",
+          "dificultad": "media",
+          "contexto": {
+            "sujeto": "la florista",
+            "objeto": "flores",
+            "objeto_singular": "flor",
+            "cantidad_total": 155,
+            "cantidad_grupos": 5,
+            "verbo": "hacer ramos",
+            "situacion": "Una florista tiene 155 flores y hace 5 ramos iguales"
+          },
+          "enunciado": "Una florista tiene 155 flores y hace 5 ramos iguales. ¿Cuántas flores van en cada ramo?",
+          "pregunta": "¿Cuántas flores van en cada ramo?",
+          "dividendo": 155,
+          "divisor": 5,
+          "cociente_esperado": 31,
+          "resto_esperado": 0,
+          "explicacion_breve": "155 flores ÷ 5 ramos = 31 flores por ramo. No sobra ninguna.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 155 flores y se hacen 5 ramos. ¿Cuántas veces cabe 5 en 15?",
+                "tipo": "opciones",
+                "opciones": ["3", "2", "4", "5"],
+                "respuesta_correcta": "3",
+                "feedback_correcto": "¡Exacto! 5 cabe 3 veces en 15. Van 3 flores por ramo en ese grupo.",
+                "errores_comunes": {
+                  "2": "2 no es correcto. 5 × 2 = 10 flores, y faltarían 5 por repartir.",
+                  "4": "4 no es correcto. 5 × 4 = 20 flores, y solo hay 15.",
+                  "5": "5 no es correcto. 5 × 5 = 25 flores, y solo hay 15."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 3 flores por ramo, ¿cuántas flores se usaron?",
+                "tipo": "opciones",
+                "opciones": ["15", "10", "20", "25"],
+                "respuesta_correcta": "15",
+                "feedback_correcto": "¡Correcto! 5 ramos × 3 flores = 15 flores usadas.",
+                "errores_comunes": {
+                  "10": "10 flores no es correcto. 5 × 3 = 15, no 10.",
+                  "20": "20 flores no es correcto. 5 × 3 = 15, no 20.",
+                  "25": "25 flores no es correcto. 5 × 3 = 15, no 25."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Quedan 140 flores por repartir. ¿Cuántas veces cabe 5 en 14?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 5 cabe 2 veces en 14. Van 2 flores más por ramo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 5 × 3 = 15 flores, y solo hay 14.",
+                  "1": "1 no es correcto. 5 × 1 = 5 flores, y faltarían 9 por repartir.",
+                  "4": "4 no es correcto. 5 × 4 = 20 flores, y solo hay 14."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Si usamos 2 flores más por ramo, ¿cuántas flores se usaron en total?",
+                "tipo": "opciones",
+                "opciones": ["25", "20", "30", "15"],
+                "respuesta_correcta": "25",
+                "feedback_correcto": "¡Correcto! 5 ramos × 2 flores = 10 flores más. En total: 15 + 10 = 25 flores usadas.",
+                "errores_comunes": {
+                  "20": "20 no es correcto. 5 × 2 = 10, más 15 = 25.",
+                  "30": "30 no es correcto. 5 × 2 = 10, más 15 = 25.",
+                  "15": "15 no es correcto. 15 son las del primer grupo, pero hay que sumar 10 más."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "¿Cuántas flores quedaron sin usar?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "5", "10"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 155 − 155 = 0. No sobra ninguna flor.",
+                "errores_comunes": {
+                  "1": "1 flor no es correcto. Todas las flores se usaron.",
+                  "5": "5 flores no es correcto. Todas las flores se usaron.",
+                  "10": "10 flores no es correcto. Todas las flores se usaron."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-006",
+          "dificultad": "media",
+          "contexto": {
+            "sujeto": "el profesor",
+            "objeto": "lápices",
+            "objeto_singular": "lápiz",
+            "cantidad_total": 168,
+            "cantidad_grupos": 6,
+            "verbo": "repartir",
+            "situacion": "El profesor tiene 168 lápices y los reparte en 6 grupos iguales"
+          },
+          "enunciado": "El profesor tiene 168 lápices y los reparte en 6 grupos iguales. ¿Cuántos lápices van en cada grupo?",
+          "pregunta": "¿Cuántos lápices van en cada grupo?",
+          "dividendo": 168,
+          "divisor": 6,
+          "cociente_esperado": 28,
+          "resto_esperado": 0,
+          "explicacion_breve": "168 lápices ÷ 6 grupos = 28 lápices por grupo. No sobra ninguno.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 168 lápices y se reparten en 6 grupos. ¿Cuántas veces cabe 6 en 16?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 6 cabe 2 veces en 16. Van 2 lápices por grupo en ese grupo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 6 × 3 = 18 lápices, y solo hay 16.",
+                  "1": "1 no es correcto. 6 × 1 = 6 lápices, y faltarían 10 por repartir.",
+                  "4": "4 no es correcto. 6 × 4 = 24 lápices, y solo hay 16."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 2 lápices por grupo, ¿cuántos lápices se usaron?",
+                "tipo": "opciones",
+                "opciones": ["12", "10", "14", "16"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Correcto! 6 grupos × 2 lápices = 12 lápices usados.",
+                "errores_comunes": {
+                  "10": "10 lápices no es correcto. 6 × 2 = 12, no 10.",
+                  "14": "14 lápices no es correcto. 6 × 2 = 12, no 14.",
+                  "16": "16 lápices no es correcto. 6 × 2 = 12, no 16."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Quedan 156 lápices por repartir. ¿Cuántas veces cabe 6 en 15?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 6 cabe 2 veces en 15. Van 2 lápices más por grupo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 6 × 3 = 18 lápices, y solo hay 15.",
+                  "1": "1 no es correcto. 6 × 1 = 6 lápices, y faltarían 9 por repartir.",
+                  "4": "4 no es correcto. 6 × 4 = 24 lápices, y solo hay 15."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Si usamos 2 lápices más por grupo, ¿cuántos lápices se usaron en total?",
+                "tipo": "opciones",
+                "opciones": ["24", "20", "28", "30"],
+                "respuesta_correcta": "24",
+                "feedback_correcto": "¡Correcto! 6 grupos × 2 lápices = 12 lápices más. En total: 12 + 12 = 24 lápices usados.",
+                "errores_comunes": {
+                  "20": "20 no es correcto. 6 × 2 = 12, más 12 = 24.",
+                  "28": "28 no es correcto. 6 × 2 = 12, más 12 = 24.",
+                  "30": "30 no es correcto. 6 × 2 = 12, más 12 = 24."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "¿Cuántos lápices quedaron sin repartir?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "6", "12"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 168 − 168 = 0. No sobra ningún lápiz.",
+                "errores_comunes": {
+                  "1": "1 lápiz no es correcto. Todos los lápices se repartieron.",
+                  "6": "6 lápices no es correcto. Todos los lápices se repartieron.",
+                  "12": "12 lápices no es correcto. Todos los lápices se repartieron."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dificil": {
+      "porcentaje": 40,
+      "tematica": "empaque y sobrantes",
+      "problemas": [
+        {
+          "id": "div-prob-007",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la fábrica",
+            "objeto": "galletas",
+            "objeto_singular": "galleta",
+            "cantidad_total": 356,
+            "cantidad_grupos": 8,
+            "verbo": "empacar",
+            "situacion": "Una fábrica produce 356 galletas y las empaca en cajas de 8 galletas"
+          },
+          "enunciado": "Una fábrica produce 356 galletas y las empaca en cajas de 8 galletas cada una. ¿Cuántas cajas se llenan y cuántas galletas sobran?",
+          "pregunta": "¿Cuántas cajas se llenan y cuántas galletas sobran?",
+          "dividendo": 356,
+          "divisor": 8,
+          "cociente_esperado": 44,
+          "resto_esperado": 4,
+          "explicacion_breve": "356 galletas ÷ 8 galletas por caja = 44 cajas y sobran 4 galletas.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 356 galletas y se empacan en cajas de 8. ¿Cuántas veces cabe 8 en 35?",
+                "tipo": "opciones",
+                "opciones": ["4", "5", "3", "6"],
+                "respuesta_correcta": "4",
+                "feedback_correcto": "¡Exacto! 8 cabe 4 veces en 35. Van 4 cajas en ese grupo.",
+                "errores_comunes": {
+                  "5": "5 no es correcto. 8 × 5 = 40 galletas, y solo hay 35.",
+                  "3": "3 no es correcto. 8 × 3 = 24 galletas, y faltarían 11 por empacar.",
+                  "6": "6 no es correcto. 8 × 6 = 48 galletas, y solo hay 35."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 4 cajas de 8 galletas, ¿cuántas galletas se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["32", "28", "36", "40"],
+                "respuesta_correcta": "32",
+                "feedback_correcto": "¡Correcto! 4 cajas × 8 galletas = 32 galletas empacadas.",
+                "errores_comunes": {
+                  "28": "28 galletas no es correcto. 4 × 8 = 32, no 28.",
+                  "36": "36 galletas no es correcto. 4 × 8 = 32, no 36.",
+                  "40": "40 galletas no es correcto. 4 × 8 = 32, no 40."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 356 galletas y empacamos 32. ¿Cuántas galletas quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["324", "334", "314", "304"],
+                "respuesta_correcta": "324",
+                "feedback_correcto": "¡Bien! 356 − 32 = 324 galletas quedan por empacar.",
+                "errores_comunes": {
+                  "334": "334 no es correcto. 356 − 32 = 324, no 334.",
+                  "314": "314 no es correcto. 356 − 32 = 324, no 314.",
+                  "304": "304 no es correcto. 356 − 32 = 324, no 304."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos las 324 galletas que quedan en cajas de 8. ¿Cuántas veces cabe 8 en 32?",
+                "tipo": "opciones",
+                "opciones": ["4", "3", "5", "6"],
+                "respuesta_correcta": "4",
+                "feedback_correcto": "¡Exacto! 8 cabe 4 veces en 32. Van 4 cajas más.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 8 × 3 = 24 galletas, y faltarían 8 por empacar.",
+                  "5": "5 no es correcto. 8 × 5 = 40 galletas, y solo hay 32.",
+                  "6": "6 no es correcto. 8 × 6 = 48 galletas, y solo hay 32."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 4 cajas más de 8 galletas, ¿cuántas galletas se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["64", "60", "68", "72"],
+                "respuesta_correcta": "64",
+                "feedback_correcto": "¡Correcto! 4 cajas × 8 galletas = 32 galletas más. En total: 32 + 32 = 64 galletas empacadas.",
+                "errores_comunes": {
+                  "60": "60 no es correcto. 4 × 8 = 32, más 32 = 64.",
+                  "68": "68 no es correcto. 4 × 8 = 32, más 32 = 64.",
+                  "72": "72 no es correcto. 4 × 8 = 32, más 32 = 64."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "Quedan 4 galletas sin empacar. ¿Cuántas cajas se llenaron en total?",
+                "tipo": "opciones",
+                "opciones": ["44", "43", "45", "46"],
+                "respuesta_correcta": "44",
+                "feedback_correcto": "¡Bien! 4 + 4 = 8 cajas en total, y sobran 4 galletas.",
+                "errores_comunes": {
+                  "43": "43 cajas no es correcto. 4 + 4 = 8 cajas, y 8 × 8 = 64 galletas empacadas, más 4 = 68, no 356.",
+                  "45": "45 cajas no es correcto. 4 + 4 = 8 cajas, no 45.",
+                  "46": "46 cajas no es correcto. 4 + 4 = 8 cajas, no 46."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-008",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la bibliotecaria",
+            "objeto": "libros",
+            "objeto_singular": "libro",
+            "cantidad_total": 527,
+            "cantidad_grupos": 6,
+            "verbo": "ordenar",
+            "situacion": "Hay 527 libros y se ordenan en 6 estantes iguales"
+          },
+          "enunciado": "Hay 527 libros y se ordenan en 6 estantes iguales. ¿Cuántos libros van en cada estante y cuántos sobran?",
+          "pregunta": "¿Cuántos libros van en cada estante y cuántos sobran?",
+          "dividendo": 527,
+          "divisor": 6,
+          "cociente_esperado": 87,
+          "resto_esperado": 5,
+          "explicacion_breve": "527 libros ÷ 6 estantes = 87 libros por estante y sobran 5 libros.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 527 libros y se ordenan en 6 estantes. ¿Cuántas veces cabe 6 en 52?",
+                "tipo": "opciones",
+                "opciones": ["8", "9", "7", "10"],
+                "respuesta_correcta": "8",
+                "feedback_correcto": "¡Exacto! 6 cabe 8 veces en 52. Van 8 libros por estante en ese grupo.",
+                "errores_comunes": {
+                  "9": "9 no es correcto. 6 × 9 = 54 libros, y solo hay 52.",
+                  "7": "7 no es correcto. 6 × 7 = 42 libros, y faltarían 10 por ordenar.",
+                  "10": "10 no es correcto. 6 × 10 = 60 libros, y solo hay 52."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 8 libros por estante, ¿cuántos libros se usaron?",
+                "tipo": "opciones",
+                "opciones": ["48", "42", "54", "56"],
+                "respuesta_correcta": "48",
+                "feedback_correcto": "¡Correcto! 6 estantes × 8 libros = 48 libros usados.",
+                "errores_comunes": {
+                  "42": "42 libros no es correcto. 6 × 8 = 48, no 42.",
+                  "54": "54 libros no es correcto. 6 × 8 = 48, no 54.",
+                  "56": "56 libros no es correcto. 6 × 8 = 48, no 56."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 527 libros y ya ordenamos 48. ¿Cuántos libros quedan por ordenar?",
+                "tipo": "opciones",
+                "opciones": ["479", "469", "489", "459"],
+                "respuesta_correcta": "479",
+                "feedback_correcto": "¡Bien! 527 − 48 = 479 libros quedan por ordenar.",
+                "errores_comunes": {
+                  "469": "469 no es correcto. 527 − 48 = 479, no 469.",
+                  "489": "489 no es correcto. 527 − 48 = 479, no 489.",
+                  "459": "459 no es correcto. 527 − 48 = 479, no 459."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora ordenamos los 479 libros que quedan en 6 estantes. ¿Cuántas veces cabe 6 en 47?",
+                "tipo": "opciones",
+                "opciones": ["7", "8", "6", "9"],
+                "respuesta_correcta": "7",
+                "feedback_correcto": "¡Exacto! 6 cabe 7 veces en 47. Van 7 libros más por estante.",
+                "errores_comunes": {
+                  "8": "8 no es correcto. 6 × 8 = 48 libros, y solo hay 47.",
+                  "6": "6 no es correcto. 6 × 6 = 36 libros, y faltarían 11 por ordenar.",
+                  "9": "9 no es correcto. 6 × 9 = 54 libros, y solo hay 47."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 7 libros más por estante, ¿cuántos libros se usaron en total?",
+                "tipo": "opciones",
+                "opciones": ["90", "84", "96", "78"],
+                "respuesta_correcta": "90",
+                "feedback_correcto": "¡Correcto! 6 estantes × 7 libros = 42 libros más. En total: 48 + 42 = 90 libros usados.",
+                "errores_comunes": {
+                  "84": "84 no es correcto. 6 × 7 = 42, más 48 = 90.",
+                  "96": "96 no es correcto. 6 × 7 = 42, más 48 = 90.",
+                  "78": "78 no es correcto. 6 × 7 = 42, más 48 = 90."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos libros quedaron sin ordenar?",
+                "tipo": "opciones",
+                "opciones": ["5", "4", "6", "7"],
+                "respuesta_correcta": "5",
+                "feedback_correcto": "¡Bien! 527 − 522 = 5. Sobran 5 libros.",
+                "errores_comunes": {
+                  "4": "4 libros no es correcto. 527 − 522 = 5, no 4.",
+                  "6": "6 libros no es correcto. 527 − 522 = 5, no 6.",
+                  "7": "7 libros no es correcto. 527 − 522 = 5, no 7."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-009",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la fábrica",
+            "objeto": "jugos",
+            "objeto_singular": "jugo",
+            "cantidad_total": 986,
+            "cantidad_grupos": 7,
+            "verbo": "empacar",
+            "situacion": "Una fábrica produce 986 jugos y los empaca en cajas de 7 jugos"
+          },
+          "enunciado": "Una fábrica produce 986 jugos y los empaca en cajas de 7 jugos cada una. ¿Cuántas cajas se llenan y cuántos jugos sobran?",
+          "pregunta": "¿Cuántas cajas se llenan y cuántos jugos sobran?",
+          "dividendo": 986,
+          "divisor": 7,
+          "cociente_esperado": 140,
+          "resto_esperado": 6,
+          "explicacion_breve": "986 jugos ÷ 7 jugos por caja = 140 cajas y sobran 6 jugos.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 986 jugos y se empacan en cajas de 7. ¿Cuántas veces cabe 7 en 98?",
+                "tipo": "opciones",
+                "opciones": ["14", "13", "15", "12"],
+                "respuesta_correcta": "14",
+                "feedback_correcto": "¡Exacto! 7 cabe 14 veces en 98. Van 14 cajas en ese grupo.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 7 × 13 = 91 jugos, y faltarían 7 por empacar.",
+                  "15": "15 no es correcto. 7 × 15 = 105 jugos, y solo hay 98.",
+                  "12": "12 no es correcto. 7 × 12 = 84 jugos, y faltarían 14 por empacar."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 14 cajas de 7 jugos, ¿cuántos jugos se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["98", "84", "105", "91"],
+                "respuesta_correcta": "98",
+                "feedback_correcto": "¡Correcto! 14 cajas × 7 jugos = 98 jugos empacados.",
+                "errores_comunes": {
+                  "84": "84 jugos no es correcto. 14 × 7 = 98, no 84.",
+                  "105": "105 jugos no es correcto. 14 × 7 = 98, no 105.",
+                  "91": "91 jugos no es correcto. 14 × 7 = 98, no 91."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 986 jugos y empacamos 98. ¿Cuántos jugos quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["888", "898", "878", "988"],
+                "respuesta_correcta": "888",
+                "feedback_correcto": "¡Bien! 986 − 98 = 888 jugos quedan por empacar.",
+                "errores_comunes": {
+                  "898": "898 no es correcto. 986 − 98 = 888, no 898.",
+                  "878": "878 no es correcto. 986 − 98 = 888, no 878.",
+                  "988": "988 no es correcto. 986 − 98 = 888, no 988."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos los 888 jugos que quedan en cajas de 7. ¿Cuántas veces cabe 7 en 88?",
+                "tipo": "opciones",
+                "opciones": ["12", "13", "11", "14"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 7 cabe 12 veces en 88. Van 12 cajas más.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 7 × 13 = 91 jugos, y solo hay 88.",
+                  "11": "11 no es correcto. 7 × 11 = 77 jugos, y faltarían 11 por empacar.",
+                  "14": "14 no es correcto. 7 × 14 = 98 jugos, y solo hay 88."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 12 cajas más de 7 jugos, ¿cuántos jugos se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["182", "168", "196", "154"],
+                "respuesta_correcta": "182",
+                "feedback_correcto": "¡Correcto! 12 cajas × 7 jugos = 84 jugos más. En total: 98 + 84 = 182 jugos empacados.",
+                "errores_comunes": {
+                  "168": "168 no es correcto. 12 × 7 = 84, más 98 = 182.",
+                  "196": "196 no es correcto. 12 × 7 = 84, más 98 = 182.",
+                  "154": "154 no es correcto. 12 × 7 = 84, más 98 = 182."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos jugos quedaron sin empacar?",
+                "tipo": "opciones",
+                "opciones": ["6", "5", "7", "8"],
+                "respuesta_correcta": "6",
+                "feedback_correcto": "¡Bien! 986 − 980 = 6. Sobran 6 jugos.",
+                "errores_comunes": {
+                  "5": "5 jugos no es correcto. 986 − 980 = 6, no 5.",
+                  "7": "7 jugos no es correcto. 986 − 980 = 6, no 7.",
+                  "8": "8 jugos no es correcto. 986 − 980 = 6, no 8."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-010",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la panadería",
+            "objeto": "panes",
+            "objeto_singular": "pan",
+            "cantidad_total": 743,
+            "cantidad_grupos": 9,
+            "verbo": "empacar",
+            "situacion": "Una panadería produce 743 panes y los empaca en bolsas de 9 panes"
+          },
+          "enunciado": "Una panadería produce 743 panes y los empaca en bolsas de 9 panes cada una. ¿Cuántas bolsas se llenan y cuántos panes sobran?",
+          "pregunta": "¿Cuántas bolsas se llenan y cuántos panes sobran?",
+          "dividendo": 743,
+          "divisor": 9,
+          "cociente_esperado": 82,
+          "resto_esperado": 5,
+          "explicacion_breve": "743 panes ÷ 9 panes por bolsa = 82 bolsas y sobran 5 panes.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 743 panes y se empacan en bolsas de 9. ¿Cuántas veces cabe 9 en 74?",
+                "tipo": "opciones",
+                "opciones": ["8", "9", "7", "10"],
+                "respuesta_correcta": "8",
+                "feedback_correcto": "¡Exacto! 9 cabe 8 veces en 74. Van 8 bolsas en ese grupo.",
+                "errores_comunes": {
+                  "9": "9 no es correcto. 9 × 9 = 81 panes, y solo hay 74.",
+                  "7": "7 no es correcto. 9 × 7 = 63 panes, y faltarían 11 por empacar.",
+                  "10": "10 no es correcto. 9 × 10 = 90 panes, y solo hay 74."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 8 bolsas de 9 panes, ¿cuántos panes se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["72", "63", "81", "90"],
+                "respuesta_correcta": "72",
+                "feedback_correcto": "¡Correcto! 8 bolsas × 9 panes = 72 panes empacados.",
+                "errores_comunes": {
+                  "63": "63 panes no es correcto. 8 × 9 = 72, no 63.",
+                  "81": "81 panes no es correcto. 8 × 9 = 72, no 81.",
+                  "90": "90 panes no es correcto. 8 × 9 = 72, no 90."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 743 panes y empacamos 72. ¿Cuántos panes quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["671", "661", "681", "651"],
+                "respuesta_correcta": "671",
+                "feedback_correcto": "¡Bien! 743 − 72 = 671 panes quedan por empacar.",
+                "errores_comunes": {
+                  "661": "661 no es correcto. 743 − 72 = 671, no 661.",
+                  "681": "681 no es correcto. 743 − 72 = 671, no 681.",
+                  "651": "651 no es correcto. 743 − 72 = 671, no 651."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos los 671 panes que quedan en bolsas de 9. ¿Cuántas veces cabe 9 en 67?",
+                "tipo": "opciones",
+                "opciones": ["7", "8", "6", "9"],
+                "respuesta_correcta": "7",
+                "feedback_correcto": "¡Exacto! 9 cabe 7 veces en 67. Van 7 bolsas más.",
+                "errores_comunes": {
+                  "8": "8 no es correcto. 9 × 8 = 72 panes, y solo hay 67.",
+                  "6": "6 no es correcto. 9 × 6 = 54 panes, y faltarían 13 por empacar.",
+                  "9": "9 no es correcto. 9 × 9 = 81 panes, y solo hay 67."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 7 bolsas más de 9 panes, ¿cuántos panes se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["135", "126", "144", "117"],
+                "respuesta_correcta": "135",
+                "feedback_correcto": "¡Correcto! 7 bolsas × 9 panes = 63 panes más. En total: 72 + 63 = 135 panes empacados.",
+                "errores_comunes": {
+                  "126": "126 no es correcto. 7 × 9 = 63, más 72 = 135.",
+                  "144": "144 no es correcto. 7 × 9 = 63, más 72 = 135.",
+                  "117": "117 no es correcto. 7 × 9 = 63, más 72 = 135."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos panes quedaron sin empacar?",
+                "tipo": "opciones",
+                "opciones": ["5", "4", "6", "7"],
+                "respuesta_correcta": "5",
+                "feedback_correcto": "¡Bien! 743 − 738 = 5. Sobran 5 panes.",
+                "errores_comunes": {
+                  "4": "4 panes no es correcto. 743 − 738 = 5, no 4.",
+                  "6": "6 panes no es correcto. 743 − 738 = 5, no 6.",
+                  "7": "7 panes no es correcto. 743 − 738 = 5, no 7."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-011",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la tienda",
+            "objeto": "dulces",
+            "objeto_singular": "dulce",
+            "cantidad_total": 845,
+            "cantidad_grupos": 6,
+            "verbo": "empacar",
+            "situacion": "Una tienda tiene 845 dulces y los empaca en bolsas de 6 dulces"
+          },
+          "enunciado": "Una tienda tiene 845 dulces y los empaca en bolsas de 6 dulces cada una. ¿Cuántas bolsas se llenan y cuántos dulces sobran?",
+          "pregunta": "¿Cuántas bolsas se llenan y cuántos dulces sobran?",
+          "dividendo": 845,
+          "divisor": 6,
+          "cociente_esperado": 140,
+          "resto_esperado": 5,
+          "explicacion_breve": "845 dulces ÷ 6 dulces por bolsa = 140 bolsas y sobran 5 dulces.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 845 dulces y se empacan en bolsas de 6. ¿Cuántas veces cabe 6 en 84?",
+                "tipo": "opciones",
+                "opciones": ["14", "13", "15", "12"],
+                "respuesta_correcta": "14",
+                "feedback_correcto": "¡Exacto! 6 cabe 14 veces en 84. Van 14 bolsas en ese grupo.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 6 × 13 = 78 dulces, y faltarían 6 por empacar.",
+                  "15": "15 no es correcto. 6 × 15 = 90 dulces, y solo hay 84.",
+                  "12": "12 no es correcto. 6 × 12 = 72 dulces, y faltarían 12 por empacar."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 14 bolsas de 6 dulces, ¿cuántos dulces se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["84", "78", "90", "72"],
+                "respuesta_correcta": "84",
+                "feedback_correcto": "¡Correcto! 14 bolsas × 6 dulces = 84 dulces empacados.",
+                "errores_comunes": {
+                  "78": "78 dulces no es correcto. 14 × 6 = 84, no 78.",
+                  "90": "90 dulces no es correcto. 14 × 6 = 84, no 90.",
+                  "72": "72 dulces no es correcto. 14 × 6 = 84, no 72."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 845 dulces y empacamos 84. ¿Cuántos dulces quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["761", "751", "771", "741"],
+                "respuesta_correcta": "761",
+                "feedback_correcto": "¡Bien! 845 − 84 = 761 dulces quedan por empacar.",
+                "errores_comunes": {
+                  "751": "751 no es correcto. 845 − 84 = 761, no 751.",
+                  "771": "771 no es correcto. 845 − 84 = 761, no 771.",
+                  "741": "741 no es correcto. 845 − 84 = 761, no 741."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos los 761 dulces que quedan en bolsas de 6. ¿Cuántas veces cabe 6 en 76?",
+                "tipo": "opciones",
+                "opciones": ["12", "13", "11", "14"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 6 cabe 12 veces en 76. Van 12 bolsas más.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 6 × 13 = 78 dulces, y solo hay 76.",
+                  "11": "11 no es correcto. 6 × 11 = 66 dulces, y faltarían 10 por empacar.",
+                  "14": "14 no es correcto. 6 × 14 = 84 dulces, y solo hay 76."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 12 bolsas más de 6 dulces, ¿cuántos dulces se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["156", "144", "168", "132"],
+                "respuesta_correcta": "156",
+                "feedback_correcto": "¡Correcto! 12 bolsas × 6 dulces = 72 dulces más. En total: 84 + 72 = 156 dulces empacados.",
+                "errores_comunes": {
+                  "144": "144 no es correcto. 12 × 6 = 72, más 84 = 156.",
+                  "168": "168 no es correcto. 12 × 6 = 72, más 84 = 156.",
+                  "132": "132 no es correcto. 12 × 6 = 72, más 84 = 156."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos dulces quedaron sin empacar?",
+                "tipo": "opciones",
+                "opciones": ["5", "4", "6", "7"],
+                "respuesta_correcta": "5",
+                "feedback_correcto": "¡Bien! 845 − 840 = 5. Sobran 5 dulces.",
+                "errores_comunes": {
+                  "4": "4 dulces no es correcto. 845 − 840 = 5, no 4.",
+                  "6": "6 dulces no es correcto. 845 − 840 = 5, no 6.",
+                  "7": "7 dulces no es correcto. 845 − 840 = 5, no 7."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-012",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la frutería",
+            "objeto": "frutas",
+            "objeto_singular": "fruta",
+            "cantidad_total": 967,
+            "cantidad_grupos": 8,
+            "verbo": "empacar",
+            "situacion": "Una frutería tiene 967 frutas y las empaca en cajas de 8 frutas"
+          },
+          "enunciado": "Una frutería tiene 967 frutas y las empaca en cajas de 8 frutas cada una. ¿Cuántas cajas se llenan y cuántas frutas sobran?",
+          "pregunta": "¿Cuántas cajas se llenan y cuántas frutas sobran?",
+          "dividendo": 967,
+          "divisor": 8,
+          "cociente_esperado": 120,
+          "resto_esperado": 7,
+          "explicacion_breve": "967 frutas ÷ 8 frutas por caja = 120 cajas y sobran 7 frutas.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 967 frutas y se empacan en cajas de 8. ¿Cuántas veces cabe 8 en 96?",
+                "tipo": "opciones",
+                "opciones": ["12", "11", "13", "10"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 8 cabe 12 veces en 96. Van 12 cajas en ese grupo.",
+                "errores_comunes": {
+                  "11": "11 no es correcto. 8 × 11 = 88 frutas, y faltarían 8 por empacar.",
+                  "13": "13 no es correcto. 8 × 13 = 104 frutas, y solo hay 96.",
+                  "10": "10 no es correcto. 8 × 10 = 80 frutas, y faltarían 16 por empacar."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 12 cajas de 8 frutas, ¿cuántas frutas se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["96", "88", "104", "80"],
+                "respuesta_correcta": "96",
+                "feedback_correcto": "¡Correcto! 12 cajas × 8 frutas = 96 frutas empacadas.",
+                "errores_comunes": {
+                  "88": "88 frutas no es correcto. 12 × 8 = 96, no 88.",
+                  "104": "104 frutas no es correcto. 12 × 8 = 96, no 104.",
+                  "80": "80 frutas no es correcto. 12 × 8 = 96, no 80."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 967 frutas y empacamos 96. ¿Cuántas frutas quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["871", "861", "881", "851"],
+                "respuesta_correcta": "871",
+                "feedback_correcto": "¡Bien! 967 − 96 = 871 frutas quedan por empacar.",
+                "errores_comunes": {
+                  "861": "861 no es correcto. 967 − 96 = 871, no 861.",
+                  "881": "881 no es correcto. 967 − 96 = 871, no 881.",
+                  "851": "851 no es correcto. 967 − 96 = 871, no 851."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos las 871 frutas que quedan en cajas de 8. ¿Cuántas veces cabe 8 en 87?",
+                "tipo": "opciones",
+                "opciones": ["10", "11", "9", "12"],
+                "respuesta_correcta": "10",
+                "feedback_correcto": "¡Exacto! 8 cabe 10 veces en 87. Van 10 cajas más.",
+                "errores_comunes": {
+                  "11": "11 no es correcto. 8 × 11 = 88 frutas, y solo hay 87.",
+                  "9": "9 no es correcto. 8 × 9 = 72 frutas, y faltarían 15 por empacar.",
+                  "12": "12 no es correcto. 8 × 12 = 96 frutas, y solo hay 87."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 10 cajas más de 8 frutas, ¿cuántas frutas se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["176", "160", "192", "144"],
+                "respuesta_correcta": "176",
+                "feedback_correcto": "¡Correcto! 10 cajas × 8 frutas = 80 frutas más. En total: 96 + 80 = 176 frutas empacadas.",
+                "errores_comunes": {
+                  "160": "160 no es correcto. 10 × 8 = 80, más 96 = 176.",
+                  "192": "192 no es correcto. 10 × 8 = 80, más 96 = 176.",
+                  "144": "144 no es correcto. 10 × 8 = 80, más 96 = 176."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántas frutas quedaron sin empacar?",
+                "tipo": "opciones",
+                "opciones": ["7", "6", "8", "9"],
+                "respuesta_correcta": "7",
+                "feedback_correcto": "¡Bien! 967 − 960 = 7. Sobran 7 frutas.",
+                "errores_comunes": {
+                  "6": "6 frutas no es correcto. 967 − 960 = 7, no 6.",
+                  "8": "8 frutas no es correcto. 967 − 960 = 7, no 8.",
+                  "9": "9 frutas no es correcto. 967 − 960 = 7, no 9."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-013",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "la librería",
+            "objeto": "cuadernos",
+            "objeto_singular": "cuaderno",
+            "cantidad_total": 638,
+            "cantidad_grupos": 5,
+            "verbo": "empacar",
+            "situacion": "Una librería tiene 638 cuadernos y los empaca en paquetes de 5 cuadernos"
+          },
+          "enunciado": "Una librería tiene 638 cuadernos y los empaca en paquetes de 5 cuadernos cada uno. ¿Cuántos paquetes se llenan y cuántos cuadernos sobran?",
+          "pregunta": "¿Cuántos paquetes se llenan y cuántos cuadernos sobran?",
+          "dividendo": 638,
+          "divisor": 5,
+          "cociente_esperado": 127,
+          "resto_esperado": 3,
+          "explicacion_breve": "638 cuadernos ÷ 5 cuadernos por paquete = 127 paquetes y sobran 3 cuadernos.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 638 cuadernos y se empacan en paquetes de 5. ¿Cuántas veces cabe 5 en 63?",
+                "tipo": "opciones",
+                "opciones": ["12", "13", "11", "14"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 5 cabe 12 veces en 63. Van 12 paquetes en ese grupo.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 5 × 13 = 65 cuadernos, y solo hay 63.",
+                  "11": "11 no es correcto. 5 × 11 = 55 cuadernos, y faltarían 8 por empacar.",
+                  "14": "14 no es correcto. 5 × 14 = 70 cuadernos, y solo hay 63."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 12 paquetes de 5 cuadernos, ¿cuántos cuadernos se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["60", "55", "65", "70"],
+                "respuesta_correcta": "60",
+                "feedback_correcto": "¡Correcto! 12 paquetes × 5 cuadernos = 60 cuadernos empacados.",
+                "errores_comunes": {
+                  "55": "55 cuadernos no es correcto. 12 × 5 = 60, no 55.",
+                  "65": "65 cuadernos no es correcto. 12 × 5 = 60, no 65.",
+                  "70": "70 cuadernos no es correcto. 12 × 5 = 60, no 70."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 638 cuadernos y empacamos 60. ¿Cuántos cuadernos quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["578", "568", "588", "558"],
+                "respuesta_correcta": "578",
+                "feedback_correcto": "¡Bien! 638 − 60 = 578 cuadernos quedan por empacar.",
+                "errores_comunes": {
+                  "568": "568 no es correcto. 638 − 60 = 578, no 568.",
+                  "588": "588 no es correcto. 638 − 60 = 578, no 588.",
+                  "558": "558 no es correcto. 638 − 60 = 578, no 558."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos los 578 cuadernos que quedan en paquetes de 5. ¿Cuántas veces cabe 5 en 57?",
+                "tipo": "opciones",
+                "opciones": ["11", "12", "10", "13"],
+                "respuesta_correcta": "11",
+                "feedback_correcto": "¡Exacto! 5 cabe 11 veces en 57. Van 11 paquetes más.",
+                "errores_comunes": {
+                  "12": "12 no es correcto. 5 × 12 = 60 cuadernos, y solo hay 57.",
+                  "10": "10 no es correcto. 5 × 10 = 50 cuadernos, y faltarían 7 por empacar.",
+                  "13": "13 no es correcto. 5 × 13 = 65 cuadernos, y solo hay 57."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 11 paquetes más de 5 cuadernos, ¿cuántos cuadernos se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["115", "110", "120", "105"],
+                "respuesta_correcta": "115",
+                "feedback_correcto": "¡Correcto! 11 paquetes × 5 cuadernos = 55 cuadernos más. En total: 60 + 55 = 115 cuadernos empacados.",
+                "errores_comunes": {
+                  "110": "110 no es correcto. 11 × 5 = 55, más 60 = 115.",
+                  "120": "120 no es correcto. 11 × 5 = 55, más 60 = 115.",
+                  "105": "105 no es correcto. 11 × 5 = 55, más 60 = 115."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos cuadernos quedaron sin empacar?",
+                "tipo": "opciones",
+                "opciones": ["3", "2", "4", "5"],
+                "respuesta_correcta": "3",
+                "feedback_correcto": "¡Bien! 638 − 635 = 3. Sobran 3 cuadernos.",
+                "errores_comunes": {
+                  "2": "2 cuadernos no es correcto. 638 − 635 = 3, no 2.",
+                  "4": "4 cuadernos no es correcto. 638 − 635 = 3, no 4.",
+                  "5": "5 cuadernos no es correcto. 638 − 635 = 3, no 5."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-014",
+          "dificultad": "dificil",
+          "contexto": {
+            "sujeto": "el supermercado",
+            "objeto": "botellas",
+            "objeto_singular": "botella",
+            "cantidad_total": 597,
+            "cantidad_grupos": 20,
+            "verbo": "guardar",
+            "situacion": "En una bodega hay 597 botellas y se guardan en cajas de 20 botellas"
+          },
+          "enunciado": "En una bodega hay 597 botellas y se guardan en cajas de 20 botellas cada una. ¿Cuántas cajas se necesitan y cuántas botellas sobran?",
+          "pregunta": "¿Cuántas cajas se necesitan y cuántas botellas sobran?",
+          "dividendo": 597,
+          "divisor": 20,
+          "cociente_esperado": 29,
+          "resto_esperado": 17,
+          "explicacion_breve": "597 botellas ÷ 20 botellas por caja = 29 cajas y sobran 17 botellas.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 597 botellas y se guardan en cajas de 20. ¿Cuántas veces cabe 20 en 59?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 20 cabe 2 veces en 59. Van 2 cajas en ese grupo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 20 × 3 = 60 botellas, y solo hay 59.",
+                  "1": "1 no es correcto. 20 × 1 = 20 botellas, y faltarían 39 por guardar.",
+                  "4": "4 no es correcto. 20 × 4 = 80 botellas, y solo hay 59."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 2 cajas de 20 botellas, ¿cuántas botellas se guardaron?",
+                "tipo": "opciones",
+                "opciones": ["40", "30", "50", "60"],
+                "respuesta_correcta": "40",
+                "feedback_correcto": "¡Correcto! 2 cajas × 20 botellas = 40 botellas guardadas.",
+                "errores_comunes": {
+                  "30": "30 botellas no es correcto. 2 × 20 = 40, no 30.",
+                  "50": "50 botellas no es correcto. 2 × 20 = 40, no 50.",
+                  "60": "60 botellas no es correcto. 2 × 20 = 40, no 60."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 597 botellas y guardamos 40. ¿Cuántas botellas quedan por guardar?",
+                "tipo": "opciones",
+                "opciones": ["557", "547", "567", "537"],
+                "respuesta_correcta": "557",
+                "feedback_correcto": "¡Bien! 597 − 40 = 557 botellas quedan por guardar.",
+                "errores_comunes": {
+                  "547": "547 no es correcto. 597 − 40 = 557, no 547.",
+                  "567": "567 no es correcto. 597 − 40 = 557, no 567.",
+                  "537": "537 no es correcto. 597 − 40 = 557, no 537."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora guardamos las 557 botellas que quedan en cajas de 20. ¿Cuántas veces cabe 20 en 55?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 20 cabe 2 veces en 55. Van 2 cajas más.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 20 × 3 = 60 botellas, y solo hay 55.",
+                  "1": "1 no es correcto. 20 × 1 = 20 botellas, y faltarían 35 por guardar.",
+                  "4": "4 no es correcto. 20 × 4 = 80 botellas, y solo hay 55."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 2 cajas más de 20 botellas, ¿cuántas botellas se guardaron en total?",
+                "tipo": "opciones",
+                "opciones": ["80", "60", "100", "120"],
+                "respuesta_correcta": "80",
+                "feedback_correcto": "¡Correcto! 2 cajas × 20 botellas = 40 botellas más. En total: 40 + 40 = 80 botellas guardadas.",
+                "errores_comunes": {
+                  "60": "60 no es correcto. 2 × 20 = 40, más 40 = 80.",
+                  "100": "100 no es correcto. 2 × 20 = 40, más 40 = 80.",
+                  "120": "120 no es correcto. 2 × 20 = 40, más 40 = 80."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántas botellas quedaron sin guardar?",
+                "tipo": "opciones",
+                "opciones": ["17", "16", "18", "19"],
+                "respuesta_correcta": "17",
+                "feedback_correcto": "¡Bien! 597 − 580 = 17. Sobran 17 botellas.",
+                "errores_comunes": {
+                  "16": "16 botellas no es correcto. 597 − 580 = 17, no 16.",
+                  "18": "18 botellas no es correcto. 597 − 580 = 17, no 18.",
+                  "19": "19 botellas no es correcto. 597 − 580 = 17, no 19."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "muy_dificil": {
+      "porcentaje": 30,
+      "tematica": "desafío adicional (dinero, tiempo, capacidad)",
+      "problemas": [
+        {
+          "id": "div-prob-015",
+          "dificultad": "muy_dificil",
+          "contexto": {
+            "sujeto": "la fábrica",
+            "objeto": "galletas",
+            "objeto_singular": "galleta",
+            "cantidad_total": 986,
+            "cantidad_grupos": 7,
+            "verbo": "empacar",
+            "situacion": "Una fábrica produce 986 galletas y las empaca en cajas de 7. Si cada caja se vende a $1.500, ¿cuánto dinero se recauda?"
+          },
+          "enunciado": "Una fábrica produce 986 galletas y las empaca en cajas de 7 galletas cada una. Si cada caja se vende a $1.500, ¿cuántas cajas se llenan y cuánto dinero se recauda?",
+          "pregunta": "¿Cuántas cajas se llenan y cuánto dinero se recauda?",
+          "dividendo": 986,
+          "divisor": 7,
+          "cociente_esperado": 140,
+          "resto_esperado": 6,
+          "explicacion_breve": "986 galletas ÷ 7 galletas por caja = 140 cajas. 140 cajas × $1.500 = $210.000 recaudados. Sobran 6 galletas.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 986 galletas y se empacan en cajas de 7. ¿Cuántas veces cabe 7 en 98?",
+                "tipo": "opciones",
+                "opciones": ["14", "13", "15", "12"],
+                "respuesta_correcta": "14",
+                "feedback_correcto": "¡Exacto! 7 cabe 14 veces en 98. Van 14 cajas en ese grupo.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 7 × 13 = 91 galletas, y faltarían 7 por empacar.",
+                  "15": "15 no es correcto. 7 × 15 = 105 galletas, y solo hay 98.",
+                  "12": "12 no es correcto. 7 × 12 = 84 galletas, y faltarían 14 por empacar."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 14 cajas de 7 galletas, ¿cuántas galletas se empacaron?",
+                "tipo": "opciones",
+                "opciones": ["98", "84", "105", "91"],
+                "respuesta_correcta": "98",
+                "feedback_correcto": "¡Correcto! 14 cajas × 7 galletas = 98 galletas empacadas.",
+                "errores_comunes": {
+                  "84": "84 galletas no es correcto. 14 × 7 = 98, no 84.",
+                  "105": "105 galletas no es correcto. 14 × 7 = 98, no 105.",
+                  "91": "91 galletas no es correcto. 14 × 7 = 98, no 91."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 986 galletas y empacamos 98. ¿Cuántas galletas quedan por empacar?",
+                "tipo": "opciones",
+                "opciones": ["888", "898", "878", "988"],
+                "respuesta_correcta": "888",
+                "feedback_correcto": "¡Bien! 986 − 98 = 888 galletas quedan por empacar.",
+                "errores_comunes": {
+                  "898": "898 no es correcto. 986 − 98 = 888, no 898.",
+                  "878": "878 no es correcto. 986 − 98 = 888, no 878.",
+                  "988": "988 no es correcto. 986 − 98 = 888, no 988."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora empacamos las 888 galletas que quedan en cajas de 7. ¿Cuántas veces cabe 7 en 88?",
+                "tipo": "opciones",
+                "opciones": ["12", "13", "11", "14"],
+                "respuesta_correcta": "12",
+                "feedback_correcto": "¡Exacto! 7 cabe 12 veces en 88. Van 12 cajas más.",
+                "errores_comunes": {
+                  "13": "13 no es correcto. 7 × 13 = 91 galletas, y solo hay 88.",
+                  "11": "11 no es correcto. 7 × 11 = 77 galletas, y faltarían 11 por empacar.",
+                  "14": "14 no es correcto. 7 × 14 = 98 galletas, y solo hay 88."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 12 cajas más de 7 galletas, ¿cuántas galletas se empacaron en total?",
+                "tipo": "opciones",
+                "opciones": ["182", "168", "196", "154"],
+                "respuesta_correcta": "182",
+                "feedback_correcto": "¡Correcto! 12 cajas × 7 galletas = 84 galletas más. En total: 98 + 84 = 182 galletas empacadas.",
+                "errores_comunes": {
+                  "168": "168 no es correcto. 12 × 7 = 84, más 98 = 182.",
+                  "196": "196 no es correcto. 12 × 7 = 84, más 98 = 182.",
+                  "154": "154 no es correcto. 12 × 7 = 84, más 98 = 182."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántas cajas se llenaron en total?",
+                "tipo": "opciones",
+                "opciones": ["140", "139", "141", "142"],
+                "respuesta_correcta": "140",
+                "feedback_correcto": "¡Bien! 14 + 12 = 140 cajas llenas.",
+                "errores_comunes": {
+                  "139": "139 cajas no es correcto. 14 + 12 = 140, no 139.",
+                  "141": "141 cajas no es correcto. 14 + 12 = 140, no 141.",
+                  "142": "142 cajas no es correcto. 14 + 12 = 140, no 142."
+                }
+              },
+              {
+                "n": 7,
+                "pregunta": "Si cada caja se vende a $1.500, ¿cuánto dinero se recauda?",
+                "tipo": "opciones",
+                "opciones": ["$210.000", "$200.000", "$220.000", "$195.000"],
+                "respuesta_correcta": "$210.000",
+                "feedback_correcto": "¡Excelente! 140 cajas × $1.500 = $210.000 recaudados.",
+                "errores_comunes": {
+                  "$200.000": "$200.000 no es correcto. 140 × $1.500 = $210.000.",
+                  "$220.000": "$220.000 no es correcto. 140 × $1.500 = $210.000.",
+                  "$195.000": "$195.000 no es correcto. 140 × $1.500 = $210.000."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-016",
+          "dificultad": "muy_dificil",
+          "contexto": {
+            "sujeto": "la biblioteca",
+            "objeto": "libros",
+            "objeto_singular": "libro",
+            "cantidad_total": 967,
+            "cantidad_grupos": 40,
+            "verbo": "distribuir",
+            "situacion": "Una biblioteca tiene 967 libros y los distribuye en estantes de 40 libros. Si cada estante se pinta de un color, ¿cuántos estantes se llenan?"
+          },
+          "enunciado": "Una biblioteca tiene 967 libros y los distribuye en estantes de 40 libros cada uno. Si cada estante se pinta de un color, ¿cuántos estantes se llenan y cuántos libros sobran?",
+          "pregunta": "¿Cuántos estantes se llenan y cuántos libros sobran?",
+          "dividendo": 967,
+          "divisor": 40,
+          "cociente_esperado": 24,
+          "resto_esperado": 7,
+          "explicacion_breve": "967 libros ÷ 40 libros por estante = 24 estantes y sobran 7 libros.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 967 libros y se distribuyen en estantes de 40. ¿Cuántas veces cabe 40 en 96?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 40 cabe 2 veces en 96. Van 2 estantes en ese grupo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 40 × 3 = 120 libros, y solo hay 96.",
+                  "1": "1 no es correcto. 40 × 1 = 40 libros, y faltarían 56 por distribuir.",
+                  "4": "4 no es correcto. 40 × 4 = 160 libros, y solo hay 96."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 2 estantes de 40 libros, ¿cuántos libros se distribuyeron?",
+                "tipo": "opciones",
+                "opciones": ["80", "60", "100", "120"],
+                "respuesta_correcta": "80",
+                "feedback_correcto": "¡Correcto! 2 estantes × 40 libros = 80 libros distribuidos.",
+                "errores_comunes": {
+                  "60": "60 libros no es correcto. 2 × 40 = 80, no 60.",
+                  "100": "100 libros no es correcto. 2 × 40 = 80, no 100.",
+                  "120": "120 libros no es correcto. 2 × 40 = 80, no 120."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 967 libros y distribuimos 80. ¿Cuántos libros quedan por distribuir?",
+                "tipo": "opciones",
+                "opciones": ["887", "877", "897", "867"],
+                "respuesta_correcta": "887",
+                "feedback_correcto": "¡Bien! 967 − 80 = 887 libros quedan por distribuir.",
+                "errores_comunes": {
+                  "877": "877 no es correcto. 967 − 80 = 887, no 877.",
+                  "897": "897 no es correcto. 967 − 80 = 887, no 897.",
+                  "867": "867 no es correcto. 967 − 80 = 887, no 867."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora distribuimos los 887 libros que quedan en estantes de 40. ¿Cuántas veces cabe 40 en 88?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 40 cabe 2 veces en 88. Van 2 estantes más.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 40 × 3 = 120 libros, y solo hay 88.",
+                  "1": "1 no es correcto. 40 × 1 = 40 libros, y faltarían 48 por distribuir.",
+                  "4": "4 no es correcto. 40 × 4 = 160 libros, y solo hay 88."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 2 estantes más de 40 libros, ¿cuántos libros se distribuyeron en total?",
+                "tipo": "opciones",
+                "opciones": ["160", "120", "200", "240"],
+                "respuesta_correcta": "160",
+                "feedback_correcto": "¡Correcto! 2 estantes × 40 libros = 80 libros más. En total: 80 + 80 = 160 libros distribuidos.",
+                "errores_comunes": {
+                  "120": "120 no es correcto. 2 × 40 = 80, más 80 = 160.",
+                  "200": "200 no es correcto. 2 × 40 = 80, más 80 = 160.",
+                  "240": "240 no es correcto. 2 × 40 = 80, más 80 = 160."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos libros quedaron sin distribuir?",
+                "tipo": "opciones",
+                "opciones": ["7", "6", "8", "9"],
+                "respuesta_correcta": "7",
+                "feedback_correcto": "¡Bien! 967 − 960 = 7. Sobran 7 libros.",
+                "errores_comunes": {
+                  "6": "6 libros no es correcto. 967 − 960 = 7, no 6.",
+                  "8": "8 libros no es correcto. 967 − 960 = 7, no 8.",
+                  "9": "9 libros no es correcto. 967 − 960 = 7, no 9."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-017",
+          "dificultad": "muy_dificil",
+          "contexto": {
+            "sujeto": "la empresa",
+            "objeto": "sillas",
+            "objeto_singular": "silla",
+            "cantidad_total": 845,
+            "cantidad_grupos": 30,
+            "verbo": "organizar",
+            "situacion": "Una empresa tiene 845 sillas y las organiza en filas de 30 sillas. Si cada fila se numera, ¿cuántas filas se forman?"
+          },
+          "enunciado": "Una empresa tiene 845 sillas y las organiza en filas de 30 sillas cada una. Si cada fila se numera, ¿cuántas filas se forman y cuántas sillas sobran?",
+          "pregunta": "¿Cuántas filas se forman y cuántas sillas sobran?",
+          "dividendo": 845,
+          "divisor": 30,
+          "cociente_esperado": 28,
+          "resto_esperado": 5,
+          "explicacion_breve": "845 sillas ÷ 30 sillas por fila = 28 filas y sobran 5 sillas.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 845 sillas y se organizan en filas de 30. ¿Cuántas veces cabe 30 en 84?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 30 cabe 2 veces en 84. Van 2 filas en ese grupo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 30 × 3 = 90 sillas, y solo hay 84.",
+                  "1": "1 no es correcto. 30 × 1 = 30 sillas, y faltarían 54 por organizar.",
+                  "4": "4 no es correcto. 30 × 4 = 120 sillas, y solo hay 84."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 2 filas de 30 sillas, ¿cuántas sillas se organizaron?",
+                "tipo": "opciones",
+                "opciones": ["60", "50", "70", "80"],
+                "respuesta_correcta": "60",
+                "feedback_correcto": "¡Correcto! 2 filas × 30 sillas = 60 sillas organizadas.",
+                "errores_comunes": {
+                  "50": "50 sillas no es correcto. 2 × 30 = 60, no 50.",
+                  "70": "70 sillas no es correcto. 2 × 30 = 60, no 70.",
+                  "80": "80 sillas no es correcto. 2 × 30 = 60, no 80."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 845 sillas y organizamos 60. ¿Cuántas sillas quedan por organizar?",
+                "tipo": "opciones",
+                "opciones": ["785", "775", "795", "765"],
+                "respuesta_correcta": "785",
+                "feedback_correcto": "¡Bien! 845 − 60 = 785 sillas quedan por organizar.",
+                "errores_comunes": {
+                  "775": "775 no es correcto. 845 − 60 = 785, no 775.",
+                  "795": "795 no es correcto. 845 − 60 = 785, no 795.",
+                  "765": "765 no es correcto. 845 − 60 = 785, no 765."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora organizamos las 785 sillas que quedan en filas de 30. ¿Cuántas veces cabe 30 en 78?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 30 cabe 2 veces en 78. Van 2 filas más.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 30 × 3 = 90 sillas, y solo hay 78.",
+                  "1": "1 no es correcto. 30 × 1 = 30 sillas, y faltarían 48 por organizar.",
+                  "4": "4 no es correcto. 30 × 4 = 120 sillas, y solo hay 78."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 2 filas más de 30 sillas, ¿cuántas sillas se organizaron en total?",
+                "tipo": "opciones",
+                "opciones": ["120", "100", "140", "160"],
+                "respuesta_correcta": "120",
+                "feedback_correcto": "¡Correcto! 2 filas × 30 sillas = 60 sillas más. En total: 60 + 60 = 120 sillas organizadas.",
+                "errores_comunes": {
+                  "100": "100 no es correcto. 2 × 30 = 60, más 60 = 120.",
+                  "140": "140 no es correcto. 2 × 30 = 60, más 60 = 120.",
+                  "160": "160 no es correcto. 2 × 30 = 60, más 60 = 120."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántas sillas quedaron sin organizar?",
+                "tipo": "opciones",
+                "opciones": ["5", "4", "6", "7"],
+                "respuesta_correcta": "5",
+                "feedback_correcto": "¡Bien! 845 − 840 = 5. Sobran 5 sillas.",
+                "errores_comunes": {
+                  "4": "4 sillas no es correcto. 845 − 840 = 5, no 4.",
+                  "6": "6 sillas no es correcto. 845 − 840 = 5, no 6.",
+                  "7": "7 sillas no es correcto. 845 − 840 = 5, no 7."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-018",
+          "dificultad": "muy_dificil",
+          "contexto": {
+            "sujeto": "el estanque",
+            "objeto": "litros",
+            "objeto_singular": "litro",
+            "cantidad_total": 750,
+            "cantidad_grupos": 25,
+            "verbo": "repartir",
+            "situacion": "Un estanque tiene 750 litros de agua y se reparten en 25 bidones iguales. Si cada bidón se vende a $2.000, ¿cuánto dinero se recauda?"
+          },
+          "enunciado": "Un estanque tiene 750 litros de agua y se reparten en 25 bidones iguales. Si cada bidón se vende a $2.000, ¿cuántos litros van en cada bidón y cuánto dinero se recauda?",
+          "pregunta": "¿Cuántos litros van en cada bidón y cuánto dinero se recauda?",
+          "dividendo": 750,
+          "divisor": 25,
+          "cociente_esperado": 30,
+          "resto_esperado": 0,
+          "explicacion_breve": "750 litros ÷ 25 bidones = 30 litros por bidón. 25 bidones × $2.000 = $50.000 recaudados. No sobra agua.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 750 litros y se reparten en 25 bidones. ¿Cuántas veces cabe 25 en 75?",
+                "tipo": "opciones",
+                "opciones": ["3", "2", "4", "5"],
+                "respuesta_correcta": "3",
+                "feedback_correcto": "¡Exacto! 25 cabe 3 veces en 75. Van 3 litros por bidón en ese grupo.",
+                "errores_comunes": {
+                  "2": "2 no es correcto. 25 × 2 = 50 litros, y faltarían 25 por repartir.",
+                  "4": "4 no es correcto. 25 × 4 = 100 litros, y solo hay 75.",
+                  "5": "5 no es correcto. 25 × 5 = 125 litros, y solo hay 75."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 3 litros por bidón, ¿cuántos litros se repartieron?",
+                "tipo": "opciones",
+                "opciones": ["75", "50", "100", "125"],
+                "respuesta_correcta": "75",
+                "feedback_correcto": "¡Correcto! 25 bidones × 3 litros = 75 litros repartidos.",
+                "errores_comunes": {
+                  "50": "50 litros no es correcto. 25 × 3 = 75, no 50.",
+                  "100": "100 litros no es correcto. 25 × 3 = 75, no 100.",
+                  "125": "125 litros no es correcto. 25 × 3 = 75, no 125."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 750 litros y repartimos 75. ¿Cuántos litros quedan por repartir?",
+                "tipo": "opciones",
+                "opciones": ["675", "665", "685", "655"],
+                "respuesta_correcta": "675",
+                "feedback_correcto": "¡Bien! 750 − 75 = 675 litros quedan por repartir.",
+                "errores_comunes": {
+                  "665": "665 no es correcto. 750 − 75 = 675, no 665.",
+                  "685": "685 no es correcto. 750 − 75 = 675, no 685.",
+                  "655": "655 no es correcto. 750 − 75 = 675, no 655."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora repartimos los 675 litros que quedan en 25 bidones. ¿Cuántas veces cabe 25 en 67?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 25 cabe 2 veces en 67. Van 2 litros más por bidón.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 25 × 3 = 75 litros, y solo hay 67.",
+                  "1": "1 no es correcto. 25 × 1 = 25 litros, y faltarían 42 por repartir.",
+                  "4": "4 no es correcto. 25 × 4 = 100 litros, y solo hay 67."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 2 litros más por bidón, ¿cuántos litros se repartieron en total?",
+                "tipo": "opciones",
+                "opciones": ["125", "100", "150", "175"],
+                "respuesta_correcta": "125",
+                "feedback_correcto": "¡Correcto! 25 bidones × 2 litros = 50 litros más. En total: 75 + 50 = 125 litros repartidos.",
+                "errores_comunes": {
+                  "100": "100 no es correcto. 25 × 2 = 50, más 75 = 125.",
+                  "150": "150 no es correcto. 25 × 2 = 50, más 75 = 125.",
+                  "175": "175 no es correcto. 25 × 2 = 50, más 75 = 125."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos litros quedaron sin repartir?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "2", "3"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 750 − 750 = 0. No sobra agua.",
+                "errores_comunes": {
+                  "1": "1 litro no es correcto. Toda el agua se repartió.",
+                  "2": "2 litros no es correcto. Toda el agua se repartió.",
+                  "3": "3 litros no es correcto. Toda el agua se repartió."
+                }
+              },
+              {
+                "n": 7,
+                "pregunta": "Si cada bidón se vende a $2.000, ¿cuánto dinero se recauda?",
+                "tipo": "opciones",
+                "opciones": ["$50.000", "$40.000", "$60.000", "$45.000"],
+                "respuesta_correcta": "$50.000",
+                "feedback_correcto": "¡Excelente! 25 bidones × $2.000 = $50.000 recaudados.",
+                "errores_comunes": {
+                  "$40.000": "$40.000 no es correcto. 25 × $2.000 = $50.000.",
+                  "$60.000": "$60.000 no es correcto. 25 × $2.000 = $50.000.",
+                  "$45.000": "$45.000 no es correcto. 25 × $2.000 = $50.000."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-019",
+          "dificultad": "muy_dificil",
+          "contexto": {
+            "sujeto": "el colegio",
+            "objeto": "cuadernos",
+            "objeto_singular": "cuaderno",
+            "cantidad_total": 920,
+            "cantidad_grupos": 35,
+            "verbo": "repartir",
+            "situacion": "Un colegio tiene 920 cuadernos y los reparte en 35 cursos iguales. Si cada cuaderno cuesta $500, ¿cuánto dinero se invirtió?"
+          },
+          "enunciado": "Un colegio tiene 920 cuadernos y los reparte en 35 cursos iguales. Si cada cuaderno cuesta $500, ¿cuántos cuadernos recibe cada curso y cuánto dinero se invirtió?",
+          "pregunta": "¿Cuántos cuadernos recibe cada curso y cuánto dinero se invirtió?",
+          "dividendo": 920,
+          "divisor": 35,
+          "cociente_esperado": 26,
+          "resto_esperado": 10,
+          "explicacion_breve": "920 cuadernos ÷ 35 cursos = 26 cuadernos por curso y sobran 10. 920 cuadernos × $500 = $460.000 invertidos.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 920 cuadernos y se reparten en 35 cursos. ¿Cuántas veces cabe 35 en 92?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 35 cabe 2 veces en 92. Van 2 cuadernos por curso en ese grupo.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 35 × 3 = 105 cuadernos, y solo hay 92.",
+                  "1": "1 no es correcto. 35 × 1 = 35 cuadernos, y faltarían 57 por repartir.",
+                  "4": "4 no es correcto. 35 × 4 = 140 cuadernos, y solo hay 92."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 2 cuadernos por curso, ¿cuántos cuadernos se repartieron?",
+                "tipo": "opciones",
+                "opciones": ["70", "60", "80", "90"],
+                "respuesta_correcta": "70",
+                "feedback_correcto": "¡Correcto! 35 cursos × 2 cuadernos = 70 cuadernos repartidos.",
+                "errores_comunes": {
+                  "60": "60 cuadernos no es correcto. 35 × 2 = 70, no 60.",
+                  "80": "80 cuadernos no es correcto. 35 × 2 = 70, no 80.",
+                  "90": "90 cuadernos no es correcto. 35 × 2 = 70, no 90."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 920 cuadernos y repartimos 70. ¿Cuántos cuadernos quedan por repartir?",
+                "tipo": "opciones",
+                "opciones": ["850", "840", "860", "830"],
+                "respuesta_correcta": "850",
+                "feedback_correcto": "¡Bien! 920 − 70 = 850 cuadernos quedan por repartir.",
+                "errores_comunes": {
+                  "840": "840 no es correcto. 920 − 70 = 850, no 840.",
+                  "860": "860 no es correcto. 920 − 70 = 850, no 860.",
+                  "830": "830 no es correcto. 920 − 70 = 850, no 830."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora repartimos los 850 cuadernos que quedan en 35 cursos. ¿Cuántas veces cabe 35 en 85?",
+                "tipo": "opciones",
+                "opciones": ["2", "3", "1", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 35 cabe 2 veces en 85. Van 2 cuadernos más por curso.",
+                "errores_comunes": {
+                  "3": "3 no es correcto. 35 × 3 = 105 cuadernos, y solo hay 85.",
+                  "1": "1 no es correcto. 35 × 1 = 35 cuadernos, y faltarían 50 por repartir.",
+                  "4": "4 no es correcto. 35 × 4 = 140 cuadernos, y solo hay 85."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 2 cuadernos más por curso, ¿cuántos cuadernos se repartieron en total?",
+                "tipo": "opciones",
+                "opciones": ["140", "120", "160", "180"],
+                "respuesta_correcta": "140",
+                "feedback_correcto": "¡Correcto! 35 cursos × 2 cuadernos = 70 cuadernos más. En total: 70 + 70 = 140 cuadernos repartidos.",
+                "errores_comunes": {
+                  "120": "120 no es correcto. 35 × 2 = 70, más 70 = 140.",
+                  "160": "160 no es correcto. 35 × 2 = 70, más 70 = 140.",
+                  "180": "180 no es correcto. 35 × 2 = 70, más 70 = 140."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos cuadernos quedaron sin repartir?",
+                "tipo": "opciones",
+                "opciones": ["10", "9", "11", "12"],
+                "respuesta_correcta": "10",
+                "feedback_correcto": "¡Bien! 920 − 910 = 10. Sobran 10 cuadernos.",
+                "errores_comunes": {
+                  "9": "9 cuadernos no es correcto. 920 − 910 = 10, no 9.",
+                  "11": "11 cuadernos no es correcto. 920 − 910 = 10, no 11.",
+                  "12": "12 cuadernos no es correcto. 920 − 910 = 10, no 12."
+                }
+              },
+              {
+                "n": 7,
+                "pregunta": "Si cada cuaderno cuesta $500, ¿cuánto dinero se invirtió en total?",
+                "tipo": "opciones",
+                "opciones": ["$460.000", "$450.000", "$470.000", "$440.000"],
+                "respuesta_correcta": "$460.000",
+                "feedback_correcto": "¡Excelente! 920 cuadernos × $500 = $460.000 invertidos.",
+                "errores_comunes": {
+                  "$450.000": "$450.000 no es correcto. 920 × $500 = $460.000.",
+                  "$470.000": "$470.000 no es correcto. 920 × $500 = $460.000.",
+                  "$440.000": "$440.000 no es correcto. 920 × $500 = $460.000."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "div-prob-020",
+          "dificultad": "muy_dificil",
+          "contexto": {
+            "sujeto": "la municipalidad",
+            "objeto": "árboles",
+            "objeto_singular": "árbol",
+            "cantidad_total": 880,
+            "cantidad_grupos": 45,
+            "verbo": "plantar",
+            "situacion": "Una municipalidad tiene 880 árboles y los planta en 45 plazas iguales. Si cada árbol cuesta $3.000, ¿cuánto dinero se invirtió?"
+          },
+          "enunciado": "Una municipalidad tiene 880 árboles y los planta en 45 plazas iguales. Si cada árbol cuesta $3.000, ¿cuántos árboles van en cada plaza y cuánto dinero se invirtió?",
+          "pregunta": "¿Cuántos árboles van en cada plaza y cuánto dinero se invirtió?",
+          "dividendo": 880,
+          "divisor": 45,
+          "cociente_esperado": 19,
+          "resto_esperado": 25,
+          "explicacion_breve": "880 árboles ÷ 45 plazas = 19 árboles por plaza y sobran 25. 880 árboles × $3.000 = $2.640.000 invertidos.",
+          "tutor": {
+            "pasos": [
+              {
+                "n": 1,
+                "pregunta": "Hay 880 árboles y se plantan en 45 plazas. ¿Cuántas veces cabe 45 en 88?",
+                "tipo": "opciones",
+                "opciones": ["1", "2", "3", "4"],
+                "respuesta_correcta": "1",
+                "feedback_correcto": "¡Exacto! 45 cabe 1 vez en 88. Va 1 árbol por plaza en ese grupo.",
+                "errores_comunes": {
+                  "2": "2 no es correcto. 45 × 2 = 90 árboles, y solo hay 88.",
+                  "3": "3 no es correcto. 45 × 3 = 135 árboles, y solo hay 88.",
+                  "4": "4 no es correcto. 45 × 4 = 180 árboles, y solo hay 88."
+                }
+              },
+              {
+                "n": 2,
+                "pregunta": "Si usamos 1 árbol por plaza, ¿cuántos árboles se plantaron?",
+                "tipo": "opciones",
+                "opciones": ["45", "40", "50", "55"],
+                "respuesta_correcta": "45",
+                "feedback_correcto": "¡Correcto! 45 plazas × 1 árbol = 45 árboles plantados.",
+                "errores_comunes": {
+                  "40": "40 árboles no es correcto. 45 × 1 = 45, no 40.",
+                  "50": "50 árboles no es correcto. 45 × 1 = 45, no 50.",
+                  "55": "55 árboles no es correcto. 45 × 1 = 45, no 55."
+                }
+              },
+              {
+                "n": 3,
+                "pregunta": "Teníamos 880 árboles y plantamos 45. ¿Cuántos árboles quedan por plantar?",
+                "tipo": "opciones",
+                "opciones": ["835", "825", "845", "815"],
+                "respuesta_correcta": "835",
+                "feedback_correcto": "¡Bien! 880 − 45 = 835 árboles quedan por plantar.",
+                "errores_comunes": {
+                  "825": "825 no es correcto. 880 − 45 = 835, no 825.",
+                  "845": "845 no es correcto. 880 − 45 = 835, no 845.",
+                  "815": "815 no es correcto. 880 − 45 = 835, no 815."
+                }
+              },
+              {
+                "n": 4,
+                "pregunta": "Ahora plantamos los 835 árboles que quedan en 45 plazas. ¿Cuántas veces cabe 45 en 83?",
+                "tipo": "opciones",
+                "opciones": ["1", "2", "3", "4"],
+                "respuesta_correcta": "1",
+                "feedback_correcto": "¡Exacto! 45 cabe 1 vez en 83. Va 1 árbol más por plaza.",
+                "errores_comunes": {
+                  "2": "2 no es correcto. 45 × 2 = 90 árboles, y solo hay 83.",
+                  "3": "3 no es correcto. 45 × 3 = 135 árboles, y solo hay 83.",
+                  "4": "4 no es correcto. 45 × 4 = 180 árboles, y solo hay 83."
+                }
+              },
+              {
+                "n": 5,
+                "pregunta": "Si usamos 1 árbol más por plaza, ¿cuántos árboles se plantaron en total?",
+                "tipo": "opciones",
+                "opciones": ["90", "80", "100", "110"],
+                "respuesta_correcta": "90",
+                "feedback_correcto": "¡Correcto! 45 plazas × 1 árbol = 45 árboles más. En total: 45 + 45 = 90 árboles plantados.",
+                "errores_comunes": {
+                  "80": "80 no es correcto. 45 × 1 = 45, más 45 = 90.",
+                  "100": "100 no es correcto. 45 × 1 = 45, más 45 = 90.",
+                  "110": "110 no es correcto. 45 × 1 = 45, más 45 = 90."
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "¿Cuántos árboles quedaron sin plantar?",
+                "tipo": "opciones",
+                "opciones": ["25", "20", "30", "35"],
+                "respuesta_correcta": "25",
+                "feedback_correcto": "¡Bien! 880 − 855 = 25. Sobran 25 árboles.",
+                "errores_comunes": {
+                  "20": "20 árboles no es correcto. 880 − 855 = 25, no 20.",
+                  "30": "30 árboles no es correcto. 880 − 855 = 25, no 30.",
+                  "35": "35 árboles no es correcto. 880 − 855 = 25, no 35."
+                }
+              },
+              {
+                "n": 7,
+                "pregunta": "Si cada árbol cuesta $3.000, ¿cuánto dinero se invirtió en total?",
+                "tipo": "opciones",
+                "opciones": ["$2.640.000", "$2.500.000", "$2.700.000", "$2.550.000"],
+                "respuesta_correcta": "$2.640.000",
+                "feedback_correcto": "¡Excelente! 880 árboles × $3.000 = $2.640.000 invertidos.",
+                "errores_comunes": {
+                  "$2.500.000": "$2.500.000 no es correcto. 880 × $3.000 = $2.640.000.",
+                  "$2.700.000": "$2.700.000 no es correcto. 880 × $3.000 = $2.640.000.",
+                  "$2.550.000": "$2.550.000 no es correcto. 880 × $3.000 = $2.640.000."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

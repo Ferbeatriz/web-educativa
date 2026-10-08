@@ -1,0 +1,287 @@
+---
+interface Props {
+  problema: any;
+}
+
+const { problema } = Astro.props;
+const pasos = problema.tutor.pasos;
+---
+
+<div class="tutor-contextualizado" data-problema-id={problema.id}>
+  <div class="tutor-header">
+    <h3>🔍 Vamos paso a paso</h3>
+    <p class="tutor-subtitulo">
+      Resolvamos juntos el problema de {problema.contexto.objeto}.
+    </p>
+  </div>
+
+  <div class="tutor-pasos">
+    {pasos.map((paso, index) => (
+      <div
+        class="tutor-paso"
+        data-paso-n={paso.n}
+        data-paso-index={index}
+        data-respuesta-correcta={paso.respuesta_correcta}
+        data-errores={JSON.stringify(paso.errores_comunes)}
+        hidden={index !== 0}
+      >
+        <div class="paso-header">
+          <span class="paso-numero">Paso {paso.n}</span>
+        </div>
+
+        <p class="paso-pregunta">{paso.pregunta}</p>
+
+        <div class="paso-opciones">
+          {paso.opciones.map((opcion) => (
+            <button
+              class="opcion-btn"
+              data-opcion={opcion}
+              data-problema-id={problema.id}
+              data-paso-n={paso.n}
+            >
+              {opcion}
+            </button>
+          ))}
+        </div>
+
+        <div class="paso-feedback" data-paso-n={paso.n} hidden></div>
+
+        <button
+          class="btn-siguiente"
+          data-problema-id={problema.id}
+          data-paso-n={paso.n}
+          hidden
+        >
+          Siguiente paso →
+        </button>
+      </div>
+    ))}
+  </div>
+
+  <div class="tutor-cierre" data-problema-id={problema.id} hidden>
+    <p>🎉 ¡Muy bien! Has completado el razonamiento paso a paso.</p>
+    <p class="cierre-respuesta">
+      La respuesta correcta es: <strong>Cociente {problema.cociente_esperado}, Resto {problema.resto_esperado}</strong>.
+    </p>
+  </div>
+</div>
+
+<script>
+  // Manejar clic en opciones del tutor
+  document.querySelectorAll('.opcion-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const problemaId = btn.getAttribute('data-problema-id');
+      const pasoN = btn.getAttribute('data-paso-n');
+      const opcionElegida = btn.getAttribute('data-opcion');
+      const pasoDiv = document.querySelector(`.tutor-paso[data-paso-n="${pasoN}"][data-problema-id="${problemaId}"]`);
+      if (!pasoDiv) return;
+
+      const respuestaCorrecta = pasoDiv.getAttribute('data-respuesta-correcta');
+      const errores = JSON.parse(pasoDiv.getAttribute('data-errores') || '{}');
+      const feedback = pasoDiv.querySelector('.paso-feedback') as HTMLElement;
+      const btnSiguiente = pasoDiv.querySelector('.btn-siguiente') as HTMLButtonElement;
+
+      // Deshabilitar todas las opciones del paso
+      pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
+        b.setAttribute('disabled', 'true');
+      });
+
+      if (opcionElegida === respuestaCorrecta) {
+        // ✅ Correcto
+        feedback.hidden = false;
+        feedback.className = 'paso-feedback feedback-correcto';
+        feedback.innerHTML = `✅ ${pasoDiv.querySelector('.paso-pregunta')?.textContent ? '' : ''} ¡Correcto!`;
+
+        // Marcar opción correcta en verde
+        btn.classList.add('opcion-correcta');
+
+        // Mostrar botón siguiente
+        btnSiguiente.hidden = false;
+      } else {
+        // ❌ Incorrecto
+        feedback.hidden = false;
+        feedback.className = 'paso-feedback feedback-incorrecto';
+        const mensajeError = errores[opcionElegida] || 'Casi. Revisa tu respuesta.';
+        feedback.innerHTML = `❌ ${mensajeError}`;
+
+        // Marcar opción incorrecta en rojo
+        btn.classList.add('opcion-incorrecta');
+
+        // Marcar la correcta en verde
+        pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
+          if (b.getAttribute('data-opcion') === respuestaCorrecta) {
+            b.classList.add('opcion-correcta');
+          }
+        });
+
+        // Permitir reintentar después de 2 segundos
+        setTimeout(() => {
+          pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
+            if (b.getAttribute('data-opcion') !== respuestaCorrecta) {
+              b.removeAttribute('disabled');
+              b.classList.remove('opcion-incorrecta');
+            }
+          });
+        }, 2000);
+      }
+    });
+  });
+
+  // Manejar clic en "Siguiente paso"
+  document.querySelectorAll('.btn-siguiente').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const problemaId = btn.getAttribute('data-problema-id');
+      const pasoN = parseInt(btn.getAttribute('data-paso-n') || '0');
+      const pasoActual = document.querySelector(`.tutor-paso[data-paso-n="${pasoN}"][data-problema-id="${problemaId}"]`);
+      const pasoSiguiente = document.querySelector(`.tutor-paso[data-paso-n="${pasoN + 1}"][data-problema-id="${problemaId}"]`);
+
+      if (pasoActual) pasoActual.setAttribute('hidden', 'true');
+
+      if (pasoSiguiente) {
+        pasoSiguiente.removeAttribute('hidden');
+      } else {
+        // No hay siguiente paso: mostrar cierre
+        const cierre = document.querySelector(`.tutor-cierre[data-problema-id="${problemaId}"]`);
+        if (cierre) cierre.removeAttribute('hidden');
+      }
+    });
+  });
+</script>
+
+<style>
+  .tutor-contextualizado {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid #4a90d9;
+  }
+
+  .tutor-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .tutor-header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+  }
+
+  .tutor-subtitulo {
+    color: #666;
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+
+  .tutor-paso {
+    margin-bottom: 1.5rem;
+  }
+
+  .paso-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .paso-numero {
+    display: inline-block;
+    background: #4a90d9;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+  }
+
+  .paso-pregunta {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .paso-opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .opcion-btn {
+    background: white;
+    border: 2px solid #ddd;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 60px;
+  }
+
+  .opcion-btn:hover:not(:disabled) {
+    border-color: #4a90d9;
+    background: #f0f7ff;
+  }
+
+  .opcion-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .opcion-correcta {
+    background: #e8f5e9 !important;
+    border-color: #4caf50 !important;
+    color: #2e7d32;
+    font-weight: 600;
+  }
+
+  .opcion-incorrecta {
+    background: #ffebee !important;
+    border-color: #e53935 !important;
+    color: #c62828;
+  }
+
+  .paso-feedback {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .feedback-correcto {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 3px solid #4caf50;
+  }
+
+  .feedback-incorrecto {
+    background: #fff3e0;
+    color: #e65100;
+    border-left: 3px solid #ff9800;
+  }
+
+  .btn-siguiente {
+    background: #4a90d9;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+
+  .btn-siguiente:hover {
+    background: #357ab8;
+  }
+
+  .tutor-cierre {
+    background: #e8f5e9;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    color: #2e7d32;
+  }
+
+  .cierre-respuesta {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+  }
+</style>
