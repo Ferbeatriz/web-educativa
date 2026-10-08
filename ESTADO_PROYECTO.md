@@ -222,6 +222,44 @@ web-educativa/
 
 ---
 
+
+---
+
+## Paso 3: Actualizar `ESTADO_PROYECTO.md`
+
+**Ruta:** `ESTADO_PROYECTO.md`
+
+Agrega esta tabla en la sección de pendientes:
+
+```markdown
+### Motor de errores (próxima prioridad)
+
+| Tarea | Prioridad | Documento de referencia |
+|-------|-----------|--------------------------|
+| Crear tabla `intentos_ejercicios` en D1 | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
+| Endpoint `/api/tutor/registrar-intento` en Worker | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
+| Enviar intentos desde `problema-card.js` | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
+| Enviar intentos desde `tutor-contextualizado.js` | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
+| Etiquetar errores del tutor con `error_type` | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
+| Panel docente con datos de proceso | Media | ALINEACION_MINEDUC.md |
+
+### Otras tareas pendientes
+
+| Tarea | Prioridad | Documento de referencia |
+|-------|-----------|--------------------------|
+| Validar `resta-52-menos-27.json` | Media | MOTOR_TUTOR_ESPECIFICACION.md |
+| Guardar lección "Los Textos Poéticos" (Lenguaje) | Media | GUIA_IA.md |
+| Crear `OA_LENGUAJE.md` | Baja | ALINEACION_MINEDUC.md |
+| Crear `OA_CIENCIAS.md` | Baja | ALINEACION_MINEDUC.md |
+
+
+
+
+
+
+
+
+
 ### 🅳️ EMBED DE VIDEO POR CAPÍTULO
 
 **Objetivo**: agregar video de YouTube a cada capítulo de cursos especiales.

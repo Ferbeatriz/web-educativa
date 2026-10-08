@@ -26,6 +26,23 @@ Por favor, lee esos archivos primero y luego continuamos."
 - `ALINEACION_MINEDUC.md` → **Referencia curricular obligatoria.**
   Ninguna funcionalidad, lección o motor se aprueba si no está
   alineado con los OA y OAT del MINEDUC.
+- `MOTOR_TUTOR_ESPECIFICACION.md` → Especificación del motor de razonamiento.
+- `OA_MATEMATICA.md` → OA de Matemática 1° a 6°.
+- `BITACORA_DIVISION_PROBLEMAS.md` → Estado actual de los ejercicios de división.
+
+## 🎯 Estado actual del proyecto
+
+- Tutor de división funcional.
+- Ejercicios de división contextualizados funcionales (20 problemas).
+- Motor de errores: **próxima prioridad**.
+
+## 🚀 Próximo paso
+
+Comenzar el motor de errores:
+1. Crear tabla `intentos_ejercicios` en D1.
+2. Endpoint `/api/tutor/registrar-intento` en Worker.
+3. Enviar intentos desde los scripts del frontend.
+4. Etiquetar errores del tutor con `error_type`.
 
 ---
 

@@ -121,4 +121,102 @@ Antes de aprobar un nuevo ejercicio o componente del motor:
 
 ---
 
+---
+
+## 📝 Bitácora de implementación
+
+### Fase 1: Tutor de división (completado)
+- `division-37-entre-5.json` funcional.
+- `TutorPasos.astro` + `validador.ts` genéricos.
+
+### Fase 2: Ejercicios de división contextualizados (completado)
+- **20 problemas** en `division-problemas.json`:
+  - 6 media (30%): repartir objetos en grupos iguales.
+  - 8 difícil (40%): empaque y sobrantes.
+  - 6 muy difícil (30%): contexto con desafío adicional (dinero, tiempo).
+- **Formato**: campo abierto (cociente + resto), no alternativas.
+- **Corrección**: automática al comprobar, feedback inmediato.
+- **Tutor contextualizado**: se activa SOLO cuando el estudiante falla.
+- **Lógica de reintento**: al fallar, NO revela la respuesta correcta. Permite reintentar hasta acertar.
+- **Contexto persistente**: el objeto (tomates, galletas, sillas) se mantiene en cada paso.
+- **Componentes**:
+  - `ListaProblemas.astro`: muestra los 20 problemas agrupados por dificultad.
+  - `ProblemaCard.astro`: campo abierto + validación + activación del tutor.
+  - `TutorContextualizado.astro`: pasos con feedback contextualizado.
+- **Scripts externos** en `src/scripts/`:
+  - `problema-card.js`: maneja la validación de respuesta.
+  - `tutor-contextualizado.js`: maneja la lógica del tutor paso a paso.
+- **Página**: `leccion/[...slug].astro` detecta `esEjercicios` (presencia de `niveles`) y renderiza según tipo.
+
+### Fase 3: Motor de errores (próxima sesión)
+**Objetivo**: que cada intento del estudiante se registre con su `error_type`, para alimentar el panel docente.
+
+**Qué registrar por cada intento:**
+- `problema_id`: qué problema resolvió.
+- `paso_n`: en qué paso del tutor está (si aplica).
+- `respuesta_dada`: qué escribió o eligió.
+- `respuesta_correcta`: qué se esperaba.
+- `error_type`: qué tipo de error cometió (ej: `ignorar_resto`, `sobreestimar`, `error_resta_intermedia`).
+- `intentos`: cuántas veces intentó ese paso.
+- `timestamp`: cuándo lo hizo.
+
+**Qué error_type asignar a cada error común del tutor:**
+- Cuando el estudiante escribe un cociente incorrecto → `error_cociente`.
+- Cuando escribe un resto incorrecto → `error_resto`.
+- Cuando deja resto mayor que divisor → `error_resto_mayor_divisor`.
+- Cuando falla en un paso del tutor → el `error_type` que corresponda al tipo de error.
+
+**Arquitectura propuesta (a validar):**
+1. **Frontend**: los scripts `problema-card.js` y `tutor-contextualizado.js` envían los datos a un endpoint del Worker.
+2. **Backend**: el Worker recibe los datos y los guarda en D1 (tabla `intentos_ejercicios`).
+3. **Panel docente**: consulta D1 y muestra errores agregados por estudiante y por curso.
+
+**Tabla propuesta en D1:**
+```sql
+CREATE TABLE intentos_ejercicios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  alumna_id INTEGER NOT NULL,
+  problema_id TEXT NOT NULL,
+  paso_n INTEGER,
+  respuesta_dada TEXT,
+  respuesta_correcta TEXT,
+  error_type TEXT,
+  intentos INTEGER DEFAULT 1,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (alumna_id) REFERENCES alumnas(id)
+);
+
+
+
+Fase 4: Panel docente (futuro)
+Mostrar errores por estudiante.
+
+Mostrar patrones del curso.
+
+Alertas de estudiantes que necesitan apoyo.
+
+Exportar datos para planificación.
+
+Fase 5: Expansión (futuro)
+Tutor de resta con reserva.
+
+Tutor de fracciones.
+
+Lecciones de Lenguaje (textos poéticos).
+
+OA de otras materias.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **Fin de la especificación del motor (v0.1).**
