@@ -34,3 +34,4 @@ pnpm-debug.log*
 
 # Scripts locales de admin
 workers/api/scripts-hash-admin.js
+.dev.vars

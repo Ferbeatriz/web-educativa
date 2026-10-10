@@ -1,6 +1,8 @@
 // Script global del tutor contextualizado.
 // Se importa una sola vez y maneja todos los tutores de la página.
 
+import { registrarIntento } from '../lib/intentos';
+
 document.addEventListener('click', (e) => {
   const target = e.target;
   if (!(target instanceof HTMLElement)) return;
@@ -21,6 +23,11 @@ document.addEventListener('click', (e) => {
 
     if (!feedback || !btnSiguiente) return;
 
+    // Extraer problema_id y paso_n para tracking
+    const tutorContainer = pasoDiv.closest('.tutor-contextualizado');
+    const problemaId = tutorContainer?.getAttribute('data-problema-id') || '';
+    const pasoN = parseInt(pasoDiv.getAttribute('data-paso-n') || '0');
+
     // Limpiar estados anteriores del paso
     pasoDiv.querySelectorAll('.opcion-btn').forEach((b) => {
       b.classList.remove('opcion-correcta', 'opcion-incorrecta');
@@ -40,6 +47,16 @@ document.addEventListener('click', (e) => {
 
       btnSiguiente.hidden = false;
       btnSiguiente.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // 📊 Registrar intento correcto del tutor
+      registrarIntento({
+        problema_id: problemaId,
+        paso_n: pasoN,
+        respuesta_dada: opcionElegida || '',
+        respuesta_correcta: respuestaCorrecta || '',
+        error_type: null,
+        origen: 'tutor',
+      });
     } else {
       // ❌ INCORRECTO: NO revelar la correcta, permitir reintentar
       feedback.hidden = false;
@@ -47,6 +64,16 @@ document.addEventListener('click', (e) => {
       const mensajeError = errores[opcionElegida] || 'Casi. Revisa tu respuesta.';
       feedback.innerHTML = '❌ ' + mensajeError;
       btn.classList.add('opcion-incorrecta');
+
+      // 📊 Registrar intento fallido del tutor
+      registrarIntento({
+        problema_id: problemaId,
+        paso_n: pasoN,
+        respuesta_dada: opcionElegida || '',
+        respuesta_correcta: respuestaCorrecta || '',
+        error_type: 'paso_incorrecto',
+        origen: 'tutor',
+      });
     }
   }
 

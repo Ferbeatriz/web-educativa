@@ -1,6 +1,8 @@
 // Script global para las tarjetas de problema.
 // Se importa una vez y maneja todos los ProblemaCard de la página.
 
+import { registrarIntento } from '../lib/intentos';
+
 document.addEventListener('click', (e) => {
   const target = e.target;
   if (!(target instanceof HTMLElement)) return;
@@ -10,6 +12,7 @@ document.addEventListener('click', (e) => {
   const card = btn.closest('.problema-card');
   if (!card) return;
 
+  const problemaId = card.getAttribute('data-problema-id') || '';
   const cocienteEsperado = parseInt(card.getAttribute('data-cociente') || '0');
   const restoEsperado = parseInt(card.getAttribute('data-resto') || '0');
 
@@ -43,19 +46,33 @@ document.addEventListener('click', (e) => {
     btn.setAttribute('disabled', 'true');
     inputCociente.setAttribute('disabled', 'true');
     inputResto.setAttribute('disabled', 'true');
-    console.log('[Problema ' + card.getAttribute('data-problema-id') + '] Correcto');
+    console.log('[Problema ' + problemaId + '] Correcto');
+
+    // 📊 Registrar intento exitoso (error_type: null)
+    registrarIntento({
+      problema_id: problemaId,
+      paso_n: null,
+      respuesta_dada: cocienteUsuario + '/' + restoUsuario,
+      respuesta_correcta: cocienteEsperado + '/' + restoEsperado,
+      error_type: null,
+      origen: 'problema_card',
+    });
   } else {
     // ❌ INCORRECTO → activar tutor
     feedback.hidden = false;
     feedback.className = 'feedback feedback-incorrecto';
 
     let mensaje = '❌ Casi. ';
+    let errorType;
     if (!cocienteCorrecto && !restoCorrecto) {
       mensaje += 'Revisa el cociente y el resto. ';
+      errorType = 'ambos_incorrectos';
     } else if (!cocienteCorrecto) {
       mensaje += 'Revisa el cociente. ';
+      errorType = 'cociente_incorrecto';
     } else {
       mensaje += 'Revisa el resto. ';
+      errorType = 'resto_incorrecto';
     }
     mensaje += 'Vamos a resolverlo juntos.';
     feedback.innerHTML = mensaje;
@@ -65,7 +82,7 @@ document.addEventListener('click', (e) => {
 
     console.log(
       '[Problema ' +
-        card.getAttribute('data-problema-id') +
+        problemaId +
         '] Error: cociente=' +
         cocienteUsuario +
         ' (esperado ' +
@@ -76,5 +93,15 @@ document.addEventListener('click', (e) => {
         restoEsperado +
         ')'
     );
+
+    // 📊 Registrar intento fallido con su tipo de error
+    registrarIntento({
+      problema_id: problemaId,
+      paso_n: null,
+      respuesta_dada: cocienteUsuario + '/' + restoUsuario,
+      respuesta_correcta: cocienteEsperado + '/' + restoEsperado,
+      error_type: errorType,
+      origen: 'problema_card',
+    });
   }
 });

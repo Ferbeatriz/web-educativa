@@ -40,6 +40,7 @@ import {
 
 import { handleEstadisticas } from './routes/admin-estadisticas';
 import { handleTestEmail } from './routes/admin-email';
+import { handleRegistrarIntento } from './routes/tutor';
 
 
 import type { EnvEmail } from './lib/email';
@@ -112,6 +113,7 @@ export default {
             'POST   /api/admin/alumnas/:id/resetear-password',
             'GET    /api/admin/alumnas/:id/progreso',
             'POST   /api/progreso/completar  (ahora notifica al admin)',
+            'POST   /api/tutor/registrar-intento',
           ],
         });
       }
@@ -145,6 +147,13 @@ export default {
       if (matchLeccion && method === 'GET') {
         return await handleEstadoLeccion(request, env, matchLeccion[1]);
       }
+
+          // ---------- Tutor ----------
+      if (path === '/api/tutor/registrar-intento' && method === 'POST') {
+        return await handleRegistrarIntento(request, env);
+      }
+
+
 
       // ---------- Admin: auth ----------
       if (path === '/api/admin/login' && method === 'POST') {
