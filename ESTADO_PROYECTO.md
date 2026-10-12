@@ -232,16 +232,23 @@ web-educativa/
 Agrega esta tabla en la sección de pendientes:
 
 ```markdown
-### Motor de errores (próxima prioridad)
+### ✅ Motor de errores (completado 2026-10-12)
 
-| Tarea | Prioridad | Documento de referencia |
-|-------|-----------|--------------------------|
-| Crear tabla `intentos_ejercicios` en D1 | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
-| Endpoint `/api/tutor/registrar-intento` en Worker | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
-| Enviar intentos desde `problema-card.js` | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
-| Enviar intentos desde `tutor-contextualizado.js` | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
-| Etiquetar errores del tutor con `error_type` | Alta | MOTOR_TUTOR_ESPECIFICACION.md |
-| Panel docente con datos de proceso | Media | ALINEACION_MINEDUC.md |
+| Tarea | Estado |
+|-------|--------|
+| Tabla `intentos_ejercicios` en D1 | ✅ |
+| Tabla `mapa_identidad` (hash → alumna) | ✅ |
+| Tabla `consentimientos_tracking` (Ley 21.719) | ✅ |
+| Endpoint `/api/tutor/registrar-intento` en Worker | ✅ |
+| Enviar intentos desde `problema-card.js` | ✅ |
+| Enviar intentos desde `tutor-contextualizado.js` | ✅ |
+| Etiquetar errores del tutor con `error_type` | ✅ |
+| `INTENTOS_SALT` en producción | ✅ |
+| Deploy del Worker (`2f19a8e8`) | ✅ |
+| Prueba end-to-end en producción | ✅ |
+
+**Taxonomía final de `error_type`** (10 tipos):
+`cociente_incorrecto`, `resto_incorrecto`, `ambos_incorrectos`, `subestimacion`, `sobreestimacion`, `error_resta_intermedia`, `error_suma_total`, `error_calculo_mult`, `resto_mayor_divisor`, `error_conceptual`.
 
 ### Otras tareas pendientes
 
@@ -395,11 +402,15 @@ Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_
 
 | Tarea | Prioridad |
 |-------|-----------|
-| Configurar `INTENTOS_SALT` en remoto | Alta |
-| Deploy del Worker | Alta |
-| Verificar `PUBLIC_API_URL` en Pages | Alta |
 | Panel docente con `intentos_ejercicios` | Media |
+| Métricas detalladas (`/admin/metricas`) | Media |
+| Pruebas con alumnas reales (clase 3°B D 2026) | Media |
 | Lección de Lenguaje (textos poéticos) | Baja |
 | `OA_LENGUAJE.md` | Baja |
+| Notificaciones (Fases 2-4) | Media |
+
+**Notas**:
+- `PUBLIC_API_URL` no está en Pages, pero el fallback en `intentos.ts` y `auth.ts` apunta a la URL correcta. No requiere acción.
+- `INTENTOS_SALT` y el deploy del Worker se completaron el 2026-10-12.
 
 Fin del estado del proyecto.
