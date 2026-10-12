@@ -23,18 +23,23 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ## 📚 LECTURA OBLIGATORIA ANTES DE CUALQUIER ACCIÓN
 
-- `ALINEACION_MINEDUC.md` → **Referencia curricular obligatoria.**
-  Ninguna funcionalidad, lección o motor se aprueba si no está
-  alineado con los OA y OAT del MINEDUC.
-- `MOTOR_TUTOR_ESPECIFICACION.md` → Especificación del motor de razonamiento.
+- `ALINEACION_MINEDUC.md` → Referencia curricular obligatoria.
+- `MOTOR_TUTOR_ESPECIFICACION.md` → Especificación del motor + bitácora.
 - `OA_MATEMATICA.md` → OA de Matemática 1° a 6°.
-- `BITACORA_DIVISION_PROBLEMAS.md` → Estado actual de los ejercicios de división.
+- `BITACORA_DIVISION_PROBLEMAS.md` → Estado de los ejercicios de división.
 
-## 🎯 Estado actual del proyecto
+## 🎯 Estado actual (commit 2a05138)
 
-- Tutor de división funcional.
-- Ejercicios de división contextualizados funcionales (20 problemas).
-- Motor de errores: **próxima prioridad**.
+- Motor de errores con tracking anónimo funcionando en local.
+- 6 lecciones de Matemáticas, incluidas 2 nuevas de ejercicios guiados.
+- Tipo de lección nuevo: `ejercicios-guiados`.
+
+## 🚀 Próximo paso
+
+Deploy a producción:
+1. `npx wrangler secret put INTENTOS_SALT`
+2. `npx wrangler deploy` (desde `workers/api/`)
+3. Verificar `PUBLIC_API_URL` en Cloudflare Pages.
 
 ## 🚀 Próximo paso
 

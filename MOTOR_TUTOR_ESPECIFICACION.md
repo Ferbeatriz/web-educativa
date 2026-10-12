@@ -220,3 +220,92 @@ OA de otras materias.
 
 
 **Fin de la especificación del motor (v0.1).**
+---
+
+## 📝 Bitácora de implementación — Fase 4
+
+### Tipo de lección: `ejercicios-guiados`
+
+**Fecha:** 2026-10-11
+**Commit:** `2a05138`
+
+**Qué es:** un tipo de lección nuevo que combina:
+- Preámbulo teórico breve por ronda (2-3 oraciones + ejemplo).
+- Ejercicios interactivos con validación inmediata.
+- Sin trivia final (es lección de práctica).
+
+**Estructura del JSON:**
+
+```json
+{
+  "id": "division-reparto-3basico",
+  "titulo": "Repartimos en partes iguales",
+  "tipo": "ejercicios-guiados",
+  "contenido_modulos": [
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 1 · ...",
+      "emoji": "🍎",
+      "elemento": "fichas",
+      "emoji_elemento": "🟡",
+      "preambulo": "Texto markdown con **negritas** y ejemplos.",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "...",
+          "visual": "🟡🟡🟡🟡\n\n👧 👦",
+          "pregunta": "...",
+          "respuesta": "2",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        }
+      ]
+    }
+  ]
+}
+Tipos de respuesta soportados:
+
+Tipo	Formato	Ejemplo
+numero	Campo único numérico	[__]
+division	3 campos: dividendo ÷ divisor = cociente	[__] ÷ [__] = [__]
+division_y_grupos	3 campos + campo grupos	[__] ÷ [__] = [__] y [__] grupos
+dos_divisiones	6 campos (2 divisiones)	dos filas de 3 campos
+division_y_multiplicacion	6 campos (división + comprobación)	3 + 3 campos
+secuencia	N campos según valores	lista de [__]
+Componentes creados:
+
+src/components/ejercicios/EjerciciosGuiados.astro: renderiza las rondas.
+
+src/scripts/ejercicios-guiados.js: valida las respuestas.
+
+Página adaptada:
+
+src/pages/leccion/[...slug].astro ahora tiene 3 ramas:
+
+esEjerciciosGuiados → EjerciciosGuiados
+esEjercicios → ListaProblemas
+teoría → contenido_modulos + trivia
+Lecciones creadas:
+
+Lección	Ejercicios	Rondas	Fuente
+division-reparto-3basico	52	5	Guías 1-5 de Division1.PDF
+division-repaso-3basico	30	5	Guías 1-6 de Division2.PDF
+Alineación MINEDUC:
+
+OA 8 (3°): Demostrar que comprenden las tablas de multiplicar.
+
+OA 9 (3°): Demostrar que comprenden la división en el contexto de las tablas.
+
+OA 10 (3°): Resolver problemas rutinarios con las cuatro operaciones.
+
+Fidelidad a las guías: los enunciados son textuales del MINEDUC. Los elementos gráficos se representan con emojis para que la estudiante no tenga que dibujar.
+
+Pendientes:
+
+Deploy del Worker a producción (con INTENTOS_SALT).
+
+Verificar PUBLIC_API_URL en Cloudflare Pages.
+
+Documentar el tipo en la Guía IA.
+
+Fin de la bitácora de la Fase 4.

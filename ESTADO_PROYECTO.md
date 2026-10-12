@@ -255,11 +255,6 @@ Agrega esta tabla en la sección de pendientes:
 
 
 
-
-
-
-
-
 ### 🅳️ EMBED DE VIDEO POR CAPÍTULO
 
 **Objetivo**: agregar video de YouTube a cada capítulo de cursos especiales.
@@ -383,5 +378,28 @@ NOTIFICACIONES_PLAN.md o TUTOR_PLAN.md según corresponda.
 Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_PLAN.md).
 
 | `ALINEACION_MINEDUC.md` | Referencia curricular obligatoria |
+
+
+### Lecciones de Matemáticas (6)
+
+| # | ID | Título | Tipo | Estado |
+|---|-----|--------|------|--------|
+| 1 | `propiedades-multiplicacion` | Propiedades de la Multiplicación | teoría | ✅ |
+| 2 | `introduccion-division` | Introducción a la División | teoría | ✅ |
+| 3 | `resta-con-reserva` | Resta con reserva | teoría | ✅ |
+| 4 | `division-problemas` | Problemas de división | ejercicios | ✅ |
+| 5 | `division-reparto-3basico` | Repartimos en partes iguales | ejercicios-guiados | ✅ |
+| 6 | `division-repaso-3basico` | Repaso de división | ejercicios-guiados | ✅ |
+
+### Pendientes de producción
+
+| Tarea | Prioridad |
+|-------|-----------|
+| Configurar `INTENTOS_SALT` en remoto | Alta |
+| Deploy del Worker | Alta |
+| Verificar `PUBLIC_API_URL` en Pages | Alta |
+| Panel docente con `intentos_ejercicios` | Media |
+| Lección de Lenguaje (textos poéticos) | Baja |
+| `OA_LENGUAJE.md` | Baja |
 
 Fin del estado del proyecto.
