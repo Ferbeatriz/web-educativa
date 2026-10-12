@@ -53,11 +53,31 @@
       "archivo": "ejercicios/division-problemas.json",
       "tipo": "ejercicios",
       "activa": true
+    },
+
+
+    {
+      "id": "division-reparto-3basico",
+      "titulo": "Repartimos en partes iguales",
+      "emoji": "🍎",
+      "orden": 5,
+      "nivel": "básico",
+      "duracion_estimada_min": 30,
+      "archivo": "lecciones/division-reparto-3basico.json",
+      "tipo": "ejercicios-guiados",
+      "activa": true
+    },
+    {
+      "id": "division-repaso-3basico",
+      "titulo": "Repaso de división",
+      "emoji": "🔁",
+      "orden": 6,
+      "nivel": "básico",
+      "duracion_estimada_min": 25,
+      "archivo": "lecciones/division-repaso-3basico.json",
+      "tipo": "ejercicios-guiados",
+      "activa": true
     }
-
-
-
-
 
   ]
 }

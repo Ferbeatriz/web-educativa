@@ -1,0 +1,475 @@
+{
+  "id": "division-reparto-3basico",
+  "titulo": "Repartimos en partes iguales",
+  "categoria": "Matemática · 3° Básico",
+  "emoji": "🍎",
+  "tipo": "ejercicios-guiados",
+  "progreso_puntos": 50,
+  "descripcion": "Aprende a repartir objetos en partes iguales y a escribir divisiones.",
+  "contenido_modulos": [
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 1 · Repartimos en partes iguales",
+      "emoji": "🍎",
+      "elemento": "fichas",
+      "emoji_elemento": "🟡",
+      "preambulo": "Repartir en partes iguales significa que **todos reciben la misma cantidad**. Puedes entregar uno a cada uno y repetir hasta que no quede ninguno.\n\n**Ejemplo:** Reparto 6 fichas entre 2 niños. Cada niño recibe 3 fichas. 🟡🟡🟡 🟡🟡🟡",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Reparte 4 fichas entre 2 niños.",
+          "visual": "🟡🟡🟡🟡\n\n👧 👦",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "2",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 2,
+          "enunciado": "Reparte 6 fichas entre 3 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡\n\n👧 👦 👧",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "2",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 3,
+          "enunciado": "Reparte 8 fichas entre 2 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡🟡🟡\n\n👧 👦",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "4",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 4,
+          "enunciado": "Reparte 9 fichas entre 3 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡🟡🟡🟡\n\n👧 👦 👧",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "3",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 5,
+          "enunciado": "Reparte 12 fichas entre 3 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡\n\n👧 👦 👧",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "4",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 6,
+          "enunciado": "Reparte 12 fichas entre 4 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡\n\n👧 👦 👧 👦",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "3",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 7,
+          "enunciado": "Reparte 15 fichas entre 3 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡\n\n👧 👦 👧",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "5",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        },
+        {
+          "n": 8,
+          "enunciado": "Reparte 20 fichas entre 4 niños.",
+          "visual": "🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡\n\n👧 👦 👧 👦",
+          "pregunta": "¿Cuántas fichas recibe cada niño?",
+          "respuesta": "5",
+          "tipo_respuesta": "numero",
+          "unidad": "fichas"
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 2 · Del reparto a la división",
+      "emoji": "➗",
+      "elemento": "botones",
+      "emoji_elemento": "🔵",
+      "preambulo": "Dividir nos permite **repartir en partes iguales**. El signo **÷** se lee «dividido en».\n\n**Ejemplo:** Reparto 6 fichas entre 2 niños. Cada uno recibe 3.\n\n6 ÷ 2 = 3",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Reparte 4 botones entre 2 niños.",
+          "visual": "🔵🔵🔵🔵\n\n👧 👦",
+          "pregunta": "Escribe la división y el resultado:",
+          "respuesta": "4 ÷ 2 = 2",
+          "tipo_respuesta": "division",
+          "partes": {
+            "dividendo": "4",
+            "divisor": "2",
+            "cociente": "2"
+          }
+        },
+        {
+          "n": 2,
+          "enunciado": "Reparte 6 botones entre 3 niños.",
+          "visual": "🔵🔵🔵🔵🔵🔵\n\n👧 👦 👧",
+          "pregunta": "Escribe la división y el resultado:",
+          "respuesta": "6 ÷ 3 = 2",
+          "tipo_respuesta": "division",
+          "partes": {
+            "dividendo": "6",
+            "divisor": "3",
+            "cociente": "2"
+          }
+        },
+        {
+          "n": 3,
+          "enunciado": "Reparte 8 botones entre 2 niños.",
+          "visual": "🔵🔵🔵🔵🔵🔵🔵🔵\n\n👧 👦",
+          "pregunta": "Escribe la división y el resultado:",
+          "respuesta": "8 ÷ 2 = 4",
+          "tipo_respuesta": "division",
+          "partes": {
+            "dividendo": "8",
+            "divisor": "2",
+            "cociente": "4"
+          }
+        },
+        {
+          "n": 4,
+          "enunciado": "Reparte 12 botones entre 3 niños.",
+          "visual": "🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵\n\n👧 👦 👧",
+          "pregunta": "Escribe la división y el resultado:",
+          "respuesta": "12 ÷ 3 = 4",
+          "tipo_respuesta": "division",
+          "partes": {
+            "dividendo": "12",
+            "divisor": "3",
+            "cociente": "4"
+          }
+        },
+        {
+          "n": 5,
+          "enunciado": "Reparte 16 botones entre 4 niños.",
+          "visual": "🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵\n\n👧 👦 👧 👦",
+          "pregunta": "Escribe la división y el resultado:",
+          "respuesta": "16 ÷ 4 = 4",
+          "tipo_respuesta": "division",
+          "partes": {
+            "dividendo": "16",
+            "divisor": "4",
+            "cociente": "4"
+          }
+        },
+        {
+          "n": 6,
+          "enunciado": "Reparte 20 botones entre 5 niños.",
+          "visual": "🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵\n\n👧 👦 👧 👦 👧",
+          "pregunta": "Escribe la división y el resultado:",
+          "respuesta": "20 ÷ 5 = 4",
+          "tipo_respuesta": "division",
+          "partes": {
+            "dividendo": "20",
+            "divisor": "5",
+            "cociente": "4"
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 3 · Formamos grupos iguales",
+      "emoji": "✏️",
+      "elemento": "lápices",
+      "emoji_elemento": "✏️",
+      "preambulo": "Agrupar es **formar grupos con la misma cantidad de objetos**. La división nos dice **cuántos grupos se forman**.\n\n**Ejemplo:** Tengo 6 lápices. Formo grupos de 2.\n\n6 ÷ 2 = 3 → Se forman 3 grupos.",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Tengo 4 lápices. Formo grupos de 2.",
+          "visual": "✏️✏️✏️✏️",
+          "pregunta": "¿Cuántos grupos se forman?",
+          "respuesta": "4 ÷ 2 = 2; 2 grupos",
+          "tipo_respuesta": "division_y_grupos",
+          "partes": {
+            "dividendo": "4",
+            "divisor": "2",
+            "cociente": "2",
+            "grupos": "2"
+          }
+        },
+        {
+          "n": 2,
+          "enunciado": "Tengo 6 lápices. Formo grupos de 3.",
+          "visual": "✏️✏️✏️✏️✏️✏️",
+          "pregunta": "¿Cuántos grupos se forman?",
+          "respuesta": "6 ÷ 3 = 2; 2 grupos",
+          "tipo_respuesta": "division_y_grupos",
+          "partes": {
+            "dividendo": "6",
+            "divisor": "3",
+            "cociente": "2",
+            "grupos": "2"
+          }
+        },
+        {
+          "n": 3,
+          "enunciado": "Tengo 10 lápices. Formo grupos de 2.",
+          "visual": "✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️",
+          "pregunta": "¿Cuántos grupos se forman?",
+          "respuesta": "10 ÷ 2 = 5; 5 grupos",
+          "tipo_respuesta": "division_y_grupos",
+          "partes": {
+            "dividendo": "10",
+            "divisor": "2",
+            "cociente": "5",
+            "grupos": "5"
+          }
+        },
+        {
+          "n": 4,
+          "enunciado": "Tengo 12 lápices. Formo grupos de 3.",
+          "visual": "✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️",
+          "pregunta": "¿Cuántos grupos se forman?",
+          "respuesta": "12 ÷ 3 = 4; 4 grupos",
+          "tipo_respuesta": "division_y_grupos",
+          "partes": {
+            "dividendo": "12",
+            "divisor": "3",
+            "cociente": "4",
+            "grupos": "4"
+          }
+        },
+        {
+          "n": 5,
+          "enunciado": "Tengo 16 lápices. Formo grupos de 4.",
+          "visual": "✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️",
+          "pregunta": "¿Cuántos grupos se forman?",
+          "respuesta": "16 ÷ 4 = 4; 4 grupos",
+          "tipo_respuesta": "division_y_grupos",
+          "partes": {
+            "dividendo": "16",
+            "divisor": "4",
+            "cociente": "4",
+            "grupos": "4"
+          }
+        },
+        {
+          "n": 6,
+          "enunciado": "Tengo 20 lápices. Formo grupos de 5.",
+          "visual": "✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️✏️",
+          "pregunta": "¿Cuántos grupos se forman?",
+          "respuesta": "20 ÷ 5 = 4; 4 grupos",
+          "tipo_respuesta": "division_y_grupos",
+          "partes": {
+            "dividendo": "20",
+            "divisor": "5",
+            "cociente": "4",
+            "grupos": "4"
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 4 · Multiplicar nos ayuda a dividir",
+      "emoji": "🌸",
+      "elemento": "flores",
+      "emoji_elemento": "🌸",
+      "preambulo": "Si conozco una multiplicación, puedo resolver **dos divisiones relacionadas**.\n\n**Ejemplo:** 3 × 4 = 12\n\n12 ÷ 3 = 4\n\n12 ÷ 4 = 3",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Si 2 × 3 = 6, entonces:",
+          "visual": "🌸🌸 🌸🌸 🌸🌸",
+          "pregunta": "Completa las dos divisiones:",
+          "respuesta": "6 ÷ 2 = 3; 6 ÷ 3 = 2",
+          "tipo_respuesta": "dos_divisiones",
+          "partes": {
+            "division1": "6 ÷ 2 = 3",
+            "division2": "6 ÷ 3 = 2"
+          }
+        },
+        {
+          "n": 2,
+          "enunciado": "Si 3 × 5 = 15, entonces:",
+          "visual": "🌸🌸🌸 🌸🌸🌸 🌸🌸🌸 🌸🌸🌸 🌸🌸🌸",
+          "pregunta": "Completa las dos divisiones:",
+          "respuesta": "15 ÷ 3 = 5; 15 ÷ 5 = 3",
+          "tipo_respuesta": "dos_divisiones",
+          "partes": {
+            "division1": "15 ÷ 3 = 5",
+            "division2": "15 ÷ 5 = 3"
+          }
+        },
+        {
+          "n": 3,
+          "enunciado": "Si 3 × 6 = 18, entonces:",
+          "visual": "🌸🌸🌸 🌸🌸🌸 🌸🌸🌸 🌸🌸🌸 🌸🌸🌸 🌸🌸🌸",
+          "pregunta": "Completa las dos divisiones:",
+          "respuesta": "18 ÷ 3 = 6; 18 ÷ 6 = 3",
+          "tipo_respuesta": "dos_divisiones",
+          "partes": {
+            "division1": "18 ÷ 3 = 6",
+            "division2": "18 ÷ 6 = 3"
+          }
+        },
+        {
+          "n": 4,
+          "enunciado": "Si 5 × 7 = 35, entonces:",
+          "visual": "🌸🌸🌸🌸🌸 (repetido 7 veces)",
+          "pregunta": "Completa las dos divisiones:",
+          "respuesta": "35 ÷ 5 = 7; 35 ÷ 7 = 5",
+          "tipo_respuesta": "dos_divisiones",
+          "partes": {
+            "division1": "35 ÷ 5 = 7",
+            "division2": "35 ÷ 7 = 5"
+          }
+        },
+        {
+          "n": 5,
+          "enunciado": "Si 6 × 8 = 48, entonces:",
+          "visual": "🌸🌸🌸🌸🌸🌸 (repetido 8 veces)",
+          "pregunta": "Completa las dos divisiones:",
+          "respuesta": "48 ÷ 6 = 8; 48 ÷ 8 = 6",
+          "tipo_respuesta": "dos_divisiones",
+          "partes": {
+            "division1": "48 ÷ 6 = 8",
+            "division2": "48 ÷ 8 = 6"
+          }
+        },
+        {
+          "n": 6,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸 🌸🌸 🌸🌸 🌸🌸 🌸🌸",
+          "pregunta": "10 ÷ 2 = ?  → 2 × ? = 10",
+          "respuesta": "10 ÷ 2 = 5; 2 × 5 = 10",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "5",
+            "multiplicacion": "2 × 5 = 10"
+          }
+        },
+        {
+          "n": 7,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸🌸 🌸🌸🌸 🌸🌸🌸",
+          "pregunta": "12 ÷ 3 = ?  → 3 × ? = 12",
+          "respuesta": "12 ÷ 3 = 4; 3 × 4 = 12",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "4",
+            "multiplicacion": "3 × 4 = 12"
+          }
+        },
+        {
+          "n": 8,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸🌸🌸 🌸🌸🌸🌸 🌸🌸🌸🌸",
+          "pregunta": "16 ÷ 4 = ?  → 4 × ? = 16",
+          "respuesta": "16 ÷ 4 = 4; 4 × 4 = 16",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "4",
+            "multiplicacion": "4 × 4 = 16"
+          }
+        },
+        {
+          "n": 9,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸🌸🌸🌸 (repetido 4 veces)",
+          "pregunta": "20 ÷ 5 = ?  → 5 × ? = 20",
+          "respuesta": "20 ÷ 5 = 4; 5 × 4 = 20",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "4",
+            "multiplicacion": "5 × 4 = 20"
+          }
+        },
+        {
+          "n": 10,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸🌸🌸 (repetido 6 veces)",
+          "pregunta": "24 ÷ 4 = ?  → 4 × ? = 24",
+          "respuesta": "24 ÷ 4 = 6; 4 × 6 = 24",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "6",
+            "multiplicacion": "4 × 6 = 24"
+          }
+        },
+        {
+          "n": 11,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸🌸🌸🌸 (repetido 6 veces)",
+          "pregunta": "30 ÷ 5 = ?  → 5 × ? = 30",
+          "respuesta": "30 ÷ 5 = 6; 5 × 6 = 30",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "6",
+            "multiplicacion": "5 × 6 = 30"
+          }
+        },
+        {
+          "n": 12,
+          "enunciado": "Resuelve y comprueba con la multiplicación:",
+          "visual": "🌸🌸🌸🌸🌸🌸 (repetido 6 veces)",
+          "pregunta": "36 ÷ 6 = ?  → 6 × ? = 36",
+          "respuesta": "36 ÷ 6 = 6; 6 × 6 = 36",
+          "tipo_respuesta": "division_y_multiplicacion",
+          "partes": {
+            "cociente": "6",
+            "multiplicacion": "6 × 6 = 36"
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 5 · Dividimos con 1 y 0",
+      "emoji": "🍪",
+      "elemento": "galletas",
+      "emoji_elemento": "🍪",
+      "preambulo": "Hay tres reglas especiales que debes recordar:\n\n**1.** Un número dividido por 1 queda igual: **7 ÷ 1 = 7**\n\n**2.** Un número dividido por sí mismo da 1: **7 ÷ 7 = 1**\n\n**3.** Si repartimos 0 objetos entre varias personas, cada una recibe 0: **0 ÷ 7 = 0**\n\n**Importante:** ¡No se puede dividir por 0!",
+      "ejercicios": [
+        { "n": 1, "enunciado": "Calcula:", "visual": "4 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "4", "tipo_respuesta": "numero" },
+        { "n": 2, "enunciado": "Calcula:", "visual": "4 ÷ 4 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 3, "enunciado": "Calcula:", "visual": "0 ÷ 4 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        { "n": 4, "enunciado": "Calcula:", "visual": "6 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "6", "tipo_respuesta": "numero" },
+        { "n": 5, "enunciado": "Calcula:", "visual": "6 ÷ 6 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 6, "enunciado": "Calcula:", "visual": "0 ÷ 6 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        { "n": 7, "enunciado": "Calcula:", "visual": "9 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "9", "tipo_respuesta": "numero" },
+        { "n": 8, "enunciado": "Calcula:", "visual": "9 ÷ 9 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 9, "enunciado": "Calcula:", "visual": "0 ÷ 9 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        { "n": 10, "enunciado": "Calcula:", "visual": "0 ÷ 3 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        { "n": 11, "enunciado": "Calcula:", "visual": "8 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "8", "tipo_respuesta": "numero" },
+        { "n": 12, "enunciado": "Calcula:", "visual": "5 ÷ 5 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 13, "enunciado": "Calcula:", "visual": "7 ÷ 7 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 14, "enunciado": "Calcula:", "visual": "0 ÷ 8 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        { "n": 15, "enunciado": "Calcula:", "visual": "3 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "3", "tipo_respuesta": "numero" },
+        { "n": 16, "enunciado": "Calcula:", "visual": "1 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 17, "enunciado": "Calcula:", "visual": "2 ÷ 2 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 18, "enunciado": "Calcula:", "visual": "0 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        {
+          "n": 19,
+          "enunciado": "Hay 6 galletas para 6 niños. Todos reciben lo mismo.",
+          "visual": "🍪🍪🍪🍪🍪🍪\n\n👧 👦 👧 👦 👧 👦",
+          "pregunta": "¿Cuántas galletas recibe cada uno?",
+          "respuesta": "1",
+          "tipo_respuesta": "numero",
+          "unidad": "galleta"
+        },
+        {
+          "n": 20,
+          "enunciado": "No quedan galletas para repartir entre 5 niños.",
+          "visual": "🍪 (no hay galletas)\n\n👧 👦 👧 👦 👧",
+          "pregunta": "¿Cuántas galletas recibe cada uno?",
+          "respuesta": "0",
+          "tipo_respuesta": "numero",
+          "unidad": "galletas"
+        }
+      ]
+    }
+  ]
+}

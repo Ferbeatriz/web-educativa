@@ -1,0 +1,187 @@
+{
+  "id": "division-repaso-3basico",
+  "titulo": "Repaso de división",
+  "categoria": "Matemática · 3° Básico",
+  "emoji": "🔁",
+  "tipo": "ejercicios-guiados",
+  "progreso_puntos": 50,
+  "descripcion": "Repasa la división con problemas, secuencias y patrones.",
+  "contenido_modulos": [
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 1 · Resolvemos problemas",
+      "emoji": "🧩",
+      "elemento": "lápices",
+      "emoji_elemento": "✏️",
+      "preambulo": "En un **reparto** buscamos **cuánto recibe cada uno**. En una **agrupación** buscamos **cuántos grupos se forman**.\n\n**Ejemplo:** 18 ÷ 3 = 6; 21 ÷ 3 = 7; 24 ÷ 3 = 8.",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Reparte 20 lápices entre 5 niños por igual.",
+          "visual": "✏️✏️✏️✏️✏️ ✏️✏️✏️✏️✏️ ✏️✏️✏️✏️✏️ ✏️✏️✏️✏️✏️\n\n👧 👦 👧 👦 👧",
+          "pregunta": "¿Cuántos lápices recibe cada uno?",
+          "respuesta": "4",
+          "tipo_respuesta": "numero",
+          "unidad": "lápices"
+        },
+        {
+          "n": 2,
+          "enunciado": "Guarda 20 lápices, 5 en cada estuche.",
+          "visual": "✏️✏️✏️✏️✏️ (repetido 4 veces)",
+          "pregunta": "¿Cuántos estuches necesitas?",
+          "respuesta": "4",
+          "tipo_respuesta": "numero",
+          "unidad": "estuches"
+        },
+        {
+          "n": 3,
+          "enunciado": "Reparte 36 láminas entre 4 niños por igual.",
+          "visual": "🖼️ (36 veces)\n\n👧 👦 👧 👦",
+          "pregunta": "¿Cuántas láminas recibe cada uno?",
+          "respuesta": "9",
+          "tipo_respuesta": "numero",
+          "unidad": "láminas"
+        },
+        {
+          "n": 4,
+          "enunciado": "Guarda 36 láminas, 6 en cada sobre.",
+          "visual": "🖼️ (36 veces)",
+          "pregunta": "¿Cuántos sobres necesitas?",
+          "respuesta": "6",
+          "tipo_respuesta": "numero",
+          "unidad": "sobres"
+        },
+        {
+          "n": 5,
+          "enunciado": "Crea un problema para 24 : 3. Elige un reparto o una agrupación.",
+          "visual": "🔢 24 ÷ 3 = ?",
+          "pregunta": "Escribe tu problema y resuélvelo:",
+          "respuesta": "8",
+          "tipo_respuesta": "numero",
+          "nota": "Se acepta cualquier problema válido, pero el resultado correcto es 8."
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 2 · Completamos secuencias",
+      "emoji": "🔢",
+      "elemento": "secuencias",
+      "emoji_elemento": "🔢",
+      "preambulo": "En una **secuencia** cada resultado aumenta en la misma cantidad.\n\n**Ejemplo:** De 2 en 2 → 16 ÷ 2 = 8; 18 ÷ 2 = 9; 20 ÷ 2 = 10; ...",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Completa la secuencia de 2 en 2:",
+          "visual": "16 ÷ 2 = 8\n18 ÷ 2 = ____\n20 ÷ 2 = ____\n22 ÷ 2 = ____\n24 ÷ 2 = ____\n26 ÷ 2 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "9, 10, 11, 12, 13",
+          "tipo_respuesta": "secuencia",
+          "valores": ["9", "10", "11", "12", "13"]
+        },
+        {
+          "n": 2,
+          "enunciado": "Completa la secuencia de 3 en 3:",
+          "visual": "24 ÷ 3 = 8\n27 ÷ 3 = ____\n30 ÷ 3 = ____\n33 ÷ 3 = ____\n36 ÷ 3 = ____\n39 ÷ 3 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "9, 10, 11, 12, 13",
+          "tipo_respuesta": "secuencia",
+          "valores": ["9", "10", "11", "12", "13"]
+        },
+        {
+          "n": 3,
+          "enunciado": "Completa la secuencia de 4 en 4:",
+          "visual": "32 ÷ 4 = 8\n36 ÷ 4 = ____\n40 ÷ 4 = ____\n44 ÷ 4 = ____\n48 ÷ 4 = ____\n52 ÷ 4 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "9, 10, 11, 12, 13",
+          "tipo_respuesta": "secuencia",
+          "valores": ["9", "10", "11", "12", "13"]
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 3 · Usamos una división conocida",
+      "emoji": "🔗",
+      "elemento": "patrones",
+      "emoji_elemento": "🔗",
+      "preambulo": "Si el **divisor se mantiene** y el **dividendo aumenta en esa misma cantidad**, el **resultado aumenta en 1**.\n\n**Ejemplo:** Si 30 ÷ 3 = 10, entonces 33 ÷ 3 = 11, 36 ÷ 3 = 12.",
+      "ejercicios": [
+        {
+          "n": 1,
+          "enunciado": "Si 30 ÷ 3 = 10, entonces:",
+          "visual": "33 ÷ 3 = ____\n36 ÷ 3 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "11, 12",
+          "tipo_respuesta": "secuencia",
+          "valores": ["11", "12"]
+        },
+        {
+          "n": 2,
+          "enunciado": "Si 40 ÷ 4 = 10, entonces:",
+          "visual": "44 ÷ 4 = ____\n48 ÷ 4 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "11, 12",
+          "tipo_respuesta": "secuencia",
+          "valores": ["11", "12"]
+        },
+        {
+          "n": 3,
+          "enunciado": "Si 20 ÷ 2 = 10, entonces:",
+          "visual": "22 ÷ 2 = ____\n24 ÷ 2 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "11, 12",
+          "tipo_respuesta": "secuencia",
+          "valores": ["11", "12"]
+        },
+        {
+          "n": 4,
+          "enunciado": "Si 50 ÷ 5 = 10, entonces:",
+          "visual": "55 ÷ 5 = ____\n60 ÷ 5 = ____",
+          "pregunta": "Completa los resultados:",
+          "respuesta": "11, 12",
+          "tipo_respuesta": "secuencia",
+          "valores": ["11", "12"]
+        }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 4 · Dividimos con 1 y 0 (repaso)",
+      "emoji": "🍪",
+      "elemento": "galletas",
+      "emoji_elemento": "🍪",
+      "preambulo": "Recuerda las tres reglas especiales:\n\n**1.** Un número dividido por 1 queda igual: 7 ÷ 1 = 7\n\n**2.** Un número dividido por sí mismo da 1: 7 ÷ 7 = 1\n\n**3.** Cero dividido por cualquier número da 0: 0 ÷ 7 = 0\n\n**Importante:** ¡No dividimos por 0!",
+      "ejercicios": [
+        { "n": 1, "enunciado": "Calcula:", "visual": "4 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "4", "tipo_respuesta": "numero" },
+        { "n": 2, "enunciado": "Calcula:", "visual": "4 ÷ 4 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 3, "enunciado": "Calcula:", "visual": "0 ÷ 4 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" },
+        { "n": 4, "enunciado": "Calcula:", "visual": "6 ÷ 1 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "6", "tipo_respuesta": "numero" },
+        { "n": 5, "enunciado": "Calcula:", "visual": "6 ÷ 6 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "1", "tipo_respuesta": "numero" },
+        { "n": 6, "enunciado": "Calcula:", "visual": "0 ÷ 6 =", "pregunta": "¿Cuál es el resultado?", "respuesta": "0", "tipo_respuesta": "numero" }
+      ]
+    },
+    {
+      "tipo": "ronda",
+      "titulo": "Ronda 5 · Multiplico para dividir (repaso)",
+      "emoji": "🔁",
+      "elemento": "relaciones",
+      "emoji_elemento": "🔁",
+      "preambulo": "Para calcular 12 ÷ 3, pienso: **¿3 por cuánto es 12?** Como 3 × 4 = 12, entonces 12 ÷ 3 = 4.\n\nEn 12 ÷ 3 = 4, el **dividendo** es 12, el **divisor** es 3 y el **resultado** es 4.",
+      "ejercicios": [
+        { "n": 1, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "6 ÷ 2 = ____  →  2 × ____ = 6", "pregunta": "Completa los dos valores:", "respuesta": "3, 3", "tipo_respuesta": "secuencia", "valores": ["3", "3"] },
+        { "n": 2, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "12 ÷ 3 = ____  →  3 × ____ = 12", "pregunta": "Completa los dos valores:", "respuesta": "4, 4", "tipo_respuesta": "secuencia", "valores": ["4", "4"] },
+        { "n": 3, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "16 ÷ 4 = ____  →  4 × ____ = 16", "pregunta": "Completa los dos valores:", "respuesta": "4, 4", "tipo_respuesta": "secuencia", "valores": ["4", "4"] },
+        { "n": 4, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "20 ÷ 5 = ____  →  5 × ____ = 20", "pregunta": "Completa los dos valores:", "respuesta": "4, 4", "tipo_respuesta": "secuencia", "valores": ["4", "4"] },
+        { "n": 5, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "24 ÷ 6 = ____  →  6 × ____ = 24", "pregunta": "Completa los dos valores:", "respuesta": "4, 4", "tipo_respuesta": "secuencia", "valores": ["4", "4"] },
+        { "n": 6, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "35 ÷ 7 = ____  →  7 × ____ = 35", "pregunta": "Completa los dos valores:", "respuesta": "5, 5", "tipo_respuesta": "secuencia", "valores": ["5", "5"] },
+        { "n": 7, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "40 ÷ 8 = ____  →  8 × ____ = 40", "pregunta": "Completa los dos valores:", "respuesta": "5, 5", "tipo_respuesta": "secuencia", "valores": ["5", "5"] },
+        { "n": 8, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "54 ÷ 9 = ____  →  9 × ____ = 54", "pregunta": "Completa los dos valores:", "respuesta": "6, 6", "tipo_respuesta": "secuencia", "valores": ["6", "6"] },
+        { "n": 9, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "42 ÷ 6 = ____  →  6 × ____ = 42", "pregunta": "Completa los dos valores:", "respuesta": "7, 7", "tipo_respuesta": "secuencia", "valores": ["7", "7"] },
+        { "n": 10, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "56 ÷ 7 = ____  →  7 × ____ = 56", "pregunta": "Completa los dos valores:", "respuesta": "8, 8", "tipo_respuesta": "secuencia", "valores": ["8", "8"] },
+        { "n": 11, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "64 ÷ 8 = ____  →  8 × ____ = 64", "pregunta": "Completa los dos valores:", "respuesta": "8, 8", "tipo_respuesta": "secuencia", "valores": ["8", "8"] },
+        { "n": 12, "enunciado": "Completa la división y la multiplicación que la comprueba:", "visual": "72 ÷ 9 = ____  →  9 × ____ = 72", "pregunta": "Completa los dos valores:", "respuesta": "8, 8", "tipo_respuesta": "secuencia", "valores": ["8", "8"] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+---
+interface Props {
+  contenidoModulos: any[];
+  color: { c50: string; c100: string; c200: string; c300: string; c400: string; c500: string; c600: string; c700: string };
+}
+
+const { contenidoModulos, color: c } = Astro.props;
+
+// Filtrar solo rondas
+const rondas = (contenidoModulos || []).filter((m: any) => m.tipo === 'ronda');
+---
+
+<div class="ejercicios-guiados">
+  {rondas.map((ronda: any, rondaIdx: number) => (
+    <section class="ronda mb-12" data-ronda={rondaIdx + 1}>
+      <!-- Encabezado de la ronda -->
+      <div class="ronda-header mb-6">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-3xl">{ronda.emoji}</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+            {ronda.titulo}
+          </h2>
+        </div>
+
+        <!-- Preámbulo teórico -->
+        {ronda.preambulo && (
+          <div
+            class="preambulo p-5 rounded-2xl border-l-4 mb-6 text-gray-700 text-base leading-relaxed"
+            style={`background: ${c.c50}; border-color: ${c.c500};`}
+            set:html={ronda.preambulo.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>')}
+          />
+        )}
+      </div>
+
+      <!-- Ejercicios -->
+      <div class="ejercicios-grid space-y-4">
+        {ronda.ejercicios.map((ej: any, ejIdx: number) => (
+          <div
+            class="ejercicio-card bg-white rounded-2xl p-5 shadow-sm border border-gray-100"
+            data-ejercicio-id={`r${rondaIdx + 1}-e${ej.n}`}
+            data-respuesta={ej.respuesta}
+            data-tipo={ej.tipo_respuesta}
+            data-valores={ej.valores ? JSON.stringify(ej.valores) : ''}
+          >
+            <div class="flex items-start gap-4">
+              <span
+                class="flex-shrink-0 w-9 h-9 rounded-full font-extrabold flex items-center justify-center text-sm"
+                style={`background: ${c.c100}; color: ${c.c700};`}
+              >
+                {ej.n}
+              </span>
+
+              <div class="flex-1 min-w-0">
+                <p class="enunciado font-semibold text-gray-800 mb-3">{ej.enunciado}</p>
+
+                {ej.visual && (
+                  <div
+                    class="visual mb-4 p-4 rounded-xl bg-gray-50 text-center text-2xl leading-relaxed whitespace-pre-line font-mono"
+                  >
+                    {ej.visual}
+                  </div>
+                )}
+
+                <p class="pregunta text-gray-600 mb-3 text-sm">{ej.pregunta}</p>
+
+                <!-- Campo(s) de respuesta según tipo -->
+                {ej.tipo_respuesta === 'numero' && (
+                  <div class="flex items-center gap-3">
+                    <input
+                      type="number"
+                      class="input-respuesta w-24 px-3 py-2 text-center text-lg border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none"
+                      placeholder="?"
+                    />
+                    {ej.unidad && <span class="text-gray-500">{ej.unidad}</span>}
+                  </div>
+                )}
+
+                {ej.tipo_respuesta === 'division' && (
+                  <div class="flex items-center gap-2 text-lg flex-wrap">
+                    <input type="number" class="input-div-1 w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    <span>÷</span>
+                    <input type="number" class="input-div-2 w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    <span>=</span>
+                    <input type="number" class="input-div-3 w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                  </div>
+                )}
+
+                {ej.tipo_respuesta === 'division_y_grupos' && (
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-lg flex-wrap">
+                      <input type="number" class="input-div-1 w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>÷</span>
+                      <input type="number" class="input-div-2 w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>=</span>
+                      <input type="number" class="input-div-3 w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-gray-600">Se forman</span>
+                      <input type="number" class="input-grupos w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span class="text-gray-600">grupos</span>
+                    </div>
+                  </div>
+                )}
+
+                {ej.tipo_respuesta === 'dos_divisiones' && (
+                  <div class="space-y-2 text-lg">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <input type="number" class="input-div1-a w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>÷</span>
+                      <input type="number" class="input-div1-b w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>=</span>
+                      <input type="number" class="input-div1-c w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <input type="number" class="input-div2-a w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>÷</span>
+                      <input type="number" class="input-div2-b w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>=</span>
+                      <input type="number" class="input-div2-c w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    </div>
+                  </div>
+                )}
+
+                {ej.tipo_respuesta === 'division_y_multiplicacion' && (
+                  <div class="space-y-2 text-lg">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span>División:</span>
+                      <input type="number" class="input-div-a w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>÷</span>
+                      <input type="number" class="input-div-b w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>=</span>
+                      <input type="number" class="input-div-c w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span>Comprobación:</span>
+                      <input type="number" class="input-mult-a w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>×</span>
+                      <input type="number" class="input-mult-b w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                      <span>=</span>
+                      <input type="number" class="input-mult-c w-16 px-2 py-2 text-center border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none" />
+                    </div>
+                  </div>
+                )}
+
+                {ej.tipo_respuesta === 'secuencia' && (
+                  <div class="flex flex-wrap gap-3">
+                    {(ej.valores || []).map((_: any, i: number) => (
+                      <input
+                        type="number"
+                        class={`input-secuencia input-secuencia-${i} w-20 px-2 py-2 text-center text-lg border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none`}
+                        placeholder="?"
+                      />
+                    ))}
+                  </div>
+                )}
+
+                <!-- Botón comprobar y feedback -->
+                <div class="mt-4 flex items-center gap-3">
+                  <button
+                    class="btn-comprobar-ejercicio px-4 py-2 rounded-lg text-white font-bold text-sm"
+                    style={`background: ${c.c500};`}
+                  >
+                    Comprobar
+                  </button>
+                  <span class="feedback-ejercicio hidden text-sm font-bold"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>
+
+<script>
+  import '../../scripts/ejercicios-guiados.js';
+</script>
+
+<style>
+  .ejercicio-card {
+    transition: box-shadow 0.2s;
+  }
+  .ejercicio-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .feedback-correcto {
+    color: #2e7d32;
+  }
+  .feedback-incorrecto {
+    color: #c62828;
+  }
+
+  input.input-correcto {
+    border-color: #4caf50 !important;
+    background: #e8f5e9 !important;
+  }
+  input.input-incorrecto {
+    border-color: #e53935 !important;
+    background: #ffebee !important;
+  }
+</style>
