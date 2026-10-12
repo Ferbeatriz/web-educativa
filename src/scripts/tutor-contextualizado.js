@@ -61,17 +61,30 @@ document.addEventListener('click', (e) => {
       // ❌ INCORRECTO: NO revelar la correcta, permitir reintentar
       feedback.hidden = false;
       feedback.className = 'paso-feedback feedback-incorrecto';
-      const mensajeError = errores[opcionElegida] || 'Casi. Revisa tu respuesta.';
+
+      // El JSON migrado tiene formato { mensaje, error_type }.
+      // Compatibilidad con formato viejo (string plano) por si acaso.
+      const entrada = errores[opcionElegida];
+      let mensajeError = 'Casi. Revisa tu respuesta.';
+      let errorType = 'error_conceptual';
+
+      if (entrada && typeof entrada === 'object') {
+        mensajeError = entrada.mensaje || mensajeError;
+        errorType = entrada.error_type || errorType;
+      } else if (typeof entrada === 'string') {
+        mensajeError = entrada;
+      }
+
       feedback.innerHTML = '❌ ' + mensajeError;
       btn.classList.add('opcion-incorrecta');
 
-      // 📊 Registrar intento fallido del tutor
+      // 📊 Registrar intento fallido del tutor con su error_type real
       registrarIntento({
         problema_id: problemaId,
         paso_n: pasoN,
         respuesta_dada: opcionElegida || '',
         respuesta_correcta: respuestaCorrecta || '',
-        error_type: 'paso_incorrecto',
+        error_type: errorType,
         origen: 'tutor',
       });
     }
