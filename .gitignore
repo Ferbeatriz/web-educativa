@@ -35,3 +35,7 @@ pnpm-debug.log*
 # Scripts locales de admin
 workers/api/scripts-hash-admin.js
 .dev.vars
+
+# Reportes de migración (temporales)
+scripts/reporte-clasificacion.json
+scripts/reporte-clasificacion-final.json
