@@ -39,6 +39,12 @@ import {
 } from './routes/admin-alumnas';
 
 import { handleEstadisticas } from './routes/admin-estadisticas';
+import {
+  handleMetricasResumen,
+  handleMetricasPorError,
+  handleMetricasPorDia,
+  handleMetricasPorAlumna,
+} from './routes/admin-metricas';
 import { handleTestEmail } from './routes/admin-email';
 import { handleRegistrarIntento } from './routes/tutor';
 
@@ -49,6 +55,7 @@ type Env = EnvAuth & EnvAdmin & EnvEmail & {
   ENVIRONMENT: string; 
   APP_NAME: string;
   ADMIN_EMAIL: string;
+  INTENTOS_SALT: string;
 };
 
 export default {
@@ -167,6 +174,20 @@ export default {
       }
       if (path === '/api/admin/estadisticas' && method === 'GET') {
         return await handleEstadisticas(request, env);
+      }
+
+      // ---------- Admin: métricas del motor de errores ----------
+      if (path === '/api/admin/metricas/resumen' && method === 'GET') {
+        return await handleMetricasResumen(request, env);
+      }
+      if (path === '/api/admin/metricas/por-error' && method === 'GET') {
+        return await handleMetricasPorError(request, env);
+      }
+      if (path === '/api/admin/metricas/por-dia' && method === 'GET') {
+        return await handleMetricasPorDia(request, env);
+      }
+      if (path === '/api/admin/metricas/por-alumna' && method === 'GET') {
+        return await handleMetricasPorAlumna(request, env);
       }
 
       // ---------- Admin: email ----------
