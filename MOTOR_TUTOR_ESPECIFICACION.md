@@ -264,3 +264,45 @@ Verificar PUBLIC_API_URL en Cloudflare Pages.
 Documentar el tipo en la Guía IA.
 
 Fin de la bitácora de la Fase 4.
+
+
+---
+
+## 📝 Bitácora de implementación — Panel docente
+
+### Panel de métricas del motor de errores
+
+**Fecha:** 2026-10-12
+**Commit:** `7d1b439`
+**Worker:** `7ca9a592`
+
+**Ruta:** `/admin/metricas`
+
+**Endpoints nuevos en el Worker**:
+- `GET /api/admin/metricas/resumen` — contadores globales.
+- `GET /api/admin/metricas/por-error` — distribución por `error_type`.
+- `GET /api/admin/metricas/por-dia` — serie temporal.
+- `GET /api/admin/metricas/por-alumna` — tabla agregada por alumna.
+
+**Filtros comunes**: `?desde=YYYY-MM-DD&hasta=YYYY-MM-DD&origen=problema_card|tutor`
+
+**Desanonimizado**:
+- `intentos_ejercicios` guarda `alumna_hash`, no `alumna_id`.
+- JOIN con `mapa_identidad` → `alumnas` para mostrar nombre.
+- Si el hash no está en `mapa_identidad`, se muestra "(anónima)" y se avisa con banner.
+
+**Diseño visual**:
+- Resumen: 4 tarjetas (total, tasa, alumnas, días).
+- Errores por tipo: tabla con badges + barras proporcionales.
+- Actividad por día: barritas verde/naranja con tooltip.
+- Detalle por alumna: tabla con error más frecuente.
+
+**Decisión de diseño**: se mantuvo el estilo del dashboard admin existente (Inter, fondo `#F8FAFC`, header oscuro `#0F172A`).
+
+**Pendiente cosmético**: cuando hay un solo día con actividad, la barra ocupa todo el ancho. Se resolverá naturalmente cuando haya más días. Mejora futura opcional: limitar `.dia-col` a `max-width: 60px`.
+
+---
+
+
+
+

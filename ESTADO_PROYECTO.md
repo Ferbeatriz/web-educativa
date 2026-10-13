@@ -398,12 +398,34 @@ Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_
 | 5 | `division-reparto-3basico` | Repartimos en partes iguales | ejercicios-guiados | ✅ |
 | 6 | `division-repaso-3basico` | Repaso de división | ejercicios-guiados | ✅ |
 
+### ✅ Panel docente completado (2026-10-12)
+
+| Tarea | Estado |
+|-------|--------|
+| Endpoint `/api/admin/metricas/resumen` | ✅ |
+| Endpoint `/api/admin/metricas/por-error` | ✅ |
+| Endpoint `/api/admin/metricas/por-dia` | ✅ |
+| Endpoint `/api/admin/metricas/por-alumna` | ✅ |
+| Página `/admin/metricas` | ✅ |
+| Desanonimizado vía `mapa_identidad` | ✅ |
+| Filtros por fecha y origen | ✅ |
+| Navegación desde dashboard admin | ✅ |
+
+**Componentes**:
+- `workers/api/src/routes/admin-metricas.ts` (4 endpoints).
+- `src/pages/admin/metricas.astro` (panel completo).
+- Tarjeta "Métricas detalladas" en `/admin` ahora es link activo.
+
+**Datos mostrados**:
+- Resumen: total intentos, tasa de acierto, alumnas con datos, días con actividad.
+- Errores por tipo: distribución con barras proporcionales.
+- Actividad por día: barritas verde (aciertos) / naranja (errores).
+- Detalle por alumna: nombre, total, aciertos, errores, error más frecuente.
+
 ### Pendientes de producción
 
 | Tarea | Prioridad |
 |-------|-----------|
-| Panel docente con `intentos_ejercicios` | Media |
-| Métricas detalladas (`/admin/metricas`) | Media |
 | Pruebas con alumnas reales (clase 3°B D 2026) | Media |
 | Lección de Lenguaje (textos poéticos) | Baja |
 | `OA_LENGUAJE.md` | Baja |
@@ -411,6 +433,6 @@ Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_
 
 **Notas**:
 - `PUBLIC_API_URL` no está en Pages, pero el fallback en `intentos.ts` y `auth.ts` apunta a la URL correcta. No requiere acción.
-- `INTENTOS_SALT` y el deploy del Worker se completaron el 2026-10-12.
+- Worker versión actual: `7ca9a592` (2026-10-12).
 
 Fin del estado del proyecto.
