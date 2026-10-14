@@ -752,7 +752,7 @@ Las actitudes se desarrollan integradas con los conocimientos y habilidades de l
 | Lección: Cuento, fábula y leyenda | `cuento-fabula-leyenda.json` | Lectura | 3°-4° |
 | Lección: Figuras literarias | `figuras-literarias.json` | Lectura | 4°-5° |
 | Lección: La rima | `la-rima.json` | Lectura | 3°-4° |
-| Lección: Los textos poéticos | `los-textos-poeticos.json` | Lectura | 4°-5° (⚠️ archivo pequeño, verificar completitud) |
+| Lección: Los textos poéticos | `los-textos-poeticos.json` | Lectura | 4°-5° |
 | Club de Lectura: La historia de Manú | `la-historia-de-manu/` | Lectura | 3°-5° |
 | Club de Lectura: El lugar más bonito del mundo | `el-lugar-mas-bonito-del-mundo/` | Lectura | 3°-5° |
 

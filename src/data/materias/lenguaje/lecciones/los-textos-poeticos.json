@@ -11,8 +11,11 @@
     "## Las partes del poema 🔍\n\n| Parte | ¿Qué es? | Ejemplo |\n|-------|----------|---------|\n| **Verso** | Cada línea del poema | \"Me gustas cuando callas...\" |\n| **Rima** | Repetición de sonidos al final de los versos | *amor* / *dolor* |\n| **Estrofa** | Grupo de versos separados por un espacio | Los 4 versos del ejemplo |\n\nUn poema puede tener muchas estrofas. Cada estrofa puede tener distinta cantidad de versos. No hay una regla fija: el poeta decide cómo organizarlos.\n\n> **Idea fuerza:** Un poema es un cuerpo: los versos son sus huesos, la rima su sangre, la estrofa su forma.",
     "## Cierre y puente ✨\n\nLos poemas son una forma única de expresar lo que sentimos y vemos. No necesitan contar una historia completa: basta con capturar un momento. Cuando leas un poema, léelo en voz alta. Escucha cómo suenan las palabras. Ahí está la poesía.\n\nEn la próxima lección aprenderás a crear tus propios versos.\n\n> **Idea fuerza:** Leer poesía es escuchar el mundo con otros oídos."
   ],
-  "trivia": [
+  "banco_trivia": [
     {
+      "id": "p01",
+      "dificultad": "media",
+      "tema": "Estructura del poema",
       "pregunta": "¿Qué es un verso?",
       "opciones": [
         "Un grupo de palabras que riman",
@@ -24,6 +27,9 @@
       "explicacion": "Un verso es cada línea del poema. La estrofa es el grupo de versos."
     },
     {
+      "id": "p02",
+      "dificultad": "media",
+      "tema": "Estructura del poema",
       "pregunta": "¿Qué es una estrofa?",
       "opciones": [
         "Cada palabra del poema",
@@ -35,6 +41,9 @@
       "explicacion": "La estrofa es un conjunto de versos agrupados y separados por un espacio en blanco."
     },
     {
+      "id": "p03",
+      "dificultad": "media",
+      "tema": "Rima",
       "pregunta": "¿Qué es la rima?",
       "opciones": [
         "La repetición de sonidos al final de dos o más versos",
@@ -46,6 +55,9 @@
       "explicacion": "La rima es la coincidencia de sonidos al final de los versos."
     },
     {
+      "id": "p04",
+      "dificultad": "dificil",
+      "tema": "Estructura del poema",
       "pregunta": "En el poema \"Me gustas cuando callas porque estás como ausente\", ¿cuántos versos hay en la estrofa?",
       "opciones": [
         "2 versos",
@@ -57,6 +69,9 @@
       "explicacion": "La estrofa tiene 4 versos. Cada línea es un verso."
     },
     {
+      "id": "p05",
+      "dificultad": "dificil",
+      "tema": "Verso y prosa",
       "pregunta": "¿Cuál es la diferencia entre verso y prosa?",
       "opciones": [
         "El verso rima y la prosa no",
@@ -68,6 +83,9 @@
       "explicacion": "El verso se organiza en líneas; la prosa, en párrafos continuos."
     },
     {
+      "id": "p06",
+      "dificultad": "dificil",
+      "tema": "Rima",
       "pregunta": "¿Qué tipo de rima tienen las palabras \"amor\" y \"dolor\"?",
       "opciones": [
         "Rima asonante",
@@ -79,6 +97,9 @@
       "explicacion": "Amor y dolor comparten vocales y consonantes finales: es rima consonante."
     },
     {
+      "id": "p07",
+      "dificultad": "dificil",
+      "tema": "Rima",
       "pregunta": "¿Qué tipo de rima tienen las palabras \"casa\" y \"pala\"?",
       "opciones": [
         "Rima consonante",
@@ -90,6 +111,9 @@
       "explicacion": "Casa y pala comparten solo las vocales finales: es rima asonante."
     },
     {
+      "id": "p08",
+      "dificultad": "muy_dificil",
+      "tema": "Verso libre",
       "pregunta": "¿Qué es el verso libre?",
       "opciones": [
         "Un poema que no tiene rima pero mantiene un ritmo",
@@ -101,6 +125,9 @@
       "explicacion": "El verso libre no rima, pero conserva un ritmo interno."
     },
     {
+      "id": "p09",
+      "dificultad": "media",
+      "tema": "Estructura del poema",
       "pregunta": "¿Cuál de estos elementos NO es una parte del poema?",
       "opciones": [
         "Verso",
@@ -112,6 +139,9 @@
       "explicacion": "El párrafo es propio de la prosa, no del poema."
     },
     {
+      "id": "p10",
+      "dificultad": "muy_dificil",
+      "tema": "Función de la poesía",
       "pregunta": "¿Qué hace que un texto sea poético?",
       "opciones": [
         "Que tenga muchas palabras difíciles",

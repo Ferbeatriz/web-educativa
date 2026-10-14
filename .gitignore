@@ -39,3 +39,4 @@ workers/api/scripts-hash-admin.js
 # Reportes de migración (temporales)
 scripts/reporte-clasificacion.json
 scripts/reporte-clasificacion-final.json
+scripts/reporte-migracion-poeticos.json
