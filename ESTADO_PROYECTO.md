@@ -1,6 +1,8 @@
 # 📊 ESTADO DEL PROYECTO — web-educativa
 
-> Última actualización: 2026-09-28
+> Última actualización: 2026-10-14
+> Commit de referencia: `b87b88e`
+> Worker en producción: `7ca9a592` (2026-10-12)
 > Proyecto: Plataforma educativa interactiva para niñas de 9-12 años
 
 ---
@@ -13,7 +15,7 @@ Plataforma web educativa modular con las siguientes características:
 - **Estética**: inspirada en Base44 (limpia, moderna, con panel modular)
 - **Materias**: Lenguaje, Matemáticas, Historia, Inglés, Ciencias, Programación
 - **Contenido**: generado con IA local (Ollama + Qwen 2.5 7B)
-- **Interactividad**: trivias + progreso real + sistema de niveles
+- **Interactividad**: trivias + progreso real + sistema de niveles + tutor paso a paso
 - **Proyectos especiales**: Curso Ojo de Horus, Creadoras de Mundos Digitales, Selk'nam
 
 ---
@@ -45,6 +47,7 @@ Plataforma web educativa modular con las siguientes características:
 |---------|-----|
 | Web pública | https://web-educativa.pages.dev |
 | Panel admin | https://web-educativa.pages.dev/admin |
+| Métricas docente | https://web-educativa.pages.dev/admin/metricas |
 | Worker API | https://web-educativa-api.ferbeatriz.workers.dev |
 | Repositorio GitHub | https://github.com/Ferbeatriz/web-educativa |
 | Panel Cloudflare | https://dash.cloudflare.com/ → Workers & Pages |
@@ -68,11 +71,15 @@ Plataforma web educativa modular con las siguientes características:
 | `sesiones` | Tokens de sesión de alumnas |
 | `progreso` | Lecciones completadas por alumna (XP ganados) |
 | `admin_sesiones` | Tokens de sesión del panel admin |
+| `intentos_ejercicios` | Registro anónimo de intentos del motor de errores (alumna_hash, error_type, origen) |
+| `mapa_identidad` | Mapa hash → alumna_id (para desanonimizar en el panel docente) |
+| `consentimientos_tracking` | Consentimiento parental para tracking (Ley 21.719) |
 
 ### Secrets del Worker (Cloudflare)
 
-- `ADMIN_PASSWORD_HASH`: hash PBKDF2 de la contraseña maestra
-- `ADMIN_SESSION_SECRET`: string aleatorio (reservado para firmas futuras)
+- `ADMIN_PASSWORD_HASH`: hash PBKDF2 de la contraseña maestra.
+- `ADMIN_SESSION_SECRET`: string aleatorio (reservado para firmas futuras).
+- `INTENTOS_SALT`: salt para el hash de identidad de los intentos (en producción desde 2026-10-12).
 
 ---
 
@@ -81,8 +88,15 @@ web-educativa/
 ├── ESTADO_PROYECTO.md ← Este archivo
 ├── GUIA_IA.md ← Manual técnico para IAs
 ├── PROMPT_TRASPASO.md ← Prompt para chat nuevo
+├── ALINEACION_MINEDUC.md ← Referencia curricular obligatoria
+├── MOTOR_TUTOR_ESPECIFICACION.md ← Especificación del motor + bitácoras
+├── OA_MATEMATICA.md ← OA de Matemática 1° a 6°
+├── OA_LENGUAJE.md ← OA de Lenguaje 1° a 6° + mapa de alineación
+├── BITACORA_DIVISION_PROBLEMAS.md ← Bitácora del tutor de división
+├── BITACORA_EJERCICIOS_GUIADOS.md ← Bitácora de ejercicios guiados
+├── PROTOCOLO_NUEVA_COMPRENSION.md ← Cómo agregar libros al Club de Lectura
 ├── NOTIFICACIONES_PLAN.md ← Plan de notificaciones (pendiente)
-├── TUTOR_PLAN.md ← Plan del tutor interactivo (pendiente)
+├── TUTOR_PLAN.md ← Plan del tutor interactivo (mayormente implementado)
 ├── astro.config.mjs
 ├── wrangler.toml
 ├── package.json
@@ -93,20 +107,28 @@ web-educativa/
 │ ├── schema-01-nucleo.sql
 │ ├── schema-02-progreso.sql
 │ ├── schema-03-admin-sesiones.sql
+│ ├── schema-04-intentos-ejercicios.sql
+│ ├── schema-05-mapa-identidad.sql
+│ ├── schema-06-consentimientos-tracking.sql
 │ └── src/
 │ ├── index.ts ← Router principal
 │ ├── lib/
 │ │ ├── crypto.ts ← PBKDF2 + tokens
 │ │ ├── db.ts ← Helpers de BD
 │ │ ├── admin-sesion.ts ← Sesiones admin
-│ │ └── passwords.ts ← Generador de contraseñas
+│ │ ├── passwords.ts ← Generador de contraseñas
+│ │ ├── email.ts ← Helper de envío con Resend
+│ │ └── intentos.ts ← Lógica del motor de errores
 │ └── routes/
 │ ├── auth.ts
 │ ├── progreso.ts
+│ ├── tutor.ts ← /api/tutor/registrar-intento
 │ ├── admin.ts
 │ ├── admin-clases.ts
 │ ├── admin-alumnas.ts
-│ └── admin-estadisticas.ts
+│ ├── admin-estadisticas.ts
+│ ├── admin-metricas.ts ← 4 endpoints de métricas
+│ └── admin-email.ts ← /api/admin/test-email
 └── src/ ← Frontend
 ├── layouts/Layout.astro
 ├── components/
@@ -114,8 +136,23 @@ web-educativa/
 │ ├── Footer.astro
 │ ├── MateriaCard.astro
 │ ├── TriviaQuiz.astro
+│ ├── TriviaRotativa.astro ← Sistema rotativo de trivia
 │ ├── BarraProgresoLectura.astro
-│ └── BotonCompletar.astro
+│ ├── BotonCompletar.astro
+│ ├── comprension/
+│ │ └── CuestionarioAleatorio.astro ← Club de Lectura
+│ ├── ejercicios/
+│ │ └── EjerciciosGuiados.astro ← Tipo ejercicios-guiados
+│ └── tutor/
+│ ├── ListaProblemas.astro
+│ ├── ProblemaCard.astro
+│ ├── TutorContextualizado.astro
+│ └── TutorPasos.astro
+├── scripts/
+│ ├── seleccion-preguntas.js ← Rotación con localStorage
+│ ├── problema-card.js ← Validación de problemas
+│ ├── tutor-contextualizado.js ← Lógica del tutor
+│ └── ejercicios-guiados.js ← Validación de ejercicios guiados
 ├── lib/
 │ ├── auth.ts ← Auth alumnas
 │ ├── progreso.ts ← Progreso alumnas
@@ -126,19 +163,21 @@ web-educativa/
 │ ├── perfil.astro
 │ ├── materia/[id].astro
 │ ├── submodulo/[...slug].astro
-│ ├── leccion/[...slug].astro
+│ ├── leccion/[...slug].astro ← 3 ramas: teoría, ejercicios, ejercicios-guiados
 │ └── admin/
 │ ├── login.astro
 │ ├── index.astro
 │ ├── clases.astro
-│ └── alumnas.astro
+│ ├── alumnas.astro
+│ └── metricas.astro ← Panel docente
 └── data/
 └── materias/ ← Contenido JSON
 
+text
 
 ---
 
-## ✅ Estado actual (2026-09-28)
+## ✅ Estado actual (2026-10-14)
 
 ### Fases completadas
 
@@ -154,6 +193,8 @@ web-educativa/
 | **4a** | Panel admin (login con token en localStorage) | ✅ |
 | **4b** | Gestión de clases + alumnas | ✅ |
 | **4c** | Dashboard admin con estadísticas reales | ✅ |
+| **5** | Motor de errores (tracking anónimo + 10 `error_type`) | ✅ 2026-10-12 |
+| **6** | Panel docente `/admin/metricas` | ✅ 2026-10-12 |
 
 ### Sistema de niveles (implementado)
 
@@ -170,69 +211,39 @@ web-educativa/
 
 ---
 
-## ⏳ PENDIENTES (en orden de prioridad)
+## 📚 Contenido actual
 
-### 🅲️ TUTOR INTERACTIVO TIPO SYNTHESIS (próxima fase)
+### Lecciones de Matemáticas (6)
 
-**Objetivo**: transformar las lecciones de "leer → responder trivia" a un formato interactivo tipo tutor guiado por pasos.
+| # | ID | Título | Tipo | Estado |
+|---|-----|--------|------|--------|
+| 1 | `propiedades-multiplicacion` | Propiedades de la Multiplicación | teoría | ✅ |
+| 2 | `introduccion-division` | Introducción a la División | teoría + tutor | ✅ |
+| 3 | `resta-con-reserva` | Resta con reserva | teoría | ✅ |
+| 4 | `division-problemas` | Problemas de división | ejercicios | ✅ |
+| 5 | `division-reparto-3basico` | Repartimos en partes iguales | ejercicios-guiados | ✅ |
+| 6 | `division-repaso-3basico` | Repaso de división | ejercicios-guiados | ✅ |
 
-**Características**:
-- Presentación del problema con contexto visual.
-- Guía paso a paso con feedback inmediato.
-- Manejo de errores comunes con explicaciones específicas.
-- Interacción por botones/clic (drag & drop en fase posterior).
-- **NO usa voz** (solo touch/clic).
-- Aplicable a TODAS las materias.
+### Lecciones de Lenguaje
 
-**Ver `TUTOR_PLAN.md` para el diseño completo.**
+| ID | Título | Tipo | Estado |
+|----|--------|------|--------|
+| `los-textos-narrativos` | Los textos narrativos | teoría + banco_trivia | ✅ |
+| `cuento-fabula-leyenda` | Cuento, fábula y leyenda | teoría + banco_trivia | ✅ |
+| `figuras-literarias` | Figuras literarias | teoría | ✅ |
+| `la-rima` | La rima | teoría | ✅ |
+| `los-textos-poeticos` | Los textos poéticos | teoría + banco_trivia | ✅ 2026-10-14 |
 
-**Tiempo estimado**: 3-4 sesiones para MVP.
+### Club de Lectura
 
----
-
-### 🅰️ SISTEMA DE NOTIFICACIONES POR EMAIL
-
-**Objetivo**: notificaciones automáticas a apoderados, alumnas y admin.
-
-**Características**:
-- Informe mensual a apoderados (progreso de su hija).
-- Notificación a alumnas de nuevo contenido.
-- Resumen semanal para admin.
-- Formulario de apoderados (nombre + email + consentimiento).
-- Cumplimiento Ley 19.628 de Chile.
-
-**Ver `NOTIFICACIONES_PLAN.md` para el diseño completo.**
-
-**Tiempo estimado**: 1-2 sesiones.
+| Libro | Bancos | Estado |
+|-------|--------|--------|
+| La historia de Manú | 50 + 25 + 12 preguntas | ✅ |
+| El lugar más bonito del mundo | 30 + 15 + 10 preguntas | ✅ |
 
 ---
 
-### 🅱️ MÉTRICAS DETALLADAS
-
-**Objetivo**: ampliar el panel admin con análisis profundo.
-
-**Características**:
-- Página `/admin/metricas`.
-- Lecciones más/menos completadas.
-- Preguntas de trivia con más errores.
-- Gráfico de actividad por día.
-- Ranking de alumnas por XP.
-
-**Tiempo estimado**: 1 sesión.
-
----
-
-
----
-
-## Paso 3: Actualizar `ESTADO_PROYECTO.md`
-
-**Ruta:** `ESTADO_PROYECTO.md`
-
-Agrega esta tabla en la sección de pendientes:
-
-```markdown
-### ✅ Motor de errores (completado 2026-10-12)
+## ✅ Motor de errores (completado 2026-10-12)
 
 | Tarea | Estado |
 |-------|--------|
@@ -250,54 +261,98 @@ Agrega esta tabla en la sección de pendientes:
 **Taxonomía final de `error_type`** (10 tipos):
 `cociente_incorrecto`, `resto_incorrecto`, `ambos_incorrectos`, `subestimacion`, `sobreestimacion`, `error_resta_intermedia`, `error_suma_total`, `error_calculo_mult`, `resto_mayor_divisor`, `error_conceptual`.
 
-### Otras tareas pendientes
+---
 
-| Tarea | Prioridad | Documento de referencia |
-|-------|-----------|--------------------------|
-| Validar `resta-52-menos-27.json` | Media | MOTOR_TUTOR_ESPECIFICACION.md |
-| Guardar lección "Los Textos Poéticos" (Lenguaje) | Media | GUIA_IA.md |
-| Crear `OA_LENGUAJE.md` | Baja | ALINEACION_MINEDUC.md |
-| Crear `OA_CIENCIAS.md` | Baja | ALINEACION_MINEDUC.md |
+## ✅ Panel docente (completado 2026-10-12)
 
+| Tarea | Estado |
+|-------|--------|
+| Endpoint `/api/admin/metricas/resumen` | ✅ |
+| Endpoint `/api/admin/metricas/por-error` | ✅ |
+| Endpoint `/api/admin/metricas/por-dia` | ✅ |
+| Endpoint `/api/admin/metricas/por-alumna` | ✅ |
+| Página `/admin/metricas` | ✅ |
+| Desanonimizado vía `mapa_identidad` | ✅ |
+| Filtros por fecha y origen | ✅ |
+| Navegación desde dashboard admin | ✅ |
 
+**Componentes**:
+- `workers/api/src/routes/admin-metricas.ts` (4 endpoints).
+- `src/pages/admin/metricas.astro` (panel completo).
+- Tarjeta "Métricas detalladas" en `/admin` ahora es link activo.
 
-
-### 🅳️ EMBED DE VIDEO POR CAPÍTULO
-
-**Objetivo**: agregar video de YouTube a cada capítulo de cursos especiales.
-
-**Características**:
-- Bloque `<details>` colapsable al final de cada capítulo.
-- iframe 16:9 de YouTube.
-- Campos `video_url` y `video_duracion` en los JSON.
-
-**Tiempo estimado**: 30 minutos.
+**Datos mostrados**:
+- Resumen: total intentos, tasa de acierto, alumnas con datos, días con actividad.
+- Errores por tipo: distribución con barras proporcionales.
+- Actividad por día: barritas verde (aciertos) / naranja (errores).
+- Detalle por alumna: nombre, total, aciertos, errores, error más frecuente.
 
 ---
 
-### 🅴️ PRUEBAS CON ALUMNAS REALES
+## ⏳ PENDIENTES (en orden de prioridad)
 
-**Objetivo**: usar la plataforma con el curso real.
+### 🥇 1. Próximo contenido de Lenguaje (decisión pendiente)
 
-**Pasos**:
-- Crear la clase "3° Básico D 2026" completa.
-- Generar credenciales.
-- Preparar documentos para imprimir.
-- Probar el flujo end-to-end.
+Según `OA_LENGUAJE.md`, la cobertura de 3° básico es:
 
-**Tiempo estimado**: 30 minutos.
+| Eje | Cobertura |
+|-----|-----------|
+| Lectura | 27% |
+| Escritura | 0% |
+| Comunicación oral | 0% |
 
----
+**Opciones sobre la mesa**:
+- **Opción B1**: Escritura OA 12-13 (escribir frecuentemente + narraciones). Encaja con el Club de Lectura.
+- **Opción B2**: Lectura OA 6 (textos no literarios: noticias, cartas, biografías).
 
-### 🅵️ CREAR MÁS CONTENIDO EDUCATIVO
+**Recomendación**: B1 por alto valor y bajo costo de generación.
 
-**Cursos especiales pendientes**:
-- Creadoras de Mundos Digitales — 10 capítulos (Programación).
-- Selk'nam — 5 capítulos pendientes.
+### 🥈 2. Notificaciones — Fase 2 (tabla apoderados)
 
-**Lecciones normales pendientes**:
-- Inglés (Unit 1 "Family Matters" + otras).
-- Ciencias, Lenguaje, Historia.
+Ver `NOTIFICACIONES_PLAN.md`.
+
+**Lo que falta**:
+- Tabla `apoderados` en D1.
+- Endpoints CRUD para apoderados.
+- Página `/admin/apoderados`.
+- Documento de consentimiento (PDF imprimible).
+
+### 🥉 3. Notificaciones — Fases 3 y 4
+
+- Plantilla del informe mensual.
+- Cron Trigger (1° de cada mes).
+- Plantilla de nuevo contenido para alumnas.
+- Plantilla de resumen semanal para admin.
+
+### 4. Automatización de generación de comprensión lectora
+
+Script local (`scripts/generar-comprension.js`) que use Ollama + Qwen 2.5 7B (o Claude API) para:
+- Leer PDF del libro.
+- Generar los 3 bancos de preguntas.
+- Validar JSON.
+- Guardar en la carpeta correspondiente.
+
+**Objetivo**: no depender del chat para generar contenido.
+
+### 5. Pruebas con alumnas reales
+
+Crear la clase "3° Básico D 2026" completa y probar el flujo end-to-end.
+
+### 6. Más contenido
+
+- Inglés: más lecciones.
+- Ciencias, Historia: lecciones pendientes.
+- Programación: Creadoras de Mundos (10 capítulos).
+- Historia: Selk'nam (5 capítulos pendientes).
+- `OA_CIENCIAS.md` (documento de referencia).
+
+### 7. Validar `resta-52-menos-27.json`
+
+Pendiente del motor de tutor (ver `MOTOR_TUTOR_ESPECIFICACION.md`).
+
+### 8. Videos por capítulo
+
+Embed de YouTube colapsable en cursos especiales. (Congelado por ahora.)
 
 ---
 
@@ -330,8 +385,10 @@ Agrega esta tabla en la sección de pendientes:
   "emoji": "🎯",
   "progreso_puntos": 50,
   "contenido_modulos": ["bloque 1", "bloque 2"],
-  "trivia": [
+  "banco_trivia": [
     {
+      "id": "t01",
+      "dificultad": "media",
       "pregunta": "...",
       "opciones": ["A", "B", "C", "D"],
       "respuesta_correcta": 1,
@@ -339,6 +396,7 @@ Agrega esta tabla en la sección de pendientes:
     }
   ]
 }
+Nota: toda trivia nueva debe usar banco_trivia (no trivia), para activar TriviaRotativa.
 
 Estilo del profesor (ver PROMPT_PROFESOR.md)
 Tono serio pero cercano, no infantil.
@@ -351,27 +409,40 @@ Español de Chile.
 
 Sin "amiga", "lista", "amiguitas".
 
-Flujo de trabajo (OBLIGATORIO)
+🔄 Flujo de trabajo (OBLIGATORIO)
 Publicación después de cada cambio
 bash
 cd ~/Escritorio/EstudioFernanda/web-educativa
 git add .
 git commit -m "Descripción breve del cambio"
 git push
-
 Formatos de mensaje de commit:
 
-Nueva lección: "Nueva lección: <título> (<materia>)"
+Nueva lección: Nueva lección: <título> (<materia>)
 
-Nuevo capítulo: "Nuevo capítulo: <título> (<curso>)"
+Nuevo capítulo: Nuevo capítulo: <título> (<curso>)
 
-Actualización: "Update: <descripción>"
+Actualización: Update: <descripción>
 
-Fix: "Fix: <descripción>"
+Fix: Fix: <descripción>
 
-Fase: "Fase X: <descripción>"
+Fase: Fase X: <descripción>
 
-Notas para el próximo chat
+📚 Documentación del proyecto
+Archivo	Contenido
+ESTADO_PROYECTO.md	Estado general + pendientes
+GUIA_IA.md	Manual técnico completo
+PROMPT_TRASPASO.md	Prompt para chat nuevo
+ALINEACION_MINEDUC.md	Referencia curricular obligatoria
+MOTOR_TUTOR_ESPECIFICACION.md	Especificación del motor + bitácoras
+OA_MATEMATICA.md	OA de Matemática 1° a 6°
+OA_LENGUAJE.md	OA de Lenguaje 1° a 6° + mapa de alineación
+BITACORA_DIVISION_PROBLEMAS.md	Bitácora del tutor de división
+BITACORA_EJERCICIOS_GUIADOS.md	Bitácora de ejercicios guiados
+PROTOCOLO_NUEVA_COMPRENSION.md	Cómo agregar libros al Club de Lectura
+TUTOR_PLAN.md	Plan del tutor interactivo
+NOTIFICACIONES_PLAN.md	Plan de notificaciones
+💡 Notas para el próximo chat
 Antes de empezar una nueva fase, consultar:
 
 Este archivo (ESTADO_PROYECTO.md) para el estado general.
@@ -380,59 +451,15 @@ GUIA_IA.md para el manual técnico.
 
 PROMPT_TRASPASO.md para el prompt de traspaso.
 
-NOTIFICACIONES_PLAN.md o TUTOR_PLAN.md según corresponda.
+ALINEACION_MINEDUC.md para la referencia curricular.
 
-Prioridad siguiente: implementar el tutor interactivo tipo Synthesis (ver TUTOR_PLAN.md).
+NOTIFICACIONES_PLAN.md, TUTOR_PLAN.md o MOTOR_TUTOR_ESPECIFICACION.md según corresponda.
 
-| `ALINEACION_MINEDUC.md` | Referencia curricular obligatoria |
-
-
-### Lecciones de Matemáticas (6)
-
-| # | ID | Título | Tipo | Estado |
-|---|-----|--------|------|--------|
-| 1 | `propiedades-multiplicacion` | Propiedades de la Multiplicación | teoría | ✅ |
-| 2 | `introduccion-division` | Introducción a la División | teoría | ✅ |
-| 3 | `resta-con-reserva` | Resta con reserva | teoría | ✅ |
-| 4 | `division-problemas` | Problemas de división | ejercicios | ✅ |
-| 5 | `division-reparto-3basico` | Repartimos en partes iguales | ejercicios-guiados | ✅ |
-| 6 | `division-repaso-3basico` | Repaso de división | ejercicios-guiados | ✅ |
-
-### ✅ Panel docente completado (2026-10-12)
-
-| Tarea | Estado |
-|-------|--------|
-| Endpoint `/api/admin/metricas/resumen` | ✅ |
-| Endpoint `/api/admin/metricas/por-error` | ✅ |
-| Endpoint `/api/admin/metricas/por-dia` | ✅ |
-| Endpoint `/api/admin/metricas/por-alumna` | ✅ |
-| Página `/admin/metricas` | ✅ |
-| Desanonimizado vía `mapa_identidad` | ✅ |
-| Filtros por fecha y origen | ✅ |
-| Navegación desde dashboard admin | ✅ |
-
-**Componentes**:
-- `workers/api/src/routes/admin-metricas.ts` (4 endpoints).
-- `src/pages/admin/metricas.astro` (panel completo).
-- Tarjeta "Métricas detalladas" en `/admin` ahora es link activo.
-
-**Datos mostrados**:
-- Resumen: total intentos, tasa de acierto, alumnas con datos, días con actividad.
-- Errores por tipo: distribución con barras proporcionales.
-- Actividad por día: barritas verde (aciertos) / naranja (errores).
-- Detalle por alumna: nombre, total, aciertos, errores, error más frecuente.
-
-### Pendientes de producción
-
-| Tarea | Prioridad |
-|-------|-----------|
-| Pruebas con alumnas reales (clase 3°B D 2026) | Media |
-| Lección de Lenguaje (textos poéticos) | Baja |
-| `OA_LENGUAJE.md` | Baja |
-| Notificaciones (Fases 2-4) | Media |
-
-**Notas**:
-- `PUBLIC_API_URL` no está en Pages, pero el fallback en `intentos.ts` y `auth.ts` apunta a la URL correcta. No requiere acción.
-- Worker versión actual: `7ca9a592` (2026-10-12).
+Prioridad siguiente: decidir entre Opción B1 (Escritura OA 12-13) y Opción B2 (Lectura OA 6) para el próximo contenido de Lenguaje. Ver sección "Pendientes".
 
 Fin del estado del proyecto.
+
+
+
+
+
