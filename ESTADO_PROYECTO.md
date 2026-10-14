@@ -173,7 +173,6 @@ web-educativa/
 └── data/
 └── materias/ ← Contenido JSON
 
-text
 
 ---
 
@@ -396,6 +395,9 @@ Embed de YouTube colapsable en cursos especiales. (Congelado por ahora.)
     }
   ]
 }
+```
+
+
 Nota: toda trivia nueva debe usar banco_trivia (no trivia), para activar TriviaRotativa.
 
 Estilo del profesor (ver PROMPT_PROFESOR.md)
