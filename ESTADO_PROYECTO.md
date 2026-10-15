@@ -1,7 +1,7 @@
 # 📊 ESTADO DEL PROYECTO — web-educativa
 
-> Última actualización: 2026-10-14
-> Commit de referencia: `b87b88e`
+> Última actualización: 2026-10-15
+> Commit de referencia: `45f90c1`
 > Worker en producción: `7ca9a592` (2026-10-12)
 > Proyecto: Plataforma educativa interactiva para niñas de 9-12 años
 
@@ -290,6 +290,22 @@ web-educativa/
 
 ## ⏳ PENDIENTES (en orden de prioridad)
 
+### 🥇 0. Roadmap de 3 meses (en curso)
+
+Ver `ROADMAP_3_MESES.md`.
+
+**Estado**: no iniciado. Próximo paso: Semana 1 (gamificación suave).
+
+**Estructura**:
+- **Mes 1**: hacerla entretenida (gamificación, visualizaciones, proyectos cortos, feedback emocional).
+- **Mes 2**: hacerla útil para el apoderado (informe PDF, página pública, vista "cómo ayudar", perfil apoderado).
+- **Mes 3**: profundizar y demostrar (análisis guiado en Lenguaje, proyectos largos, portafolio, demo institucional).
+
+**Top 3 si el tiempo se acorta**: gamificación suave + racha · informe PDF · visualizaciones en Matemáticas.
+
+
+
+
 ### 🥇 1. Próximo contenido de Lenguaje (decisión pendiente)
 
 Según `OA_LENGUAJE.md`, la cobertura de 3° básico es:
@@ -435,6 +451,7 @@ Archivo	Contenido
 ESTADO_PROYECTO.md	Estado general + pendientes
 GUIA_IA.md	Manual técnico completo
 PROMPT_TRASPASO.md	Prompt para chat nuevo
+ROADMAP_3_MESES.md | Plan de 3 meses: gamificación, apoderado, portafolio |
 ALINEACION_MINEDUC.md	Referencia curricular obligatoria
 MOTOR_TUTOR_ESPECIFICACION.md	Especificación del motor + bitácoras
 OA_MATEMATICA.md	OA de Matemática 1° a 6°
@@ -457,7 +474,7 @@ ALINEACION_MINEDUC.md para la referencia curricular.
 
 NOTIFICACIONES_PLAN.md, TUTOR_PLAN.md o MOTOR_TUTOR_ESPECIFICACION.md según corresponda.
 
-Prioridad siguiente: decidir entre Opción B1 (Escritura OA 12-13) y Opción B2 (Lectura OA 6) para el próximo contenido de Lenguaje. Ver sección "Pendientes".
+**Prioridad siguiente**: iniciar la Semana 1 del roadmap (gamificación suave). Ver `ROADMAP_3_MESES.md`.
 
 Fin del estado del proyecto.
 

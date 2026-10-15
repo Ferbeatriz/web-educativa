@@ -1,7 +1,7 @@
 # 🔄 PROMPT DE TRASPASO — web-educativa
 
-> Última actualización: 2026-10-14
-> Commit de referencia: `b87b88e`
+> Última actualización: 2026-10-15
+> Commit de referencia: `45f90c1`
 > Copia este archivo al inicio de un chat nuevo para que la IA
 > tenga todo el contexto necesario para continuar el proyecto.
 
@@ -34,25 +34,42 @@ Por favor, lee esos archivos primero y luego continuamos."
 - `OA_LENGUAJE.md` → OA de Lenguaje 1° a 6° + mapa de alineación.
 - `BITACORA_DIVISION_PROBLEMAS.md` → Estado de los ejercicios de división.
 - `BITACORA_EJERCICIOS_GUIADOS.md` → Estado de los ejercicios guiados.
-
+- `ROADMAP_3_MESES.md` → Plan de 3 meses (gamificación, apoderado, portafolio).
 ---
 
-## 🎯 Estado actual (commit `b87b88e`, 2026-10-14)
+## 🎯 Estado actual (commit `45f90c1`, 2026-10-15)
 
 ### Últimas sesiones cerradas
 
 - **2026-10-12**: Motor de errores en producción (Worker `7ca9a592`) + panel docente `/admin/metricas`.
 - **2026-10-14**: `OA_LENGUAJE.md` creado + migración de `los-textos-poeticos` a `banco_trivia`.
+- **2026-10-15**: `ROADMAP_3_MESES.md` creado. Comienza el roadmap de 3 meses.
 
 ### Próximo paso
 
-**Decisión pendiente** entre:
-- **Opción B1**: próxima lección de Lenguaje en Escritura OA 12-13 (escribir frecuentemente + narraciones).
-- **Opción B2**: próxima lección de Lenguaje en Lectura OA 6 (textos no literarios: noticias, cartas, biografías).
+**Iniciar la Semana 1 del Mes 1 del roadmap**: gamificación suave.
 
-Recomendación: B1 (alto valor, encaja con el Club de Lectura, bajo costo de generación).
+**Foco de la Semana 1**:
+- Logros/insignias por mérito (no por actividad vacía).
+- Racha diaria informativa (no punitiva).
+- Mapa visual de progreso por materia.
 
-Otras opciones en `ESTADO_PROYECTO.md` → sección "Pendientes".
+**Principios**: ir de a poco, con profundidad. La ludicidad no puede
+tapar el contenido. Ver `ROADMAP_3_MESES.md` para los principios
+completos.
+
+### Roadmap de 3 meses (resumen)
+
+| Mes | Objetivo | Foco |
+|-----|----------|------|
+| 1 | Hacerla entretenida | Gamificación, visualizaciones, proyectos cortos, feedback emocional |
+| 2 | Hacerla útil para el apoderado | Informe PDF, página pública, vista "cómo ayudar", perfil apoderado |
+| 3 | Profundizar y demostrar | Análisis guiado en Lenguaje, proyectos largos, portafolio, demo institucional |
+
+**Postergado, no descartado**: Ciencias, Historia, Inglés, notificaciones,
+nuevas comprensiones de lectura (se pedirán cuando corresponda).
+
+**Detalle completo**: `ROADMAP_3_MESES.md`.
 
 ---
 
@@ -280,6 +297,7 @@ Embed de YouTube colapsable en cursos especiales. (Congelado por ahora.)
 | `ESTADO_PROYECTO.md` | Estado general + pendientes |
 | `GUIA_IA.md` | Manual técnico completo |
 | `PROMPT_TRASPASO.md` | Este archivo |
+| `ROADMAP_3_MESES.md` | Plan de 3 meses: gamificación, apoderado, portafolio |
 | `ALINEACION_MINEDUC.md` | Referencia curricular obligatoria |
 | `MOTOR_TUTOR_ESPECIFICACION.md` | Especificación del motor + bitácoras |
 | `OA_MATEMATICA.md` | OA de Matemática 1° a 6° |
