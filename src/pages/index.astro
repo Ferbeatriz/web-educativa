@@ -160,7 +160,6 @@ const materias = materiasData.materias
           }
         }
       }
-
       // 6. Cargar progreso por materia
       const progRes = await getProgresoPorMateria();
       if (progRes && progRes.ok && progRes.materias) {
@@ -187,12 +186,23 @@ const materias = materiasData.materias
           const completadas = porMateria.get(materiaId) || 0;
           const total = parseInt(card.dataset.totalLecciones || '0', 10);
 
-          if (total === 0) return;
-
           el.classList.remove('hidden');
 
           const texto = el.querySelector('.progreso-texto');
           const barra = el.querySelector('.progreso-barra');
+          const colorKey = card.dataset.color;
+          const colorHex = colorKey ? (colores[colorKey] || '#8B5CF6') : '#8B5CF6';
+
+          if (total <= 1 && completadas > 0) {
+            if (texto) texto.textContent = `${completadas} completadas`;
+            if (barra) {
+              barra.style.width = `100%`;
+              barra.style.background = colorHex;
+            }
+            return;
+          }
+
+          if (total === 0) return;
 
           if (texto) {
             texto.textContent = `${completadas} de ${total}`;
@@ -201,10 +211,7 @@ const materias = materiasData.materias
           if (barra) {
             const pct = Math.round((completadas / total) * 100);
             barra.style.width = `${pct}%`;
-            const colorKey = card.dataset.color;
-            if (colorKey) {
-              barra.style.background = colores[colorKey] || '#8B5CF6';
-            }
+            barra.style.background = colorHex;
           }
         });
       }

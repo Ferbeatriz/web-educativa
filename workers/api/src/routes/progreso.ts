@@ -465,6 +465,11 @@ export async function handleProgresoPorMateria(
 
   const materias = await getLeccionesCompletadasPorMateria(env.DB, alumna.id);
 
+  // Mapeamos para incluir el total de lecciones por materia
+  // (Por ahora, el "total" lo dejamos fijo según lo que sabemos o
+  // idealmente se lee de un catálogo, pero como no lo tenemos en D1, 
+  // el frontend lo leerá desde su JSON).
+  
   return jsonResponse({ ok: true, materias });
 }
 
