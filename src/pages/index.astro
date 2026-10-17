@@ -12,6 +12,7 @@ const materias = materiasData.materias
 <Layout title="Aprende Jugando 🚀">
   <main id="dashboard-protegido" class="hidden max-w-5xl mx-auto px-4 py-8 md:py-12">
 
+    <!-- HERO -->
     <section class="mb-10">
       <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 p-6 md:p-10 shadow-xl">
 
@@ -45,6 +46,7 @@ const materias = materiasData.materias
       </div>
     </section>
 
+    <!-- RACHA (solo una vez) -->
     <section class="mb-8">
       <div id="racha-card" class="hidden bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
         <div class="text-4xl" id="racha-emoji">🔥</div>
@@ -59,30 +61,11 @@ const materias = materiasData.materias
       </div>
     </section>
 
-
-
+    <!-- MATERIAS -->
     <section>
       <div class="flex items-center gap-3 mb-6">
         <span class="text-3xl">📚</span>
         <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
-
-
-    <section class="mb-8">
-      <div id="racha-card" class="hidden bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-        <div class="text-4xl" id="racha-emoji">🔥</div>
-        <div class="flex-1">
-          <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide">
-            Racha
-          </p>
-          <p class="text-lg font-extrabold text-gray-800" id="racha-texto">
-            Cargando...
-          </p>
-        </div>
-      </div>
-    </section>
-
-
-
           Tus materias
         </h2>
       </div>
@@ -97,11 +80,11 @@ const materias = materiasData.materias
   </main>
 
   <script>
-   import { getAlumna, isLoggedIn } from '../lib/auth';
+    import { getAlumna, isLoggedIn } from '../lib/auth';
     import {
-         getResumenProgreso,
-         getRacha,
-         getProgresoPorMateria,
+      getResumenProgreso,
+      getRacha,
+      getProgresoPorMateria,
     } from '../lib/progreso';
 
     async function init() {
@@ -129,13 +112,11 @@ const materias = materiasData.materias
       if (resultado.ok && resultado.resumen && resultado.nivel) {
         const { resumen, nivel } = resultado;
 
-        // Actualizar etiqueta del nivel
         const nivelLabel = document.getElementById('hero-nivel');
         if (nivelLabel) {
           nivelLabel.textContent = `⭐ Nivel ${nivel.numero} · ${nivel.nombre} ${nivel.emoji}`;
         }
 
-        // Actualizar texto de XP
         const xpLabel = document.getElementById('hero-xp');
         if (xpLabel) {
           if (nivel.es_maximo) {
@@ -145,125 +126,91 @@ const materias = materiasData.materias
           }
         }
 
-        // Actualizar la barra de progreso
         const barra = document.getElementById('hero-barra') as HTMLElement;
         if (barra) {
           barra.style.width = `${nivel.porcentaje}%`;
         }
       }
-    }
 
-    // 5. Cargar racha
-    
-    if (rachaRes.ok && rachaRes.racha) {
-      const r = rachaRes.racha;
-      const card = document.getElementById('racha-card');
-      const texto = document.getElementById('racha-texto');
-      const emoji = document.getElementById('racha-emoji');
+      // 5. Cargar racha
+      const rachaRes = await getRacha();
+      if (rachaRes && rachaRes.ok && rachaRes.racha) {
+        const r = rachaRes.racha;
+        const card = document.getElementById('racha-card');
+        const texto = document.getElementById('racha-texto');
+        const emoji = document.getElementById('racha-emoji');
 
-      if (card && texto) {
-        card.classList.remove('hidden');
+        if (card && texto) {
+          card.classList.remove('hidden');
 
-        if (r.activo_hoy && r.dias_consecutivos >= 2) {
-          texto.textContent = `${r.dias_consecutivos} días seguidos`;
-        } else if (r.activo_hoy) {
-          texto.textContent = `¡Empezaste hoy!`;
-        } else if (r.dias_consecutivos >= 2) {
-          texto.textContent = `Tu última racha fue de ${r.dias_consecutivos} días`;
-        } else if (r.dias_activos_totales > 0) {
-          texto.textContent = `Nos vemos cuando quieras`;
-        } else {
-          texto.textContent = `Completa una lección para empezar`;
+          if (r.activo_hoy && r.dias_consecutivos >= 2) {
+            texto.textContent = `${r.dias_consecutivos} días seguidos`;
+          } else if (r.activo_hoy) {
+            texto.textContent = `¡Empezaste hoy!`;
+          } else if (r.dias_consecutivos >= 2) {
+            texto.textContent = `Tu última racha fue de ${r.dias_consecutivos} días`;
+          } else if (r.dias_activos_totales > 0) {
+            texto.textContent = `Nos vemos cuando quieras`;
+          } else {
+            texto.textContent = `Completa una lección para empezar`;
+          }
+
+          if (!r.activo_hoy && emoji) {
+            emoji.textContent = '✨';
+          }
         }
+      }
 
-        if (!r.activo_hoy && emoji) {
-          emoji.textContent = '✨';
-        }
+      // 6. Cargar progreso por materia
+      const progRes = await getProgresoPorMateria();
+      if (progRes && progRes.ok && progRes.materias) {
+        const porMateria = new Map(
+          progRes.materias.map((m) => [m.materia_id, m.completadas])
+        );
+
+        const colores: Record<string, string> = {
+          lenguaje: '#EC4899',
+          matematicas: '#3B82F6',
+          historia: '#F59E0B',
+          ingles: '#14B8A6',
+          ciencias: '#84CC16',
+          programacion: '#D946EF',
+        };
+
+        document.querySelectorAll<HTMLElement>('[data-materia-id]').forEach((card) => {
+          const materiaId = card.dataset.materiaId;
+          if (!materiaId) return;
+
+          const el = card.querySelector<HTMLElement>('.materia-progreso');
+          if (!el) return;
+
+          const completadas = porMateria.get(materiaId) || 0;
+          const total = parseInt(card.dataset.totalLecciones || '0', 10);
+
+          if (total === 0) return;
+
+          el.classList.remove('hidden');
+
+          const texto = el.querySelector('.progreso-texto');
+          const barra = el.querySelector('.progreso-barra') as HTMLElement | null;
+
+          if (texto) {
+            texto.textContent = `${completadas} de ${total}`;
+          }
+
+          if (barra) {
+            const pct = Math.round((completadas / total) * 100);
+            barra.style.width = `${pct}%`;
+            const colorKey = card.dataset.color;
+            if (colorKey) {
+              barra.style.background = colores[colorKey] || '#8B5CF6';
+            }
+          }
+        });
       }
     }
 
-    // 6. Cargar progreso por materia
-    const progRes = await getProgresoPorMateria();
-    if (progRes.ok && progRes.materias) {
-      const porMateria = new Map(
-        progRes.materias.map((m) => [m.materia_id, m.completadas])
-      );
-
-      const colores: Record<string, string> = {
-        lenguaje: '#EC4899',
-        matematicas: '#3B82F6',
-        historia: '#F59E0B',
-        ingles: '#14B8A6',
-        ciencias: '#84CC16',
-        programacion: '#D946EF',
-      };
-
-        document.querySelectorAll<HTMLElement>('[data-materia-id]').forEach((card) => {
-        const materiaId = card.dataset.materiaId;
-        if (!materiaId) return;
-
-        const el = card.querySelector<HTMLElement>('.materia-progreso');
-        if (!el) return;
-
-        const completadas = porMateria.get(materiaId) || 0;
-        const total = card ? parseInt(card.dataset.totalLecciones || '0', 10) : 0;
-
-        if (total === 0) return;
-
-        el.classList.remove('hidden');
-
-        const texto = el.querySelector('.progreso-texto');
-        const barra = el.querySelector('.progreso-barra') as HTMLElement | null;
-
-        if (texto) {
-          texto.textContent = `${completadas} de ${total}`;
-        }
-
-        if (barra) {
-          const pct = Math.round((completadas / total) * 100);
-          barra.style.width = `${pct}%`;
-          const colorKey = card?.dataset.color;
-          if (colorKey) {
-            barra.style.background = colores[colorKey] || '#8B5CF6';
-          }
-        }
-      });
-    }
-
-
-
     init();
-
-// ... dentro de init(), después del bloque de nivel:
-
-const rachaRes = await getRacha();
-if (rachaRes.ok && rachaRes.racha) {
-  const r = rachaRes.racha;
-  const card = document.getElementById('racha-card');
-  const texto = document.getElementById('racha-texto');
-  const emoji = document.getElementById('racha-emoji');
-
-  if (card && texto) {
-    card.classList.remove('hidden');
-
-    if (r.activo_hoy && r.dias_consecutivos >= 2) {
-      texto.textContent = `${r.dias_consecutivos} días seguidos`;
-    } else if (r.activo_hoy) {
-      texto.textContent = `¡Empezaste hoy!`;
-    } else if (r.dias_consecutivos >= 2) {
-      texto.textContent = `Tu última racha fue de ${r.dias_consecutivos} días`;
-    } else if (r.dias_activos_totales > 0) {
-      texto.textContent = `Nos vemos cuando quieras`;
-    } else {
-      texto.textContent = `Completa una lección para empezar`;
-    }
-
-    if (!r.activo_hoy && emoji) {
-      emoji.textContent = '✨';
-    }
-  }
-}
-
   </script>
 
 </Layout>
