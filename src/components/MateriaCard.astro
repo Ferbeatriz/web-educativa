@@ -41,10 +41,25 @@ if (materia.submodulos && materia.submodulos.length > 0) {
 
 // Total de lecciones contables para el progreso por materia.
 // Solo se cuentan las lecciones directas.
+
+// Total de lecciones para la barra de progreso.
+// Si tiene submódulos, contamos las lecciones dentro de ellos.
+
 let cantidadLecciones = 0;
 if (materia.lecciones && materia.lecciones.length > 0) {
-  cantidadLecciones = materia.lecciones.length;
+  cantidadLecciones += materia.lecciones.length;
 }
+if (materia.submodulos && materia.submodulos.length > 0) {
+  materia.submodulos.forEach((sub: any) => {
+    if (sub.lecciones && sub.lecciones.length > 0) {
+      cantidadLecciones += sub.lecciones.length;
+    }
+  });
+}
+// Si aún es 0 (materia vacía), le ponemos 1 para que no oculte la barra por error
+if (cantidadLecciones === 0) cantidadLecciones = 1;
+
+
 
 const estiloGradiente = `background: linear-gradient(135deg, ${c.c400} 0%, ${c.c600} 100%);`;
 const estiloHoverBorder = `hover:border-${materia.color}-200`;
