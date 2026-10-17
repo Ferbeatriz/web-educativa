@@ -47,6 +47,7 @@ import Layout from '../layouts/Layout.astro';
 
   <script>
     import { getToken, getPerfil, logout } from '../lib/auth';
+    import { getLogros } from '../lib/progreso';
     import type { PerfilAlumna } from '../lib/auth';
 
     const contenido = document.getElementById('perfil-contenido')!;
@@ -89,7 +90,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     // ---------- Render ----------
-    function renderPerfil(alumna: PerfilAlumna, expira_en: string) {
+    async function renderPerfil(alumna: PerfilAlumna, expira_en: string) {
       const inicial = iniciales(alumna.nombre);
 
       contenido.innerHTML = `
@@ -166,6 +167,9 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
+        <!-- Logros (se llena con JS después) -->
+        <div id="logros-contenedor" class="mb-6"></div>
+
         <!-- Botones de acción -->
         <div class="space-y-3">
           <button
@@ -176,6 +180,27 @@ import Layout from '../layouts/Layout.astro';
           </button>
         </div>
       `;
+
+      // Cargar logros
+      const logrosRes = await getLogros();
+      if (logrosRes.ok && logrosRes.logros) {
+        const contenedor = document.getElementById('logros-contenedor');
+        if (contenedor) {
+          contenedor.innerHTML = `
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+              <h3 class="text-xl font-extrabold text-gray-800 mb-4">🏅 Mis logros</h3>
+              <div class="grid grid-cols-3 gap-4">
+                ${logrosRes.logros.map((l) => `
+                  <div class="text-center ${l.desbloqueado ? '' : 'opacity-30 grayscale'}" title="${l.descripcion}">
+                    <div class="text-4xl mb-1">${l.emoji}</div>
+                    <p class="text-xs font-bold text-gray-700">${l.titulo}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+      }
 
       // Evento logout
       document.getElementById('btn-logout')?.addEventListener('click', async () => {
@@ -204,7 +229,7 @@ import Layout from '../layouts/Layout.astro';
         return;
       }
 
-      renderPerfil(resultado.alumna, resultado.expira_en || '');
+      await renderPerfil(resultado.alumna, resultado.expira_en || '');
     }
 
     init();

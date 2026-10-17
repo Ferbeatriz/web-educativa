@@ -275,3 +275,95 @@ export async function leccionCompletada(
 
   return result !== null;
 }
+
+// ============================================================
+// LOGROS
+// ============================================================
+
+export interface LogroDesbloqueado {
+  logro_id: string;
+  desbloqueado_en: string;
+}
+
+/**
+ * Devuelve todos los logros desbloqueados por una alumna.
+ */
+export async function getLogrosDesbloqueados(
+  db: D1Database,
+  alumna_id: number
+): Promise<LogroDesbloqueado[]> {
+  const result = await db
+    .prepare(
+      'SELECT logro_id, desbloqueado_en FROM logros_alumna WHERE alumna_id = ?'
+    )
+    .bind(alumna_id)
+    .all<LogroDesbloqueado>();
+  return result.results ?? [];
+}
+
+/**
+ * Inserta un logro si no existe. Devuelve true si fue insertado nuevo.
+ */
+export async function insertarLogroSiNoExiste(
+  db: D1Database,
+  alumna_id: number,
+  logro_id: string
+): Promise<boolean> {
+  const r = await db
+    .prepare(
+      'INSERT OR IGNORE INTO logros_alumna (alumna_id, logro_id) VALUES (?, ?)'
+    )
+    .bind(alumna_id, logro_id)
+    .run();
+  return (r.meta.changes ?? 0) > 0;
+}
+
+/**
+ * Cuenta lecciones completadas por materia.
+ */
+export async function getLeccionesCompletadasPorMateria(
+  db: D1Database,
+  alumna_id: number
+): Promise<{ materia_id: string; completadas: number; primera_completada_en: string; ultima_completada_en: string }[]> {
+  const result = await db
+    .prepare(
+      `SELECT
+         materia_id,
+         COUNT(*) AS completadas,
+         MIN(completada_en) AS primera_completada_en,
+         MAX(completada_en) AS ultima_completada_en
+       FROM progreso
+       WHERE alumna_id = ?
+       GROUP BY materia_id`
+    )
+    .bind(alumna_id)
+    .all<{
+      materia_id: string;
+      completadas: number;
+      primera_completada_en: string;
+      ultima_completada_en: string;
+    }>();
+  return result.results ?? [];
+}
+
+/**
+ * Devuelve los días únicos con al menos una lección completada,
+ * ordenados ascendente. Formato: 'YYYY-MM-DD'.
+ */
+export async function getDiasActivos(
+  db: D1Database,
+  alumna_id: number
+): Promise<string[]> {
+  const result = await db
+    .prepare(
+      `SELECT DISTINCT DATE(completada_en) AS dia
+       FROM progreso
+       WHERE alumna_id = ?
+       ORDER BY dia ASC`
+    )
+    .bind(alumna_id)
+    .all<{ dia: string }>();
+  return (result.results ?? []).map((r) => r.dia);
+}
+
+

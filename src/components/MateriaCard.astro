@@ -39,12 +39,22 @@ if (materia.submodulos && materia.submodulos.length > 0) {
   cantidad += materia.lecciones.length;
 }
 
+// Total de lecciones contables para el progreso por materia.
+// Solo se cuentan las lecciones directas.
+let cantidadLecciones = 0;
+if (materia.lecciones && materia.lecciones.length > 0) {
+  cantidadLecciones = materia.lecciones.length;
+}
+
 const estiloGradiente = `background: linear-gradient(135deg, ${c.c400} 0%, ${c.c600} 100%);`;
 const estiloHoverBorder = `hover:border-${materia.color}-200`;
 ---
 
 <a
   href={`/materia/${materia.id}`}
+  data-materia-id={materia.id}
+  data-total-lecciones={cantidadLecciones}
+  data-color={materia.color}
   class="group relative block bg-white rounded-[1.75rem] p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
 >
   <!-- Degradado sutil de fondo al hover -->
@@ -78,9 +88,27 @@ const estiloHoverBorder = `hover:border-${materia.color}-200`;
     <h3 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-2 leading-tight">
       {materia.nombre}
     </h3>
-    <p class="text-sm text-gray-500 mb-5 leading-snug">
+    <p class="text-sm text-gray-500 mb-4 leading-snug">
       {materia.descripcion}
     </p>
+
+    <!-- Progreso por materia (se llena con JS desde la home) -->
+    <div class="materia-progreso hidden mb-4">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-bold text-gray-500 uppercase tracking-wide">
+          Tu progreso
+        </span>
+        <span class="text-xs font-extrabold text-gray-700 progreso-texto">
+          —
+        </span>
+      </div>
+      <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div
+          class="h-full rounded-full transition-all duration-700 progreso-barra"
+          style="width: 0%"
+        ></div>
+      </div>
+    </div>
 
     <!-- Link -->
     <div class="flex items-center justify-end">

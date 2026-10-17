@@ -15,6 +15,9 @@ import {
   handleResumenProgreso,
   handleProgresoCompleto,
   handleEstadoLeccion,
+  handleRacha,
+  handleLogros,
+  handleProgresoPorMateria,
 } from './routes/progreso';
 
 import {
@@ -108,6 +111,9 @@ export default {
             'GET    /api/progreso/resumen',
             'GET    /api/progreso/completo',
             'GET    /api/progreso/leccion/:id',
+            'GET    /api/progreso/racha',
+            'GET    /api/progreso/logros',
+            'GET    /api/progreso/por-materia',
             'POST   /api/admin/login',
             'POST   /api/admin/logout',
             'GET    /api/admin/me',
@@ -150,12 +156,24 @@ export default {
         return await handleProgresoCompleto(request, env);
       }
 
-      const matchLeccion = path.match(/^\/api\/progreso\/leccion\/([^\/]+)$/);
+            const matchLeccion = path.match(/^\/api\/progreso\/leccion\/([^\/]+)$/);
       if (matchLeccion && method === 'GET') {
         return await handleEstadoLeccion(request, env, matchLeccion[1]);
       }
 
+      // ---------- Progreso (Semana 1: racha, logros, por materia) ----------
+      if (path === '/api/progreso/racha' && method === 'GET') {
+        return await handleRacha(request, env);
+      }
+      if (path === '/api/progreso/logros' && method === 'GET') {
+        return await handleLogros(request, env);
+      }
+      if (path === '/api/progreso/por-materia' && method === 'GET') {
+        return await handleProgresoPorMateria(request, env);
+      }
+
           // ---------- Tutor ----------
+          
       if (path === '/api/tutor/registrar-intento' && method === 'POST') {
         return await handleRegistrarIntento(request, env);
       }

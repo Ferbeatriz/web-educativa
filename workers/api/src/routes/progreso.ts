@@ -4,6 +4,9 @@
  * - GET  /api/progreso/resumen        → Resumen (XP, nivel, lecciones)
  * - GET  /api/progreso/leccion/:id    → ¿Completó esta lección?
  * - GET  /api/progreso/completo       → Todas las lecciones completadas
+ * - GET  /api/progreso/racha          → Racha de días consecutivos
+ * - GET  /api/progreso/logros         → Estado de los logros
+ * - GET  /api/progreso/por-materia    → Progreso agregado por materia
  */
 
 import { hashToken } from '../lib/crypto';
@@ -13,6 +16,10 @@ import {
   getResumenProgreso,
   getProgresoCompleto,
   leccionCompletada,
+  getLogrosDesbloqueados,
+  insertarLogroSiNoExiste,
+  getLeccionesCompletadasPorMateria,
+  getDiasActivos,
 } from '../lib/db';
 import {
   notificarAdminLeccionCompletada,
@@ -115,13 +122,126 @@ async function getAlumnaAutenticada(
 }
 
 // ============================================================
+// Catálogo de logros
+// ============================================================
+
+interface LogroCatalogo {
+  id: string;
+  emoji: string;
+  titulo: string;
+  descripcion: string;
+}
+
+const LOGROS: LogroCatalogo[] = [
+  {
+    id: 'primera_leccion',
+    emoji: '🌱',
+    titulo: 'Primera lección',
+    descripcion: 'Completa tu primera lección.',
+  },
+  {
+    id: 'materia_completa',
+    emoji: '🏆',
+    titulo: 'Materia completa',
+    descripcion: 'Completa todas las lecciones de una materia.',
+  },
+  {
+    id: 'racha_7',
+    emoji: '🔥',
+    titulo: 'Semana activa',
+    descripcion: '7 días seguidos de actividad.',
+  },
+];
+
+// ============================================================
+// Racha
+// ============================================================
+
+interface RachaCalculada {
+  dias_consecutivos: number;
+  racha_maxima: number;
+  ultimo_dia_activo: string | null;
+  activo_hoy: boolean;
+  dias_activos_ultimos_30: number;
+  dias_activos_totales: number;
+}
+
+function calcularRacha(dias: string[]): RachaCalculada {
+  if (dias.length === 0) {
+    return {
+      dias_consecutivos: 0,
+      racha_maxima: 0,
+      ultimo_dia_activo: null,
+      activo_hoy: false,
+      dias_activos_ultimos_30: 0,
+      dias_activos_totales: 0,
+    };
+  }
+
+  const hoy = new Date().toISOString().slice(0, 10);
+  const ayer = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+
+  const set = new Set(dias);
+  const diasDesc = [...dias].sort().reverse();
+  const ultimoDia = diasDesc[0];
+
+  // Racha actual: solo cuenta si el último día es hoy o ayer.
+  let rachaActual = 0;
+  if (ultimoDia === hoy || ultimoDia === ayer) {
+    let cursor = new Date(ultimoDia + 'T00:00:00Z');
+    while (true) {
+      const iso = cursor.toISOString().slice(0, 10);
+      if (set.has(iso)) {
+        rachaActual++;
+        cursor = new Date(cursor.getTime() - 86400000);
+      } else {
+        break;
+      }
+    }
+  }
+
+  // Racha máxima histórica.
+  const diasAsc = [...dias].sort();
+  let rachaMaxima = 0;
+  let actual = 0;
+  let anterior: string | null = null;
+  for (const dia of diasAsc) {
+    if (anterior === null) {
+      actual = 1;
+    } else {
+      const a = new Date(anterior + 'T00:00:00Z').getTime();
+      const b = new Date(dia + 'T00:00:00Z').getTime();
+      const diff = Math.round((b - a) / 86400000);
+      actual = diff === 1 ? actual + 1 : 1;
+    }
+    if (actual > rachaMaxima) rachaMaxima = actual;
+    anterior = dia;
+  }
+
+  const hace30 = new Date(Date.now() - 30 * 86400000)
+    .toISOString()
+    .slice(0, 10);
+  const diasActivos30 = dias.filter((d) => d >= hace30).length;
+
+  return {
+    dias_consecutivos: rachaActual,
+    racha_maxima: rachaMaxima,
+    ultimo_dia_activo: ultimoDia,
+    activo_hoy: ultimoDia === hoy,
+    dias_activos_ultimos_30: diasActivos30,
+    dias_activos_totales: dias.length,
+  };
+}
+
+// ============================================================
 // Endpoints
 // ============================================================
 
 /**
  * POST /api/progreso/completar
  * Body: { leccion_id, materia_id }
- * Además del progreso, dispara una notificación por email al admin.
+ * Además del progreso, dispara una notificación por email al admin
+ * y verifica si se desbloquearon logros.
  */
 export async function handleCompletarLeccion(
   request: Request,
@@ -166,6 +286,12 @@ export async function handleCompletarLeccion(
   const resumen = await getResumenProgreso(env.DB, alumna.id);
   const nivel = calcularNivel(resumen.xp_total);
 
+  // 🏅 Verificar logros (solo si fue una lección nueva)
+  let logrosDesbloqueados: string[] = [];
+  if (resultado.insertado) {
+    logrosDesbloqueados = await verificarLogros(env, alumna.id);
+  }
+
   // 🔔 Notificación por email al admin
   // Solo se envía si es una lección nueva (no repetida).
   // Usamos ctx.waitUntil para que Cloudflare no corte la promesa.
@@ -197,6 +323,7 @@ export async function handleCompletarLeccion(
     ok: true,
     nueva: resultado.insertado,
     xp_ganados: resultado.xp_ganados,
+    logros_desbloqueados: logrosDesbloqueados,
     resumen: {
       xp_total: resumen.xp_total,
       lecciones_completadas: resumen.lecciones_completadas,
@@ -205,7 +332,6 @@ export async function handleCompletarLeccion(
     nivel,
   });
 }
-
 
 /**
  * GET /api/progreso/resumen
@@ -281,4 +407,117 @@ export async function handleEstadoLeccion(
     leccion_id: leccionId,
     completada,
   });
+}
+
+/**
+ * GET /api/progreso/racha
+ */
+export async function handleRacha(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) {
+    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+  }
+
+  const dias = await getDiasActivos(env.DB, alumna.id);
+  const racha = calcularRacha(dias);
+
+  return jsonResponse({ ok: true, racha });
+}
+
+/**
+ * GET /api/progreso/logros
+ */
+export async function handleLogros(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) {
+    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+  }
+
+  const desbloqueados = await getLogrosDesbloqueados(env.DB, alumna.id);
+  const mapa = new Map(desbloqueados.map((d) => [d.logro_id, d.desbloqueado_en]));
+
+  const logros = LOGROS.map((l) => ({
+    ...l,
+    desbloqueado: mapa.has(l.id),
+    desbloqueado_en: mapa.get(l.id) || null,
+  }));
+
+  return jsonResponse({ ok: true, logros });
+}
+
+/**
+ * GET /api/progreso/por-materia
+ */
+export async function handleProgresoPorMateria(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) {
+    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+  }
+
+  const materias = await getLeccionesCompletadasPorMateria(env.DB, alumna.id);
+
+  return jsonResponse({ ok: true, materias });
+}
+
+// ============================================================
+// Verificación de logros (interna)
+// ============================================================
+
+/**
+ * Verifica y persiste logros. Se llama desde handleCompletarLeccion.
+ * Devuelve los IDs de logros desbloqueados en esta llamada.
+ */
+async function verificarLogros(
+  env: Env,
+  alumna_id: number
+): Promise<string[]> {
+  const desbloqueadosAhora: string[] = [];
+
+  // 1. primera_leccion
+  const resumen = await getResumenProgreso(env.DB, alumna_id);
+  if (resumen.lecciones_completadas >= 1) {
+    const nuevo = await insertarLogroSiNoExiste(
+      env.DB,
+      alumna_id,
+      'primera_leccion'
+    );
+    if (nuevo) desbloqueadosAhora.push('primera_leccion');
+  }
+
+  // 2. materia_completa
+  // Heurística: 6 lecciones de la misma materia = completa.
+  // TODO: cuando el Worker tenga acceso al catálogo, reemplazar.
+  const porMateria = await getLeccionesCompletadasPorMateria(env.DB, alumna_id);
+  const completa = porMateria.some((m) => m.completadas >= 6);
+  if (completa) {
+    const nuevo = await insertarLogroSiNoExiste(
+      env.DB,
+      alumna_id,
+      'materia_completa'
+    );
+    if (nuevo) desbloqueadosAhora.push('materia_completa');
+  }
+
+  // 3. racha_7
+  const dias = await getDiasActivos(env.DB, alumna_id);
+  const racha = calcularRacha(dias);
+  if (racha.racha_maxima >= 7) {
+    const nuevo = await insertarLogroSiNoExiste(
+      env.DB,
+      alumna_id,
+      'racha_7'
+    );
+    if (nuevo) desbloqueadosAhora.push('racha_7');
+  }
+
+  return desbloqueadosAhora;
 }

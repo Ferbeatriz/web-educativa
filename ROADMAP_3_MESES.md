@@ -249,6 +249,19 @@ funcionalidad.
 - Estructura de los mini-proyectos semanales.
 - Todo lo del Mes 2 y Mes 3 que no esté en este documento.
 
+- **Patrones de error individuales al apoderado**: objetivo a futuro
+  (Mes 2 o posterior). Requiere:
+  - Consentimiento explícito y específico (distinto del actual
+    `consentimientos_tracking`, que cubre tracking anónimo).
+  - Desanonimización controlada vía `mapa_identidad`, con trazabilidad.
+  - Diseño de salida cuidadoso: lenguaje descriptivo, no evaluativo;
+    con contexto de edad; con acción concreta; sin comparaciones
+    públicas.
+  - Ver `INFORME_APODERADO.md` para el diseño en borrador.
+
+
+
+
 ---
 
 ## 📊 Estado por semana
