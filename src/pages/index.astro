@@ -79,150 +79,143 @@ const materias = materiasData.materias
 
   </main>
 
-    <script>
-    // Usamos la URL directa de la API para evitar problemas de importación
-    const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
+      <script>
+    import { getAlumna, isLoggedIn, getToken } from '../lib/auth';
+    import {
+      getResumenProgreso,
+      getRacha,
+      getProgresoPorMateria,
+    } from '../lib/progreso';
 
     async function init() {
-      // 1. Verificar sesión (usando localStorage directamente)
-      const token = localStorage.getItem('token');
-      const alumnaStr = localStorage.getItem('alumna');
-
-      if (!token || !alumnaStr) {
+      // 1. Verificar sesión
+      if (!isLoggedIn()) {
         window.location.href = '/login';
         return;
       }
-
-      const alumna = JSON.parse(alumnaStr);
 
       // 2. Mostrar el dashboard
       const dashboard = document.getElementById('dashboard-protegido');
       if (dashboard) dashboard.classList.remove('hidden');
 
       // 3. Personalizar el saludo
+      const alumna = getAlumna();
       const saludo = document.getElementById('hero-saludo');
-      if (saludo && alumna) {
+      if (alumna && saludo) {
         const primerNombre = alumna.nombre.split(' ')[0];
         saludo.textContent = `¡Hola, ${primerNombre}! 👋`;
       }
 
-      // Headers para las peticiones
-      const headers = { 'Authorization': `Bearer ${token}` };
+      // 4. Obtener progreso general
+      const resultado = await getResumenProgreso();
 
-      try {
-        // 4. Obtener progreso general
-        const resProgreso = await fetch(`${API_URL}/api/progreso/resumen`, { headers });
-        const resultado = await resProgreso.json();
+      if (resultado && resultado.ok && resultado.resumen && resultado.nivel) {
+        const { resumen, nivel } = resultado;
 
-        if (resultado.ok && resultado.resumen && resultado.nivel) {
-          const { resumen, nivel } = resultado;
+        const nivelLabel = document.getElementById('hero-nivel');
+        if (nivelLabel) {
+          nivelLabel.textContent = `⭐ Nivel ${nivel.numero} · ${nivel.nombre} ${nivel.emoji}`;
+        }
 
-          const nivelLabel = document.getElementById('hero-nivel');
-          if (nivelLabel) {
-            nivelLabel.textContent = `⭐ Nivel ${nivel.numero} · ${nivel.nombre} ${nivel.emoji}`;
+        const xpLabel = document.getElementById('hero-xp');
+        if (xpLabel) {
+          if (nivel.es_maximo) {
+            xpLabel.textContent = `${nivel.xp_total} XP`;
+          } else {
+            xpLabel.textContent = `${nivel.xp_total} / ${nivel.xp_siguiente_total} XP`;
+          }
+        }
+
+        const barra = document.getElementById('hero-barra');
+        if (barra) {
+          barra.style.width = `${nivel.porcentaje}%`;
+        }
+      }
+
+      // 5. Cargar racha
+      const rachaRes = await getRacha();
+      if (rachaRes && rachaRes.ok && rachaRes.racha) {
+        const r = rachaRes.racha;
+        const card = document.getElementById('racha-card');
+        const texto = document.getElementById('racha-texto');
+        const emoji = document.getElementById('racha-emoji');
+
+        if (card && texto) {
+          card.classList.remove('hidden');
+
+          if (r.activo_hoy && r.dias_consecutivos >= 2) {
+            texto.textContent = `${r.dias_consecutivos} días seguidos`;
+          } else if (r.activo_hoy) {
+            texto.textContent = `¡Empezaste hoy!`;
+          } else if (r.dias_consecutivos >= 2) {
+            texto.textContent = `Tu última racha fue de ${r.dias_consecutivos} días`;
+          } else if (r.dias_activos_totales > 0) {
+            texto.textContent = `Nos vemos cuando quieras`;
+          } else {
+            texto.textContent = `Completa una lección para empezar`;
           }
 
-          const xpLabel = document.getElementById('hero-xp');
-          if (xpLabel) {
-            if (nivel.es_maximo) {
-              xpLabel.textContent = `${nivel.xp_total} XP`;
-            } else {
-              xpLabel.textContent = `${nivel.xp_total} / ${nivel.xp_siguiente_total} XP`;
-            }
+          if (!r.activo_hoy && emoji) {
+            emoji.textContent = '✨';
+          }
+        }
+      }
+
+      // 6. Cargar progreso por materia
+      const progRes = await getProgresoPorMateria();
+      if (progRes && progRes.ok && progRes.materias) {
+        const porMateria = new Map(
+          progRes.materias.map((m) => [m.materia_id, m.completadas])
+        );
+
+        const colores = {
+          lenguaje: '#EC4899',
+          matematicas: '#3B82F6',
+          historia: '#F59E0B',
+          ingles: '#14B8A6',
+          ciencias: '#84CC16',
+          programacion: '#D946EF',
+        };
+
+        document.querySelectorAll('[data-materia-id]').forEach((card) => {
+          const materiaId = card.dataset.materiaId;
+          if (!materiaId) return;
+
+          const el = card.querySelector('.materia-progreso');
+          if (!el) return;
+
+          const completadas = porMateria.get(materiaId) || 0;
+          const total = parseInt(card.dataset.totalLecciones || '0', 10);
+
+          if (total === 0) return;
+
+          el.classList.remove('hidden');
+
+          const texto = el.querySelector('.progreso-texto');
+          const barra = el.querySelector('.progreso-barra');
+
+          if (texto) {
+            texto.textContent = `${completadas} de ${total}`;
           }
 
-          const barra = document.getElementById('hero-barra');
           if (barra) {
-            barra.style.width = `${nivel.porcentaje}%`;
-          }
-        }
-
-        // 5. Cargar racha
-        const resRacha = await fetch(`${API_URL}/api/progreso/racha`, { headers });
-        const rachaRes = await resRacha.json();
-
-        if (rachaRes && rachaRes.ok && rachaRes.racha) {
-          const r = rachaRes.racha;
-          const card = document.getElementById('racha-card');
-          const texto = document.getElementById('racha-texto');
-          const emoji = document.getElementById('racha-emoji');
-
-          if (card && texto) {
-            card.classList.remove('hidden');
-
-            if (r.activo_hoy && r.dias_consecutivos >= 2) {
-              texto.textContent = `${r.dias_consecutivos} días seguidos`;
-            } else if (r.activo_hoy) {
-              texto.textContent = `¡Empezaste hoy!`;
-            } else if (r.dias_consecutivos >= 2) {
-              texto.textContent = `Tu última racha fue de ${r.dias_consecutivos} días`;
-            } else if (r.dias_activos_totales > 0) {
-              texto.textContent = `Nos vemos cuando quieras`;
-            } else {
-              texto.textContent = `Completa una lección para empezar`;
-            }
-
-            if (!r.activo_hoy && emoji) {
-              emoji.textContent = '✨';
+            const pct = Math.round((completadas / total) * 100);
+            barra.style.width = `${pct}%`;
+            const colorKey = card.dataset.color;
+            if (colorKey) {
+              barra.style.background = colores[colorKey] || '#8B5CF6';
             }
           }
-        }
-
-        // 6. Cargar progreso por materia
-        const resMaterias = await fetch(`${API_URL}/api/progreso/por-materia`, { headers });
-        const progRes = await resMaterias.json();
-
-        if (progRes && progRes.ok && progRes.materias) {
-          const porMateria = new Map(
-            progRes.materias.map((m) => [m.materia_id, m.completadas])
-          );
-
-          const colores = {
-            lenguaje: '#EC4899',
-            matematicas: '#3B82F6',
-            historia: '#F59E0B',
-            ingles: '#14B8A6',
-            ciencias: '#84CC16',
-            programacion: '#D946EF',
-          };
-
-          document.querySelectorAll('[data-materia-id]').forEach((card) => {
-            const materiaId = card.dataset.materiaId;
-            if (!materiaId) return;
-
-            const el = card.querySelector('.materia-progreso');
-            if (!el) return;
-
-            const completadas = porMateria.get(materiaId) || 0;
-            const total = parseInt(card.dataset.totalLecciones || '0', 10);
-
-            if (total === 0) return;
-
-            el.classList.remove('hidden');
-
-            const texto = el.querySelector('.progreso-texto');
-            const barra = el.querySelector('.progreso-barra');
-
-            if (texto) {
-              texto.textContent = `${completadas} de ${total}`;
-            }
-
-            if (barra) {
-              const pct = Math.round((completadas / total) * 100);
-              barra.style.width = `${pct}%`;
-              const colorKey = card.dataset.color;
-              if (colorKey) {
-                barra.style.background = colores[colorKey] || '#8B5CF6';
-              }
-            }
-          });
-        }
-
-      } catch (error) {
-        console.error("Error cargando datos:", error);
+        });
       }
     }
 
-    init();
+    // Astro a veces demora un milisegundo en hidratar, 
+    // lo ejecutamos apenas el documento esté listo.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
   </script>
 </Layout>
