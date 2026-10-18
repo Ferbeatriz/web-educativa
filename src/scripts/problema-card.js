@@ -14,17 +14,14 @@ document.addEventListener('click', (e) => {
   const problemaId = card.getAttribute('data-problema-id') || '';
   const cocienteEsperado = parseInt(card.getAttribute('data-cociente') || '0');
   const restoEsperado = parseInt(card.getAttribute('data-resto') || '0');
-  
-  // Extraemos el dividendo y divisor del problema para la animación
-  // Los obtenemos de los inputs o los deducimos del cociente/resto
-  const dividendo = cocienteEsperado * (parseInt(card.getAttribute('data-divisor') || '0') || 1) + restoEsperado;
-  const divisor = parseInt(card.getAttribute('data-divisor') || '0') || 1;
+  const dividendo = parseInt(card.getAttribute('data-dividendo') || '0');
+  const divisor = parseInt(card.getAttribute('data-divisor') || '1');
 
   const inputCociente = card.querySelector('.input-cociente');
   const inputResto = card.querySelector('.input-resto');
   const feedback = card.querySelector('.feedback');
   const tutorContainer = card.querySelector('.tutor-container');
-  const animacionContainer = card.querySelector('.animacion-container'); // NUEVO
+  const animacionContainer = card.querySelector('.animacion-container');
 
   if (!inputCociente || !inputResto || !feedback || !tutorContainer) return;
 
@@ -48,12 +45,12 @@ document.addEventListener('click', (e) => {
     feedback.className = 'feedback feedback-correcto';
     feedback.innerHTML = '✅ ¡Muy bien! Cociente: ' + cocienteEsperado + ', Resto: ' + restoEsperado + '.';
     
-    if (animacionContainer) animacionContainer.hidden = true; // Ocultar si estaba visible
+    if (animacionContainer) animacionContainer.hidden = true;
     
     btn.setAttribute('disabled', 'true');
     inputCociente.setAttribute('disabled', 'true');
     inputResto.setAttribute('disabled', 'true');
-    
+
     registrarIntento({
       problema_id: problemaId,
       paso_n: null,
@@ -63,7 +60,7 @@ document.addEventListener('click', (e) => {
       origen: 'problema_card',
     });
   } else {
-    // ❌ INCORRECTO → activar tutor y animación
+    // ❌ INCORRECTO
     feedback.hidden = false;
     feedback.className = 'feedback feedback-incorrecto';
 
@@ -85,13 +82,12 @@ document.addEventListener('click', (e) => {
     // --- LÓGICA DE LA ANIMACIÓN ---
     if (animacionContainer) {
       animacionContainer.hidden = false;
-      animacionContainer.innerHTML = ''; // Limpiar si ya había una
+      animacionContainer.innerHTML = ''; // Limpiar
 
       const animacion = document.createElement('animacion-division');
       animacionContainer.appendChild(animacion);
 
-      // Calcular el estado del reparto según la respuesta del estudiante
-      // Nota: Aquí asumimos que si el estudiante ingresó un cociente, ese es su "por_grupo".
+      // Determinamos si se pasó o le faltó
       const estado = cocienteUsuario > cocienteEsperado ? 'sobra' : 'falta';
       
       const visual = {
@@ -110,9 +106,9 @@ document.addEventListener('click', (e) => {
         nota: `Tu respuesta (${cocienteUsuario} en cada grupo) deja ${estado === 'sobra' ? 'sobrantes' : 'faltantes'} bloques.`
       };
 
-      // Renderizar el Web Component
+      // Llamar al componente (sin TypeScript)
       if (typeof animacion.render === 'function') {
-         animacion.render(visual, escenario);
+        animacion.render(visual, escenario);
       }
     }
     // ------------------------------
