@@ -111,7 +111,7 @@ document.addEventListener('click', (e) => {
       };
 
       // Renderizar el Web Component
-      if (typeof (animacion as any).render === 'function') {
+      if (typeof animacion.render === 'function') {
         (animacion as any).render(visual, escenario);
       }
     }
