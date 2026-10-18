@@ -13,6 +13,8 @@ const { problema } = Astro.props;
   data-problema-id={problema.id}
   data-cociente={problema.cociente_esperado}
   data-resto={problema.resto_esperado}
+  data-dividendo={problema.dividendo}
+  data-divisor={problema.divisor}
 >
   <div class="problema-header">
     <span class="dificultad-badge" data-dificultad={problema.dificultad}>
@@ -53,7 +55,6 @@ const { problema } = Astro.props;
 
   <div class="feedback" aria-live="polite" hidden></div>
 
-  <!-- Contenedor para la animación visual (se llena si hay error) -->
   <div class="animacion-container" hidden></div>
 
   <div class="tutor-container" hidden>
@@ -63,17 +64,7 @@ const { problema } = Astro.props;
 
 <script>
   import '../../scripts/problema-card.js';
-  import '../tutor/AnimacionDivision.astro'; // <-- Importamos el Web Component
-</script>
-
-
-  <div class="tutor-container" hidden>
-    <TutorContextualizado problema={problema} />
-  </div>
-</div>
-
-<script>
-  import '../../scripts/problema-card.js';
+  import '../tutor/AnimacionDivision.astro';
 </script>
 
 <style>
@@ -83,6 +74,7 @@ const { problema } = Astro.props;
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
   }
 
   .problema-header {
@@ -195,6 +187,14 @@ const { problema } = Astro.props;
     border-left: 4px solid #e53935;
   }
 
+  .animacion-container {
+    margin-top: 1.5rem;
+  }
+
+  .animacion-container[hidden] {
+    display: none;
+  }
+
   .tutor-container {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
@@ -204,13 +204,4 @@ const { problema } = Astro.props;
   .tutor-container[hidden] {
     display: none;
   }
-
-  .animacion-container {
-    margin-top: 1.5rem;
-  }
-  .animacion-container[hidden] {
-    display: none;
-  }
-
-
 </style>
