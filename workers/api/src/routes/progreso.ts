@@ -276,6 +276,13 @@ export async function handleCompletarLeccion(
     );
   }
 
+  if (materia_id.startsWith('#') || !/^[a-z0-9-]+$/.test(materia_id)) {
+    return jsonResponse(
+      { ok: false, error: 'ID de materia inválido' },
+      400
+    );
+  }
+
   const resultado = await marcarLeccionCompletada(
     env.DB,
     alumna.id,
