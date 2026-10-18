@@ -53,6 +53,20 @@ const { problema } = Astro.props;
 
   <div class="feedback" aria-live="polite" hidden></div>
 
+  <!-- Contenedor para la animación visual (se llena si hay error) -->
+  <div class="animacion-container" hidden></div>
+
+  <div class="tutor-container" hidden>
+    <TutorContextualizado problema={problema} />
+  </div>
+</div>
+
+<script>
+  import '../../scripts/problema-card.js';
+  import '../tutor/AnimacionDivision.astro'; // <-- Importamos el Web Component
+</script>
+
+
   <div class="tutor-container" hidden>
     <TutorContextualizado problema={problema} />
   </div>
@@ -190,4 +204,13 @@ const { problema } = Astro.props;
   .tutor-container[hidden] {
     display: none;
   }
+
+  .animacion-container {
+    margin-top: 1.5rem;
+  }
+  .animacion-container[hidden] {
+    display: none;
+  }
+
+
 </style>
