@@ -12,6 +12,7 @@ const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
 const resto = problema.resto_esperado;
 
+// Cálculos para 248 / 4
 const primerasDosCifras = Math.floor(dividendo / 10);
 const primeraResta = Math.floor(primerasDosCifras / divisor) * divisor;
 const primerResultado = primerasDosCifras - primeraResta;
@@ -26,64 +27,74 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     <span class="tutor-icon">🔍</span>
     <div>
       <h3 class="tutor-titulo">Vamos paso a paso</h3>
-      <p class="tutor-subtitulo">Resolvamos juntos el problema.</p>
+      <p class="tutor-subtitulo">Resolvamos juntos el problema de {problema.contexto.objeto}.</p>
     </div>
   </div>
 
-  <!-- LA PIZARRA CON EXPLICACIONES -->
+  <!-- LA PIZARRA -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
+    
+    <!-- Planteamiento inicial (Siempre visible) -->
+    <div class="planteamiento-inicial">
+      <span class="resaltado-amarillo">{dividendo}</span> : 
+      <span class="resaltado-azul">{divisor}</span> = 
+      <span class="resaltado-morado cociente-final hidden" id={`cociente-final-${problema.id}`}>{cociente}</span>
+      <span class="signo-pregunta cociente-final hidden" id={`pregunta-${problema.id}`}>?</span>
+    </div>
+
     <div class="pizarra-layout">
-      
       <!-- Columna izquierda: La cuenta matemática -->
       <div class="columna-matematica">
         
-        <!-- Planteamiento inicial -->
-        <div class="ecuacion">
-          {dividendo} : {divisor} = ?
+        <!-- El dividendo (248) con sus cifras resaltadas -->
+        <div class="fila-numero">
+          <span class="cifra-24" id={`cifra24-${problema.id}`}>{primerasDosCifras}</span>
+          <span class="cifra-8" id={`cifra8-${problema.id}`}>{segundaCifra}</span>
         </div>
 
-        <!-- Paso 1 -->
-        <div class="ecuacion hidden" id={`eq1-${problema.id}`}>
+        <!-- PASO 1: División de las dos cifras (Siempre visible para que razonen) -->
+        <div class="operacion-inicial">
           {primerasDosCifras} : {divisor} = {Math.floor(primerasDosCifras / divisor)}
         </div>
 
-        <!-- Paso 2 -->
+        <!-- PASO 2: Primera resta -->
         <div class="cuenta-larga hidden" id={`resta1-${problema.id}`}>
           <div class="numero">- {primeraResta}</div>
           <div class="linea"></div>
           <div class="resultado">{String(primerResultado).padStart(2, '0')}</div>
         </div>
 
-        <!-- Paso 3 -->
-        <div class="ecuacion hidden" id={`eq2-${problema.id}`}>
-          {dividendo} : {divisor} = {cociente}
-        </div>
+        <!-- PASO 3: Bajar el 8 -->
         <div class="bajada hidden" id={`bajada-${problema.id}`}>
           {String(primerResultado).padStart(2, '0')}<span class="texto-verde">{segundaCifra}</span>
         </div>
 
-        <!-- Paso 4 -->
+        <!-- PASO 4: Segunda resta -->
         <div class="cuenta-larga hidden" id={`resta2-${problema.id}`}>
-          <div class="numero">- {String(segundaResta).padStart(3, '0')}</div>
+          <div class="numero">- {String(segundaResta).padStart(2, '0')}</div>
           <div class="linea"></div>
+          <div class="resultado">{resto}</div>
         </div>
 
-        <!-- Paso 5 -->
-        <div class="resultado-final hidden" id={`final-${problema.id}`}>
-          Resultado: <strong>{cociente}</strong>, resto <strong>{resto}</strong>
-        </div>
       </div>
 
-      <!-- Columna derecha: Las explicaciones -->
+      <!-- Columna derecha: Las explicaciones flotantes -->
       <div class="columna-explicaciones">
-        <div class="explicacion hidden" id={`exp1-${problema.id}`}>Tomo 2 cifras del dividendo.</div>
-        <div class="explicacion hidden" id={`exp2-${problema.id}`}>Bajo la multiplicación de {divisor} × {Math.floor(primerasDosCifras / divisor)}.</div>
-        <div class="explicacion hidden" id={`exp3-${problema.id}`}>Bajo la siguiente cifra del dividendo.</div>
-        <div class="explicacion hidden" id={`exp4-${problema.id}`}>Divido: {numeroBajado} : {divisor}.</div>
-        <div class="explicacion hidden" id={`exp5-${problema.id}`}>Resto final.</div>
+        <div class="explicacion hidden" id={`exp1-${problema.id}`}>
+          Tomo 2 cifras del dividendo.
+        </div>
+        <div class="explicacion hidden" id={`exp2-${problema.id}`}>
+          Paso la multiplicación de {divisor} × {Math.floor(primerasDosCifras / divisor)}.
+        </div>
+        <div class="explicacion hidden" id={`exp3-${problema.id}`}>
+          Bajo la cifra siguiente: el {segundaCifra}.
+        </div>
+        <div class="explicacion hidden" id={`exp4-${problema.id}`}>
+          Divido {numeroBajado} : {divisor} = {Math.floor(numeroBajado / divisor)}. Resto {numeroBajado} - {segundaResta} = {resto}.
+        </div>
       </div>
-
     </div>
+
   </div>
 
   <div class="pasos-container">
@@ -119,46 +130,54 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      // Elementos de la columna matemática
-      const eq1 = tutor.querySelector(`#eq1-${problemaId}`);
+      // Elementos
+      const cifra24 = tutor.querySelector(`#cifra24-${problemaId}`);
+      const cifra8 = tutor.querySelector(`#cifra8-${problemaId}`);
+      
+      const cocienteFinal = tutor.querySelector(`#cociente-final-${problemaId}`);
+      const pregunta = tutor.querySelector(`#pregunta-${problemaId}`);
+      
       const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
-      const eq2 = tutor.querySelector(`#eq2-${problemaId}`);
       const bajada = tutor.querySelector(`#bajada-${problemaId}`);
       const resta2 = tutor.querySelector(`#resta2-${problemaId}`);
-      const final = tutor.querySelector(`#final-${problemaId}`);
-
-      // Elementos de la columna de explicaciones
+      
       const exp1 = tutor.querySelector(`#exp1-${problemaId}`);
       const exp2 = tutor.querySelector(`#exp2-${problemaId}`);
       const exp3 = tutor.querySelector(`#exp3-${problemaId}`);
       const exp4 = tutor.querySelector(`#exp4-${problemaId}`);
-      const exp5 = tutor.querySelector(`#exp5-${problemaId}`);
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
-        if (pasoTerminado === 1) {
-          eq1?.classList.remove('hidden');
+        // Al empezar (Paso 1 visible), mostramos la pista de las 2 cifras
+        if (pasoTerminado === 0) {
           exp1?.classList.remove('hidden');
         }
-        else if (pasoTerminado === 2) {
+        // Al terminar el Paso 1, mostramos la resta y la multiplicación
+        else if (pasoTerminado === 1) {
+          cifra8?.classList.add('opacado'); // El 8 se tapa un poco
           resta1?.classList.remove('hidden');
           exp2?.classList.remove('hidden');
         }
-        else if (pasoTerminado === 3) {
-          eq2?.classList.remove('hidden');
+        // Al terminar el Paso 2, bajamos el 8
+        else if (pasoTerminado === 2) {
           bajada?.classList.remove('hidden');
           exp3?.classList.remove('hidden');
         }
-        else if (pasoTerminado === 4) {
+        // Al terminar el Paso 3, mostramos la segunda resta
+        else if (pasoTerminado === 3) {
           resta2?.classList.remove('hidden');
           exp4?.classList.remove('hidden');
         }
-        else if (pasoTerminado === 5) {
-          final?.classList.remove('hidden');
-          exp5?.classList.remove('hidden');
+        // Al terminar el Paso 4, mostramos el resultado final
+        else if (pasoTerminado === 4) {
+          pregunta?.classList.add('hidden');
+          cocienteFinal?.classList.remove('hidden');
         }
       }
+
+      // Mostrar la explicación inicial (paso 0) al cargar
+      actualizarPizarra(0);
 
       tutor.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
@@ -230,6 +249,18 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     margin-bottom: 1.5rem;
   }
 
+  .planteamiento-inicial {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+  }
+
+  .resaltado-amarillo { background: #fef08a; padding: 0.1rem 0.3rem; border-radius: 4px; }
+  .resaltado-azul { background: #bae6fd; padding: 0.1rem 0.3rem; border-radius: 4px; }
+  .resaltado-morado { background: #e9d5ff; padding: 0.1rem 0.3rem; border-radius: 4px; }
+
   .pizarra-layout {
     display: flex;
     gap: 2rem;
@@ -246,14 +277,39 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     min-width: 150px;
   }
 
+  .fila-numero {
+    display: flex;
+    position: relative;
+  }
+
+  .cifra-24 {
+    background: #fef08a;
+    padding: 0 0.2rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .cifra-8 {
+    padding: 0 0.2rem;
+    transition: opacity 0.3s;
+  }
+
+  .cifra-8.opacado {
+    opacity: 0.3;
+  }
+
+  .operacion-inicial {
+    font-size: 1.2rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+  }
+
   .columna-explicaciones {
     font-family: sans-serif;
     font-size: 0.9rem;
     color: #475569;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.2rem;
     padding-top: 0.5rem;
     border-left: 2px solid #fcd34d;
     padding-left: 1rem;
@@ -261,14 +317,13 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 
   .explicacion {
     background: #fef3c7;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
     font-style: italic;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     width: fit-content;
+    border: 1px solid #fde68a;
   }
-
-  .ecuacion { font-size: 1.6rem; }
 
   .cuenta-larga {
     display: flex;
@@ -288,13 +343,6 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
   }
 
   .texto-verde { color: #16a34a; }
-
-  .resultado-final {
-    margin-top: 1rem;
-    color: #1e293b;
-    font-size: 1.2rem;
-  }
-
   .hidden { display: none !important; }
 
   /* ESTILOS DE LOS PASOS */
