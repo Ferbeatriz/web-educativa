@@ -1,5 +1,6 @@
 ---
 import TutorContextualizado from './TutorContextualizado.astro';
+import AnimacionDivision from '../tutor/AnimacionDivision.astro'; // Importación necesaria para que Astro lo empaquete
 
 interface Props {
   problema: any;
@@ -55,6 +56,7 @@ const { problema } = Astro.props;
 
   <div class="feedback" aria-live="polite" hidden></div>
 
+  <!-- Contenedor de la animación (sin hidden) -->
   <div class="animacion-container"></div>
 
   <div class="tutor-container" hidden>
@@ -62,9 +64,13 @@ const { problema } = Astro.props;
   </div>
 </div>
 
+<!-- Componente oculto para forzar a Astro a cargar el script de la animación -->
+<div style="display: none;">
+  <AnimacionDivision />
+</div>
+
 <script>
   import '../../scripts/problema-card.js';
-  import '../tutor/AnimacionDivision.astro';
 </script>
 
 <style>
@@ -189,10 +195,6 @@ const { problema } = Astro.props;
 
   .animacion-container {
     margin-top: 1.5rem;
-  }
-
-  .animacion-container[hidden] {
-    display: none;
   }
 
   .tutor-container {
