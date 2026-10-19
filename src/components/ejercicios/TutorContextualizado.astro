@@ -7,7 +7,6 @@ interface Props {
 
 const { problema } = Astro.props;
 
-// Datos base
 const divisor = problema.divisor;
 const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
@@ -31,44 +30,57 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     </div>
   </div>
 
-  <!-- LA PIZARRA -->
+  <!-- LA PIZARRA CON EXPLICACIONES -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
-    <div class="pizarra-contenido">
+    <div class="pizarra-layout">
       
-      <!-- PLANTEAMIENTO INICIAL (Siempre visible) -->
-      <div class="ecuacion">
-        {dividendo} : {divisor} = ?
+      <!-- Columna izquierda: La cuenta matemática -->
+      <div class="columna-matematica">
+        
+        <!-- Planteamiento inicial -->
+        <div class="ecuacion">
+          {dividendo} : {divisor} = ?
+        </div>
+
+        <!-- Paso 1 -->
+        <div class="ecuacion hidden" id={`eq1-${problema.id}`}>
+          {primerasDosCifras} : {divisor} = {Math.floor(primerasDosCifras / divisor)}
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="cuenta-larga hidden" id={`resta1-${problema.id}`}>
+          <div class="numero">- {primeraResta}</div>
+          <div class="linea"></div>
+          <div class="resultado">{String(primerResultado).padStart(2, '0')}</div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="ecuacion hidden" id={`eq2-${problema.id}`}>
+          {dividendo} : {divisor} = {cociente}
+        </div>
+        <div class="bajada hidden" id={`bajada-${problema.id}`}>
+          {String(primerResultado).padStart(2, '0')}<span class="texto-verde">{segundaCifra}</span>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="cuenta-larga hidden" id={`resta2-${problema.id}`}>
+          <div class="numero">- {String(segundaResta).padStart(3, '0')}</div>
+          <div class="linea"></div>
+        </div>
+
+        <!-- Paso 5 -->
+        <div class="resultado-final hidden" id={`final-${problema.id}`}>
+          Resultado: <strong>{cociente}</strong>, resto <strong>{resto}</strong>
+        </div>
       </div>
 
-      <!-- PASO 1: División inicial de dos cifras -->
-      <div class="ecuacion hidden" id={`eq1-${problema.id}`}>
-        {primerasDosCifras} : {divisor} = {Math.floor(primerasDosCifras / divisor)}
-      </div>
-
-      <!-- PASO 2: Primera resta y resultado -->
-      <div class="cuenta-larga hidden" id={`resta1-${problema.id}`}>
-        <div class="numero">- {primeraResta}</div>
-        <div class="linea"></div>
-        <div class="resultado">{String(primerResultado).padStart(2, '0')}</div>
-      </div>
-
-      <!-- PASO 3: Bajar el 8 y completar cociente -->
-      <div class="ecuacion hidden" id={`eq2-${problema.id}`}>
-        {dividendo} : {divisor} = {cociente}
-      </div>
-      <div class="bajada hidden" id={`bajada-${problema.id}`}>
-        {String(primerResultado).padStart(2, '0')}<span class="texto-verde">{segundaCifra}</span>
-      </div>
-
-      <!-- PASO 4: Segunda resta -->
-      <div class="cuenta-larga hidden" id={`resta2-${problema.id}`}>
-        <div class="numero">- {String(segundaResta).padStart(3, '0')}</div>
-        <div class="linea"></div>
-      </div>
-
-      <!-- PASO 5: Resultado final con resto -->
-      <div class="resultado-final hidden" id={`final-${problema.id}`}>
-        Resultado: <strong>{cociente}</strong>, resto <strong>{resto}</strong>
+      <!-- Columna derecha: Las explicaciones -->
+      <div class="columna-explicaciones">
+        <div class="explicacion hidden" id={`exp1-${problema.id}`}>Tomo 2 cifras del dividendo.</div>
+        <div class="explicacion hidden" id={`exp2-${problema.id}`}>Bajo la multiplicación de {divisor} × {Math.floor(primerasDosCifras / divisor)}.</div>
+        <div class="explicacion hidden" id={`exp3-${problema.id}`}>Bajo la siguiente cifra del dividendo.</div>
+        <div class="explicacion hidden" id={`exp4-${problema.id}`}>Divido: {numeroBajado} : {divisor}.</div>
+        <div class="explicacion hidden" id={`exp5-${problema.id}`}>Resto final.</div>
       </div>
 
     </div>
@@ -107,6 +119,7 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
+      // Elementos de la columna matemática
       const eq1 = tutor.querySelector(`#eq1-${problemaId}`);
       const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
       const eq2 = tutor.querySelector(`#eq2-${problemaId}`);
@@ -114,24 +127,36 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       const resta2 = tutor.querySelector(`#resta2-${problemaId}`);
       const final = tutor.querySelector(`#final-${problemaId}`);
 
+      // Elementos de la columna de explicaciones
+      const exp1 = tutor.querySelector(`#exp1-${problemaId}`);
+      const exp2 = tutor.querySelector(`#exp2-${problemaId}`);
+      const exp3 = tutor.querySelector(`#exp3-${problemaId}`);
+      const exp4 = tutor.querySelector(`#exp4-${problemaId}`);
+      const exp5 = tutor.querySelector(`#exp5-${problemaId}`);
+
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
         if (pasoTerminado === 1) {
           eq1?.classList.remove('hidden');
+          exp1?.classList.remove('hidden');
         }
         else if (pasoTerminado === 2) {
           resta1?.classList.remove('hidden');
+          exp2?.classList.remove('hidden');
         }
         else if (pasoTerminado === 3) {
           eq2?.classList.remove('hidden');
           bajada?.classList.remove('hidden');
+          exp3?.classList.remove('hidden');
         }
         else if (pasoTerminado === 4) {
           resta2?.classList.remove('hidden');
+          exp4?.classList.remove('hidden');
         }
         else if (pasoTerminado === 5) {
           final?.classList.remove('hidden');
+          exp5?.classList.remove('hidden');
         }
       }
 
@@ -203,11 +228,14 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: flex-start;
   }
 
-  .pizarra-contenido {
+  .pizarra-layout {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .columna-matematica {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5rem;
     font-weight: bold;
@@ -215,14 +243,34 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    min-width: 150px;
   }
 
-  .ecuacion {
-    font-size: 1.6rem;
+  .columna-explicaciones {
+    font-family: sans-serif;
+    font-size: 0.9rem;
+    color: #475569;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.2rem;
+    padding-top: 0.5rem;
+    border-left: 2px solid #fcd34d;
+    padding-left: 1rem;
   }
+
+  .explicacion {
+    background: #fef3c7;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    width: fit-content;
+  }
+
+  .ecuacion { font-size: 1.6rem; }
 
   .cuenta-larga {
-    margin-left: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -235,7 +283,6 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 
   .bajada {
     color: #1e293b;
-    margin-left: 0;
     display: flex;
     gap: 0.1rem;
   }
