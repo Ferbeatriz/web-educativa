@@ -6,21 +6,87 @@ interface Props {
 }
 
 const { problema } = Astro.props;
+
+// Obtenemos los valores iniciales para armar la pizarra estática
+const dividendo = problema.dividendo;
+const divisor = problema.divisor;
+const cociente = problema.cociente_esperado;
+const resto = problema.resto_esperado;
+
+// Calculamos las partes de la división larga para mostrarlas paso a paso
+// (Asumimos que es una división de 3 cifras entre 1 cifra como 248 ÷ 4)
+const primerasDosCifras = Math.floor(dividendo / 10);
+const primeraResta = Math.floor(primerasDosCifras / divisor) * divisor;
+const primerResultado = primerasDosCifras - primeraResta;
+const segundaCifra = dividendo % 10;
+const numeroBajado = parseInt(`${primerResultado}${segundaCifra}`);
+const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 ---
 
-<div class="tutor-wrapper" data-problema={problema.id}>
+<div class="tutor-wrapper" data-problema={problema.id} data-divisor={divisor}>
+  
   <div class="tutor-header">
     <span class="tutor-icon">🔍</span>
     <div>
       <h3 class="tutor-titulo">Vamos paso a paso</h3>
-      <p class="tutor-subtitulo">Resolvamos juntos el problema de {problema.contexto.objeto}.</p>
+      <p class="tutor-subtitulo">Resolvamos juntos el problema.</p>
     </div>
   </div>
 
-  <!-- LA PIZARRA (Se actualiza con JS) -->
-  <div class="pizarra-viva hidden" id={`pizarra-${problema.id}`}>
+  <!-- LA PIZARRA (Siempre visible) -->
+  <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     <div class="pizarra-contenido">
-      <!-- Aquí se inyectará la cuenta matemática -->
+      
+      <!-- Estructura clásica de la división -->
+      <div class="division-layout">
+        
+        <!-- Lado izquierdo: La cuenta (Dividendo, restas) -->
+        <div class="lado-izquierdo">
+          <div class="dividendo" id={`dividendo-${problema.id}`}>
+            {dividendo}
+          </div>
+          
+          <!-- Resta 1 (Aparece en paso 2) -->
+          <div class="fila-resta hidden" id={`resta1-${problema.id}`}>
+            <span class="simbolo-resta">-</span>
+            <span class="valor-resta">{primeraResta}</span>
+          </div>
+          <div class="linea-division hidden" id={`linea1-${problema.id}`}></div>
+          <div class="fila-resultado hidden" id={`resultado1-${problema.id}`}>
+            {primerResultado}
+          </div>
+
+          <!-- Bajada de la siguiente cifra (Aparece en paso 3) -->
+          <div class="fila-bajada hidden" id={`bajada-${problema.id}`}>
+            {numeroBajado}
+          </div>
+
+          <!-- Resta 2 (Aparece en paso 4) -->
+          <div class="fila-resta hidden" id={`resta2-${problema.id}`}>
+            <span class="simbolo-resta">-</span>
+            <span class="valor-resta">{segundaResta}</span>
+          </div>
+          <div class="linea-division hidden" id={`linea2-${problema.id}`}></div>
+          <div class="fila-resultado final hidden" id={`resultado2-${problema.id}`}>
+            {resto}
+          </div>
+        </div>
+
+        <!-- Línea vertical separadora -->
+        <div class="linea-vertical"></div>
+
+        <!-- Lado derecho: Divisor y Cociente -->
+        <div class="lado-derecho">
+          <div class="cociente hidden" id={`cociente-${problema.id}`}>
+            {cociente}
+          </div>
+          <div class="divisor">
+            {divisor}
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 
@@ -54,92 +120,40 @@ const { problema } = Astro.props;
     
     tutores.forEach((tutor) => {
       const problemaId = tutor.getAttribute('data-problema');
-      const pizarra = tutor.querySelector(`#pizarra-${problemaId}`);
-      const pizarraContenido = pizarra?.querySelector('.pizarra-contenido');
-      
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
+      // Referencias a los elementos de la pizarra
+      const cociente = tutor.querySelector(`#cociente-${problemaId}`);
+      const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
+      const linea1 = tutor.querySelector(`#linea1-${problemaId}`);
+      const resultado1 = tutor.querySelector(`#resultado1-${problemaId}`);
+      const bajada = tutor.querySelector(`#bajada-${problemaId}`);
+      const resta2 = tutor.querySelector(`#resta2-${problemaId}`);
+      const linea2 = tutor.querySelector(`#linea2-${problemaId}`);
+      const resultado2 = tutor.querySelector(`#resultado2-${problemaId}`);
+
+      // Mostrar el primer paso
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
-      function actualizarPizarra(nPaso: number) {
-        if (!pizarra || !pizarraContenido) return;
-        pizarra.classList.remove('hidden');
-        
-        // Estructura clásica: Dividendo a la izquierda, línea vertical, Divisor a la derecha.
-        // Cociente arriba del divisor.
+      function revelarElementoPizarra(nPaso: number) {
+        // El paso 1 ya se ve la división inicial (248 | 4)
+        // Al acertar el paso 1, se revela la resta (paso 2)
         if (nPaso === 1) {
-          pizarraContenido.innerHTML = `
-            <div class="cuadro-division">
-              <div class="fila-division">
-                <div class="lado-dividendo">
-                  <span class="numero">248</span>
-                </div>
-                <div class="linea-vertical"></div>
-                <div class="lado-divisor">
-                  <span class="numero">4</span>
-                </div>
-              </div>
-            </div>
-            <p class="pizarra-nota">Vamos a buscar cuántas veces cabe 4 en 24.</p>
-          `;
-        } else if (nPaso === 2) {
-          pizarraContenido.innerHTML = `
-            <div class="cuadro-division">
-              <div class="fila-division">
-                <div class="lado-dividendo">
-                  <span class="numero">248</span>
-                  <div class="resta">- 24</div>
-                  <div class="linea-horizontal"></div>
-                </div>
-                <div class="linea-vertical"></div>
-                <div class="lado-divisor">
-                  <span class="numero">4</span>
-                </div>
-              </div>
-            </div>
-            <p class="pizarra-nota">6 × 4 = 24. Usamos 24 láminas.</p>
-          `;
-        } else if (nPaso === 3) {
-          pizarraContenido.innerHTML = `
-            <div class="cuadro-division">
-              <div class="fila-division">
-                <div class="lado-dividendo">
-                  <span class="numero">248</span>
-                  <div class="resta">- 24</div>
-                  <div class="linea-horizontal"></div>
-                  <div class="resultado">08</div>
-                </div>
-                <div class="linea-vertical"></div>
-                <div class="lado-divisor">
-                  <span class="numero">4</span>
-                </div>
-              </div>
-            </div>
-            <p class="pizarra-nota">Nos quedan 08 láminas por repartir.</p>
-          `;
-        } else if (nPaso >= 4) {
-          pizarraContenido.innerHTML = `
-            <div class="cuadro-division">
-              <div class="fila-division">
-                <div class="lado-dividendo">
-                  <span class="numero">248</span>
-                  <div class="resta">- 24</div>
-                  <div class="linea-horizontal"></div>
-                  <div class="resultado">08</div>
-                  <div class="resta">- 08</div>
-                  <div class="linea-horizontal"></div>
-                  <div class="resultado-final">00</div>
-                </div>
-                <div class="linea-vertical"></div>
-                <div class="lado-divisor">
-                  <div class="cociente">62</div>
-                  <div class="numero">4</div>
-                </div>
-              </div>
-            </div>
-            <p class="pizarra-nota">¡Listo! 248 ÷ 4 = 62.</p>
-          `;
+          cociente?.classList.remove('hidden');
+          resta1?.classList.remove('hidden');
+          linea1?.classList.remove('hidden');
+          resultado1?.classList.remove('hidden');
+        }
+        // Al acertar el paso 2, se baja el 8 (paso 3)
+        else if (nPaso === 2) {
+          bajada?.classList.remove('hidden');
+        }
+        // Al acertar el paso 3, se revela la segunda resta (paso 4)
+        else if (nPaso === 3) {
+          resta2?.classList.remove('hidden');
+          linea2?.classList.remove('hidden');
+          resultado2?.classList.remove('hidden');
         }
       }
 
@@ -163,7 +177,8 @@ const { problema } = Astro.props;
 
           pasoElement.querySelectorAll('.btn-opcion').forEach((b: any) => b.disabled = true);
 
-          actualizarPizarra(pasoActual + 1);
+          // Actualizar la pizarra
+          revelarElementoPizarra(pasoActual + 1);
 
           setTimeout(() => {
             pasoActual++;
@@ -210,82 +225,72 @@ const { problema } = Astro.props;
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
   }
-  .pizarra-viva.hidden { display: none; }
 
   .pizarra-contenido {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e293b;
+  }
+
+  .division-layout {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
-  .cuadro-division {
-    display: inline-block;
-  }
-
-  .fila-division {
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .lado-dividendo {
+  .lado-izquierdo {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1e293b;
+    padding-right: 0.5rem;
   }
 
-  .lado-divisor {
+  .lado-derecho {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1e293b;
     padding-left: 0.5rem;
-  }
-
-  .linea-vertical {
     border-left: 2px solid #1e293b;
-    margin: 0 0.5rem;
-    min-height: 4rem;
   }
 
-  .linea-horizontal {
+  /* Líneas y alineaciones */
+  .linea-division {
     width: 100%;
     border-top: 2px solid #1e293b;
     margin: 0.2rem 0;
   }
 
+  .fila-resta {
+    display: flex;
+    gap: 0.5rem;
+    color: #dc2626;
+  }
+
+  .fila-resultado {
+    color: #16a34a;
+  }
+
+  .fila-resultado.final {
+    color: #1e293b;
+  }
+
+  .fila-bajada {
+    margin-top: 0.2rem;
+  }
+
   .cociente {
-    color: #2563eb; /* Azul para el resultado final */
-    border-bottom: 2px solid #1e293b; /* Línea bajo el cociente */
+    color: #2563eb;
+    border-bottom: 2px solid #1e293b;
     padding-bottom: 0.2rem;
     margin-bottom: 0.2rem;
     width: 100%;
     text-align: center;
   }
 
-  .resta {
-    color: #dc2626;
-  }
-
-  .resultado, .resultado-final {
-    color: #16a34a;
-  }
-
-  .pizarra-nota {
-    font-family: sans-serif;
-    font-size: 0.85rem;
-    color: #92400e;
-    margin-top: 1rem;
-    text-align: center;
-  }
+  .hidden { display: none !important; }
 
   /* ESTILOS DE LOS PASOS */
   .paso-item {
@@ -296,7 +301,6 @@ const { problema } = Astro.props;
     margin-bottom: 1rem;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   }
-  .paso-item.hidden { display: none; }
 
   .paso-badge {
     display: inline-block;
@@ -340,14 +344,8 @@ const { problema } = Astro.props;
     color: #3b82f6;
   }
 
-  .btn-opcion:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-
   .feedback-paso {
     font-size: 0.9rem;
     font-weight: 600;
   }
-  .feedback-paso.hidden { display: none; }
 </style>
