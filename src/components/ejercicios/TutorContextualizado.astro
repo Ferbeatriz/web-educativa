@@ -77,7 +77,7 @@ const strResto = resto.toString();
               {strPrimerResultado}
             </div>
             
-            <!-- - 08 (Segunda resta, se activa cuando se baja el 8) -->
+                        <!-- - 08 (Segunda resta) -->
             <div class="resta hidden" id={`resta2-${problema.id}`}>
               <span class="simbolo">-</span> {strSegundaResta}
             </div>
@@ -146,16 +146,16 @@ const strResto = resto.toString();
       // Mostrar el primer paso
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
-      // Función para revelar paso a paso
+            // Función para revelar paso a paso
       function actualizarPizarra(pasoTerminado: number) {
-        // Al terminar el Paso 1, mostramos el cociente completo y la primera resta
+        // Al terminar el Paso 1, mostramos el cociente en la ecuación y la primera resta
         if (pasoTerminado === 1) {
           cocienteInicial?.classList.remove('hidden');
           resta1?.classList.remove('hidden');
           linea1?.classList.remove('hidden');
           res1?.classList.remove('hidden');
         }
-        // Al terminar el Paso 2, mostramos la segunda resta (bajamos el 8)
+        // Al terminar el Paso 2, mostramos la segunda resta y su línea
         else if (pasoTerminado === 2) {
           resta2?.classList.remove('hidden');
           linea2?.classList.remove('hidden');
