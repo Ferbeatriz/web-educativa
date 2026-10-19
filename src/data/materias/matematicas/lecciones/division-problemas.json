@@ -116,7 +116,7 @@
             ]
           }
         },
-        {
+                {
           "id": "div-prob-002",
           "dificultad": "media",
           "contexto": {
@@ -135,168 +135,110 @@
           "cociente_esperado": 62,
           "resto_esperado": 0,
           "explicacion_breve": "248 láminas ÷ 4 sobres = 62 láminas por sobre. No sobra ninguna.",
+          "pizarra": [
+            {
+              "paso": 1,
+              "texto": "Primero, miramos el número de la izquierda. ¿Podemos dividir 2 entre 4? ¡No! Entonces, tomamos dos cifras: el 24."
+            },
+            {
+              "paso": 2,
+              "texto": "Pensemos: ¿4 por cuánto me da 24? ¡4 por 6 es 24! Escribimos el 6 en el cociente y restamos 24 menos 24 = 00."
+            },
+            {
+              "paso": 3,
+              "texto": "Ahora bajamos la siguiente cifra: el 8. Lo juntamos con el cero que nos quedó. Ahora tenemos 008. ¿Cuántas láminas quedan por repartir? (248 - 24 = 224)."
+            },
+            {
+              "paso": 4,
+              "texto": "Dividimos el 8 entre 4. ¡Exacto, 2! Escribimos el 2 al lado del 6. Multiplicamos 4 por 2 = 8, y lo restamos. 8 menos 8 es 0."
+            },
+            {
+              "paso": 5,
+              "texto": "Sumamos las láminas usadas: 24 + 20 = 44."
+            },
+            {
+              "paso": 6,
+              "texto": "Como ya no quedan más números para bajar, hemos terminado. El resultado es 62 y el resto es 0. ¡Gran trabajo!"
+            }
+          ],
           "tutor": {
             "pasos": [
               {
                 "n": 1,
                 "pregunta": "María tiene 248 láminas y las reparte en 4 sobres. ¿Cuántas veces cabe 4 en 24?",
                 "tipo": "opciones",
-                "opciones": [
-                  "6",
-                  "5",
-                  "7",
-                  "8"
-                ],
+                "opciones": ["6", "5", "7", "8"],
                 "respuesta_correcta": "6",
                 "feedback_correcto": "¡Exacto! 4 cabe 6 veces en 24. Van 6 láminas por sobre.",
                 "errores_comunes": {
-                  "5": {
-                    "mensaje": "5 no es correcto. 4 × 5 = 20 láminas, y faltarían 4 por repartir.",
-                    "error_type": "subestimacion"
-                  },
-                  "7": {
-                    "mensaje": "7 no es correcto. 4 × 7 = 28 láminas, y solo hay 24 en ese grupo.",
-                    "error_type": "sobreestimacion"
-                  },
-                  "8": {
-                    "mensaje": "8 no es correcto. 4 × 8 = 32 láminas, y solo hay 24.",
-                    "error_type": "sobreestimacion"
-                  }
+                  "5": { "mensaje": "5 no es correcto. 4 × 5 = 20 láminas, y faltarían 4 por repartir.", "error_type": "subestimacion" },
+                  "7": { "mensaje": "7 no es correcto. 4 × 7 = 28 láminas, y solo hay 24 en ese grupo.", "error_type": "sobreestimacion" },
+                  "8": { "mensaje": "8 no es correcto. 4 × 8 = 32 láminas, y solo hay 24.", "error_type": "sobreestimacion" }
                 }
               },
               {
                 "n": 2,
                 "pregunta": "Si usamos 6 láminas por sobre, ¿cuántas láminas se usaron en los primeros 4 sobres?",
                 "tipo": "opciones",
-                "opciones": [
-                  "24",
-                  "20",
-                  "28",
-                  "30"
-                ],
+                "opciones": ["24", "20", "28", "30"],
                 "respuesta_correcta": "24",
                 "feedback_correcto": "¡Correcto! 4 sobres × 6 láminas = 24 láminas usadas.",
                 "errores_comunes": {
-                  "20": {
-                    "mensaje": "20 láminas no es correcto. 4 × 6 = 24, no 20.",
-                    "error_type": "error_calculo_mult"
-                  },
-                  "28": {
-                    "mensaje": "28 láminas no es correcto. 4 × 6 = 24, no 28.",
-                    "error_type": "error_calculo_mult"
-                  },
-                  "30": {
-                    "mensaje": "30 láminas no es correcto. 4 × 6 = 24, no 30.",
-                    "error_type": "error_calculo_mult"
-                  }
+                  "20": { "mensaje": "20 láminas no es correcto. 4 × 6 = 24, no 20.", "error_type": "error_calculo_mult" },
+                  "28": { "mensaje": "28 láminas no es correcto. 4 × 6 = 24, no 28.", "error_type": "error_calculo_mult" },
+                  "30": { "mensaje": "30 láminas no es correcto. 4 × 6 = 24, no 30.", "error_type": "error_calculo_mult" }
                 }
               },
               {
                 "n": 3,
                 "pregunta": "María tenía 248 láminas y ya usó 24. ¿Cuántas láminas quedan por repartir?",
                 "tipo": "opciones",
-                "opciones": [
-                  "224",
-                  "234",
-                  "214",
-                  "204"
-                ],
+                "opciones": ["224", "234", "214", "204"],
                 "respuesta_correcta": "224",
                 "feedback_correcto": "¡Bien! 248 − 24 = 224 láminas quedan por repartir.",
                 "errores_comunes": {
-                  "204": {
-                    "mensaje": "204 no es correcto. 248 − 24 = 224, no 204.",
-                    "error_type": "error_resta_intermedia"
-                  },
-                  "214": {
-                    "mensaje": "214 no es correcto. 248 − 24 = 224, no 214.",
-                    "error_type": "error_resta_intermedia"
-                  },
-                  "234": {
-                    "mensaje": "234 no es correcto. 248 − 24 = 224, no 234.",
-                    "error_type": "error_resta_intermedia"
-                  }
+                  "204": { "mensaje": "204 no es correcto. 248 − 24 = 224, no 204.", "error_type": "error_resta_intermedia" },
+                  "214": { "mensaje": "214 no es correcto. 248 − 24 = 224, no 214.", "error_type": "error_resta_intermedia" },
+                  "234": { "mensaje": "234 no es correcto. 248 − 24 = 224, no 234.", "error_type": "error_resta_intermedia" }
                 }
               },
               {
                 "n": 4,
                 "pregunta": "Ahora repartimos las 224 láminas que quedan en los 4 sobres. ¿Cuántas veces cabe 4 en 22?",
                 "tipo": "opciones",
-                "opciones": [
-                  "5",
-                  "4",
-                  "6",
-                  "7"
-                ],
+                "opciones": ["5", "4", "6", "7"],
                 "respuesta_correcta": "5",
                 "feedback_correcto": "¡Exacto! 4 cabe 5 veces en 22. Van 5 láminas más por sobre.",
                 "errores_comunes": {
-                  "4": {
-                    "mensaje": "4 no es correcto. 4 × 4 = 16 láminas, y faltarían 6 por repartir.",
-                    "error_type": "subestimacion"
-                  },
-                  "6": {
-                    "mensaje": "6 no es correcto. 4 × 6 = 24 láminas, y solo hay 22 en ese grupo.",
-                    "error_type": "sobreestimacion"
-                  },
-                  "7": {
-                    "mensaje": "7 no es correcto. 4 × 7 = 28 láminas, y solo hay 22.",
-                    "error_type": "sobreestimacion"
-                  }
+                  "4": { "mensaje": "4 no es correcto. 4 × 4 = 16 láminas, y faltarían 6 por repartir.", "error_type": "subestimacion" },
+                  "6": { "mensaje": "6 no es correcto. 4 × 6 = 24 láminas, y solo hay 22 en ese grupo.", "error_type": "sobreestimacion" },
+                  "7": { "mensaje": "7 no es correcto. 4 × 7 = 28 láminas, y solo hay 22.", "error_type": "sobreestimacion" }
                 }
               },
               {
                 "n": 5,
                 "pregunta": "Si usamos 5 láminas más por sobre, ¿cuántas láminas se usaron en total?",
                 "tipo": "opciones",
-                "opciones": [
-                  "44",
-                  "40",
-                  "48",
-                  "50"
-                ],
+                "opciones": ["44", "40", "48", "50"],
                 "respuesta_correcta": "44",
                 "feedback_correcto": "¡Correcto! 4 sobres × 5 láminas = 20 láminas más. En total: 24 + 20 = 44 láminas usadas.",
                 "errores_comunes": {
-                  "40": {
-                    "mensaje": "40 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.",
-                    "error_type": "error_suma_total"
-                  },
-                  "48": {
-                    "mensaje": "48 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.",
-                    "error_type": "error_suma_total"
-                  },
-                  "50": {
-                    "mensaje": "50 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.",
-                    "error_type": "error_suma_total"
-                  }
+                  "40": { "mensaje": "40 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.", "error_type": "error_suma_total" },
+                  "48": { "mensaje": "48 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.", "error_type": "error_suma_total" },
+                  "50": { "mensaje": "50 no es correcto. 4 × 5 = 20, más las 24 anteriores = 44.", "error_type": "error_suma_total" }
                 }
               },
               {
                 "n": 6,
                 "pregunta": "¿Cuántas láminas quedaron sin repartir?",
                 "tipo": "opciones",
-                "opciones": [
-                  "0",
-                  "1",
-                  "2",
-                  "4"
-                ],
+                "opciones": ["0", "1", "2", "4"],
                 "respuesta_correcta": "0",
                 "feedback_correcto": "¡Bien! 248 − 248 = 0. No sobra ninguna lámina.",
                 "errores_comunes": {
-                  "1": {
-                    "mensaje": "1 lámina no es correcto. Todas las láminas se repartieron.",
-                    "error_type": "resto_mayor_divisor"
-                  },
-                  "2": {
-                    "mensaje": "2 láminas no es correcto. Todas las láminas se repartieron.",
-                    "error_type": "resto_mayor_divisor"
-                  },
-                  "4": {
-                    "mensaje": "4 láminas no es correcto. Todas las láminas se repartieron.",
-                    "error_type": "resto_mayor_divisor"
-                  }
+                  "1": { "mensaje": "1 lámina no es correcto. Todas las láminas se repartieron.", "error_type": "resto_mayor_divisor" },
+                  "2": { "mensaje": "2 láminas no es correcto. Todas las láminas se repartieron.", "error_type": "resto_mayor_divisor" },
+                  "4": { "mensaje": "4 láminas no es correcto. Todas las láminas se repartieron.", "error_type": "resto_mayor_divisor" }
                 }
               }
             ]
