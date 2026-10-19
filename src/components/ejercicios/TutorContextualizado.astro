@@ -7,13 +7,13 @@ interface Props {
 
 const { problema } = Astro.props;
 
-// Extraemos los datos para armar la pizarra
+// Extraemos los datos
 const dividendo = problema.dividendo;
 const divisor = problema.divisor;
 const cociente = problema.cociente_esperado;
 const resto = problema.resto_esperado;
 
-// Para el problema de ejemplo (248 / 4), calculamos las partes de la división
+// Cálculos para el problema (asumiendo 248 / 4)
 const primerasDosCifras = Math.floor(dividendo / 10);
 const primeraResta = Math.floor(primerasDosCifras / divisor) * divisor;
 const primerResultado = primerasDosCifras - primeraResta;
@@ -21,7 +21,6 @@ const segundaCifra = dividendo % 10;
 const numeroBajado = parseInt(`${primerResultado}${segundaCifra}`);
 const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 
-// Convertimos a strings para mostrar en la pizarra
 const strDividendo = dividendo.toString();
 const strCociente = cociente.toString();
 const strDivisor = divisor.toString();
@@ -42,11 +41,11 @@ const strResto = resto.toString();
     </div>
   </div>
 
-  <!-- LA PIZARRA (Siempre visible) -->
+  <!-- LA PIZARRA -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     <div class="pizarra-contenido">
       
-      <!-- Ecuación inicial completa: 248 : 4 = 62 -->
+      <!-- Ecuación inicial -->
       <div class="ecuacion-inicial">
         <span class="resaltado-amarillo">{strDividendo}</span>
         <span> : </span>
@@ -55,48 +54,39 @@ const strResto = resto.toString();
         <span class="resaltado-morado cociente-inicial hidden" id={`cociente-inicial-${problema.id}`}>{strCociente}</span>
       </div>
 
-      <!-- Cuenta larga (se va armando) -->
+      <!-- Cuenta larga -->
       <div class="cuenta-larga">
-        
-        <!-- Fila del dividendo y primera resta -->
-        <div class="fila-cuenta">
-          <div class="columna-numeros">
-            <!-- 248 (Se tacha o se deja) -->
-            <div class="numero-dividendo" id={`div-${problema.id}`}>
-              {strDividendo}
-            </div>
-            
-            <!-- - 24 -->
-            <div class="resta hidden" id={`resta1-${problema.id}`}>
-              <span class="simbolo">-</span> {strPrimeraResta}
-            </div>
-            <div class="linea-cuenta hidden" id={`linea1-${problema.id}`}></div>
-            
-            <!-- 08 (Resultado de la primera resta) -->
-            <div class="resultado hidden" id={`res1-${problema.id}`}>
-              {strPrimerResultado}
-            </div>
-            
-                        <!-- - 08 (Segunda resta) -->
-            <div class="resta hidden" id={`resta2-${problema.id}`}>
-              <span class="simbolo">-</span> {strSegundaResta}
-            </div>
-            <div class="linea-cuenta hidden" id={`linea2-${problema.id}`}></div>
-            
-            <!-- 0 (Resto final) -->
-            <div class="resto hidden" id={`res2-${problema.id}`}>
-              {strResto}
-            </div>
+        <div class="columna-numeros">
+          
+          <div class="numero-dividendo">{strDividendo}</div>
+          
+          <!-- RESTA 1 (Aparece en Paso 1) -->
+          <div class="resta hidden" id={`resta1-${problema.id}`}>
+            <span class="simbolo">-</span> {strPrimeraResta}
+          </div>
+          <div class="linea-cuenta hidden" id={`linea1-${problema.id}`}></div>
+          
+          <!-- RESULTADO 1 (Aparece en Paso 2) -->
+          <div class="resultado hidden" id={`res1-${problema.id}`}>
+            {strPrimerResultado}
+          </div>
+          
+          <!-- BAJADA + RESTA 2 (Aparecen en Paso 3) -->
+          <div class="resta hidden" id={`resta2-${problema.id}`}>
+            <span class="simbolo">-</span> {strSegundaResta}
+          </div>
+          <div class="linea-cuenta hidden" id={`linea2-${problema.id}`}></div>
+          
+          <!-- RESTO FINAL (Aparece en Paso 4) -->
+          <div class="resto hidden" id={`res2-${problema.id}`}>
+            {strResto}
           </div>
         </div>
-
       </div>
 
-      <!-- Etiqueta de "Resto" al final -->
       <div class="etiqueta-resto hidden" id={`etiqueta-resto-${problema.id}`}>
         Resto
       </div>
-
     </div>
   </div>
 
@@ -133,7 +123,7 @@ const strResto = resto.toString();
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      // Referencias a los elementos de la pizarra
+      // Referencias
       const cocienteInicial = tutor.querySelector(`#cociente-inicial-${problemaId}`);
       const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
       const linea1 = tutor.querySelector(`#linea1-${problemaId}`);
@@ -143,25 +133,22 @@ const strResto = resto.toString();
       const res2 = tutor.querySelector(`#res2-${problemaId}`);
       const etiquetaResto = tutor.querySelector(`#etiqueta-resto-${problemaId}`);
 
-      // Mostrar el primer paso
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
-            // Función para revelar paso a paso
       function actualizarPizarra(pasoTerminado: number) {
-        // Al terminar el Paso 1, mostramos el cociente en la ecuación y la primera resta
         if (pasoTerminado === 1) {
           cocienteInicial?.classList.remove('hidden');
           resta1?.classList.remove('hidden');
           linea1?.classList.remove('hidden');
+        }
+        else if (pasoTerminado === 2) {
           res1?.classList.remove('hidden');
         }
-        // Al terminar el Paso 2, mostramos la segunda resta y su línea
-        else if (pasoTerminado === 2) {
+        else if (pasoTerminado === 3) {
           resta2?.classList.remove('hidden');
           linea2?.classList.remove('hidden');
         }
-        // Al terminar el Paso 3, mostramos el resto final
-        else if (pasoTerminado === 3) {
+        else if (pasoTerminado === 4) {
           res2?.classList.remove('hidden');
           etiquetaResto?.classList.remove('hidden');
         }
@@ -210,6 +197,7 @@ const strResto = resto.toString();
 </script>
 
 <style>
+  /* ... (los estilos se mantienen igual que en el mensaje anterior) ... */
   .tutor-wrapper {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
@@ -228,7 +216,6 @@ const strResto = resto.toString();
   .tutor-titulo { font-size: 1.1rem; font-weight: 700; color: #334155; margin: 0; }
   .tutor-subtitulo { font-size: 0.9rem; color: #64748b; font-style: italic; margin: 0; }
 
-  /* ESTILOS DE LA PIZARRA */
   .pizarra-viva {
     background: #fff;
     border: 2px solid #e2e8f0;
@@ -246,7 +233,6 @@ const strResto = resto.toString();
     color: #1e293b;
   }
 
-  /* Ecuación inicial (147 : 4 = 36) */
   .ecuacion-inicial {
     display: flex;
     align-items: center;
@@ -259,7 +245,6 @@ const strResto = resto.toString();
   .resaltado-azul { background: #bae6fd; padding: 0.1rem 0.3rem; border-radius: 4px; }
   .resaltado-morado { background: #e9d5ff; padding: 0.1rem 0.3rem; border-radius: 4px; }
 
-  /* Cuenta larga */
   .cuenta-larga {
     display: flex;
     flex-direction: column;
@@ -273,9 +258,7 @@ const strResto = resto.toString();
     align-items: flex-end;
   }
 
-  .numero-dividendo {
-    color: #1e293b;
-  }
+  .numero-dividendo { color: #1e293b; }
 
   .resta {
     display: flex;
@@ -284,9 +267,7 @@ const strResto = resto.toString();
     margin-top: 0.2rem;
   }
 
-  .simbolo {
-    margin-right: 0.5rem;
-  }
+  .simbolo { margin-right: 0.5rem; }
 
   .linea-cuenta {
     width: 100%;
@@ -294,13 +275,8 @@ const strResto = resto.toString();
     margin: 0.2rem 0;
   }
 
-  .resultado {
-    color: #1e293b;
-  }
-
-  .resto {
-    color: #ea580c;
-  }
+  .resultado { color: #1e293b; }
+  .resto { color: #ea580c; }
 
   .etiqueta-resto {
     margin-top: 0.2rem;
@@ -313,7 +289,6 @@ const strResto = resto.toString();
 
   .hidden { display: none !important; }
 
-  /* ESTILOS DE LOS PASOS */
   .paso-item {
     background: white;
     border: 1px solid #e2e8f0;
