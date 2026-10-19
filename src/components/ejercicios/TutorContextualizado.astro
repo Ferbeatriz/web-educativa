@@ -122,11 +122,15 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
           // Al terminar Paso 3 (224), bajamos el 8.
           bajada?.classList.remove('hidden');
         }
-        else if (pasoTerminado === 4) {
+               else if (pasoTerminado === 4) {
+
           // Al terminar Paso 4 (5), mostramos la segunda resta.
           resta2?.classList.remove('hidden');
         }
-      }
+        else if (pasoTerminado === 5) {
+          // Al terminar Paso 5, mostramos el resultado final.
+          cocienteDiv?.classList.remove('hidden');
+        }
 
       tutor.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
