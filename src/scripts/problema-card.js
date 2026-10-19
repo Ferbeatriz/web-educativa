@@ -28,7 +28,6 @@ document.addEventListener('click', (e) => {
   const cocienteUsuario = parseInt(inputCociente.value);
   const restoUsuario = parseInt(inputResto.value);
 
-  // Validar que ambos campos estén llenos
   if (isNaN(cocienteUsuario) || isNaN(restoUsuario)) {
     feedback.hidden = false;
     feedback.className = 'feedback feedback-error';
@@ -45,7 +44,7 @@ document.addEventListener('click', (e) => {
     feedback.className = 'feedback feedback-correcto';
     feedback.innerHTML = '✅ ¡Muy bien! Cociente: ' + cocienteEsperado + ', Resto: ' + restoEsperado + '.';
     
-    if (animacionContainer) animacionContainer.hidden = true; // Ocultar animación si estaba visible
+    if (animacionContainer) animacionContainer.innerHTML = ''; // Limpiar animación si había
     
     btn.setAttribute('disabled', 'true');
     inputCociente.setAttribute('disabled', 'true');
@@ -79,20 +78,17 @@ document.addEventListener('click', (e) => {
     mensaje += 'Vamos a resolverlo juntos.';
     feedback.innerHTML = mensaje;
 
-    // --- LÓGICA DE LA ANIMACIÓN (SOLO EN ERROR) ---
+       // --- ANIMACIÓN ---
+    // Solo mostramos la animación si el número es pequeño (ej. 10, 20) 
+    // para que los bloques no hagan colapsar la pantalla.
     if (animacionContainer) {
-      animacionContainer.hidden = false;
       animacionContainer.innerHTML = ''; 
-
-      if (customElements.get('animacion-division')) {
+      
+      if (dividendo <= 50) {
         renderizarAnimacion(animacionContainer, dividendo, divisor, cocienteUsuario, cocienteEsperado);
-      } else {
-        customElements.whenDefined('animacion-division').then(() => {
-          renderizarAnimacion(animacionContainer, dividendo, divisor, cocienteUsuario, cocienteEsperado);
-        });
       }
     }
-    // ----------------------------------------------
+    // ------------------------------
 
     tutorContainer.hidden = false;
     tutorContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -108,7 +104,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Función auxiliar para instanciar y renderizar la animación
 function renderizarAnimacion(container, dividendo, divisor, cocienteUsuario, cocienteEsperado) {
   const animacion = document.createElement('animacion-division');
   container.appendChild(animacion);
@@ -133,5 +128,12 @@ function renderizarAnimacion(container, dividendo, divisor, cocienteUsuario, coc
 
   if (typeof animacion.render === 'function') {
     animacion.render(visual, escenario);
+  } else {
+    // Si el componente aún no está listo, esperamos un poco
+    setTimeout(() => {
+      if (typeof animacion.render === 'function') {
+        animacion.render(visual, escenario);
+      }
+    }, 100);
   }
 }
