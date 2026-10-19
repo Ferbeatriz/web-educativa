@@ -11,7 +11,15 @@ const divisor = problema.divisor;
 const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
 const resto = problema.resto_esperado;
-const guionPizarra = problema.pizarra || []; // Leemos el nuevo campo
+
+// Cálculos para el problema (asumiendo 248 / 4)
+const primeraCifra = Math.floor(dividendo / 100);
+const dosPrimeras = Math.floor(dividendo / 10);
+const primeraResta = Math.floor(dosPrimeras / divisor) * divisor;
+const primerResultado = dosPrimeras - primeraResta;
+const segundaCifra = dividendo % 10;
+const numeroBajado = parseInt(`${primerResultado}${segundaCifra}`);
+const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 ---
 
 <div class="tutor-wrapper" data-problema={problema.id}>
@@ -27,46 +35,42 @@ const guionPizarra = problema.pizarra || []; // Leemos el nuevo campo
   <!-- LA PIZARRA -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     
-    <div class="planteamiento-inicial">
-      <span class="resaltado-amarillo">{dividendo}</span> : 
-      <span class="resaltado-azul">{divisor}</span> = 
-      <span class="resaltado-morado cociente-final hidden" id={`cociente-final-${problema.id}`}>{cociente}</span>
-      <span class="signo-pregunta cociente-final" id={`pregunta-${problema.id}`}>?</span>
-    </div>
-
-    <div class="pizarra-layout">
-      <!-- Columna izquierda: La cuenta matemática -->
-      <div class="columna-matematica">
+    <div class="cuadricula-division">
+      <!-- Columna izquierda: La cuenta -->
+      <div class="lado-izquierdo">
         
-        <div class="fila-numero">
-          <span class="cifra-24" id={`cifra24-${problema.id}`}>{Math.floor(dividendo / 10)}</span>
-          <span class="cifra-8" id={`cifra8-${problema.id}`}>{dividendo % 10}</span>
+        <!-- Fila 0: El dividendo inicial -->
+        <div class="fila-dividendo">
+          <span>{dividendo}</span>
         </div>
 
-        <div class="cuenta-larga hidden" id={`resta1-${problema.id}`}>
-          <div class="numero">- {Math.floor(Math.floor(dividendo / 10) / divisor) * divisor}</div>
-          <div class="linea"></div>
-          <div class="resultado">00</div>
+        <!-- Fila 1: Primera resta -->
+        <div class="fila-resta hidden" id={`resta1-${problema.id}`}>
+          <span class="numero-resta">- {primeraResta}</span>
+          <div class="linea-horizontal"></div>
+          <span class="resultado-resta">{String(primerResultado).padStart(2, '0')}</span>
         </div>
 
-        <div class="bajada hidden" id={`bajada-${problema.id}`}>
-          008
+        <!-- Fila 2: Bajar el 8 -->
+        <div class="fila-resta hidden" id={`bajada-${problema.id}`}>
+          <span class="numero-bajado">{String(primerResultado).padStart(2, '0')}{segundaCifra}</span>
         </div>
 
-        <div class="cuenta-larga hidden" id={`resta2-${problema.id}`}>
-          <div class="numero">- {Math.floor((dividendo % 10) / divisor) * divisor}</div>
-          <div class="linea"></div>
-          <div class="resultado">{resto}</div>
+        <!-- Fila 3: Segunda resta -->
+        <div class="fila-resta hidden" id={`resta2-${problema.id}`}>
+          <span class="numero-resta">- {Math.floor(numeroBajado / divisor) * divisor}</span>
+          <div class="linea-horizontal"></div>
+          <span class="resultado-resta">{resto}</span>
         </div>
+
       </div>
 
-      <!-- Columna derecha: Las explicaciones flotantes (dinámicas desde el JSON) -->
-      <div class="columna-explicaciones">
-        {guionPizarra.map((item: any) => (
-          <div class="explicacion hidden" id={`exp-${item.paso}-${problema.id}`} data-paso={item.paso}>
-            {item.texto}
-          </div>
-        ))}
+      <!-- Columna derecha: Divisor y Cociente -->
+      <div class="lado-derecho">
+        <!-- Cociente (se va armando) -->
+        <div class="cociente-actual" id={`cociente-${problema.id}`}></div>
+        <!-- Divisor (siempre fijo) -->
+        <div class="divisor-fijo">{divisor}</div>
       </div>
     </div>
 
@@ -105,40 +109,31 @@ const guionPizarra = problema.pizarra || []; // Leemos el nuevo campo
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      // Elementos visuales
-      const cocienteFinal = tutor.querySelector(`#cociente-final-${problemaId}`);
-      const pregunta = tutor.querySelector(`#pregunta-${problemaId}`);
+      // Referencias a la pizarra
+      const cocienteDiv = tutor.querySelector(`#cociente-${problemaId}`);
       const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
       const bajada = tutor.querySelector(`#bajada-${problemaId}`);
       const resta2 = tutor.querySelector(`#resta2-${problemaId}`);
-      
-      // Explicaciones dinámicas
-      const explicaciones = Array.from(tutor.querySelectorAll('.explicacion')) as HTMLElement[];
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
-      // Mostrar la explicación inicial (Paso 1) antes de que conteste
-      const expInicial = explicaciones.find(el => el.getAttribute('data-paso') === '1');
-      if (expInicial) expInicial.classList.remove('hidden');
-
       function actualizarPizarra(pasoTerminado: number) {
-        // Mostrar la explicación correspondiente al paso terminado
-        const expActiva = explicaciones.find(el => el.getAttribute('data-paso') === pasoTerminado.toString());
-        if (expActiva) expActiva.classList.remove('hidden');
-
-        // Mostrar los elementos matemáticos
         if (pasoTerminado === 1) {
-          resta1?.classList.remove('hidden');
+          // Al terminar Paso 1, agregamos el 6 al cociente.
+          if (cocienteDiv) cocienteDiv.textContent = '6';
         }
         else if (pasoTerminado === 2) {
-          bajada?.classList.remove('hidden');
+          // Al terminar Paso 2, mostramos la primera resta.
+          resta1?.classList.remove('hidden');
         }
         else if (pasoTerminado === 3) {
-          resta2?.classList.remove('hidden');
+          // Al terminar Paso 3, bajamos el 8.
+          bajada?.classList.remove('hidden');
         }
         else if (pasoTerminado === 4) {
-          pregunta?.classList.add('hidden');
-          cocienteFinal?.classList.remove('hidden');
+          // Al terminar Paso 4, completamos el cociente (62) y mostramos la segunda resta.
+          if (cocienteDiv) cocienteDiv.textContent = '62';
+          resta2?.classList.remove('hidden');
         }
       }
 
@@ -185,40 +180,162 @@ const guionPizarra = problema.pizarra || []; // Leemos el nuevo campo
 </script>
 
 <style>
-  /* Los estilos se mantienen igual a tu última versión exitosa */
-  .tutor-wrapper { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-top: 1rem; }
-  .tutor-header { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+  .tutor-wrapper {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .tutor-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
   .tutor-icon { font-size: 1.5rem; }
   .tutor-titulo { font-size: 1.1rem; font-weight: 700; color: #334155; margin: 0; }
   .tutor-subtitulo { font-size: 0.9rem; color: #64748b; font-style: italic; margin: 0; }
 
-  .pizarra-viva { background: #fffbeb; border: 2px dashed #fcd34d; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
-  .planteamiento-inicial { font-family: 'Courier New', Courier, monospace; font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem; color: #1e293b; }
-  .resaltado-amarillo { background: #fef08a; padding: 0.1rem 0.3rem; border-radius: 4px; }
-  .resaltado-azul { background: #bae6fd; padding: 0.1rem 0.3rem; border-radius: 4px; }
-  .resaltado-morado { background: #e9d5ff; padding: 0.1rem 0.3rem; border-radius: 4px; }
+  /* ESTILOS DE LA PIZARRA */
+  .pizarra-viva {
+    background: #fffbeb;
+    border: 2px dashed #fcd34d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
 
-  .pizarra-layout { display: flex; gap: 2rem; }
-  .columna-matematica { font-family: 'Courier New', Courier, monospace; font-size: 1.5rem; font-weight: bold; color: #1e293b; display: flex; flex-direction: column; gap: 0.2rem; min-width: 150px; }
-  .fila-numero { display: flex; position: relative; }
-  .cifra-24 { background: #fef08a; padding: 0 0.2rem; border-radius: 4px; }
-  .cifra-8 { padding: 0 0.2rem; }
+  .cuadricula-division {
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1e293b;
+    line-height: 1.2;
+  }
 
-  .columna-explicaciones { font-family: sans-serif; font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; padding-top: 0.5rem; border-left: 2px solid #fcd34d; padding-left: 1rem; }
-  .explicacion { background: #fef3c7; padding: 0.4rem 0.6rem; border-radius: 6px; font-style: italic; margin-bottom: 0.8rem; width: fit-content; border: 1px solid #fde68a; }
+  /* Lado izquierdo: los números y las restas */
+  .lado-izquierdo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 0.5rem;
+  }
 
-  .cuenta-larga { display: flex; flex-direction: column; align-items: flex-end; width: fit-content; margin-left: 2rem; }
-  .numero { color: #dc2626; }
-  .linea { border-top: 2px solid #1e293b; width: 100%; margin: 0.1rem 0; }
-  .resultado { color: #16a34a; }
-  .bajada { color: #1e293b; display: flex; gap: 0.1rem; margin-left: 2rem; font-size: 1.5rem; font-weight: bold;}
+  .fila-dividendo {
+    padding-right: 0;
+  }
+
+  .fila-resta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .numero-resta {
+    color: #dc2626;
+  }
+
+  .linea-horizontal {
+    width: 100%;
+    border-top: 3px solid #1e293b;
+    margin: 0.2rem 0;
+  }
+
+  .resultado-resta {
+    color: #16a34a;
+  }
+
+  .numero-bajado {
+    color: #1e293b;
+    margin-top: 0.2rem;
+  }
+
+  /* Lado derecho: divisor y cociente */
+  .lado-derecho {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 3px solid #1e293b;
+    padding-left: 0.5rem;
+  }
+
+  .cociente-actual {
+    color: #2563eb;
+    border-bottom: 3px solid #1e293b;
+    width: 100%;
+    min-height: 2rem;
+    margin-bottom: 0.2rem;
+    text-align: left;
+    letter-spacing: 0.1em;
+  }
+
+  .divisor-fijo {
+    color: #1e293b;
+  }
+
   .hidden { display: none !important; }
 
-  .paso-item { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-  .paso-badge { display: inline-block; background: #3b82f6; color: white; font-size: 0.75rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 0.5rem; }
-  .paso-pregunta { font-size: 1rem; color: #334155; margin-bottom: 1rem; line-height: 1.5; }
-  .opciones-grid { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn-opcion { background: white; border: 2px solid #cbd5e1; border-radius: 8px; padding: 0.5rem 1rem; font-size: 1rem; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; min-width: 60px; }
-  .btn-opcion:hover:not(:disabled) { border-color: #3b82f6; color: #3b82f6; }
-  .feedback-paso { font-size: 0.9rem; font-weight: 600; }
+  /* ESTILOS DE LOS PASOS */
+  .paso-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+
+  .paso-badge {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.5rem;
+  }
+
+  .paso-pregunta {
+    font-size: 1rem;
+    color: #334155;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .opciones-grid {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-opcion {
+    background: white;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 60px;
+  }
+
+  .btn-opcion:hover:not(:disabled) {
+    border-color: #3b82f6;
+    color: #3b82f6;
+  }
+
+  .feedback-paso {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
 </style>
