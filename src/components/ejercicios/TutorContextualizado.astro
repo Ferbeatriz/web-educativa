@@ -12,8 +12,6 @@ const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
 const resto = problema.resto_esperado;
 
-// Cálculos para el problema (asumiendo 248 / 4)
-const primeraCifra = Math.floor(dividendo / 100);
 const dosPrimeras = Math.floor(dividendo / 10);
 const primeraResta = Math.floor(dosPrimeras / divisor) * divisor;
 const primerResultado = dosPrimeras - primeraResta;
@@ -35,43 +33,37 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
   <!-- LA PIZARRA -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     
-    <div class="cuadricula-division">
-      <!-- Columna izquierda: La cuenta -->
-      <div class="lado-izquierdo">
-        
-        <!-- Fila 0: El dividendo inicial -->
-        <div class="fila-dividendo">
-          <span>{dividendo}</span>
-        </div>
+    <!-- Ecuación horizontal superior -->
+    <div class="ecuacion-horizontal">
+      <span class="dividendo">{dividendo}</span>
+      <span class="simbolo">:</span>
+      <span class="divisor">{divisor}</span>
+      <span class="simbolo">=</span>
+      <span class="cociente hidden" id={`cociente-${problema.id}`}>{cociente}</span>
+    </div>
 
-        <!-- Fila 1: Primera resta -->
-        <div class="fila-resta hidden" id={`resta1-${problema.id}`}>
-          <span class="numero-resta">- {primeraResta}</span>
-          <div class="linea-horizontal"></div>
-          <span class="resultado-resta">{String(primerResultado).padStart(2, '0')}</span>
-        </div>
-
-        <!-- Fila 2: Bajar el 8 -->
-        <div class="fila-resta hidden" id={`bajada-${problema.id}`}>
-          <span class="numero-bajado">{String(primerResultado).padStart(2, '0')}{segundaCifra}</span>
-        </div>
-
-        <!-- Fila 3: Segunda resta -->
-        <div class="fila-resta hidden" id={`resta2-${problema.id}`}>
-          <span class="numero-resta">- {Math.floor(numeroBajado / divisor) * divisor}</span>
-          <div class="linea-horizontal"></div>
-          <span class="resultado-resta">{resto}</span>
-        </div>
-
+    <!-- Resolución de la resta (escalera) -->
+    <div class="cuenta-larga">
+      
+      <!-- Fila 1: Primera resta -->
+      <div class="fila-resta hidden" id={`resta1-${problema.id}`}>
+        <span class="numero-resta">- {primeraResta}</span>
+        <div class="linea-horizontal"></div>
+        <span class="resultado-resta">{String(primerResultado).padStart(2, '0')}</span>
       </div>
 
-      <!-- Columna derecha: Divisor y Cociente -->
-      <div class="lado-derecho">
-        <!-- Cociente (se va armando) -->
-        <div class="cociente-actual" id={`cociente-${problema.id}`}></div>
-        <!-- Divisor (siempre fijo) -->
-        <div class="divisor-fijo">{divisor}</div>
+      <!-- Fila 2: Bajar el 8 -->
+      <div class="fila-resta hidden" id={`bajada-${problema.id}`}>
+        <span class="numero-bajado">{String(primerResultado).padStart(2, '0')}{segundaCifra}</span>
       </div>
+
+      <!-- Fila 3: Segunda resta -->
+      <div class="fila-resta hidden" id={`resta2-${problema.id}`}>
+        <span class="numero-resta">- {Math.floor(numeroBajado / divisor) * divisor}</span>
+        <div class="linea-horizontal"></div>
+        <span class="resultado-resta">{resto}</span>
+      </div>
+
     </div>
 
   </div>
@@ -119,20 +111,19 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 
       function actualizarPizarra(pasoTerminado: number) {
         if (pasoTerminado === 1) {
-          // Al terminar Paso 1, agregamos el 6 al cociente.
-          if (cocienteDiv) cocienteDiv.textContent = '6';
+          // Al terminar Paso 1 (6), mostramos el cociente.
+          cocienteDiv?.classList.remove('hidden');
         }
         else if (pasoTerminado === 2) {
-          // Al terminar Paso 2, mostramos la primera resta.
+          // Al terminar Paso 2 (24), mostramos la primera resta.
           resta1?.classList.remove('hidden');
         }
         else if (pasoTerminado === 3) {
-          // Al terminar Paso 3, bajamos el 8.
+          // Al terminar Paso 3 (224), bajamos el 8.
           bajada?.classList.remove('hidden');
         }
         else if (pasoTerminado === 4) {
-          // Al terminar Paso 4, completamos el cociente (62) y mostramos la segunda resta.
-          if (cocienteDiv) cocienteDiv.textContent = '62';
+          // Al terminar Paso 4 (5), mostramos la segunda resta.
           resta2?.classList.remove('hidden');
         }
       }
@@ -206,44 +197,50 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .cuadricula-division {
-    display: flex;
-    align-items: flex-start;
+  .ecuacion-horizontal {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #1e293b;
-    line-height: 1.2;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 
-  /* Lado izquierdo: los números y las restas */
-  .lado-izquierdo {
+  .cociente {
+    color: #2563eb;
+  }
+
+  .cuenta-larga {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    padding-right: 0.5rem;
-  }
-
-  .fila-dividendo {
-    padding-right: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e293b;
+    margin-left: 1rem; 
   }
 
   .fila-resta {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    width: 100%;
+    align-items: flex-start;
+    margin-top: 0.2rem;
   }
 
   .numero-resta {
     color: #dc2626;
+    margin-left: 1rem;
   }
 
   .linea-horizontal {
     width: 100%;
+    min-width: 80px;
     border-top: 3px solid #1e293b;
     margin: 0.2rem 0;
   }
@@ -255,29 +252,6 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
   .numero-bajado {
     color: #1e293b;
     margin-top: 0.2rem;
-  }
-
-  /* Lado derecho: divisor y cociente */
-  .lado-derecho {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border-left: 3px solid #1e293b;
-    padding-left: 0.5rem;
-  }
-
-  .cociente-actual {
-    color: #2563eb;
-    border-bottom: 3px solid #1e293b;
-    width: 100%;
-    min-height: 2rem;
-    margin-bottom: 0.2rem;
-    text-align: left;
-    letter-spacing: 0.1em;
-  }
-
-  .divisor-fijo {
-    color: #1e293b;
   }
 
   .hidden { display: none !important; }
