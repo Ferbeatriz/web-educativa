@@ -7,7 +7,7 @@ interface Props {
 
 const { problema } = Astro.props;
 
-// Datos base para la pizarra (usando el problema de 248 / 4)
+// Datos base
 const divisor = problema.divisor;
 const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
@@ -35,6 +35,11 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     <div class="pizarra-contenido">
       
+      <!-- PLANTEAMIENTO INICIAL (Siempre visible) -->
+      <div class="ecuacion">
+        {dividendo} : {divisor} = ?
+      </div>
+
       <!-- PASO 1: División inicial de dos cifras -->
       <div class="ecuacion hidden" id={`eq1-${problema.id}`}>
         {primerasDosCifras} : {divisor} = {Math.floor(primerasDosCifras / divisor)}
@@ -102,7 +107,6 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      // Referencias a los bloques de la pizarra
       const eq1 = tutor.querySelector(`#eq1-${problemaId}`);
       const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
       const eq2 = tutor.querySelector(`#eq2-${problemaId}`);
