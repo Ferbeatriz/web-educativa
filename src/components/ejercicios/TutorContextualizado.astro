@@ -1,224 +1,307 @@
 ---
+import { marked } from 'marked';
+
 interface Props {
   problema: any;
 }
 
 const { problema } = Astro.props;
-const pasos = problema.tutor.pasos;
 ---
 
-<div class="tutor-contextualizado" data-problema-id={problema.id}>
+<div class="tutor-wrapper" data-problema={problema.id}>
   <div class="tutor-header">
-    <h3>🔍 Vamos paso a paso</h3>
-    <p class="tutor-subtitulo">
-      Resolvamos juntos el problema de {problema.contexto.objeto}.
-    </p>
+    <span class="tutor-icon">🔍</span>
+    <div>
+      <h3 class="tutor-titulo">Vamos paso a paso</h3>
+      <p class="tutor-subtitulo">Resolvamos juntos el problema de {problema.contexto.objeto}.</p>
+    </div>
   </div>
 
-  <div class="tutor-pasos">
-    {pasos.map((paso, index) => (
-      <div
-        class="tutor-paso"
-        data-paso-n={paso.n}
-        data-paso-index={index}
-        data-respuesta-correcta={paso.respuesta_correcta}
-        data-errores={JSON.stringify(paso.errores_comunes)}
-        hidden={index !== 0}
-      >
-        <div class="paso-header">
-          <span class="paso-numero">Paso {paso.n}</span>
-        </div>
+  <!-- LA PIZARRA (Se actualiza con JS) -->
+  <div class="pizarra-viva hidden" id={`pizarra-${problema.id}`}>
+    <div class="pizarra-contenido">
+      <!-- Aquí se inyectará la cuenta matemática -->
+    </div>
+  </div>
 
-        <p class="paso-pregunta">{paso.pregunta}</p>
-
-        <div class="paso-opciones">
-          {paso.opciones.map((opcion) => (
+  <div class="pasos-container">
+    {problema.tutor.pasos.map((paso: any, index: number) => (
+      <div class="paso-item hidden" data-paso={paso.n}>
+        <div class="paso-badge">Paso {paso.n}</div>
+        <p class="paso-pregunta" set:html={marked.parse(paso.pregunta)}></p>
+        
+        <div class="opciones-grid">
+          {paso.opciones.map((opcion: string) => (
             <button
-              type="button"
-              class="opcion-btn"
+              class="btn-opcion"
               data-opcion={opcion}
+              data-correcta={paso.respuesta_correcta === opcion}
             >
               {opcion}
             </button>
           ))}
         </div>
 
-        <div
-          class="paso-feedback"
-          data-paso-n={paso.n}
-          aria-live="polite"
-          hidden
-        ></div>
-
-        <button
-          type="button"
-          class="btn-siguiente"
-          hidden
-        >
-          Siguiente paso →
-        </button>
+        <div class="feedback-paso hidden"></div>
       </div>
     ))}
-  </div>
-
-  <div class="tutor-cierre" hidden>
-    <p>🎉 ¡Muy bien! Has completado el razonamiento paso a paso.</p>
-    <p class="cierre-respuesta">
-      La respuesta correcta es: <strong>Cociente {problema.cociente_esperado}, Resto {problema.resto_esperado}</strong>.
-    </p>
   </div>
 </div>
 
 <script>
-  import '../../scripts/tutor-contextualizado.js';
+  // Este script maneja la interactividad del tutor y la pizarra
+  document.addEventListener('DOMContentLoaded', () => {
+    const tutores = document.querySelectorAll('.tutor-wrapper');
+    
+    tutores.forEach((tutor) => {
+      const problemaId = tutor.getAttribute('data-problema');
+      const pizarra = tutor.querySelector(`#pizarra-${problemaId}`);
+      const pizarraContenido = pizarra?.querySelector('.pizarra-contenido');
+      
+      const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
+      let pasoActual = 0;
+
+      // Mostrar el primer paso
+      if (pasos.length > 0) pasos[0].classList.remove('hidden');
+
+      // Lógica para actualizar la pizarra según el paso
+      function actualizarPizarra(nPaso: number) {
+        if (!pizarra || !pizarraContenido) return;
+        pizarra.classList.remove('hidden');
+        
+        // NOTA: Esta pizarra está diseñada específicamente para el problema de las 248 láminas (248 ÷ 4).
+        // Si el problema es de 10 tomates (10 ÷ 2), esta lógica se adaptará (o no mostrará la pizarra si no aplica).
+        if (nPaso === 1) {
+          pizarraContenido.innerHTML = `
+            <div class="cuenta-matematica">
+              <div class="division-simbolo">4 | 248</div>
+            </div>
+            <p class="pizarra-nota">Vamos a buscar cuántas veces cabe 4 en 24.</p>
+          `;
+        } else if (nPaso === 2) {
+          pizarraContenido.innerHTML = `
+            <div class="cuenta-matematica">
+              <div class="division-simbolo">
+                <span class="resaltado">6</span> <br>
+                <span class="division-linea">4 | 248</span> <br>
+                <span class="resta-parcial">- 24</span> <br>
+                <span class="linea-resta">---</span>
+              </div>
+            </div>
+            <p class="pizarra-nota">6 × 4 = 24. Usamos 24 láminas.</p>
+          `;
+        } else if (nPaso === 3) {
+          pizarraContenido.innerHTML = `
+            <div class="cuenta-matematica">
+              <div class="division-simbolo">
+                <span class="resaltado">6</span> <br>
+                <span class="division-linea">4 | 248</span> <br>
+                <span class="resta-parcial">- 24</span> <br>
+                <span class="linea-resta">---</span> <br>
+                <span class="resultado-parcial"> 08</span>
+              </div>
+            </div>
+            <p class="pizarra-nota">Nos quedan 08 láminas por repartir.</p>
+          `;
+        } else if (nPaso >= 4) {
+             pizarraContenido.innerHTML = `
+            <div class="cuenta-matematica">
+              <div class="division-simbolo">
+                <span class="resaltado">62</span> <br>
+                <span class="division-linea">4 | 248</span> <br>
+                <span class="resta-parcial">- 24</span> <br>
+                <span class="linea-resta">---</span> <br>
+                <span class="resultado-parcial"> 08</span> <br>
+                <span class="resta-parcial">- 08</span> <br>
+                <span class="linea-resta">---</span> <br>
+                <span class="resultado-final"> 00</span>
+              </div>
+            </div>
+            <p class="pizarra-nota">¡Listo! 248 ÷ 4 = 62.</p>
+          `;
+        }
+      }
+
+      // Manejar clics en las opciones
+      tutor.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (!target.classList.contains('btn-opcion')) return;
+
+        const pasoElement = target.closest('.paso-item') as HTMLElement;
+        const feedbackElement = pasoElement.querySelector('.feedback-paso') as HTMLElement;
+        const esCorrecta = target.getAttribute('data-correcta') === 'true';
+
+        // Limpiar estilos previos
+        pasoElement.querySelectorAll('.btn-opcion').forEach(b => {
+          b.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
+        });
+
+        if (esCorrecta) {
+          target.classList.add('bg-green-100', 'border-green-500');
+          feedbackElement.className = 'feedback-paso text-green-700 bg-green-50 p-3 rounded-lg mt-3';
+          feedbackElement.innerHTML = '✅ ¡Muy bien!';
+          feedbackElement.classList.remove('hidden');
+
+          // Deshabilitar botones
+          pasoElement.querySelectorAll('.btn-opcion').forEach((b: any) => b.disabled = true);
+
+          // Actualizar pizarra
+          actualizarPizarra(pasoActual + 1);
+
+          // Avanzar al siguiente paso después de un momento
+          setTimeout(() => {
+            pasoActual++;
+            if (pasoActual < pasos.length) {
+              pasos[pasoActual].classList.remove('hidden');
+              pasos[pasoActual].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }, 1500);
+
+        } else {
+          target.classList.add('bg-red-100', 'border-red-500');
+          feedbackElement.className = 'feedback-paso text-red-700 bg-red-50 p-3 rounded-lg mt-3';
+          feedbackElement.innerHTML = '❌ Casi. Intenta de nuevo.';
+          feedbackElement.classList.remove('hidden');
+        }
+      });
+    });
+  });
 </script>
 
 <style>
-  .tutor-contextualizado {
-    background: #f8f9fa;
+  .tutor-wrapper {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     padding: 1.5rem;
-    border-left: 4px solid #4a90d9;
+    margin-top: 1rem;
   }
 
   .tutor-header {
+    display: flex;
+    gap: 1rem;
     margin-bottom: 1.5rem;
   }
 
-  .tutor-header h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.3rem;
-    color: #333;
-  }
+  .tutor-icon { font-size: 1.5rem; }
+  .tutor-titulo { font-size: 1.1rem; font-weight: 700; color: #334155; margin: 0; }
+  .tutor-subtitulo { font-size: 0.9rem; color: #64748b; font-style: italic; margin: 0; }
 
-  .tutor-subtitulo {
-    color: #666;
-    font-size: 0.95rem;
-    font-style: italic;
-  }
-
-  .tutor-paso {
+  /* ESTILOS DE LA PIZARRA */
+  .pizarra-viva {
+    background: #fffbeb;
+    border: 2px dashed #fcd34d;
+    border-radius: 8px;
+    padding: 1rem;
     margin-bottom: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .pizarra-viva.hidden { display: none; }
+
+  .pizarra-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .tutor-paso[hidden] {
-    display: none;
+  .cuenta-matematica {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e293b;
+    line-height: 1.2;
+  }
+  
+  .division-simbolo {
+    display: inline-block;
+    text-align: right;
+    margin-right: 2rem;
+  }
+  .division-linea {
+    border-left: 2px solid #1e293b;
+    padding-left: 0.5rem;
+    display: inline-block;
+  }
+  .resaltado {
+    color: #2563eb;
+    background: #dbeafe;
+    padding: 0 0.3rem;
+    border-radius: 4px;
+  }
+  .resta-parcial { color: #dc2626; }
+  .linea-resta { display: block; border-top: 2px solid #1e293b; width: 100%; }
+  .resultado-parcial { color: #16a34a; }
+  .resultado-final { color: #16a34a; font-weight: bold; }
+
+  .pizarra-nota {
+    font-family: sans-serif;
+    font-size: 0.85rem;
+    color: #92400e;
+    text-align: center;
+    margin-top: 0.5rem;
   }
 
-  .paso-header {
+  /* ESTILOS DE LOS PASOS */
+  .paso-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .paso-item.hidden { display: none; }
+
+  .paso-badge {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
     margin-bottom: 0.5rem;
   }
 
-  .paso-numero {
-    display: inline-block;
-    background: #4a90d9;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-  }
-
   .paso-pregunta {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-
-  .paso-opciones {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    margin-bottom: 1rem;
-  }
-
-  .opcion-btn {
-    background: white;
-    border: 2px solid #ddd;
-    padding: 0.6rem 1.2rem;
     font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    min-width: 60px;
-    font-family: inherit;
-  }
-
-  .opcion-btn:hover:not(:disabled) {
-    border-color: #4a90d9;
-    background: #f0f7ff;
-  }
-
-  .opcion-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-
-  .opcion-correcta {
-    background: #e8f5e9 !important;
-    border-color: #4caf50 !important;
-    color: #2e7d32;
-    font-weight: 600;
-  }
-
-  .opcion-incorrecta {
-    background: #ffebee !important;
-    border-color: #e53935 !important;
-    color: #c62828;
-  }
-
-  .paso-feedback {
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
-    font-size: 0.95rem;
+    color: #334155;
     margin-bottom: 1rem;
     line-height: 1.5;
   }
 
-  .feedback-correcto {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border-left: 3px solid #4caf50;
+  .opciones-grid {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
-  .feedback-incorrecto {
-    background: #fff3e0;
-    color: #e65100;
-    border-left: 3px solid #ff9800;
-  }
-
-  .btn-siguiente {
-    background: #4a90d9;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
+  .btn-opcion {
+    background: white;
+    border: 2px solid #cbd5e1;
     border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
     cursor: pointer;
-    margin-top: 0.5rem;
-    font-family: inherit;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    min-width: 60px;
   }
 
-  .btn-siguiente:hover {
-    background: #357ab8;
+  .btn-opcion:hover:not(:disabled) {
+    border-color: #3b82f6;
+    color: #3b82f6;
   }
 
-  .tutor-cierre {
-    background: #e8f5e9;
-    padding: 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    color: #2e7d32;
+  .btn-opcion:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
   }
 
-  .tutor-cierre[hidden] {
-    display: none;
+  .feedback-paso {
+    font-size: 0.9rem;
+    font-weight: 600;
   }
-
-  .cierre-respuesta {
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-  }
+  .feedback-paso.hidden { display: none; }
 </style>
