@@ -12,17 +12,17 @@ const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
 const resto = problema.resto_esperado;
 
-// Descomponemos el dividendo en sus cifras (asumiendo 3 cifras)
-const d1 = Math.floor(dividendo / 100);
-const d2 = Math.floor((dividendo % 100) / 10);
-const d3 = dividendo % 10;
+// Cálculos para el problema de ejemplo (248 / 4)
+const d1 = Math.floor(dividendo / 100);             // 2
+const d2 = Math.floor((dividendo % 100) / 10);      // 4
+const d3 = dividendo % 10;                          // 8
 
-const primerasDos = d1 * 10 + d2;
-const primeraResta = Math.floor(primerasDos / divisor) * divisor;
-const primerResultado = primerasDos - primeraResta;
-const segundoDigitoCociente = Math.floor((primerResultado * 10 + d3) / divisor);
-const segundaResta = segundoDigitoCociente * divisor;
-const restoFinal = (primerResultado * 10 + d3) - segundaResta;
+const primerasDos = d1 * 10 + d2;                   // 24
+const primeraResta = Math.floor(primerasDos / divisor) * divisor; // 24
+const primerResultado = primerasDos - primeraResta; // 0
+const segundoDigitoCociente = Math.floor((primerResultado * 10 + d3) / divisor); // 2
+const segundaResta = segundoDigitoCociente * divisor; // 8
+const restoFinal = (primerResultado * 10 + d3) - segundaResta; // 0
 ---
 
 <div class="tutor-wrapper" data-problema={problema.id}>
@@ -38,63 +38,16 @@ const restoFinal = (primerResultado * 10 + d3) - segundaResta;
   <!-- LA PIZARRA -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     
-    <!-- Ecuación superior -->
-    <div class="ecuacion-header">
-      <span>{dividendo}</span>
-      <span>:</span>
-      <span class="texto-azul">{divisor}</span>
-      <span>=</span>
-      <span class="texto-azul" id={`coc-1-${problema.id}`}></span>
-      <span class="texto-azul" id={`coc-2-${problema.id}`}></span>
+    <!-- Línea 1: La ecuación (siempre visible, se va completando) -->
+    <div class="linea-ecuacion" id={`linea1-${problema.id}`}>
+      <span class="texto-azul" id={`primer-cociente-${problema.id}`}></span>
+      <span class="separador"></span>
+      <span class="texto-azul" id={`segundo-cociente-${problema.id}`}></span>
     </div>
 
-    <!-- Tabla de la división (formato cuaderno) -->
-    <table class="tabla-division">
-      <tbody>
-        <!-- Fila 1: Primera resta (- 24) -->
-        <tr class="hidden" id={`fila-resta1-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td class="col-num texto-rojo text-right">-</td>
-          <td class="col-num texto-rojo text-center" colspan="2">{primeraResta}</td>
-          <td class="col-vacia"></td>
-        </tr>
+    <!-- Resto de las líneas (ocultas hasta que corresponda) -->
+    <pre class="pizarra-mono hidden" id={`resto-pizarra-${problema.id}`}></pre>
 
-        <!-- Fila 2: Resultado 1 (00) -->
-        <tr class="hidden" id={`fila-res1-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td class="col-num"></td>
-          <td class="col-num text-center borde-abajo" colspan="2">{String(primerResultado).padStart(2, '0')}</td>
-          <td class="col-vacia"></td>
-        </tr>
-
-        <!-- Fila 3: Bajar el 8 (008) -->
-        <tr class="hidden" id={`fila-bajada-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td class="col-vacia"></td>
-          <td class="col-num"></td>
-          <td class="col-num text-center">{String(primerResultado).padStart(2, '0')}{d3}</td>
-          <td class="col-vacia"></td>
-        </tr>
-
-        <!-- Fila 4: Segunda resta (- 8) -->
-        <tr class="hidden" id={`fila-resta2-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td class="col-vacia"></td>
-          <td class="col-num texto-rojo text-right">-</td>
-          <td class="col-num texto-rojo text-center">{segundaResta}</td>
-          <td class="col-vacia"></td>
-        </tr>
-
-        <!-- Fila 5: Resultado final (00) -->
-        <tr class="hidden" id={`fila-res2-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td class="col-vacia"></td>
-          <td class="col-num"></td>
-          <td class="col-num text-center borde-abajo" style="border-top: none;">{String(restoFinal).padStart(2, '0')}</td>
-          <td class="col-vacia"></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 
   <div class="pasos-container">
@@ -130,34 +83,41 @@ const restoFinal = (primerResultado * 10 + d3) - segundaResta;
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      const coc1 = tutor.querySelector(`#coc-1-${problemaId}`);
-      const coc2 = tutor.querySelector(`#coc-2-${problemaId}`);
-      
-      const filaResta1 = tutor.querySelector(`#fila-resta1-${problemaId}`);
-      const filaRes1 = tutor.querySelector(`#fila-res1-${problemaId}`);
-      const filaBajada = tutor.querySelector(`#fila-bajada-${problemaId}`);
-      const filaResta2 = tutor.querySelector(`#fila-resta2-${problemaId}`);
-      const filaRes2 = tutor.querySelector(`#fila-res2-${problemaId}`);
+      const primerCociente = tutor.querySelector(`#primer-cociente-${problemaId}`);
+      const segundoCociente = tutor.querySelector(`#segundo-cociente-${problemaId}`);
+      const separador = tutor.querySelector(`.separador`) as HTMLElement;
+      const restoPizarra = tutor.querySelector(`#resto-pizarra-${problemaId}`) as HTMLElement;
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
+        // Paso 1: Muestra solo el inicio de la división
         if (pasoTerminado === 1) {
-          coc1?.classList.remove('hidden');
-          if (coc1) coc1.textContent = '6';
+          restoPizarra.classList.remove('hidden');
+          restoPizarra.innerHTML = `248 : 4 = `;
         }
+        // Paso 2: Muestra la primera cifra del cociente
         else if (pasoTerminado === 2) {
-          filaResta1?.classList.remove('hidden');
-          filaRes1?.classList.remove('hidden');
+          if (primerCociente) primerCociente.textContent = '6';
+          if (separador) separador.textContent = '';
+          // La pizarra principal se mantiene mostrando 248 : 4 = 6
         }
+        // Paso 3: Muestra la primera resta y el resultado
         else if (pasoTerminado === 3) {
-          filaBajada?.classList.remove('hidden');
+          restoPizarra.innerHTML = `24'8 : 4 = 6\n- 24\n-----\n 00`;
         }
+        // Paso 4: Baja el 8
         else if (pasoTerminado === 4) {
-          coc2?.classList.remove('hidden');
-          if (coc2) coc2.textContent = '2';
-          filaResta2?.classList.remove('hidden');
-          filaRes2?.classList.remove('hidden');
+          restoPizarra.innerHTML = `24'8' : 4 = 6\n- 24\n-----\n 00 8`;
+        }
+        // Paso 5: Muestra la segunda cifra del cociente
+        else if (pasoTerminado === 5) {
+          if (segundoCociente) segundoCociente.textContent = '2';
+          // La pizarra principal se mantiene mostrando 248 : 4 = 62
+        }
+        // Paso 6: Muestra la segunda resta y el resultado final
+        else if (pasoTerminado === 6) {
+          restoPizarra.innerHTML = `24'8' : 4 = 62\n- 24\n-----\n 00 8\n- 00 8\n-------\n 00 0`;
         }
       }
 
@@ -231,57 +191,38 @@ const restoFinal = (primerResultado * 10 + d3) - segundaResta;
     margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-  }
-
-  .ecuacion-header {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #1e293b;
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 0.3rem;
-    align-items: center;
-  }
-
-  .texto-azul { color: #2563eb; }
-
-  /* TABLA DE LA DIVISIÓN */
-  .tabla-division {
-    border-collapse: collapse;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5rem;
     font-weight: bold;
     color: #1e293b;
-    margin-left: 0.5rem;
+    line-height: 1.3;
   }
 
-  .tabla-division td {
-    padding: 0.2rem 0.1rem;
+  .linea-ecuacion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    white-space: pre;
   }
 
-  .col-vacia {
-    width: 1rem;
+  .texto-azul {
+    color: #2563eb;
+    display: inline-block;
+    width: 1.5rem; /* Reserva espacio para el dígito */
+    text-align: left;
   }
 
-  .col-num {
-    width: 1.8rem;
+  .separador {
+    width: 0; /* No ocupa espacio */
   }
 
-  .text-right {
-    text-align: right;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .texto-rojo {
-    color: #dc2626;
-  }
-
-  .borde-abajo {
-    border-bottom: 3px solid #1e293b;
+  .pizarra-mono {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    white-space: pre;
   }
 
   .hidden { display: none !important; }
