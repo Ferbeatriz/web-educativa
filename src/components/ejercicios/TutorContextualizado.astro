@@ -65,20 +65,28 @@ const resto = problema.resto_esperado;
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
-      function actualizarPizarra(pasoTerminado: number) {
+           function actualizarPizarra(pasoTerminado: number) {
         if (pasoTerminado === 1) {
           pizarraTexto.textContent = `248 : 4 = 6`;
         }
         else if (pasoTerminado === 2) {
-          pizarraTexto.textContent = `24'8 : 4 = 6\n- 24\n-----\n 00`;
+          // La resta queda justo debajo del 24
+          pizarraTexto.textContent = `248 : 4 = 6\n- 24\n-----\n 00`;
         }
         else if (pasoTerminado === 3) {
-          pizarraTexto.textContent = `24'8' : 4 = 6\n- 24\n-----\n 00 8`;
+          // Bajamos el 8, dejando el espacio para que se vea el 008
+          pizarraTexto.textContent = `24'8 : 4 = 6\n- 24\n-----\n 00 8`;
         }
         else if (pasoTerminado === 4) {
+          // Aparece el 2 en el cociente
           pizarraTexto.textContent = `24'8' : 4 = 62\n- 24\n-----\n 00 8`;
         }
         else if (pasoTerminado === 5) {
+          // Aparece la segunda resta, alineada con el 8
+          pizarraTexto.textContent = `24'8' : 4 = 62\n- 24\n-----\n 00 8\n- 00 8\n-------\n 00 0`;
+        }
+        else if (pasoTerminado === 6) {
+          // Se mantiene el resultado final
           pizarraTexto.textContent = `24'8' : 4 = 62\n- 24\n-----\n 00 8\n- 00 8\n-------\n 00 0`;
         }
       }
