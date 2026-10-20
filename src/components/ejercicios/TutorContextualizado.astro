@@ -32,14 +32,14 @@ const resto = problema.resto_esperado;
       <span class="texto-azul ml-2" id={`cociente-${problema.id}`}></span>
     </div>
 
-    <!-- Tabla de la división -->
+    <!-- Tabla de la división (3 columnas fijas) -->
     <table class="tabla-division">
       <tbody>
         <!-- Fila 1: Primera resta (- 24) -->
         <tr class="hidden" id={`fila-resta1-${problema.id}`}>
-          <td class="col-vacia"></td>
           <td class="col-signo texto-rojo">-</td>
-          <td class="col-num texto-rojo">24</td>
+          <td class="col-dec texto-rojo">2</td>
+          <td class="col-uni texto-rojo">4</td>
         </tr>
 
         <!-- Línea horizontal 1 -->
@@ -49,23 +49,23 @@ const resto = problema.resto_esperado;
 
         <!-- Fila 2: Resultado 1 (00) -->
         <tr class="hidden" id={`fila-res1-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td></td>
-          <td class="col-num">00</td>
+          <td class="col-signo"></td>
+          <td class="col-dec">0</td>
+          <td class="col-uni">0</td>
         </tr>
 
-        <!-- Fila 3: Bajar el 8 (008) -->
+        <!-- Fila 3: Bajar el 8 -->
         <tr class="hidden" id={`fila-bajada-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td></td>
-          <td class="col-num">8</td>
+          <td class="col-signo"></td>
+          <td class="col-dec"></td>
+          <td class="col-uni">8</td>
         </tr>
 
         <!-- Fila 4: Segunda resta (- 8) -->
         <tr class="hidden" id={`fila-resta2-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td></td>
-          <td class="col-num texto-rojo">- 8</td>
+          <td class="col-signo texto-rojo">-</td>
+          <td class="col-dec texto-rojo"></td>
+          <td class="col-uni texto-rojo">8</td>
         </tr>
 
         <!-- Línea horizontal 2 -->
@@ -75,9 +75,9 @@ const resto = problema.resto_esperado;
 
         <!-- Fila 5: Resultado final (0) -->
         <tr class="hidden" id={`fila-res2-${problema.id}`}>
-          <td class="col-vacia"></td>
-          <td></td>
-          <td class="col-num">0</td>
+          <td class="col-signo"></td>
+          <td class="col-dec"></td>
+          <td class="col-uni">0</td>
         </tr>
       </tbody>
     </table>
@@ -131,30 +131,24 @@ const resto = problema.resto_esperado;
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
-        // Paso 1: La niña responde que cabe 6 veces. Mostramos el 6.
         if (pasoTerminado === 1) {
           if (cocienteDiv) cocienteDiv.textContent = '6';
         }
-        // Paso 2: La niña calcula 4x6=24. Mostramos la resta -24 y su línea.
         else if (pasoTerminado === 2) {
           filaResta1?.classList.remove('hidden');
           linea1?.classList.remove('hidden');
         }
-        // Paso 3: La niña resta 24-24=00. Mostramos el 00 y BAJAMOS EL 8 (para el paso 4).
         else if (pasoTerminado === 3) {
           filaRes1?.classList.remove('hidden');
-          filaBajada?.classList.remove('hidden'); // El 8 baja ahora, antes de la pregunta del paso 4
+          filaBajada?.classList.remove('hidden');
         }
-        // Paso 4: La niña responde que cabe 2 veces en 8. Mostramos el 2 en el cociente.
         else if (pasoTerminado === 4) {
           if (cocienteDiv) cocienteDiv.textContent = '62';
         }
-        // Paso 5: La niña calcula 4x2=8. Mostramos la segunda resta -8 y su línea.
         else if (pasoTerminado === 5) {
           filaResta2?.classList.remove('hidden');
           linea2?.classList.remove('hidden');
         }
-        // Paso 6: La niña resta 8-8=0. Mostramos el 0 final.
         else if (pasoTerminado === 6) {
           filaRes2?.classList.remove('hidden');
         }
@@ -258,29 +252,28 @@ const resto = problema.resto_esperado;
 
   .tabla-division td {
     padding: 0.1rem 0;
-  }
-
-  .col-vacia {
-    width: 1rem;
+    height: 2rem;
   }
 
   .col-signo {
     width: 1.5rem;
-    text-align: right;
-    padding-right: 0.2rem;
+    text-align: center;
   }
 
-  .col-num {
-    width: 2rem;
+  .col-dec {
+    width: 1.5rem;
     text-align: right;
-    letter-spacing: 0.1em;
+  }
+
+  .col-uni {
+    width: 1.5rem;
+    text-align: right;
   }
 
   .texto-rojo {
     color: #dc2626;
   }
 
-  /* La línea de la tabla */
   .linea-tabla {
     border-bottom: 3px solid #1e293b;
     height: 2px;
