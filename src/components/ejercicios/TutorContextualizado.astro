@@ -110,19 +110,21 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
-        if (pasoTerminado === 1) {
-          // El cociente sigue oculto en el paso 1
-        }
-        else if (pasoTerminado === 2) {
+        // Al terminar Paso 1, no mostramos nada (solo calculó cuántas veces cabe)
+        if (pasoTerminado === 2) {
+          // Al terminar Paso 2 (cuántas láminas se usaron), mostramos la primera resta.
           resta1?.classList.remove('hidden');
         }
         else if (pasoTerminado === 3) {
+          // Al terminar Paso 3 (cuántas quedan), bajamos el 8.
           bajada?.classList.remove('hidden');
         }
         else if (pasoTerminado === 4) {
+          // Al terminar Paso 4 (segunda división), mostramos la segunda resta.
           resta2?.classList.remove('hidden');
         }
         else if (pasoTerminado === 5) {
+          // Al terminar Paso 5, revelamos el cociente final.
           cocienteDiv?.classList.remove('hidden');
         }
       }
@@ -211,11 +213,10 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     align-items: center;
   }
 
-    .cociente {
+  .cociente {
     color: #2563eb;
-    min-width: 2.5rem; /* Reserva el espacio para 2 números */
+    min-width: 2.5rem;
     display: inline-block;
-    text-align: left;
   }
 
   .cuenta-larga {
