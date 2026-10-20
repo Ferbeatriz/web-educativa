@@ -111,26 +111,21 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
 
       function actualizarPizarra(pasoTerminado: number) {
         if (pasoTerminado === 1) {
-          // Al terminar Paso 1 (6), mostramos el cociente.
-          cocienteDiv?.classList.remove('hidden');
+          // El cociente sigue oculto en el paso 1
         }
         else if (pasoTerminado === 2) {
-          // Al terminar Paso 2 (24), mostramos la primera resta.
           resta1?.classList.remove('hidden');
         }
         else if (pasoTerminado === 3) {
-          // Al terminar Paso 3 (224), bajamos el 8.
           bajada?.classList.remove('hidden');
         }
-               else if (pasoTerminado === 4) {
-
-          // Al terminar Paso 4 (5), mostramos la segunda resta.
+        else if (pasoTerminado === 4) {
           resta2?.classList.remove('hidden');
         }
         else if (pasoTerminado === 5) {
-          // Al terminar Paso 5, mostramos el resultado final.
           cocienteDiv?.classList.remove('hidden');
         }
+      }
 
       tutor.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
