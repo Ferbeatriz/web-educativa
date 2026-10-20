@@ -54,8 +54,8 @@ const digit1Cociente = Math.floor(primerasDos / divisor);
     <!-- Cuadrícula de la división -->
     <div class="division-grid">
       
-      <!-- Fila 1: Primera resta (- 24) -->
-      <div class="celda hidden" id={`resta1-a-${problema.id}`}>-</div>
+           <!-- Fila 1: Primera resta (- 24) -->
+      <div class="celda hidden justify-end pr-1" id={`resta1-a-${problema.id}`}>-</div>
       <div class="celda hidden" id={`resta1-b-${problema.id}`}>{Math.floor(primeraResta / 10)}</div>
       <div class="celda hidden" id={`resta1-c-${problema.id}`}>{primeraResta % 10}</div>
       
@@ -74,7 +74,7 @@ const digit1Cociente = Math.floor(primerasDos / divisor);
 
       <!-- Fila 4: Segunda resta (- 8) -->
       <div class="celda hidden" id={`resta2-a-${problema.id}`}></div>
-      <div class="celda hidden" id={`resta2-b-${problema.id}`}>-</div>
+      <div class="celda hidden justify-end pr-1" id={`resta2-b-${problema.id}`}>-</div>
       <div class="celda hidden" id={`resta2-c-${problema.id}`}>{segundaResta}</div>
 
       <!-- Línea 2 -->
@@ -251,12 +251,13 @@ const digit1Cociente = Math.floor(primerasDos / divisor);
   /* Cuadrícula estricta de 3 columnas */
   .division-grid {
     display: grid;
-    grid-template-columns: 1.5rem 1.5rem 1.5rem;
+    grid-template-columns: 2rem 2rem 2rem; /* <-- Cambiado a 2rem */
     grid-auto-rows: 2rem;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5rem;
     font-weight: bold;
     row-gap: 0.2rem;
+    column-gap: 0.2rem; /* <-- Agregado para separar un poco */
   }
 
   .celda {
