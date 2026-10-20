@@ -25,7 +25,57 @@ const resto = problema.resto_esperado;
 
   <!-- LA PIZARRA -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
-    <pre class="pizarra-texto" id={`pizarra-texto-${problema.id}`}>{dividendo} : {divisor} =</pre>
+    
+    <!-- Ecuación principal -->
+    <div class="fila-ecuacion">
+      <span>{dividendo} : {divisor} = </span>
+      <span class="texto-azul" id={`cociente-${problema.id}`}></span>
+    </div>
+
+    <!-- Tabla de la división -->
+    <table class="tabla-division">
+      <tbody>
+        <!-- Fila 1: Primera resta (- 24) -->
+        <tr class="hidden" id={`fila-resta1-${problema.id}`}>
+          <td class="col-vacia"></td>
+          <td class="col-signo texto-rojo">-</td>
+          <td class="col-num texto-rojo">24</td>
+          <td></td>
+        </tr>
+
+        <!-- Fila 2: Resultado 1 (00) -->
+        <tr class="hidden" id={`fila-res1-${problema.id}`}>
+          <td class="col-vacia"></td>
+          <td></td>
+          <td class="col-num borde-abajo">00</td>
+          <td></td>
+        </tr>
+
+        <!-- Fila 3: Bajar el 8 (008) -->
+        <tr class="hidden" id={`fila-bajada-${problema.id}`}>
+          <td class="col-vacia"></td>
+          <td></td>
+          <td class="col-num"></td>
+          <td class="col-num">8</td>
+        </tr>
+
+        <!-- Fila 4: Segunda resta (- 8) -->
+        <tr class="hidden" id={`fila-resta2-${problema.id}`}>
+          <td class="col-vacia"></td>
+          <td></td>
+          <td class="col-signo texto-rojo">-</td>
+          <td class="col-num texto-rojo">8</td>
+        </tr>
+
+        <!-- Fila 5: Resultado final (00) -->
+        <tr class="hidden" id={`fila-res2-${problema.id}`}>
+          <td class="col-vacia"></td>
+          <td></td>
+          <td></td>
+          <td class="col-num borde-abajo">0</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="pasos-container">
@@ -61,33 +111,41 @@ const resto = problema.resto_esperado;
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      const pizarraTexto = tutor.querySelector(`#pizarra-texto-${problemaId}`) as HTMLElement;
+      const cocienteDiv = tutor.querySelector(`#cociente-${problemaId}`);
+      
+      const filaResta1 = tutor.querySelector(`#fila-resta1-${problemaId}`);
+      const filaRes1 = tutor.querySelector(`#fila-res1-${problemaId}`);
+      const filaBajada = tutor.querySelector(`#fila-bajada-${problemaId}`);
+      const filaResta2 = tutor.querySelector(`#fila-resta2-${problemaId}`);
+      const filaRes2 = tutor.querySelector(`#fila-res2-${problemaId}`);
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
-           function actualizarPizarra(pasoTerminado: number) {
+      function actualizarPizarra(pasoTerminado: number) {
+        // Paso 1: Aparece la primera cifra del cociente (6)
         if (pasoTerminado === 1) {
-          pizarraTexto.textContent = `248 : 4 = 6`;
+          if (cocienteDiv) cocienteDiv.textContent = '6';
         }
+        // Paso 2: Aparece la multiplicación (24), pero SIN el resultado de la resta aún
         else if (pasoTerminado === 2) {
-          // La resta queda justo debajo del 24
-          pizarraTexto.textContent = `248 : 4 = 6\n- 24\n-----\n 00`;
+          filaResta1?.classList.remove('hidden');
         }
+        // Paso 3: Ahora que respondió la resta, mostramos el resultado (00)
         else if (pasoTerminado === 3) {
-          // Bajamos el 8, dejando el espacio para que se vea el 008
-          pizarraTexto.textContent = `24'8 : 4 = 6\n- 24\n-----\n 00 8`;
+          filaRes1?.classList.remove('hidden');
         }
+        // Paso 4: Baja el 8 y aparece el 2 en el cociente
         else if (pasoTerminado === 4) {
-          // Aparece el 2 en el cociente
-          pizarraTexto.textContent = `24'8' : 4 = 62\n- 24\n-----\n 00 8`;
+          filaBajada?.classList.remove('hidden');
+          if (cocienteDiv) cocienteDiv.textContent = '62';
         }
+        // Paso 5: Aparece la segunda multiplicación (8), SIN el resultado de la resta
         else if (pasoTerminado === 5) {
-          // Aparece la segunda resta, alineada con el 8
-          pizarraTexto.textContent = `24'8' : 4 = 62\n- 24\n-----\n 00 8\n- 00 8\n-------\n 00 0`;
+          filaResta2?.classList.remove('hidden');
         }
+        // Paso 6: Ahora que respondió la última resta, mostramos el resto final (0)
         else if (pasoTerminado === 6) {
-          // Se mantiene el resultado final
-          pizarraTexto.textContent = `24'8' : 4 = 62\n- 24\n-----\n 00 8\n- 00 8\n-------\n 00 0`;
+          filaRes2?.classList.remove('hidden');
         }
       }
 
@@ -159,15 +217,57 @@ const resto = problema.resto_esperado;
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-  }
-
-  .pizarra-texto {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5rem;
     font-weight: bold;
     color: #1e293b;
-    margin: 0;
-    white-space: pre;
+  }
+
+  .fila-ecuacion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .texto-azul {
+    color: #2563eb;
+    margin-left: 0.2rem;
+  }
+
+  /* Tabla de la división */
+  .tabla-division {
+    border-collapse: collapse;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .tabla-division td {
+    padding: 0.1rem 0;
+  }
+
+  .col-vacia {
+    width: 1rem;
+  }
+
+  .col-signo {
+    width: 1.5rem;
+    text-align: right;
+  }
+
+  .col-num {
+    width: 2rem;
+    text-align: right;
+    letter-spacing: 0.1em;
+  }
+
+  .texto-rojo {
+    color: #dc2626;
+  }
+
+  .borde-abajo {
+    border-bottom: 3px solid #1e293b;
+    padding-bottom: 0.2rem;
   }
 
   .hidden { display: none !important; }
