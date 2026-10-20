@@ -29,7 +29,7 @@ const resto = problema.resto_esperado;
     <!-- Ecuación principal -->
     <div class="fila-ecuacion">
       <span>{dividendo} : {divisor} = </span>
-      <span class="texto-azul" id={`cociente-${problema.id}`}></span>
+      <span class="texto-azul ml-2" id={`cociente-${problema.id}`}></span>
     </div>
 
     <!-- Tabla de la división -->
@@ -40,22 +40,24 @@ const resto = problema.resto_esperado;
           <td class="col-vacia"></td>
           <td class="col-signo texto-rojo">-</td>
           <td class="col-num texto-rojo">24</td>
-          <td></td>
+        </tr>
+
+        <!-- Línea horizontal 1 -->
+        <tr class="hidden" id={`linea1-${problema.id}`}>
+          <td colspan="3" class="linea-tabla"></td>
         </tr>
 
         <!-- Fila 2: Resultado 1 (00) -->
         <tr class="hidden" id={`fila-res1-${problema.id}`}>
           <td class="col-vacia"></td>
           <td></td>
-          <td class="col-num borde-abajo">00</td>
-          <td></td>
+          <td class="col-num">00</td>
         </tr>
 
         <!-- Fila 3: Bajar el 8 (008) -->
         <tr class="hidden" id={`fila-bajada-${problema.id}`}>
           <td class="col-vacia"></td>
           <td></td>
-          <td class="col-num"></td>
           <td class="col-num">8</td>
         </tr>
 
@@ -63,16 +65,19 @@ const resto = problema.resto_esperado;
         <tr class="hidden" id={`fila-resta2-${problema.id}`}>
           <td class="col-vacia"></td>
           <td></td>
-          <td class="col-signo texto-rojo">-</td>
-          <td class="col-num texto-rojo">8</td>
+          <td class="col-num texto-rojo">- 8</td>
         </tr>
 
-        <!-- Fila 5: Resultado final (00) -->
+        <!-- Línea horizontal 2 -->
+        <tr class="hidden" id={`linea2-${problema.id}`}>
+          <td colspan="3" class="linea-tabla"></td>
+        </tr>
+
+        <!-- Fila 5: Resultado final (0) -->
         <tr class="hidden" id={`fila-res2-${problema.id}`}>
           <td class="col-vacia"></td>
           <td></td>
-          <td></td>
-          <td class="col-num borde-abajo">0</td>
+          <td class="col-num">0</td>
         </tr>
       </tbody>
     </table>
@@ -114,36 +119,42 @@ const resto = problema.resto_esperado;
       const cocienteDiv = tutor.querySelector(`#cociente-${problemaId}`);
       
       const filaResta1 = tutor.querySelector(`#fila-resta1-${problemaId}`);
+      const linea1 = tutor.querySelector(`#linea1-${problemaId}`);
       const filaRes1 = tutor.querySelector(`#fila-res1-${problemaId}`);
+      
       const filaBajada = tutor.querySelector(`#fila-bajada-${problemaId}`);
+      
       const filaResta2 = tutor.querySelector(`#fila-resta2-${problemaId}`);
+      const linea2 = tutor.querySelector(`#linea2-${problemaId}`);
       const filaRes2 = tutor.querySelector(`#fila-res2-${problemaId}`);
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
-        // Paso 1: Aparece la primera cifra del cociente (6)
+        // Paso 1: La niña responde que cabe 6 veces. Mostramos el 6.
         if (pasoTerminado === 1) {
           if (cocienteDiv) cocienteDiv.textContent = '6';
         }
-        // Paso 2: Aparece la multiplicación (24), pero SIN el resultado de la resta aún
+        // Paso 2: La niña calcula 4x6=24. Mostramos la resta -24 y su línea.
         else if (pasoTerminado === 2) {
           filaResta1?.classList.remove('hidden');
+          linea1?.classList.remove('hidden');
         }
-        // Paso 3: Ahora que respondió la resta, mostramos el resultado (00)
+        // Paso 3: La niña resta 24-24=00. Mostramos el 00 y BAJAMOS EL 8 (para el paso 4).
         else if (pasoTerminado === 3) {
           filaRes1?.classList.remove('hidden');
+          filaBajada?.classList.remove('hidden'); // El 8 baja ahora, antes de la pregunta del paso 4
         }
-        // Paso 4: Baja el 8 y aparece el 2 en el cociente
+        // Paso 4: La niña responde que cabe 2 veces en 8. Mostramos el 2 en el cociente.
         else if (pasoTerminado === 4) {
-          filaBajada?.classList.remove('hidden');
           if (cocienteDiv) cocienteDiv.textContent = '62';
         }
-        // Paso 5: Aparece la segunda multiplicación (8), SIN el resultado de la resta
+        // Paso 5: La niña calcula 4x2=8. Mostramos la segunda resta -8 y su línea.
         else if (pasoTerminado === 5) {
           filaResta2?.classList.remove('hidden');
+          linea2?.classList.remove('hidden');
         }
-        // Paso 6: Ahora que respondió la última resta, mostramos el resto final (0)
+        // Paso 6: La niña resta 8-8=0. Mostramos el 0 final.
         else if (pasoTerminado === 6) {
           filaRes2?.classList.remove('hidden');
         }
@@ -231,7 +242,10 @@ const resto = problema.resto_esperado;
 
   .texto-azul {
     color: #2563eb;
-    margin-left: 0.2rem;
+  }
+
+  .ml-2 {
+    margin-left: 0.5rem;
   }
 
   /* Tabla de la división */
@@ -253,6 +267,7 @@ const resto = problema.resto_esperado;
   .col-signo {
     width: 1.5rem;
     text-align: right;
+    padding-right: 0.2rem;
   }
 
   .col-num {
@@ -265,9 +280,11 @@ const resto = problema.resto_esperado;
     color: #dc2626;
   }
 
-  .borde-abajo {
+  /* La línea de la tabla */
+  .linea-tabla {
     border-bottom: 3px solid #1e293b;
-    padding-bottom: 0.2rem;
+    height: 2px;
+    padding: 0 !important;
   }
 
   .hidden { display: none !important; }
