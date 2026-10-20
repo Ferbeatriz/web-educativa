@@ -35,33 +35,33 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     
     <!-- Ecuación horizontal superior -->
     <div class="ecuacion-horizontal">
-      <span class="dividendo">{dividendo}</span>
-      <span class="simbolo">:</span>
-      <span class="divisor">{divisor}</span>
-      <span class="simbolo">=</span>
+      <span>{dividendo}</span>
+      <span>:</span>
+      <span class="texto-azul">{divisor}</span>
+      <span>=</span>
       <span class="cociente hidden" id={`cociente-${problema.id}`}>{cociente}</span>
     </div>
 
-    <!-- Resolución de la resta (escalera) -->
+    <!-- Resolución de la resta (escalera desplazada) -->
     <div class="cuenta-larga">
       
-      <!-- Fila 1: Primera resta -->
+      <!-- Fila 1: Primera resta (alineada a la izquierda) -->
       <div class="fila-resta hidden" id={`resta1-${problema.id}`}>
         <span class="numero-resta">- {primeraResta}</span>
-        <div class="linea-horizontal"></div>
+        <div class="linea-horizontal" style="width: 100%;"></div>
         <span class="resultado-resta">{String(primerResultado).padStart(2, '0')}</span>
       </div>
 
-      <!-- Fila 2: Bajar el 8 -->
-      <div class="fila-resta hidden" id={`bajada-${problema.id}`}>
+      <!-- Fila 2: Bajar el 8 (desplazado) -->
+      <div class="fila-resta hidden" id={`bajada-${problema.id}`} style="margin-left: 1.5rem;">
         <span class="numero-bajado">{String(primerResultado).padStart(2, '0')}{segundaCifra}</span>
       </div>
 
-      <!-- Fila 3: Segunda resta -->
-      <div class="fila-resta hidden" id={`resta2-${problema.id}`}>
+      <!-- Fila 3: Segunda resta (desplazada) -->
+      <div class="fila-resta hidden" id={`resta2-${problema.id}`} style="margin-left: 1.5rem;">
         <span class="numero-resta">- {Math.floor(numeroBajado / divisor) * divisor}</span>
-        <div class="linea-horizontal"></div>
-        <span class="resultado-resta">{resto}</span>
+        <div class="linea-horizontal" style="width: 100%;"></div>
+        <span class="resultado-resta">{String(resto).padStart(2, '0')}</span>
       </div>
 
     </div>
@@ -110,17 +110,16 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
-        // Al terminar Paso 1, no mostramos nada (solo calculó cuántas veces cabe)
         if (pasoTerminado === 2) {
-          // Al terminar Paso 2 (cuántas láminas se usaron), mostramos la primera resta.
+          // Al terminar Paso 2, mostramos la primera resta.
           resta1?.classList.remove('hidden');
         }
         else if (pasoTerminado === 3) {
-          // Al terminar Paso 3 (cuántas quedan), bajamos el 8.
+          // Al terminar Paso 3, bajamos el 8.
           bajada?.classList.remove('hidden');
         }
         else if (pasoTerminado === 4) {
-          // Al terminar Paso 4 (segunda división), mostramos la segunda resta.
+          // Al terminar Paso 4, mostramos la segunda resta.
           resta2?.classList.remove('hidden');
         }
         else if (pasoTerminado === 5) {
@@ -197,9 +196,6 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .ecuacion-horizontal {
@@ -213,6 +209,8 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     align-items: center;
   }
 
+  .texto-azul { color: #2563eb; }
+  
   .cociente {
     color: #2563eb;
     min-width: 2.5rem;
@@ -226,7 +224,7 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     font-size: 1.5rem;
     font-weight: bold;
     color: #1e293b;
-    margin-left: 1rem; 
+    margin-left: 0.5rem;
   }
 
   .fila-resta {
@@ -242,8 +240,6 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
   }
 
   .linea-horizontal {
-    width: 100%;
-    min-width: 80px;
     border-top: 3px solid #1e293b;
     margin: 0.2rem 0;
   }
