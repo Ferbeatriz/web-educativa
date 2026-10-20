@@ -12,12 +12,19 @@ const dividendo = problema.dividendo;
 const cociente = problema.cociente_esperado;
 const resto = problema.resto_esperado;
 
-const dosPrimeras = Math.floor(dividendo / 10);
-const primeraResta = Math.floor(dosPrimeras / divisor) * divisor;
-const primerResultado = dosPrimeras - primeraResta;
-const segundaCifra = dividendo % 10;
-const numeroBajado = parseInt(`${primerResultado}${segundaCifra}`);
-const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
+// Calculamos las cifras por separado para la cuadrícula
+const d1 = Math.floor(dividendo / 100);
+const d2 = Math.floor((dividendo % 100) / 10);
+const d3 = dividendo % 10;
+
+const primerasDos = d1 * 10 + d2;
+const primeraResta = Math.floor(primerasDos / divisor) * divisor;
+const primerResultado = primerasDos - primeraResta;
+const segundoDigitoCociente = Math.floor((primerResultado * 10 + d3) / divisor);
+const segundaResta = segundoDigitoCociente * divisor;
+const restoFinal = (primerResultado * 10 + d3) - segundaResta;
+
+const digit1Cociente = Math.floor(primerasDos / divisor);
 ---
 
 <div class="tutor-wrapper" data-problema={problema.id}>
@@ -30,42 +37,55 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     </div>
   </div>
 
-  <!-- LA PIZARRA -->
+  <!-- LA PIZARRA (CSS Grid) -->
   <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
     
-    <!-- Ecuación horizontal superior -->
-    <div class="ecuacion-horizontal">
+    <!-- Ecuación superior -->
+    <div class="ecuacion-header">
       <span>{dividendo}</span>
       <span>:</span>
       <span class="texto-azul">{divisor}</span>
       <span>=</span>
-      <span class="cociente hidden" id={`cociente-${problema.id}`}>{cociente}</span>
+      <!-- El cociente se arma por partes -->
+      <span class="texto-azul" id={`coc-1-${problema.id}`}></span>
+      <span class="texto-azul" id={`coc-2-${problema.id}`}></span>
     </div>
 
-    <!-- Resolución de la resta (escalera desplazada) -->
-    <div class="cuenta-larga">
+    <!-- Cuadrícula de la división -->
+    <div class="division-grid">
       
-      <!-- Fila 1: Primera resta (alineada a la izquierda) -->
-      <div class="fila-resta hidden" id={`resta1-${problema.id}`}>
-        <span class="numero-resta">- {primeraResta}</span>
-        <div class="linea-horizontal" style="width: 100%;"></div>
-        <span class="resultado-resta">{String(primerResultado).padStart(2, '0')}</span>
-      </div>
+      <!-- Fila 1: Primera resta (- 24) -->
+      <div class="celda hidden" id={`resta1-a-${problema.id}`}>-</div>
+      <div class="celda hidden" id={`resta1-b-${problema.id}`}>{Math.floor(primeraResta / 10)}</div>
+      <div class="celda hidden" id={`resta1-c-${problema.id}`}>{primeraResta % 10}</div>
+      
+      <!-- Línea 1 -->
+      <div class="linea hidden" id={`linea1-${problema.id}`}></div>
 
-      <!-- Fila 2: Bajar el 8 (desplazado) -->
-      <div class="fila-resta hidden" id={`bajada-${problema.id}`} style="margin-left: 1.5rem;">
-        <span class="numero-bajado">{String(primerResultado).padStart(2, '0')}{segundaCifra}</span>
-      </div>
+      <!-- Fila 2: Resultado 1 (00) -->
+      <div class="celda hidden" id={`res1-a-${problema.id}`}></div>
+      <div class="celda hidden" id={`res1-b-${problema.id}`}>{String(primerResultado).padStart(2, '0')[0]}</div>
+      <div class="celda hidden" id={`res1-c-${problema.id}`}>{String(primerResultado).padStart(2, '0')[1]}</div>
 
-      <!-- Fila 3: Segunda resta (desplazada) -->
-      <div class="fila-resta hidden" id={`resta2-${problema.id}`} style="margin-left: 1.5rem;">
-        <span class="numero-resta">- {Math.floor(numeroBajado / divisor) * divisor}</span>
-        <div class="linea-horizontal" style="width: 100%;"></div>
-        <span class="resultado-resta">{String(resto).padStart(2, '0')}</span>
-      </div>
+      <!-- Fila 3: Bajar el 8 (008) -->
+      <div class="celda hidden" id={`bajada-a-${problema.id}`}></div>
+      <div class="celda hidden" id={`bajada-b-${problema.id}`}>0</div>
+      <div class="celda hidden" id={`bajada-c-${problema.id}`}>{d3}</div>
+
+      <!-- Fila 4: Segunda resta (- 8) -->
+      <div class="celda hidden" id={`resta2-a-${problema.id}`}></div>
+      <div class="celda hidden" id={`resta2-b-${problema.id}`}>-</div>
+      <div class="celda hidden" id={`resta2-c-${problema.id}`}>{segundaResta}</div>
+
+      <!-- Línea 2 -->
+      <div class="linea hidden" id={`linea2-${problema.id}`}></div>
+
+      <!-- Fila 5: Resultado final (00) -->
+      <div class="celda hidden" id={`res2-a-${problema.id}`}></div>
+      <div class="celda hidden" id={`res2-b-${problema.id}`}>{String(restoFinal).padStart(2, '0')[0]}</div>
+      <div class="celda hidden" id={`res2-c-${problema.id}`}>{String(restoFinal).padStart(2, '0')[1]}</div>
 
     </div>
-
   </div>
 
   <div class="pasos-container">
@@ -101,30 +121,45 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      // Referencias a la pizarra
-      const cocienteDiv = tutor.querySelector(`#cociente-${problemaId}`);
-      const resta1 = tutor.querySelector(`#resta1-${problemaId}`);
-      const bajada = tutor.querySelector(`#bajada-${problemaId}`);
-      const resta2 = tutor.querySelector(`#resta2-${problemaId}`);
+      // Elementos de la pizarra
+      const coc1 = tutor.querySelector(`#coc-1-${problemaId}`);
+      const coc2 = tutor.querySelector(`#coc-2-${problemaId}`);
+      
+      const resta1 = ['a', 'b', 'c'].map(l => tutor.querySelector(`#resta1-${l}-${problemaId}`));
+      const linea1 = tutor.querySelector(`#linea1-${problemaId}`);
+      const res1 = ['a', 'b', 'c'].map(l => tutor.querySelector(`#res1-${l}-${problemaId}`));
+      
+      const bajada = ['a', 'b', 'c'].map(l => tutor.querySelector(`#bajada-${l}-${problemaId}`));
+      
+      const resta2 = ['a', 'b', 'c'].map(l => tutor.querySelector(`#resta2-${l}-${problemaId}`));
+      const linea2 = tutor.querySelector(`#linea2-${problemaId}`);
+      const res2 = ['a', 'b', 'c'].map(l => tutor.querySelector(`#res2-${l}-${problemaId}`));
 
       if (pasos.length > 0) pasos[0].classList.remove('hidden');
 
       function actualizarPizarra(pasoTerminado: number) {
-        if (pasoTerminado === 2) {
-          // Al terminar Paso 2, mostramos la primera resta.
-          resta1?.classList.remove('hidden');
+        if (pasoTerminado === 1) {
+          // Al terminar Paso 1, mostramos el primer dígito del cociente.
+          coc1?.classList.remove('hidden');
+          coc1.textContent = '6';
+        }
+        else if (pasoTerminado === 2) {
+          // Al terminar Paso 2, mostramos la primera resta (-24) y su resultado (00).
+          resta1.forEach(el => el?.classList.remove('hidden'));
+          linea1?.classList.remove('hidden');
+          res1.forEach(el => el?.classList.remove('hidden'));
         }
         else if (pasoTerminado === 3) {
           // Al terminar Paso 3, bajamos el 8.
-          bajada?.classList.remove('hidden');
+          bajada.forEach(el => el?.classList.remove('hidden'));
         }
         else if (pasoTerminado === 4) {
-          // Al terminar Paso 4, mostramos la segunda resta.
-          resta2?.classList.remove('hidden');
-        }
-        else if (pasoTerminado === 5) {
-          // Al terminar Paso 5, revelamos el cociente final.
-          cocienteDiv?.classList.remove('hidden');
+          // Al terminar Paso 4, mostramos el segundo dígito del cociente y la segunda resta.
+          coc2?.classList.remove('hidden');
+          coc2.textContent = '2';
+          resta2.forEach(el => el?.classList.remove('hidden'));
+          linea2?.classList.remove('hidden');
+          res2.forEach(el => el?.classList.remove('hidden'));
         }
       }
 
@@ -196,61 +231,44 @@ const segundaResta = Math.floor(numeroBajado / divisor) * divisor;
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
   }
 
-  .ecuacion-horizontal {
+  .ecuacion-header {
     font-family: 'Courier New', Courier, monospace;
     font-size: 2rem;
     font-weight: bold;
     color: #1e293b;
     margin-bottom: 1rem;
     display: flex;
-    gap: 0.5rem;
+    gap: 0.3rem;
     align-items: center;
   }
 
   .texto-azul { color: #2563eb; }
-  
-  .cociente {
-    color: #2563eb;
-    min-width: 2.5rem;
-    display: inline-block;
-  }
 
-  .cuenta-larga {
-    display: flex;
-    flex-direction: column;
+  /* Cuadrícula estricta de 3 columnas */
+  .division-grid {
+    display: grid;
+    grid-template-columns: 1.5rem 1.5rem 1.5rem;
+    grid-auto-rows: 2rem;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #1e293b;
-    margin-left: 0.5rem;
+    row-gap: 0.2rem;
   }
 
-  .fila-resta {
+  .celda {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 0.2rem;
+    align-items: center;
+    justify-content: center;
   }
 
-  .numero-resta {
-    color: #dc2626;
-    margin-left: 1rem;
-  }
-
-  .linea-horizontal {
+  .linea {
+    grid-column: span 3;
     border-top: 3px solid #1e293b;
     margin: 0.2rem 0;
-  }
-
-  .resultado-resta {
-    color: #16a34a;
-  }
-
-  .numero-bajado {
-    color: #1e293b;
-    margin-top: 0.2rem;
   }
 
   .hidden { display: none !important; }
