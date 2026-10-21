@@ -7,10 +7,14 @@ interface Props {
 
 const { problema } = Astro.props;
 
-const divisor = problema.divisor;
-const dividendo = problema.dividendo;
-const cociente = problema.cociente_esperado;
-const resto = problema.resto_esperado;
+// Descomponemos el dividendo (asumiendo 3 cifras para 248)
+const cifras = String(problema.dividendo).split("").map(Number);
+
+// Geometría fija del lienzo para alinear todo
+const xInicio = 40;
+const anchoCol = 40;
+const yFila = 50;
+const altoFila = 45;
 ---
 
 <div class="tutor-wrapper" data-problema={problema.id}>
@@ -23,96 +27,68 @@ const resto = problema.resto_esperado;
     </div>
   </div>
 
-  <!-- LA PIZARRA -->
-  <div class="pizarra-viva" id={`pizarra-${problema.id}`}>
+  <!-- LA PIZARRA (Controlada por el tutor) -->
+  <div class="pizarra-viva">
+    <svg viewBox="0 0 350 300" class="svg-division">
+      
+      <!-- Fila 1: El dividendo y el divisor (Siempre visible) -->
+      <text x={xInicio} y={yFila} class="num">{cifras[0]}</text>
+      <text x={xInicio + anchoCol} y={yFila} class="num">{cifras[1]}</text>
+      <text x={xInicio + anchoCol * 2} y={yFila} class="num">{cifras[2]}</text>
+      
+      <text x={xInicio + anchoCol * 3 + 20} y={yFila} class="simbolo">:</text>
+      <text x={xInicio + anchoCol * 4 + 20} y={yFila} class="num texto-azul">{problema.divisor}</text>
+
+      <text x={xInicio + anchoCol * 4 + 70} y={yFila} class="simbolo">=</text>
+      
     
-    <table class="tabla-division">
-      <colgroup>
-        <col style="width: 25px">  <!-- signo -->
-        <col style="width: 25px">  <!-- decena -->
-        <col style="width: 25px">  <!-- unidad -->
-        <col style="width: 20px">  <!-- símbolo -->
-        <col style="width: 40px">  <!-- cociente -->
-      </colgroup>
-      <tbody>
-        <!-- Fila 0: dividendo y divisor -->
-        <tr>
-          <td class="col-signo"></td>
-          <td class="col-num">2</td>
-          <td class="col-num">4</td>
-          <td class="col-simbolo">:</td>
-          <td class="col-cociente texto-azul">{divisor}</td>
-        </tr>
+      <!-- Primer dígito del cociente (se revela en el Paso 1) -->
+      <text x={xInicio + anchoCol * 5 + 60} y={yFila} class="num texto-azul oculto" id="svg-coc1">6</text>
+      
+      <!-- Segundo dígito del cociente (se revela en el Paso 4) -->
+      <text x={xInicio + anchoCol * 5 + 85} y={yFila} class="num texto-azul oculto" id="svg-coc2">2</text>
 
-        <!-- Fila 1: primera resta (- 24) -->
-        <tr class="hidden" id={`fila-resta1-${problema.id}`}>
-          <td class="col-signo texto-rojo">-</td>
-          <td class="col-num texto-rojo">2</td>
-          <td class="col-num texto-rojo">4</td>
-          <td></td>
-          <td class="col-cociente texto-azul" id={`coc-1-${problema.id}`}></td>
-        </tr>
+      <!-- Fila 2: Primera resta (- 24) -->
+      <g class="oculto" id="svg-resta1">
+        <text x={xInicio - 20} y={yFila + altoFila} class="simbolo texto-rojo">-</text>
+        <text x={xInicio} y={yFila + altoFila} class="num texto-rojo">{cifras[0]}</text>
+        <text x={xInicio + anchoCol} y={yFila + altoFila} class="num texto-rojo">{cifras[1]}</text>
+      </g>
 
-        <!-- Línea 1 (sin colspan) -->
-        <tr class="hidden" id={`linea1-${problema.id}`}>
-          <td></td>
-          <td class="linea-celda"></td>
-          <td class="linea-celda"></td>
-          <td></td>
-          <td></td>
-        </tr>
+      <!-- Línea 1 -->
+      <line x1={xInicio - 25} y1={yFila + altoFila + 10} x2={xInicio + anchoCol * 2 + 15} y2={yFila + altoFila + 10} class="linea oculto" id="svg-linea1" />
 
-        <!-- Fila 2: resultado 00 -->
-        <tr class="hidden" id={`fila-res1-${problema.id}`}>
-          <td></td>
-          <td class="col-num">0</td>
-          <td class="col-num">0</td>
-          <td></td>
-          <td></td>
-        </tr>
+      <!-- Fila 3: Resultado 00 -->
+      <g class="oculto" id="svg-res1">
+        <text x={xInicio + anchoCol} y={yFila + altoFila * 2} class="num">0</text>
+        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 2} class="num">0</text>
+      </g>
 
-        <!-- Fila 3: bajar el 8 (008) -->
-        <tr class="hidden" id={`fila-bajada-${problema.id}`}>
-          <td></td>
-          <td class="col-num">0</td>
-          <td class="col-num">8</td>
-          <td></td>
-          <td></td>
-        </tr>
+      <!-- Fila 4: Bajar el 8 (008) -->
+      <g class="oculto" id="svg-bajada">
+        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 3} class="num">{cifras[2]}</text>
+      </g>
 
-        <!-- Fila 4: segunda resta (- 8) -->
-        <tr class="hidden" id={`fila-resta2-${problema.id}`}>
-          <td class="col-signo texto-rojo">-</td>
-          <td class="col-num"></td>
-          <td class="col-num texto-rojo">8</td>
-          <td></td>
-          <td class="col-cociente texto-azul" id={`coc-2-${problema.id}`}></td>
-        </tr>
+      <!-- Fila 5: Segunda resta (- 8) -->
+      <g class="oculto" id="svg-resta2">
+        <text x={xInicio + anchoCol - 20} y={yFila + altoFila * 4} class="simbolo texto-rojo">-</text>
+        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 4} class="num texto-rojo">{cifras[2]}</text>
+      </g>
 
-        <!-- Línea 2 -->
-        <tr class="hidden" id={`linea2-${problema.id}`}>
-          <td></td>
-          <td></td>
-          <td class="linea-celda"></td>
-          <td></td>
-          <td></td>
-        </tr>
+      <!-- Línea 2 -->
+      <line x1={xInicio + anchoCol - 25} y1={yFila + altoFila * 4 + 10} x2={xInicio + anchoCol * 2 + 15} y2={yFila + altoFila * 4 + 10} class="linea oculto" id="svg-linea2" />
 
-        <!-- Fila 5: resultado final (0) -->
-        <tr class="hidden" id={`fila-res2-${problema.id}`}>
-          <td></td>
-          <td></td>
-          <td class="col-num">0</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- Fila 6: Resultado final 0 -->
+      <g class="oculto" id="svg-res2">
+        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 5} class="num texto-verde">0</text>
+      </g>
+
+    </svg>
   </div>
 
   <div class="pasos-container">
     {problema.tutor.pasos.map((paso: any, index: number) => (
-      <div class="paso-item hidden" data-paso={paso.n}>
+      <div class="paso-item oculto" data-paso={paso.n}>
         <div class="paso-badge">Paso {paso.n}</div>
         <p class="paso-pregunta" set:html={marked.parse(paso.pregunta)}></p>
         
@@ -128,7 +104,7 @@ const resto = problema.resto_esperado;
           ))}
         </div>
 
-        <div class="feedback-paso hidden"></div>
+        <div class="feedback-paso oculto"></div>
       </div>
     ))}
   </div>
@@ -139,46 +115,47 @@ const resto = problema.resto_esperado;
     const tutores = document.querySelectorAll('.tutor-wrapper');
     
     tutores.forEach((tutor) => {
-      const problemaId = tutor.getAttribute('data-problema');
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       let pasoActual = 0;
 
-      const coc1 = tutor.querySelector(`#coc-1-${problemaId}`);
-      const coc2 = tutor.querySelector(`#coc-2-${problemaId}`);
-      
-      const filaResta1 = tutor.querySelector(`#fila-resta1-${problemaId}`);
-      const linea1 = tutor.querySelector(`#linea1-${problemaId}`);
-      const filaRes1 = tutor.querySelector(`#fila-res1-${problemaId}`);
-      
-      const filaBajada = tutor.querySelector(`#fila-bajada-${problemaId}`);
-      
-      const filaResta2 = tutor.querySelector(`#fila-resta2-${problemaId}`);
-      const linea2 = tutor.querySelector(`#linea2-${problemaId}`);
-      const filaRes2 = tutor.querySelector(`#fila-res2-${problemaId}`);
+      // Referencias al SVG
+      const svgCoc1 = tutor.querySelector('#svg-coc1');
+      const svgCoc2 = tutor.querySelector('#svg-coc2');
+      const svgResta1 = tutor.querySelector('#svg-resta1');
+      const svgLinea1 = tutor.querySelector('#svg-linea1');
+      const svgRes1 = tutor.querySelector('#svg-res1');
+      const svgBajada = tutor.querySelector('#svg-bajada');
+      const svgResta2 = tutor.querySelector('#svg-resta2');
+      const svgLinea2 = tutor.querySelector('#svg-linea2');
+      const svgRes2 = tutor.querySelector('#svg-res2');
 
-      if (pasos.length > 0) pasos[0].classList.remove('hidden');
+      if (pasos.length > 0) pasos[0].classList.remove('oculto');
 
-      function actualizarPizarra(pasoTerminado: number) {
+      // Función maestra que controla la pizarra según el paso terminado
+            function actualizarPizarra(pasoTerminado: number) {
+        // Paso 1: La niña responde que cabe 6 veces. Mostramos el primer 6 del cociente.
         if (pasoTerminado === 1) {
-          if (coc1) coc1.textContent = '6';
+          svgCoc1?.classList.remove('oculto');
         }
+        // Paso 2: La niña calcula 4x6=24. Mostramos la resta.
         else if (pasoTerminado === 2) {
-          filaResta1?.classList.remove('hidden');
-          linea1?.classList.remove('hidden');
+          svgResta1?.classList.remove('oculto');
+          svgLinea1?.classList.remove('oculto');
         }
+        // Paso 3: La niña resta 24-24=00. Mostramos el resultado y bajamos el 8.
         else if (pasoTerminado === 3) {
-          filaRes1?.classList.remove('hidden');
-          filaBajada?.classList.remove('hidden');
+          svgRes1?.classList.remove('oculto');
+          svgBajada?.classList.remove('oculto');
         }
+        // Paso 4: La niña calcula 4x2=8. Mostramos el segundo 2 del cociente.
         else if (pasoTerminado === 4) {
-          if (coc2) coc2.textContent = '2';
+          svgCoc2?.classList.remove('oculto');
         }
+        // Paso 5: La niña resta 8-8=0. Mostramos la segunda resta y su resultado.
         else if (pasoTerminado === 5) {
-          filaResta2?.classList.remove('hidden');
-          linea2?.classList.remove('hidden');
-        }
-        else if (pasoTerminado === 6) {
-          filaRes2?.classList.remove('hidden');
+          svgResta2?.classList.remove('oculto');
+          svgLinea2?.classList.remove('oculto');
+          svgRes2?.classList.remove('oculto');
         }
       }
 
@@ -198,7 +175,7 @@ const resto = problema.resto_esperado;
           target.classList.add('bg-green-100', 'border-green-500');
           feedbackElement.className = 'feedback-paso text-green-700 bg-green-50 p-3 rounded-lg mt-3';
           feedbackElement.innerHTML = '✅ ¡Muy bien!';
-          feedbackElement.classList.remove('hidden');
+          feedbackElement.classList.remove('oculto');
 
           pasoElement.querySelectorAll('.btn-opcion').forEach((b: any) => b.disabled = true);
 
@@ -208,7 +185,7 @@ const resto = problema.resto_esperado;
           setTimeout(() => {
             pasoActual++;
             if (pasoActual < pasos.length) {
-              pasos[pasoActual].classList.remove('hidden');
+              pasos[pasoActual].classList.remove('oculto');
               pasos[pasoActual].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
           }, 1500);
@@ -217,7 +194,7 @@ const resto = problema.resto_esperado;
           target.classList.add('bg-red-100', 'border-red-500');
           feedbackElement.className = 'feedback-paso text-red-700 bg-red-50 p-3 rounded-lg mt-3';
           feedbackElement.innerHTML = '❌ Casi. Intenta de nuevo.';
-          feedbackElement.classList.remove('hidden');
+          feedbackElement.classList.remove('oculto');
         }
       });
     });
@@ -248,62 +225,41 @@ const resto = problema.resto_esperado;
     background: #fffbeb;
     border: 2px dashed #fcd34d;
     border-radius: 8px;
-    padding: 1.5rem;
+    padding: 1rem;
     margin-bottom: 1.5rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
-  /* Tabla de la división */
-  .tabla-division {
-    border-collapse: collapse;
+  .svg-division {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: bold;
-    color: #1e293b;
   }
 
-  .tabla-division td {
-    padding: 0.1rem 0;
-    height: 2rem;
-    vertical-align: bottom;
+  .num {
+    fill: #1e293b;
+    text-anchor: middle;
   }
 
-  /* Columnas */
-  .col-signo {
-    text-align: right;
-    padding-right: 4px;
+  .texto-azul { fill: #2563eb; }
+  .texto-rojo { fill: #dc2626; }
+  .texto-verde { fill: #16a34a; }
+
+  .simbolo {
+    fill: #64748b;
+    text-anchor: middle;
   }
 
-  .col-num {
-    text-align: right;
+  .linea {
+    stroke: #1e293b;
+    stroke-width: 3;
   }
 
-  .col-simbolo {
-    text-align: center;
-  }
-
-  .col-cociente {
-    text-align: left;
-    padding-left: 4px;
-  }
-
-  .texto-azul {
-    color: #2563eb;
-  }
-
-  .texto-rojo {
-    color: #dc2626;
-  }
-
-  /* Línea de la resta */
-  .linea-celda {
-    border-bottom: 2px solid #1e293b;
-    height: 0;
-    padding: 0 !important;
-  }
-
-  .hidden { display: none !important; }
+  .oculto { display: none !important; }
 
   /* ESTILOS DE LOS PASOS */
   .paso-item {
