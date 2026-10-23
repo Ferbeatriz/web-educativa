@@ -263,141 +263,84 @@
           "cociente_esperado": 123,
           "resto_esperado": 0,
           "explicacion_breve": "369 sillas ÷ 3 filas = 123 sillas por fila. No sobra ninguna.",
-          "tutor": {
+             "tutor": {
             "pasos": [
               {
                 "n": 1,
-                "pregunta": "Hay 369 sillas y se ordenan en 3 filas. ¿Cuántas veces cabe 3 en 3?",
+                "pregunta": "Hay 369 sillas y se ordenan en 3 filas. Para empezar, ¿cuántas veces cabe 3 en 3?",
                 "tipo": "opciones",
-                "opciones": [
-                  "1",
-                  "2",
-                  "3",
-                  "0"
-                ],
+                "opciones": ["1", "2", "3", "0"],
                 "respuesta_correcta": "1",
-                "feedback_correcto": "¡Exacto! 3 cabe 1 vez en 3. Van 1 silla por fila en ese grupo.",
+                "feedback_correcto": "¡Exacto! 3 cabe 1 vez en 3.",
                 "errores_comunes": {
-                  "0": {
-                    "mensaje": "0 no es correcto. 3 sí cabe en 3, exactamente 1 vez.",
-                    "error_type": "error_conceptual"
-                  },
-                  "2": {
-                    "mensaje": "2 no es correcto. 3 × 2 = 6 sillas, y solo hay 3 en ese grupo.",
-                    "error_type": "sobreestimacion"
-                  },
-                  "3": {
-                    "mensaje": "3 no es correcto. 3 × 3 = 9 sillas, y solo hay 3.",
-                    "error_type": "sobreestimacion"
-                  }
+                  "0": { "mensaje": "0 no es correcto. 3 sí cabe en 3.", "error_type": "error_conceptual" },
+                  "2": { "mensaje": "2 no es correcto. 3 × 2 = 6.", "error_type": "sobreestimacion" },
+                  "3": { "mensaje": "3 no es correcto. 3 × 3 = 9.", "error_type": "sobreestimacion" }
                 }
               },
               {
                 "n": 2,
-                "pregunta": "Si usamos 1 silla por fila, ¿cuántas sillas se usaron?",
+                "pregunta": "Si usamos 1 silla por fila, ¿cuántas sillas se usaron en las 3 filas?",
                 "tipo": "opciones",
-                "opciones": [
-                  "3",
-                  "1",
-                  "6",
-                  "9"
-                ],
+                "opciones": ["3", "1", "6", "9"],
                 "respuesta_correcta": "3",
                 "feedback_correcto": "¡Correcto! 3 filas × 1 silla = 3 sillas usadas.",
                 "errores_comunes": {
-                  "1": {
-                    "mensaje": "1 silla no es correcto. Son 3 filas, entonces 3 × 1 = 3.",
-                    "error_type": "error_conceptual"
-                  },
-                  "6": {
-                    "mensaje": "6 sillas no es correcto. 3 × 1 = 3, no 6.",
-                    "error_type": "error_calculo_mult"
-                  },
-                  "9": {
-                    "mensaje": "9 sillas no es correcto. 3 × 1 = 3, no 9.",
-                    "error_type": "error_calculo_mult"
-                  }
+                  "1": { "mensaje": "1 silla no es correcto. Son 3 filas.", "error_type": "error_conceptual" },
+                  "6": { "mensaje": "6 sillas no es correcto. 3 × 1 = 3.", "error_type": "error_calculo_mult" },
+                  "9": { "mensaje": "9 sillas no es correcto. 3 × 1 = 3.", "error_type": "error_calculo_mult" }
                 }
               },
               {
                 "n": 3,
-                "pregunta": "Quedan 366 sillas por ordenar. ¿Cuántas veces cabe 3 en 36?",
+                "pregunta": "Restamos 3 − 3 = 0. Ahora bajamos el 6. ¿Cuántas veces cabe 3 en 6?",
                 "tipo": "opciones",
-                "opciones": [
-                  "12",
-                  "11",
-                  "13",
-                  "10"
-                ],
-                "respuesta_correcta": "12",
-                "feedback_correcto": "¡Exacto! 3 cabe 12 veces en 36. Van 12 sillas más por fila.",
+                "opciones": ["2", "1", "3", "4"],
+                "respuesta_correcta": "2",
+                "feedback_correcto": "¡Exacto! 3 cabe 2 veces en 6.",
                 "errores_comunes": {
-                  "10": {
-                    "mensaje": "10 no es correcto. 3 × 10 = 30 sillas, y faltarían 6 por ordenar.",
-                    "error_type": "subestimacion"
-                  },
-                  "11": {
-                    "mensaje": "11 no es correcto. 3 × 11 = 33 sillas, y faltarían 3 por ordenar.",
-                    "error_type": "subestimacion"
-                  },
-                  "13": {
-                    "mensaje": "13 no es correcto. 3 × 13 = 39 sillas, y solo hay 36.",
-                    "error_type": "sobreestimacion"
-                  }
+                  "1": { "mensaje": "1 no es correcto. 3 × 1 = 3.", "error_type": "subestimacion" },
+                  "3": { "mensaje": "3 no es correcto. 3 × 3 = 9.", "error_type": "sobreestimacion" },
+                  "4": { "mensaje": "4 no es correcto. 3 × 4 = 12.", "error_type": "sobreestimacion" }
                 }
               },
               {
                 "n": 4,
-                "pregunta": "Si usamos 12 sillas más por fila, ¿cuántas sillas se usaron en total?",
+                "pregunta": "Si usamos 2 sillas por fila, ¿cuántas sillas se usaron?",
                 "tipo": "opciones",
-                "opciones": [
-                  "39",
-                  "36",
-                  "42",
-                  "33"
-                ],
-                "respuesta_correcta": "39",
-                "feedback_correcto": "¡Correcto! 3 filas × 12 sillas = 36 sillas más. En total: 3 + 36 = 39 sillas usadas.",
+                "opciones": ["6", "3", "9", "12"],
+                "respuesta_correcta": "6",
+                "feedback_correcto": "¡Correcto! 3 filas × 2 sillas = 6 sillas.",
                 "errores_comunes": {
-                  "33": {
-                    "mensaje": "33 no es correcto. 3 × 12 = 36, más 3 = 39.",
-                    "error_type": "error_suma_total"
-                  },
-                  "36": {
-                    "mensaje": "36 no es correcto. 36 son las sillas del segundo grupo, pero hay que sumar las 3 anteriores.",
-                    "error_type": "error_suma_total"
-                  },
-                  "42": {
-                    "mensaje": "42 no es correcto. 3 × 12 = 36, más 3 = 39.",
-                    "error_type": "error_suma_total"
-                  }
+                  "3": { "mensaje": "3 sillas no es correcto. 3 × 2 = 6.", "error_type": "error_calculo_mult" },
+                  "9": { "mensaje": "9 sillas no es correcto. 3 × 2 = 6.", "error_type": "error_calculo_mult" },
+                  "12": { "mensaje": "12 sillas no es correcto. 3 × 2 = 6.", "error_type": "error_calculo_mult" }
                 }
               },
               {
                 "n": 5,
-                "pregunta": "¿Cuántas sillas quedaron sin ordenar?",
+                "pregunta": "Restamos 6 − 6 = 0. Ahora bajamos el 9. ¿Cuántas veces cabe 3 en 9?",
                 "tipo": "opciones",
-                "opciones": [
-                  "0",
-                  "1",
-                  "3",
-                  "6"
-                ],
-                "respuesta_correcta": "0",
-                "feedback_correcto": "¡Bien! 369 − 369 = 0. No sobra ninguna silla.",
+                "opciones": ["3", "2", "4", "5"],
+                "respuesta_correcta": "3",
+                "feedback_correcto": "¡Exacto! 3 cabe 3 veces en 9.",
                 "errores_comunes": {
-                  "1": {
-                    "mensaje": "1 silla no es correcto. Todas las sillas se ordenaron.",
-                    "error_type": "resto_mayor_divisor"
-                  },
-                  "3": {
-                    "mensaje": "3 sillas no es correcto. Todas las sillas se ordenaron.",
-                    "error_type": "resto_mayor_divisor"
-                  },
-                  "6": {
-                    "mensaje": "6 sillas no es correcto. Todas las sillas se ordenaron.",
-                    "error_type": "resto_mayor_divisor"
-                  }
+                  "2": { "mensaje": "2 no es correcto. 3 × 2 = 6.", "error_type": "subestimacion" },
+                  "4": { "mensaje": "4 no es correcto. 3 × 4 = 12.", "error_type": "sobreestimacion" },
+                  "5": { "mensaje": "5 no es correcto. 3 × 5 = 15.", "error_type": "sobreestimacion" }
+                }
+              },
+              {
+                "n": 6,
+                "pregunta": "Finalmente, ¿cuántas sillas quedaron sin ordenar?",
+                "tipo": "opciones",
+                "opciones": ["0", "1", "2", "3"],
+                "respuesta_correcta": "0",
+                "feedback_correcto": "¡Bien! 9 − 9 = 0. No sobra ninguna silla.",
+                "errores_comunes": {
+                  "1": { "mensaje": "1 silla no es correcto. Todas se ordenaron.", "error_type": "resto_mayor_divisor" },
+                  "2": { "mensaje": "2 sillas no es correcto. Todas se ordenaron.", "error_type": "resto_mayor_divisor" },
+                  "3": { "mensaje": "3 sillas no es correcto. Todas se ordenaron.", "error_type": "resto_mayor_divisor" }
                 }
               }
             ]

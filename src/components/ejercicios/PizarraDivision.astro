@@ -1,0 +1,453 @@
+
+---
+interface Props {
+  dividendo?: number;
+  divisor?: number;
+  titulo?: string;
+}
+
+const {
+  dividendo = 248,
+  divisor = 4,
+  titulo = "División vertical",
+} = Astro.props;
+
+if (!Number.isSafeInteger(dividendo) || dividendo < 0) {
+  throw new Error("El dividendo debe ser un entero no negativo.");
+}
+
+if (!Number.isSafeInteger(divisor) || divisor <= 0) {
+  throw new Error("El divisor debe ser un entero positivo.");
+}
+
+const cifras = String(dividendo).split("").map(Number);
+const cocienteCifras: number[] = [];
+const pasos: {
+  indice: number;
+  parcial: number;
+  producto: number;
+  resto: number;
+}[] = [];
+
+let parcial = 0;
+let iniciado = false;
+
+for (let i = 0; i < cifras.length; i++) {
+  parcial = parcial * 10 + cifras[i];
+
+  if (!iniciado && parcial < divisor) {
+    continue;
+  }
+
+  iniciado = true;
+
+  const digitoCociente = Math.floor(parcial / divisor);
+  const producto = digitoCociente * divisor;
+  const resto = parcial - producto;
+
+  cocienteCifras.push(digitoCociente);
+
+  pasos.push({
+    indice: i,
+    parcial,
+    producto,
+    resto,
+  });
+
+  parcial = resto;
+}
+
+const cociente =
+  cocienteCifras.length > 0
+    ? Number(cocienteCifras.join(""))
+    : 0;
+
+const restoFinal = iniciado ? parcial : dividendo;
+
+// Geometría: cada cifra tiene una columna de ancho fijo.
+const anchoColumna = 34;
+const xInicio = 24;
+const anchoDividendo = cifras.length * anchoColumna;
+const xDivisor = xInicio + anchoDividendo + 24;
+const xIgual = xDivisor + 42;
+const xCociente = xIgual + 34;
+
+const anchoSVG = xCociente +
+  Math.max(String(cociente).length, 1) * anchoColumna + 24;
+
+const yCabecera = 42;
+const yInicioPasos = 82;
+const altoFila = 30;
+
+type Fila = {
+  tipo: "resta" | "linea" | "parcial" | "final";
+  texto?: string;
+  indiceFinal: number;
+  y: number;
+  xFinal?: number;
+};
+
+const filas: Fila[] = [];
+let y = yInicioPasos;
+
+for (let i = 0; i < pasos.length; i++) {
+  const paso = pasos[i];
+  const anchoTexto = paso.indice + 1;
+
+  // La resta termina en la columna de la última cifra utilizada.
+  const productoTexto = String(paso.producto).padStart(
+    anchoTexto,
+    "0",
+  );
+
+  filas.push({
+    tipo: "resta",
+    texto: productoTexto,
+    indiceFinal: paso.indice,
+    y,
+    xFinal: xInicio + paso.indice * anchoColumna,
+  });
+
+  y += altoFila;
+
+  filas.push({
+    tipo: "linea",
+    indiceFinal: paso.indice,
+    y,
+    xFinal: xInicio + (paso.indice + 1) * anchoColumna,
+  });
+
+  y += altoFila;
+
+  if (i < pasos.length - 1) {
+    const siguiente = pasos[i + 1];
+
+    // Cifra que se baja, con ceros de alineación a la izquierda.
+    filas.push({
+      tipo: "parcial",
+      texto: String(siguiente.parcial).padStart(
+        siguiente.indice + 1,
+        "0",
+      ),
+      indiceFinal: siguiente.indice,
+      y,
+    });
+
+    y += altoFila;
+  } else {
+    filas.push({
+      tipo: "final",
+      texto: String(restoFinal).padStart(cifras.length, "0"),
+      indiceFinal: cifras.length - 1,
+      y,
+    });
+
+    y += altoFila;
+  }
+}
+
+const altoSVG = y + 12;
+const totalPasos = Math.max(pasos.length, 1);
+---
+
+<section
+  class="division"
+  data-division
+  data-total-pasos={totalPasos}
+  data-paso-actual="0"  
+  aria-label={titulo}
+>
+  <h3>{titulo}</h3>
+
+  <div class="lienzo">
+    <svg
+      viewBox={`0 0 ${anchoSVG} ${altoSVG}`}
+      role="img"
+      aria-label={`${dividendo} dividido por ${divisor} es ${cociente}, con resto ${restoFinal}`}
+    >
+      <!-- Dividendo: una cifra por columna -->
+      {cifras.map((cifra, i) => (
+        <text
+          x={xInicio + i * anchoColumna + anchoColumna / 2}
+          y={yCabecera}
+          class="cifra cabecera"
+        >
+          {cifra}
+        </text>
+      ))}
+
+      <text
+        x={xInicio + anchoDividendo + 5}
+        y={yCabecera}
+        class="signo"
+      >
+        :
+      </text>
+
+      <text x={xDivisor} y={yCabecera} class="cifra cabecera">
+        {divisor}
+      </text>
+
+      <text x={xIgual} y={yCabecera} class="signo">
+        =
+      </text>
+
+      <text
+        x={xCociente}
+        y={yCabecera}
+        class="cifra cabecera"
+      >
+        {cociente}
+      </text>
+
+      <!-- Pasos de la división -->
+      {filas.map((fila) => {
+        const visibleInicialmente = fila.indiceFinal >= 0 &&
+          fila.indiceFinal < pasos.length &&
+          fila.indiceFinal === pasos[0]?.indice &&
+          (fila.tipo === "resta" || fila.tipo === "linea");
+
+        const pasoVisible = fila.tipo === "final"
+          ? pasos.length
+          : fila.tipo === "parcial"
+            ? filas.findIndex((f) => f === fila)
+            : filas.findIndex((f) => f === fila);
+
+        let numeroPaso = 1;
+
+        if (fila.tipo === "parcial") {
+          const siguiente = pasos.findIndex(
+            (p) => p.indice === fila.indiceFinal,
+          );
+          numeroPaso = siguiente + 1;
+        } else {
+          const indicePaso = pasos.findIndex(
+            (p) => p.indice === fila.indiceFinal,
+          );
+          numeroPaso = Math.max(indicePaso + 1, 1);
+        }
+
+        const mostrar = fila.tipo === "final"
+          ? pasos.length <= 1
+          : numeroPaso <= 1;
+
+        return (
+          <g
+            class:list={[
+              "fila",
+              { "fila-oculta": !mostrar },
+            ]}
+            data-paso={numeroPaso}
+            data-tipo={fila.tipo}
+          >
+            {fila.tipo === "linea" ? (
+              <line
+                x1={xInicio}
+                x2={fila.xFinal}
+                y1={fila.y - 8}
+                y2={fila.y - 8}
+                class="linea-resta"
+              />
+            ) : (
+              <>
+                {fila.tipo === "resta" && (
+                  <text
+                    x={xInicio - 2}
+                    y={fila.y}
+                    class="signo-resta"
+                  >
+                    −
+                  </text>
+                )}
+
+                {[...(fila.texto ?? "")].map((caracter, i) => (
+                  <text
+                    x={xInicio + i * anchoColumna + anchoColumna / 2}
+                    y={fila.y}
+                    class:list={[
+                      "cifra",
+                      {
+                        "resultado-final": fila.tipo === "final",
+                      },
+                    ]}
+                  >
+                    {caracter}
+                  </text>
+                ))}
+              </>
+            )}
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+
+  <div class="controles">
+    <button type="button" data-anterior disabled>
+      Anterior
+    </button>
+
+    <span data-indicador aria-live="polite">
+      Paso 1 de {totalPasos}
+    </span>
+
+    <button type="button" data-siguiente>
+      Siguiente paso
+    </button>
+
+    <button type="button" data-reiniciar class="secundario">
+      Reiniciar
+    </button>
+  </div>
+</section>
+
+<style>
+  .division {
+    width: 100%;
+    max-width: 620px;
+    margin-inline: auto;
+    padding: 1rem;
+    color: var(--color-texto, #263238);
+    font-family: system-ui, sans-serif;
+  }
+
+  .division h3 {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+  }
+
+  .lienzo {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dce3e8;
+    border-radius: 12px;
+    background: #fff;
+    padding: 0.5rem;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    min-width: 260px;
+    height: auto;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cifra {
+    font-size: 19px;
+    text-anchor: middle;
+    fill: #263238;
+  }
+
+  .cabecera {
+    font-weight: 650;
+  }
+
+  .signo,
+  .signo-resta {
+    font-size: 19px;
+    fill: #263238;
+  }
+
+  .signo-resta {
+    font-size: 18px;
+  }
+
+  .linea-resta {
+    stroke: #455a64;
+    stroke-width: 1.5;
+  }
+
+  .resultado-final {
+    fill: #176b46;
+    font-weight: 700;
+  }
+
+  .fila-oculta {
+    display: none;
+  }
+
+  .controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .controles button {
+    border: 0;
+    border-radius: 8px;
+    padding: 0.65rem 0.85rem;
+    background: #176bba;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .controles button.secundario {
+    background: #e9eef2;
+    color: #263238;
+  }
+
+  .controles button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  [data-indicador] {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fila {
+      animation: aparecer 180ms ease-out;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(-3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll("[data-division]").forEach((element) => {
+    const division = element as HTMLElement;
+    const filas = Array.from(division.querySelectorAll<SVGGElement>(".fila"));
+    const controles = division.querySelector(".controles") as HTMLElement;
+
+    // Ocultamos los botones de control porque el tutor maneja los pasos
+    if (controles) controles.style.display = "none"; 
+
+    // Función que actualiza la vista según el paso actual
+    function actualizarVista() {
+      const pasoActual = Number(division.dataset.pasoActual || 0);
+      
+      filas.forEach((fila) => {
+        const paso = Number(fila.dataset.paso || 1);
+        // La fila se muestra solo si el paso actual del tutor es mayor o igual al paso de la fila
+        fila.classList.toggle("fila-oculta", paso > pasoActual);
+      });
+    }
+
+    // Exponemos una función para que el tutor pueda actualizar la pizarra
+    (division as any).actualizarPaso = (nuevoPaso: number) => {
+      division.dataset.pasoActual = nuevoPaso.toString();
+      actualizarVista();
+    };
+
+    actualizarVista();
+  });
+</script>
+

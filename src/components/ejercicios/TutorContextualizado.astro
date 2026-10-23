@@ -7,12 +7,54 @@ interface Props {
 
 const { problema } = Astro.props;
 
-// Descomponemos el dividendo (asumiendo 3 cifras para 248)
-const cifras = String(problema.dividendo).split("").map(Number);
+const divisor = problema.divisor;
+const dividendo = problema.dividendo;
+const cociente = problema.cociente_esperado;
 
-// Geometría fija del lienzo para alinear todo
-const xInicio = 40;
+// Algoritmo dinámico para calcular los pasos de la división
+const cifras = String(dividendo).split("").map(Number);
+const pasosCalculados: any[] = [];
+let parcialActual = 0;
+let posicion = 0;
+let primeraColumna = true;
+
+while (posicion < cifras.length) {
+  let parcial, finColumna;
+  
+  if (primeraColumna) {
+    let valor = cifras[0];
+    let tomadas = 1;
+    while (valor < divisor && tomadas < cifras.length) {
+      valor = valor * 10 + cifras[tomadas];
+      tomadas++;
+    }
+    parcial = valor;
+    finColumna = tomadas - 1;
+    posicion = tomadas;
+    primeraColumna = false;
+  } else {
+    parcial = parcialActual * 10 + cifras[posicion];
+    finColumna = posicion;
+    posicion++;
+  }
+
+  const digitoCociente = Math.floor(parcial / divisor);
+  const producto = digitoCociente * divisor;
+  const diferencia = parcial - producto;
+
+  pasosCalculados.push({
+    digitoCociente,
+    producto,
+    diferencia,
+    finColumna,
+    parcial
+  });
+
+  parcialActual = diferencia;
+}
+
 const anchoCol = 40;
+const xInicio = 40;
 const yFila = 50;
 const altoFila = 45;
 ---
@@ -27,61 +69,62 @@ const altoFila = 45;
     </div>
   </div>
 
-  <!-- LA PIZARRA (Controlada por el tutor) -->
+  <!-- LA PIZARRA DINÁMICA (Dibuja todos los pasos, pero ocultos) -->
   <div class="pizarra-viva">
-    <svg viewBox="0 0 350 300" class="svg-division">
+    <svg viewBox="0 0 450 400" class="svg-division">
       
-      <!-- Fila 1: El dividendo y el divisor (Siempre visible) -->
-      <text x={xInicio} y={yFila} class="num">{cifras[0]}</text>
-      <text x={xInicio + anchoCol} y={yFila} class="num">{cifras[1]}</text>
-      <text x={xInicio + anchoCol * 2} y={yFila} class="num">{cifras[2]}</text>
+      <!-- Fila 1: El dividendo y el divisor -->
+      {cifras.map((cifra, i) => (
+        <text x={xInicio + i * anchoCol} y={yFila} class="num">{cifra}</text>
+      ))}
       
-      <text x={xInicio + anchoCol * 3 + 20} y={yFila} class="simbolo">:</text>
-      <text x={xInicio + anchoCol * 4 + 20} y={yFila} class="num texto-azul">{problema.divisor}</text>
+      <text x={xInicio + cifras.length * anchoCol + 20} y={yFila} class="simbolo">:</text>
+      <text x={xInicio + cifras.length * anchoCol + 50} y={yFila} class="num texto-azul">{divisor}</text>
 
-      <text x={xInicio + anchoCol * 4 + 70} y={yFila} class="simbolo">=</text>
+      <text x={xInicio + cifras.length * anchoCol + 80} y={yFila} class="simbolo">=</text>
       
-    
-      <!-- Primer dígito del cociente (se revela en el Paso 1) -->
-      <text x={xInicio + anchoCol * 5 + 60} y={yFila} class="num texto-azul oculto" id="svg-coc1">6</text>
-      
-      <!-- Segundo dígito del cociente (se revela en el Paso 4) -->
-      <text x={xInicio + anchoCol * 5 + 85} y={yFila} class="num texto-azul oculto" id="svg-coc2">2</text>
+      <!-- Cociente (Se arma dígito a dígito) -->
+      {String(cociente).split("").map((dig, i) => (
+        <text 
+          x={xInicio + cifras.length * anchoCol + 110 + (i * 25)} 
+          y={yFila} 
+          class="num texto-azul oculto" 
+          id={`svg-coc-${i}`}
+        >
+          {dig}
+        </text>
+      ))}
 
-      <!-- Fila 2: Primera resta (- 24) -->
-      <g class="oculto" id="svg-resta1">
-        <text x={xInicio - 20} y={yFila + altoFila} class="simbolo texto-rojo">-</text>
-        <text x={xInicio} y={yFila + altoFila} class="num texto-rojo">{cifras[0]}</text>
-        <text x={xInicio + anchoCol} y={yFila + altoFila} class="num texto-rojo">{cifras[1]}</text>
-      </g>
+      <!-- Pasos de la división (Cada resta y su resultado) -->
+      {pasosCalculados.map((paso, index) => {
+        const xFin = xInicio + paso.finColumna * anchoCol;
+        const yActual = yFila + altoFila * (index * 3 + 1);
+        const yLinea = yActual + 10;
+        const yRes = yActual + altoFila;
 
-      <!-- Línea 1 -->
-      <line x1={xInicio - 25} y1={yFila + altoFila + 10} x2={xInicio + anchoCol * 2 + 15} y2={yFila + altoFila + 10} class="linea oculto" id="svg-linea1" />
+        return (
+          <g class="oculto" id={`svg-paso-${index}`}>
+            <!-- La resta (Producto) -->
+            <text x={xFin - 30} y={yActual} class="simbolo texto-rojo">-</text>
+            <text x={xFin} y={yActual} class="num texto-rojo">{paso.producto}</text>
+            
+            <!-- La línea horizontal -->
+            <line x1={xFin - 35} y1={yLinea} x2={xFin + 15} y2={yLinea} class="linea" />
+            
+            <!-- El resultado (Diferencia) -->
+            <text x={xFin} y={yRes} class="num">{paso.diferencia}</text>
+          </g>
+        );
+      })}
 
-      <!-- Fila 3: Resultado 00 -->
-      <g class="oculto" id="svg-res1">
-        <text x={xInicio + anchoCol} y={yFila + altoFila * 2} class="num">0</text>
-        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 2} class="num">0</text>
-      </g>
-
-      <!-- Fila 4: Bajar el 8 (008) -->
-      <g class="oculto" id="svg-bajada">
-        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 3} class="num">{cifras[2]}</text>
-      </g>
-
-      <!-- Fila 5: Segunda resta (- 8) -->
-      <g class="oculto" id="svg-resta2">
-        <text x={xInicio + anchoCol - 20} y={yFila + altoFila * 4} class="simbolo texto-rojo">-</text>
-        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 4} class="num texto-rojo">{cifras[2]}</text>
-      </g>
-
-      <!-- Línea 2 -->
-      <line x1={xInicio + anchoCol - 25} y1={yFila + altoFila * 4 + 10} x2={xInicio + anchoCol * 2 + 15} y2={yFila + altoFila * 4 + 10} class="linea oculto" id="svg-linea2" />
-
-      <!-- Fila 6: Resultado final 0 -->
-      <g class="oculto" id="svg-res2">
-        <text x={xInicio + anchoCol * 2} y={yFila + altoFila * 5} class="num texto-verde">0</text>
-      </g>
+      <!-- Si sobra un resto final, se muestra al fondo -->
+      {parcialActual > 0 && (
+        <g class="oculto" id="svg-resto-final">
+          <text x={xInicio + (cifras.length - 1) * anchoCol} y={yFila + altoFila * (pasosCalculados.length * 3 + 1)} class="num texto-verde">
+            {parcialActual}
+          </text>
+        </g>
+      )}
 
     </svg>
   </div>
@@ -116,46 +159,42 @@ const altoFila = 45;
     
     tutores.forEach((tutor) => {
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
-      let pasoActual = 0;
+      
+      // Referencias a los elementos SVG
+      const svgPasos = Array.from(tutor.querySelectorAll('[id^="svg-paso-"]')) as SVGElement[];
+      const svgCocs = Array.from(tutor.querySelectorAll('[id^="svg-coc-"]')) as SVGElement[];
+      const svgRestoFinal = tutor.querySelector('#svg-resto-final') as SVGElement;
 
-      // Referencias al SVG
-      const svgCoc1 = tutor.querySelector('#svg-coc1');
-      const svgCoc2 = tutor.querySelector('#svg-coc2');
-      const svgResta1 = tutor.querySelector('#svg-resta1');
-      const svgLinea1 = tutor.querySelector('#svg-linea1');
-      const svgRes1 = tutor.querySelector('#svg-res1');
-      const svgBajada = tutor.querySelector('#svg-bajada');
-      const svgResta2 = tutor.querySelector('#svg-resta2');
-      const svgLinea2 = tutor.querySelector('#svg-linea2');
-      const svgRes2 = tutor.querySelector('#svg-res2');
+      let pasoActual = 0;
 
       if (pasos.length > 0) pasos[0].classList.remove('oculto');
 
-      // Función maestra que controla la pizarra según el paso terminado
-            function actualizarPizarra(pasoTerminado: number) {
-        // Paso 1: La niña responde que cabe 6 veces. Mostramos el primer 6 del cociente.
-        if (pasoTerminado === 1) {
-          svgCoc1?.classList.remove('oculto');
+      function actualizarPizarra(pasoTerminado: number) {
+        // La regla es simple: 
+        // El paso 1 del tutor revela el primer dígito del cociente.
+        // Los pasos pares (2, 4, 6) revelan las restas.
+        // Los pasos impares (3, 5, 7) revelan los siguientes dígitos del cociente.
+        
+        if (pasoTerminado === 1 && svgCocs[0]) {
+          svgCocs[0].classList.remove('oculto');
         }
-        // Paso 2: La niña calcula 4x6=24. Mostramos la resta.
-        else if (pasoTerminado === 2) {
-          svgResta1?.classList.remove('oculto');
-          svgLinea1?.classList.remove('oculto');
+        else if (pasoTerminado === 2 && svgPasos[0]) {
+          svgPasos[0].classList.remove('oculto');
         }
-        // Paso 3: La niña resta 24-24=00. Mostramos el resultado y bajamos el 8.
-        else if (pasoTerminado === 3) {
-          svgRes1?.classList.remove('oculto');
-          svgBajada?.classList.remove('oculto');
+        else if (pasoTerminado === 3 && svgCocs[1]) {
+          svgCocs[1].classList.remove('oculto');
         }
-        // Paso 4: La niña calcula 4x2=8. Mostramos el segundo 2 del cociente.
-        else if (pasoTerminado === 4) {
-          svgCoc2?.classList.remove('oculto');
+        else if (pasoTerminado === 4 && svgPasos[1]) {
+          svgPasos[1].classList.remove('oculto');
         }
-        // Paso 5: La niña resta 8-8=0. Mostramos la segunda resta y su resultado.
-        else if (pasoTerminado === 5) {
-          svgResta2?.classList.remove('oculto');
-          svgLinea2?.classList.remove('oculto');
-          svgRes2?.classList.remove('oculto');
+        else if (pasoTerminado === 5 && svgCocs[2]) {
+          svgCocs[2].classList.remove('oculto');
+        }
+        else if (pasoTerminado === 6 && svgPasos[2]) {
+          svgPasos[2].classList.remove('oculto');
+        }
+        else if (pasoTerminado === 6 && svgRestoFinal) {
+          svgRestoFinal.classList.remove('oculto');
         }
       }
 
@@ -179,8 +218,7 @@ const altoFila = 45;
 
           pasoElement.querySelectorAll('.btn-opcion').forEach((b: any) => b.disabled = true);
 
-          const pasoTerminado = pasoActual + 1;
-          actualizarPizarra(pasoTerminado);
+          actualizarPizarra(pasoActual + 1);
 
           setTimeout(() => {
             pasoActual++;
@@ -220,7 +258,6 @@ const altoFila = 45;
   .tutor-titulo { font-size: 1.1rem; font-weight: 700; color: #334155; margin: 0; }
   .tutor-subtitulo { font-size: 0.9rem; color: #64748b; font-style: italic; margin: 0; }
 
-  /* ESTILOS DE LA PIZARRA */
   .pizarra-viva {
     background: #fffbeb;
     border: 2px dashed #fcd34d;
@@ -233,7 +270,7 @@ const altoFila = 45;
 
   .svg-division {
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     height: auto;
     font-family: 'Courier New', Courier, monospace;
     font-size: 24px;
@@ -261,7 +298,6 @@ const altoFila = 45;
 
   .oculto { display: none !important; }
 
-  /* ESTILOS DE LOS PASOS */
   .paso-item {
     background: white;
     border: 1px solid #e2e8f0;
