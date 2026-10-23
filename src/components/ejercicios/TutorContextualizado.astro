@@ -90,6 +90,7 @@ const altoFila = 45;
           y={yFila} 
           class="num texto-azul oculto" 
           id={`svg-coc-${i}`}
+          data-paso-activador={1 + i * 3}
         >
           {dig}
         </text>
@@ -103,23 +104,42 @@ const altoFila = 45;
         const yRes = yActual + altoFila;
 
         return (
-          <g class="oculto" id={`svg-paso-${index}`}>
-            <!-- La resta (Producto) -->
-            <text x={xFin - 30} y={yActual} class="simbolo texto-rojo">-</text>
-            <text x={xFin} y={yActual} class="num texto-rojo">{paso.producto}</text>
-            
-            <!-- La línea horizontal -->
-            <line x1={xFin - 35} y1={yLinea} x2={xFin + 15} y2={yLinea} class="linea" />
-            
+          <>
+            <g class="oculto" id={`svg-paso-${index}`} data-paso-activador={2 * index + 2}>
+              <!-- La resta (Producto) -->
+              <text x={xFin - 35} y={yActual} class="simbolo texto-rojo">-</text>
+              <text x={xFin} y={yActual} style="text-anchor: end" class="num texto-rojo">{paso.producto}</text>
+              
+              <!-- La línea horizontal -->
+              <line x1={xFin - 35} y1={yLinea} x2={xFin + 15} y2={yLinea} class="linea" />
+            </g>
+
             <!-- El resultado (Diferencia) -->
-            <text x={xFin} y={yRes} class="num">{paso.diferencia}</text>
-          </g>
+            <g class="oculto" id={`svg-resultado-${index}`} data-paso-activador={2 * index + 3}>
+              <text x={xFin} y={yRes} class="num">{paso.diferencia}</text>
+            </g>
+          </>
         );
       })}
 
+      <!-- Bajadas de cifras (se activan al terminar la resta anterior) -->
+      {pasosCalculados
+        .filter((_, index) => index < pasosCalculados.length - 1)
+        .map((paso, index) => {
+          const siguienteCifra = cifras[paso.finColumna + 1];
+          const xFin = xInicio + paso.finColumna * anchoCol;
+          const yBajada = yFila + altoFila * (index * 3 + 3);
+
+          return (
+            <g class="oculto" id={`svg-bajada-${index}`} data-paso-activador={2 * index + 3}>
+              <text x={xFin + 15} y={yBajada} class="num texto-verde">{siguienteCifra}</text>
+            </g>
+          );
+        })}
+
       <!-- Si sobra un resto final, se muestra al fondo -->
       {parcialActual > 0 && (
-        <g class="oculto" id="svg-resto-final">
+        <g class="oculto" id="svg-resto-final" data-paso-activador={2 * pasosCalculados.length}>
           <text x={xInicio + (cifras.length - 1) * anchoCol} y={yFila + altoFila * (pasosCalculados.length * 3 + 1)} class="num texto-verde">
             {parcialActual}
           </text>
@@ -160,42 +180,17 @@ const altoFila = 45;
     tutores.forEach((tutor) => {
       const pasos = Array.from(tutor.querySelectorAll('.paso-item')) as HTMLElement[];
       
-      // Referencias a los elementos SVG
-      const svgPasos = Array.from(tutor.querySelectorAll('[id^="svg-paso-"]')) as SVGElement[];
-      const svgCocs = Array.from(tutor.querySelectorAll('[id^="svg-coc-"]')) as SVGElement[];
-      const svgRestoFinal = tutor.querySelector('#svg-resto-final') as SVGElement;
-
       let pasoActual = 0;
 
       if (pasos.length > 0) pasos[0].classList.remove('oculto');
 
-      function actualizarPizarra(pasoTerminado: number) {
-        // La regla es simple: 
-        // El paso 1 del tutor revela el primer dígito del cociente.
-        // Los pasos pares (2, 4, 6) revelan las restas.
-        // Los pasos impares (3, 5, 7) revelan los siguientes dígitos del cociente.
-        
-        if (pasoTerminado === 1 && svgCocs[0]) {
-          svgCocs[0].classList.remove('oculto');
-        }
-        else if (pasoTerminado === 2 && svgPasos[0]) {
-          svgPasos[0].classList.remove('oculto');
-        }
-        else if (pasoTerminado === 3 && svgCocs[1]) {
-          svgCocs[1].classList.remove('oculto');
-        }
-        else if (pasoTerminado === 4 && svgPasos[1]) {
-          svgPasos[1].classList.remove('oculto');
-        }
-        else if (pasoTerminado === 5 && svgCocs[2]) {
-          svgCocs[2].classList.remove('oculto');
-        }
-        else if (pasoTerminado === 6 && svgPasos[2]) {
-          svgPasos[2].classList.remove('oculto');
-        }
-        else if (pasoTerminado === 6 && svgRestoFinal) {
-          svgRestoFinal.classList.remove('oculto');
-        }
+      function revelarPizarraParaPaso(pasoNumero: number) {
+        // Revela todos los elementos SVG cuyo data-paso-activador coincida
+        // con el paso del tutor que acaba de completarse. Así la pizarra
+        // avanza estrictamente en sincronía con las respuestas de la alumna,
+        // sin adelantarse nunca.
+        const elementos = tutor.querySelectorAll(`[data-paso-activador="${pasoNumero}"]`);
+        elementos.forEach((el) => el.classList.remove('oculto'));
       }
 
       tutor.addEventListener('click', (e) => {
@@ -218,7 +213,7 @@ const altoFila = 45;
 
           pasoElement.querySelectorAll('.btn-opcion').forEach((b: any) => b.disabled = true);
 
-          actualizarPizarra(pasoActual + 1);
+          revelarPizarraParaPaso(pasoActual + 1);
 
           setTimeout(() => {
             pasoActual++;
