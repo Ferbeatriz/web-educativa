@@ -11,11 +11,25 @@ const { dividendo, divisor, cocienteEsperado, problemaId, visible = false } = As
 console.log('Props recibidas en frontmatter:', { dividendo, divisor, cocienteEsperado });
 const resto = dividendo % divisor;
 
-const cartasDecenas = [10, 20, 30, 40, 50, 60].map(v => ({ tipo: 'decena', valor: v, label: String(v) }));
-const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valor: v, label: String(v) }));
+// Banco de cartas generado dinámicamente a partir del dividendo y el divisor
+const cartas = [];
+
+// Decenas: solo si el dividendo es >= 100, y hasta un valor máximo
+// que no supere el cociente esperado (para no pasarse al repartir)
+if (dividendo >= 100) {
+  const maxDecena = Math.floor(cocienteEsperado / 10) * 10;
+  for (let v = 10; v <= maxDecena; v += 10) {
+    cartas.push({ tipo: 'decena', valor: v, label: String(v) });
+  }
+}
+
+// Unidades: siempre de 1 a 9
+for (let v = 1; v <= 9; v++) {
+  cartas.push({ tipo: 'unidad', valor: v, label: String(v) });
+}
 ---
 
-<div class="manipulativo" data-manipulativo data-problema-id={problemaId} data-dividendo={dividendo} data-divisor={divisor} data-cociente-esperado={cocienteEsperado} style={visible ? '' : 'display: none'}>
+<div class="manipulativo" data-manipulativo data-problema-id={problemaId} data-dividendo={dividendo} data-divisor={divisor} data-cociente-esperado={cocienteEsperado} data-resto-esperado={resto} style={visible ? '' : 'display: none'}>
   <div class="planteamiento" data-planteamiento>{dividendo} ÷ {divisor} = ?</div>
 
   <div class="banco">
@@ -24,14 +38,14 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
 
     <div class="grupo-cartas">
       <span class="etiqueta">Decenas:</span>
-      {cartasDecenas.map(carta => (
+      {cartas.filter(c => c.tipo === 'decena').map(carta => (
         <button class="carta-banco decena" data-tipo="decena" data-valor={carta.valor}>{carta.label}</button>
       ))}
     </div>
 
     <div class="grupo-cartas">
       <span class="etiqueta">Unidades:</span>
-      {cartasUnidades.map(carta => (
+      {cartas.filter(c => c.tipo === 'unidad').map(carta => (
         <button class="carta-banco unidad" data-tipo="unidad" data-valor={carta.valor}>{carta.label}</button>
       ))}
     </div>
@@ -50,6 +64,14 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
     </div>
   </div>
 
+{resto > 0 && (
+  <div class="zona-sobrantes" data-zona-sobrantes>
+    <span class="etiqueta-sobrantes">Sobrantes:</span>
+    <div class="valor-sobrantes">0</div>
+    <div class="cartas-sobrantes"></div>
+  </div>
+)}
+
   <div id="mensaje-${problemaId}" class="mensaje" style="display: none;"></div>
 </div>
 
@@ -62,10 +84,12 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
     const divisor = parseInt(contenedor.dataset.divisor, 10);
     const cocienteEsperado = parseInt(contenedor.dataset.cocienteEsperado, 10);
     const problemaId = contenedor.dataset.problemaId;
-    console.log('Valores del DOM:', { dividendo, divisor, cocienteEsperado, problemaId });
+    const restoEsperado = parseInt(contenedor.dataset.restoEsperado, 10);
+    console.log('Valores del DOM:', { dividendo, divisor, cocienteEsperado, problemaId, restoEsperado });
 
     let cartaSeleccionada = null;
     let cajas = Array.from({ length: divisor }).map(() => ({ valor: 0, cartas: [] }));
+    let sobrantes = { valor: 0, cartas: [] };
     console.log('Variables recibidas:', { dividendo, divisor, cocienteEsperado });
     console.log('Cajas iniciales:', cajas);
     console.log('Divisor:', divisor, 'Dividendo:', dividendo);
@@ -84,13 +108,16 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
       }
     });
 
-    // Listener 2: Mover carta a la caja
+    // Listener 2: Mover carta a la caja o a sobrantes
     contenedor.addEventListener('click', (e) => {
       console.log('Listener 2 ejecutado');
       const caja = e.target.closest('[data-caja]');
+      const zonaSobrantes = e.target.closest('[data-zona-sobrantes]');
       console.log('Caja encontrada:', caja);
+      console.log('Zona sobrantes encontrada:', zonaSobrantes);
+
       if (caja && cartaSeleccionada) {
-        console.log('Moviendo carta...');
+        console.log('Moviendo carta a caja...');
         const cajaIndex = parseInt(caja.dataset.caja, 10);
         console.log('Índice de caja:', cajaIndex);
         const cajaObj = cajas[cajaIndex];
@@ -105,12 +132,21 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
         renderizar();
         console.log('Después de renderizar:', cajas[cajaIndex]);
         verificarVictoria();
+      } else if (zonaSobrantes && cartaSeleccionada) {
+        console.log('Moviendo carta a sobrantes...');
+        sobrantes.valor += cartaSeleccionada.valor;
+        sobrantes.cartas.push({ ...cartaSeleccionada });
+        cartaSeleccionada = null;
+        contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
+        renderizar();
+        verificarVictoria();
       }
     });
 
-    // Listener 3: Devolver carta de la caja al banco
+    // Listener 3: Devolver carta de la caja o de sobrantes al banco
     contenedor.addEventListener('click', (e) => {
       const target = e.target;
+
       if (target.classList.contains('carta-en-caja')) {
         e.stopPropagation();
         const cajaElement = target.closest('.caja');
@@ -123,6 +159,19 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
         const carta = caja.cartas[cartaIndex];
         caja.valor -= carta.valor;
         caja.cartas.splice(cartaIndex, 1);
+        cartaSeleccionada = null;
+
+        contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
+        renderizar();
+        verificarVictoria();
+      } else if (target.classList.contains('carta-en-sobrante')) {
+        e.stopPropagation();
+        const cartaIndex = parseInt(target.dataset.index, 10);
+        const carta = sobrantes.cartas[cartaIndex];
+        if (!carta) return;
+
+        sobrantes.valor -= carta.valor;
+        sobrantes.cartas.splice(cartaIndex, 1);
         cartaSeleccionada = null;
 
         contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
@@ -142,20 +191,36 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
           ).join('');
         }
       });
+
+      // Renderizar zona de sobrantes si existe
+      const valorSobrantesEl = contenedor.querySelector('.valor-sobrantes');
+      const cartasSobrantesEl = contenedor.querySelector('.cartas-sobrantes');
+      if (valorSobrantesEl) valorSobrantesEl.textContent = sobrantes.valor;
+      if (cartasSobrantesEl) {
+        cartasSobrantesEl.innerHTML = (sobrantes.cartas || []).map((carta, idx) =>
+          `<div class="carta-en-sobrante" data-index="${idx}">${carta.valor}</div>`
+        ).join('');
+      }
     }
 
     function verificarVictoria() {
       const todasCorrectas = cajas.every(c => c.valor === cocienteEsperado);
+      const sobrantesCorrectos = restoEsperado === 0 || sobrantes.valor === restoEsperado;
       const mensaje = contenedor.querySelector('.mensaje');
-      if (todasCorrectas && mensaje) {
+      if (todasCorrectas && sobrantesCorrectos && mensaje) {
         mensaje.style.display = 'block';
-        mensaje.textContent = `¡Muy bien! Repartiste ${dividendo} en ${divisor} cajas, ${cocienteEsperado} en cada una.`;
         mensaje.className = 'mensaje correcto';
 
         // Actualizar el planteamiento con el resultado
         const planteamiento = contenedor.querySelector('[data-planteamiento]');
         if (planteamiento) {
-          planteamiento.textContent = `${dividendo} ÷ ${divisor} = ${cocienteEsperado}`;
+          if (restoEsperado > 0) {
+            mensaje.textContent = `¡Muy bien! Repartiste ${dividendo} en ${divisor} cajas, ${cocienteEsperado} en cada una, y sobraron ${restoEsperado}.`;
+            planteamiento.textContent = `${dividendo} ÷ ${divisor} = ${cocienteEsperado} y sobran ${restoEsperado}`;
+          } else {
+            mensaje.textContent = `¡Muy bien! Repartiste ${dividendo} en ${divisor} cajas, ${cocienteEsperado} en cada una.`;
+            planteamiento.textContent = `${dividendo} ÷ ${divisor} = ${cocienteEsperado}`;
+          }
         }
 
         window.dispatchEvent(new CustomEvent('manipulativo-completado', {
@@ -327,5 +392,60 @@ const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valo
     background: #dcfce7;
     color: #166534;
     border: 2px solid #16a34a;
+  }
+
+  .zona-sobrantes {
+    background: white;
+    padding: 1rem;
+    min-width: 140px;
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .etiqueta-sobrantes {
+    font-weight: bold;
+    color: #92400e;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .valor-sobrantes {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #92400e;
+    min-width: 40px;
+  }
+
+  .cartas-sobrantes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+    min-height: 60px;
+    margin-left: 0.5rem;
+  }
+
+  .carta-en-sobrante {
+    padding: 0.35rem 0.75rem;
+    background: #fde68a;
+    border: 1px solid #d97706;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #92400e;
+    transition: all 0.15s;
+  }
+
+  .carta-en-sobrante:hover {
+    background: #fcd34d;
+    border-color: #b45309;
+    transform: scale(1.05);
   }
 </style>
