@@ -1,6 +1,6 @@
 ---
 import TutorContextualizado from './TutorContextualizado.astro';
-import AnimacionDivision from '../tutor/AnimacionDivision.astro'; // Importación necesaria para que Astro lo empaquete
+// import AnimacionDivision from '../tutor/AnimacionDivision.astro'; // Desactivado: ya no se usa la animación de cajas
 
 interface Props {
   problema: any;
@@ -26,6 +26,7 @@ const { problema } = Astro.props;
   </div>
 
   <p class="enunciado">{problema.enunciado}</p>
+  <div id="resultado-problema-{problema.id}" class="resultado-problema hidden"></div>
 
   <div class="campos-respuesta">
     <div class="campo">
@@ -56,18 +57,18 @@ const { problema } = Astro.props;
 
   <div class="feedback" aria-live="polite" hidden></div>
 
-  <!-- Contenedor de la animación (sin hidden) -->
-  <div class="animacion-container"></div>
+  <!-- Contenedor de la animación (desactivado) -->
+  <!-- <div class="animacion-container"></div> -->
 
   <div class="tutor-container" hidden>
     <TutorContextualizado problema={problema} />
   </div>
 </div>
 
-<!-- Componente oculto para forzar a Astro a cargar el script de la animación -->
-<div style="display: none;">
+<!-- Componente oculto para forzar a Astro a cargar el script de la animación (desactivado) -->
+<!-- <div style="display: none;">
   <AnimacionDivision />
-</div>
+</div> -->
 
 <script>
   import '../../scripts/problema-card.js';
@@ -191,6 +192,20 @@ const { problema } = Astro.props;
     background: #fce4ec;
     color: #c62828;
     border-left: 4px solid #e53935;
+  }
+
+  .resultado-problema {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .resultado-correcto {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #4caf50;
   }
 
   .animacion-container {

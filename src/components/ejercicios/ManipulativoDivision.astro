@@ -1,0 +1,331 @@
+---
+interface Props {
+  dividendo: number;
+  divisor: number;
+  cocienteEsperado: number;
+  problemaId: string;
+  visible?: boolean;
+}
+
+const { dividendo, divisor, cocienteEsperado, problemaId, visible = false } = Astro.props;
+console.log('Props recibidas en frontmatter:', { dividendo, divisor, cocienteEsperado });
+const resto = dividendo % divisor;
+
+const cartasDecenas = [10, 20, 30, 40, 50, 60].map(v => ({ tipo: 'decena', valor: v, label: String(v) }));
+const cartasUnidades = [2, 3, 4, 5, 6, 7, 8, 9].map(v => ({ tipo: 'unidad', valor: v, label: String(v) }));
+---
+
+<div class="manipulativo" data-manipulativo data-problema-id={problemaId} data-dividendo={dividendo} data-divisor={divisor} data-cociente-esperado={cocienteEsperado} style={visible ? '' : 'display: none'}>
+  <div class="planteamiento" data-planteamiento>{dividendo} ÷ {divisor} = ?</div>
+
+  <div class="banco">
+    <h3>Banco de cartas</h3>
+    <p>Clic en una carta → se selecciona. Clic en una caja → la carta se mueve. Clic en una carta dentro de una caja → la devuelve al banco.</p>
+
+    <div class="grupo-cartas">
+      <span class="etiqueta">Decenas:</span>
+      {cartasDecenas.map(carta => (
+        <button class="carta-banco decena" data-tipo="decena" data-valor={carta.valor}>{carta.label}</button>
+      ))}
+    </div>
+
+    <div class="grupo-cartas">
+      <span class="etiqueta">Unidades:</span>
+      {cartasUnidades.map(carta => (
+        <button class="carta-banco unidad" data-tipo="unidad" data-valor={carta.valor}>{carta.label}</button>
+      ))}
+    </div>
+  </div>
+
+  <div class="area-cajas">
+    <h3>Cajas ({divisor} grupos)</h3>
+    <div class="cajas-container">
+      {Array.from({ length: divisor }).map((_, i) => (
+        <div class="caja" data-caja={i}>
+          <div class="etiqueta-caja">Caja {i + 1}</div>
+          <div class="valor-caja">0</div>
+          <div class="cartas-caja"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div id="mensaje-${problemaId}" class="mensaje" style="display: none;"></div>
+</div>
+
+<script>
+  document.querySelectorAll('.manipulativo').forEach((contenedor) => {
+    if (contenedor.dataset.inicializado === 'true') return;
+    contenedor.dataset.inicializado = 'true';
+
+    const dividendo = parseInt(contenedor.dataset.dividendo, 10);
+    const divisor = parseInt(contenedor.dataset.divisor, 10);
+    const cocienteEsperado = parseInt(contenedor.dataset.cocienteEsperado, 10);
+    const problemaId = contenedor.dataset.problemaId;
+    console.log('Valores del DOM:', { dividendo, divisor, cocienteEsperado, problemaId });
+
+    let cartaSeleccionada = null;
+    let cajas = Array.from({ length: divisor }).map(() => ({ valor: 0, cartas: [] }));
+    console.log('Variables recibidas:', { dividendo, divisor, cocienteEsperado });
+    console.log('Cajas iniciales:', cajas);
+    console.log('Divisor:', divisor, 'Dividendo:', dividendo);
+
+    // Listener 1: Seleccionar carta del banco
+    contenedor.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.classList.contains('carta-banco')) {
+        contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
+        cartaSeleccionada = {
+          tipo: target.dataset.tipo,
+          valor: parseInt(target.dataset.valor, 10)
+        };
+        target.classList.add('seleccionada');
+        e.stopPropagation();
+      }
+    });
+
+    // Listener 2: Mover carta a la caja
+    contenedor.addEventListener('click', (e) => {
+      console.log('Listener 2 ejecutado');
+      const caja = e.target.closest('[data-caja]');
+      console.log('Caja encontrada:', caja);
+      if (caja && cartaSeleccionada) {
+        console.log('Moviendo carta...');
+        const cajaIndex = parseInt(caja.dataset.caja, 10);
+        console.log('Índice de caja:', cajaIndex);
+        const cajaObj = cajas[cajaIndex];
+        console.log('Caja objeto:', cajaObj);
+        if (!cajaObj) return;
+        console.log('Valor antes:', cajaObj.valor);
+        cajaObj.valor += cartaSeleccionada.valor;
+        console.log('Valor después:', cajaObj.valor);
+        cajaObj.cartas.push({ ...cartaSeleccionada });
+        cartaSeleccionada = null;
+        contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
+        renderizar();
+        console.log('Después de renderizar:', cajas[cajaIndex]);
+        verificarVictoria();
+      }
+    });
+
+    // Listener 3: Devolver carta de la caja al banco
+    contenedor.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.classList.contains('carta-en-caja')) {
+        e.stopPropagation();
+        const cajaElement = target.closest('.caja');
+        if (!cajaElement) return;
+        const cajaIndex = parseInt(cajaElement.dataset.caja, 10);
+        const cartaIndex = parseInt(target.dataset.index, 10);
+        const caja = cajas[cajaIndex];
+        if (!caja || !caja.cartas[cartaIndex]) return;
+
+        const carta = caja.cartas[cartaIndex];
+        caja.valor -= carta.valor;
+        caja.cartas.splice(cartaIndex, 1);
+        cartaSeleccionada = null;
+
+        contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
+        renderizar();
+        verificarVictoria();
+      }
+    });
+
+    function renderizar() {
+      contenedor.querySelectorAll('.caja').forEach((el, i) => {
+        const valorEl = el.querySelector('.valor-caja');
+        const cartasEl = el.querySelector('.cartas-caja');
+        if (valorEl) valorEl.textContent = cajas[i]?.valor ?? 0;
+        if (cartasEl) {
+          cartasEl.innerHTML = (cajas[i]?.cartas || []).map((carta, idx) =>
+            `<div class="carta-en-caja" data-index="${idx}">${carta.valor}</div>`
+          ).join('');
+        }
+      });
+    }
+
+    function verificarVictoria() {
+      const todasCorrectas = cajas.every(c => c.valor === cocienteEsperado);
+      const mensaje = contenedor.querySelector('.mensaje');
+      if (todasCorrectas && mensaje) {
+        mensaje.style.display = 'block';
+        mensaje.textContent = `¡Muy bien! Repartiste ${dividendo} en ${divisor} cajas, ${cocienteEsperado} en cada una.`;
+        mensaje.className = 'mensaje correcto';
+
+        // Actualizar el planteamiento con el resultado
+        const planteamiento = contenedor.querySelector('[data-planteamiento]');
+        if (planteamiento) {
+          planteamiento.textContent = `${dividendo} ÷ ${divisor} = ${cocienteEsperado}`;
+        }
+
+        window.dispatchEvent(new CustomEvent('manipulativo-completado', {
+          detail: { problemaId, cocienteEsperado }
+        }));
+      }
+    }
+
+    renderizar();
+  });
+</script>
+
+<style>
+  .manipulativo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .planteamiento {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: bold;
+  }
+
+  .banco {
+    background: #f0f4f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid #cbd5e1;
+  }
+
+  .banco h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #1e293b;
+  }
+
+  .banco p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+  }
+
+  .grupo-cartas {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .etiqueta {
+    font-weight: bold;
+    margin-right: 0.5rem;
+    align-self: center;
+    color: #475569;
+  }
+
+  .carta-banco {
+    padding: 0.6rem 1rem;
+    border: 2px solid #3b82f6;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+
+  .carta-banco.seleccionada {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+  }
+
+  .carta-banco:not(.seleccionada):hover {
+    background: #e0e7ff;
+    border-color: #2563eb;
+  }
+
+  .area-cajas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .area-cajas h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .cajas-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .caja {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 140px;
+    text-align: center;
+    background: white;
+    transition: border-color 0.2s;
+  }
+
+  .caja.correcta {
+    border-color: #16a34a;
+    background: #f0fdf4;
+  }
+
+  .etiqueta-caja {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #475569;
+  }
+
+  .valor-caja {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+  }
+
+  .cartas-caja {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+    min-height: 60px;
+  }
+
+  .carta-en-caja {
+    padding: 0.35rem 0.75rem;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #334155;
+    transition: all 0.15s;
+  }
+
+  .carta-en-caja:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+    transform: scale(1.05);
+  }
+
+  .mensaje {
+    padding: 1.25rem;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .mensaje.correcto {
+    background: #dcfce7;
+    color: #166534;
+    border: 2px solid #16a34a;
+  }
+</style>

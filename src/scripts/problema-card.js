@@ -104,6 +104,31 @@ document.addEventListener('click', (e) => {
   }
 });
 
+
+window.addEventListener('manipulativo-completado', (e) => {
+  const { problemaId, cocienteEsperado } = e.detail || {};
+  if (!problemaId) return;
+
+  const card = document.querySelector(`.problema-card[data-problema-id="${problemaId}"]`);
+  if (!card) return;
+
+  const resultadoDiv = card.querySelector('#resultado-problema-' + problemaId);
+  if (!resultadoDiv) return;
+
+  const cociente = cocienteEsperado;
+  const dividendo = parseInt(card.getAttribute('data-dividendo') || '0');
+  const divisor = parseInt(card.getAttribute('data-divisor') || '1');
+  const resto = dividendo % divisor;
+
+  let texto = `Cada ${divisor} grupo${divisor !== 1 ? 's' : ''} tiene ${cociente} elemento${cociente !== 1 ? 's' : ''}.`;
+  if (resto > 0) {
+    texto += ` Sobran ${resto}.`;
+  }
+
+  resultadoDiv.hidden = false;
+  resultadoDiv.innerHTML = '<strong>🎯 Resultado:</strong> ' + texto;
+  resultadoDiv.className = 'resultado-problema resultado-correcto';
+});
 function renderizarAnimacion(container, dividendo, divisor, cocienteUsuario, cocienteEsperado) {
   const animacion = document.createElement('animacion-division');
   container.appendChild(animacion);
