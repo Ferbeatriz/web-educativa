@@ -88,6 +88,28 @@
       "duracion_estimada_min": 15,
       "archivo": "lecciones/introduccion-fracciones.json",
       "activa": true
+    },
+
+    {
+      "id": "comparacion-fracciones",
+      "titulo": "Comparamos Fracciones ⚖️",
+      "emoji": "⚖️",
+      "orden": 8,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/comparacion-fracciones.json",
+      "activa": true
+    },
+
+    {
+      "id": "ordenamiento-fracciones",
+      "titulo": "Ordenamos Fracciones 📶",
+      "emoji": "📶",
+      "orden": 9,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/ordenamiento-fracciones.json",
+      "activa": true
     }
 
   ]

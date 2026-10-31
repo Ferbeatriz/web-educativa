@@ -1,0 +1,185 @@
+---
+// src/components/ejercicios/ComparadorFracciones.astro
+// Compara dos fracciones con representaciones visuales y símbolos <, >, =
+const rondas = [
+  { fraccionA: '1/2', numA: 1, denA: 2, fraccionB: '1/4', numB: 1, denB: 4, correcto: '>' },
+  { fraccionA: '1/5', numA: 1, denA: 5, fraccionB: '1/3', numB: 1, denB: 3, correcto: '<' },
+  { fraccionA: '2/4', numA: 2, denA: 4, fraccionB: '2/4', numB: 2, denB: 4, correcto: '=' },
+  { fraccionA: '3/4', numA: 3, denA: 4, fraccionB: '2/4', numB: 2, denB: 4, correcto: '>' },
+  { fraccionA: '1/3', numA: 1, denA: 3, fraccionB: '2/3', numB: 2, denB: 3, correcto: '<' },
+];
+---
+
+<div
+  id="comparador-fracciones"
+  class="max-w-2xl mx-auto space-y-8 text-center"
+  data-rondas={JSON.stringify(rondas)}
+>
+  <div class="flex flex-col items-center gap-2">
+    <h2 class="text-xl font-extrabold text-gray-800">Compara las fracciones</h2>
+    <p id="ronda-contador" class="text-sm text-gray-500">Ronda <span id="ronda-actual">1</span> de 5</p>
+  </div>
+
+  <div id="ronda-actual-content"></div>
+  <div id="feedback" class="hidden space-y-3"></div>
+  <div id="resultado-final" class="hidden space-y-4"></div>
+</div>
+
+<script>
+  const rondas = JSON.parse(document.getElementById('comparador-fracciones').dataset.rondas);
+  let rondaIdx = 0;
+  let respondiendo = true;
+
+  const contenedor = document.getElementById('ronda-actual-content');
+  const feedback = document.getElementById('feedback');
+  const resultadoFinal = document.getElementById('resultado-final');
+  const rondaActual = document.getElementById('ronda-actual');
+  const contador = document.getElementById('ronda-contador');
+
+  function renderForma(tipo, num, den, texto) {
+    const pct = Math.round((num / den) * 100);
+    if (tipo === 'circulo') {
+      return `
+        <div class="flex flex-col items-center">
+          <div class="relative w-20 h-20 mb-2" style="background: conic-gradient(#3b82f6 0% ${pct}%, #f1f5f9 ${pct}% 100%); border-radius: 50%; border: 3px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; color: #475569; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            ${texto}
+          </div>
+        </div>
+      `;
+    }
+    if (tipo === 'cuadrado') {
+      const bloques = Array.from({ length: den }, (_, i) =>
+        i < num
+          ? '<div class="w-6 h-6 bg-blue-500"></div>'
+          : '<div class="w-6 h-6 bg-white border border-gray-300"></div>'
+      ).join('');
+      return `
+        <div class="flex flex-col items-center">
+          <div class="grid grid-cols-${den <= 4 ? den : 5} gap-1 mb-2">${bloques}</div>
+          <span class="text-xl font-extrabold text-gray-800">${texto}</span>
+        </div>
+      `;
+    }
+    if (tipo === 'pentagono') {
+      const partes = [];
+      for (let i = 0; i < 5; i++) {
+        const fill = i < num ? '#3b82f6' : '#f1f5f9';
+        partes.push(`<path d="M50 50 L${i === 0 ? '50 5' : i === 1 ? '95 40' : i === 2 ? '80 95' : i === 3 ? '20 95' : '5 40'} L${i === 0 ? '95 40' : i === 1 ? '80 95' : i === 2 ? '20 95' : i === 3 ? '5 40' : '50 5'} Z" fill="${fill}" />`);
+      }
+      return `
+        <div class="flex flex-col items-center">
+          <svg viewBox="0 0 100 100" class="w-20 h-20 mb-2" style="border: 2px solid #e2e8f0;">
+            <path d="M50 5 L95 40 L80 95 L20 95 L5 40 Z" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+            ${partes.join('')}
+          </svg>
+          <span class="text-xl font-extrabold text-gray-800">${texto}</span>
+        </div>
+      `;
+    }
+    return `<div class="flex flex-col items-center">${texto}</div>`;
+  }
+
+  function simboloHTML(s) {
+    const mapa = { '<': '&lt;', '>': '&gt;', '=': '=', '?': '?' };
+    return `<span class="text-3xl font-extrabold text-gray-700 self-center">${mapa[s]}</span>`;
+  }
+
+  function renderRonda() {
+    respondiendo = true;
+    feedback.classList.add('hidden');
+    feedback.innerHTML = '';
+    resultadoFinal.classList.add('hidden');
+    resultadoFinal.innerHTML = '';
+
+    if (rondaIdx >= rondas.length) {
+      mostrarResultadoFinal();
+      return;
+    }
+
+    const r = rondas[rondaIdx];
+    contador.textContent = `Ronda ${rondaIdx + 1} de ${rondas.length}`;
+    rondaActual.textContent = rondaIdx + 1;
+
+    contenedor.innerHTML = `
+      <div class="flex items-center justify-center gap-8 px-4">
+        ${renderForma('circulo', r.numA, r.denA, r.fraccionA)}
+        ${simboloHTML('?')}
+        ${renderForma('circulo', r.numB, r.denB, r.fraccionB)}
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6 px-2">
+        <button data-signo="<" class="btn-signo py-4 rounded-2xl border-2 border-gray-300 bg-white text-2xl font-extrabold text-gray-800 hover:bg-gray-50 hover:border-blue-400 transition-all active:scale-95">&lt;</button>
+        <button data-signo=">" class="btn-signo py-4 rounded-2xl border-2 border-gray-300 bg-white text-2xl font-extrabold text-gray-800 hover:bg-gray-50 hover:border-blue-400 transition-all active:scale-95">&gt;</button>
+        <button data-signo="=" class="btn-signo py-4 rounded-2xl border-2 border-gray-300 bg-white text-2xl font-extrabold text-gray-800 hover:bg-gray-50 hover:border-blue-400 transition-all active:scale-95">=</button>
+      </div>
+    `;
+
+    contenedor.querySelectorAll('.btn-signo').forEach((btn) => {
+      btn.addEventListener('click', () => manejarRespuesta(btn.dataset.signo));
+    });
+  }
+
+  function manejarRespuesta(signo) {
+    if (!respondiendo) return;
+    respondiendo = false;
+    const r = rondas[rondaIdx];
+
+    contenedor.querySelectorAll('.btn-signo').forEach((btn) => {
+      btn.disabled = true;
+      if (btn.dataset.signo === r.correcto) {
+        btn.classList.remove('border-gray-300', 'bg-white', 'hover:bg-gray-50', 'hover:border-blue-400');
+        btn.classList.add('border-green-400', 'bg-green-50', 'text-green-700');
+      } else if (btn.dataset.signo === signo) {
+        btn.classList.remove('border-gray-300', 'bg-white', 'hover:bg-gray-50', 'hover:border-blue-400');
+        btn.classList.add('border-red-400', 'bg-red-50', 'text-red-700');
+      }
+    });
+
+    if (signo === r.correcto) {
+      feedback.classList.remove('hidden');
+      feedback.innerHTML = `
+        <div class="flex items-center gap-2 justify-center">
+          <span class="text-2xl">✅</span>
+          <span class="font-bold text-green-700">¡Correcto!</span>
+        </div>
+        <p class="text-sm text-gray-600">${r.fraccionA} ${r.correcto} ${r.fraccionB}</p>
+        <button id="btn-siguiente" class="mt-4 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors">Siguiente pareja →</button>
+      `;
+      document.getElementById('btn-siguiente').addEventListener('click', () => {
+        rondaIdx++;
+        renderRonda();
+      });
+    } else {
+      feedback.classList.remove('hidden');
+      feedback.innerHTML = `
+        <div class="flex items-center gap-2 justify-center">
+          <span class="text-2xl">❌</span>
+          <span class="font-bold text-red-700">¡Incorrecto!</span>
+        </div>
+        <p class="text-sm text-gray-600">Intenta de nuevo. La respuesta correcta es <span class="font-bold">${r.correcto}</span>.</p>
+        <button id="btn-reintentar" class="mt-4 px-6 py-3 rounded-xl bg-gray-200 text-gray-800 font-bold hover:bg-gray-300 transition-colors">Volver a intentar</button>
+      `;
+      document.getElementById('btn-reintentar').addEventListener('click', () => {
+        respondiendo = true;
+        contenedor.querySelectorAll('.btn-signo').forEach((btn) => {
+          btn.disabled = false;
+          btn.className = 'btn-signo py-4 rounded-2xl border-2 border-gray-300 bg-white text-2xl font-extrabold text-gray-800 hover:bg-gray-50 hover:border-blue-400 transition-all active:scale-95';
+        });
+        feedback.classList.add('hidden');
+        feedback.innerHTML = '';
+      });
+    }
+  }
+
+  function mostrarResultadoFinal() {
+    contenedor.innerHTML = '';
+    contador.classList.add('hidden');
+    resultadoFinal.classList.remove('hidden');
+    resultadoFinal.innerHTML = `
+      <div class="text-4xl mb-2">🎉</div>
+      <h3 class="text-2xl font-extrabold text-gray-800 mb-2">¡Completaste las 5 rondas!</h3>
+      <p class="text-gray-600">Ya sabes comparar fracciones usando <, > y =.</p>
+    `;
+  }
+
+  renderRonda();
+</script>

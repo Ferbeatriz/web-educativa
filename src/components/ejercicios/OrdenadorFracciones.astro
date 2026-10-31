@@ -1,0 +1,273 @@
+---
+// src/components/ejercicios/OrdenadorFracciones.astro
+// Ordena 3 fracciones de menor a mayor o de mayor a menor haciendo clic en el orden correcto.
+
+const rondas = [
+  {
+    tipo: 'menor-a-mayor',
+    instruccion: 'Ordena de menor a mayor',
+    fracciones: [
+      { texto: '1/4', num: 1, den: 4 },
+      { texto: '1/2', num: 1, den: 2 },
+      { texto: '3/4', num: 3, den: 4 },
+    ],
+    ordenCorrecto: [0, 1, 2],
+  },
+  {
+    tipo: 'mayor-a-menor',
+    instruccion: 'Ordena de mayor a menor',
+    fracciones: [
+      { texto: '3/5', num: 3, den: 5 },
+      { texto: '2/5', num: 2, den: 5 },
+      { texto: '1/5', num: 1, den: 5 },
+    ],
+    ordenCorrecto: [0, 1, 2],
+  },
+  {
+    tipo: 'menor-a-mayor',
+    instruccion: 'Ordena de menor a mayor',
+    fracciones: [
+      { texto: '1/3', num: 1, den: 3 },
+      { texto: '2/3', num: 2, den: 3 },
+      { texto: '3/3', num: 3, den: 3 },
+    ],
+    ordenCorrecto: [0, 1, 2],
+  },
+];
+---
+
+<div
+  id="ordenador-fracciones"
+  class="max-w-2xl mx-auto space-y-8 text-center"
+  data-rondas={JSON.stringify(rondas)}
+>
+  <div class="flex flex-col items-center gap-2">
+    <h2 class="text-xl font-extrabold text-gray-800">Ordena las fracciones</h2>
+    <p id="tipo-contador" class="text-sm text-gray-500">Ronda <span id="ronda-actual">1</span> de 3</p>
+  </div>
+
+  <div id="instruccion" class="text-base font-bold text-gray-700 mb-4"></div>
+
+  <!-- Línea numérica (línea delgada) -->
+  <div id="linea-contenedor" class="relative w-full max-w-md h-1 bg-gray-300 rounded-full mb-6">
+    <div id="linea-track" class="absolute inset-0 flex items-center"></div>
+  </div>
+
+  <!-- Banco de fracciones -->
+  <div id="banco" class="flex flex-wrap justify-center gap-3"></div>
+
+  <div id="feedback" class="hidden space-y-3"></div>
+  <div id="resultado-final" class="hidden space-y-4"></div>
+</div>
+
+<script>
+  const rondas = JSON.parse(document.getElementById('ordenador-fracciones').dataset.rondas);
+  const marcasLinea = [0, 25, 50, 75, 100];
+
+  let rondaIdx = 0;
+  let respondiendo = true;
+  let fraccionSeleccionada = null;
+  let ancladas = new Set();
+
+  const lineaContenedor = document.getElementById('linea-contenedor');
+  const lineaTrack = document.getElementById('linea-track');
+  const banco = document.getElementById('banco');
+  const feedback = document.getElementById('feedback');
+  const resultadoFinal = document.getElementById('resultado-final');
+  const rondaActual = document.getElementById('ronda-actual');
+  const instruccionEl = document.getElementById('instruccion');
+
+  function renderForma(tipo, num, den) {
+    const pct = Math.round((num / den) * 100);
+    if (tipo === 'circulo') {
+      return `<div class="relative w-10 h-10" style="background: conic-gradient(#3b82f6 0% ${pct}%, #f1f5f9 ${pct}% 100%); border-radius: 50%; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.65rem; color: #475569;">${Math.floor(pct)}%</div>`;
+    }
+    if (tipo === 'cuadrado') {
+      const total = den;
+      const bloques = Array.from({ length: total }, (_, i) =>
+        i < num
+          ? '<div class="w-6 h-6 bg-blue-500"></div>'
+          : '<div class="w-6 h-6 bg-white border border-gray-300"></div>'
+      ).join('');
+      const cols = total <= 4 ? total : 5;
+      return `<div class="grid grid-cols-${cols} gap-1 w-16 h-6" style="display: contents;">${bloques}</div>`;
+    }
+    if (tipo === 'pentagono') {
+      // SVG pentágono dividido en 5 triángulos desde el centro
+      const partes = [];
+      for (let i = 0; i < 5; i++) {
+        const fill = i < num ? '#3b82f6' : '#f1f5f9';
+        partes.push(`<path d="M50 50 L${i === 0 ? '50 5' : i === 1 ? '95 40' : i === 2 ? '80 95' : i === 3 ? '20 95' : '5 40'} L${i === 0 ? '95 40' : i === 1 ? '80 95' : i === 2 ? '20 95' : i === 3 ? '5 40' : '50 5'} Z" fill="${fill}" />`);
+      }
+      return `<svg viewBox="0 0 100 100" class="w-10 h-10" style="border: 2px solid #e2e8f0;">
+        <path d="M50 5 L95 40 L80 95 L20 95 L5 40 Z" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+        ${partes.join('')}
+      </svg>`;
+    }
+    return `<div class="w-10 h-10 bg-blue-500"></div>`;
+  }
+
+  function fraccionBancoHTML(idx, num, den, texto) {
+    return `
+      <button data-idx="${idx}" class="btn-banco flex flex-col items-center gap-1 w-16 h-20 rounded-xl border-2 border-gray-300 bg-white text-sm font-extrabold text-gray-800 hover:border-blue-400 hover:bg-blue-50 transition-all active:scale-95">
+        ${renderForma('circulo', num, den)}
+        <span class="text-[10px] text-gray-500 font-bold">${texto}</span>
+      </button>
+    `;
+  }
+
+  function marcaLineaHTML(posPct, label) {
+    return `
+      <div class="absolute left-[${posPct}%] top-1/2 -translate-y-1/2 w-px h-6 bg-gray-400"></div>
+      <div class="absolute left-[${posPct}%] -bottom-10 text-[10px] font-bold text-gray-500 -translate-x-1/2 whitespace-nowrap">${label}</div>
+    `;
+  }
+
+  function renderRonda() {
+    respondiendo = true;
+    fraccionSeleccionada = null;
+    ancladas = new Set();
+    feedback.classList.add('hidden');
+    feedback.innerHTML = '';
+    resultadoFinal.classList.add('hidden');
+    resultadoFinal.innerHTML = '';
+
+    if (rondaIdx >= rondas.length) {
+      mostrarResultadoFinal();
+      return;
+    }
+
+    const r = rondas[rondaIdx];
+    rondaActual.textContent = rondaIdx + 1;
+    instruccionEl.textContent = r.instruccion;
+
+    lineaTrack.innerHTML = `
+      <div class="absolute inset-y-0 left-0 right-0 bg-transparent"></div>
+      ${marcasLinea.map((p, i) => marcaLineaHTML(p, p === 0 ? '0' : p === 100 ? '1' : p + '%')).join('')}
+    `;
+
+    banco.innerHTML = r.fracciones.map((f, i) => fraccionBancoHTML(i, f.num, f.den, f.texto)).join('');
+
+    banco.querySelectorAll('.btn-banco').forEach((btn) => {
+      btn.addEventListener('click', () => seleccionarFraccion(parseInt(btn.dataset.idx)));
+    });
+  }
+
+  function seleccionarFraccion(idx) {
+    if (!respondiendo) return;
+    if (ancladas.has(idx)) return;
+
+    fraccionSeleccionada = idx;
+
+    banco.querySelectorAll('.btn-banco').forEach((btn, i) => {
+      if (i === idx) {
+        btn.classList.remove('border-gray-300', 'bg-white');
+        btn.classList.add('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-500');
+      } else {
+        btn.classList.remove('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-500');
+        btn.classList.add('border-gray-300', 'bg-white');
+      }
+    });
+  }
+
+  function manejarClicLinea(e) {
+    if (!respondiendo) return;
+    if (fraccionSeleccionada === null) {
+      mostrarFeedback('Primero selecciona una fracción del banco.', 'warn');
+      return;
+    }
+
+    const rect = lineaContenedor.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ancho = rect.width;
+    const clickPct = Math.round((clickX / ancho) * 100);
+
+    const r = rondas[rondaIdx];
+    const f = r.fracciones[fraccionSeleccionada];
+    const correctoPct = Math.round((f.num / f.den) * 100);
+    const tolerancia = 6;
+
+    if (Math.abs(clickPct - correctoPct) <= tolerancia) {
+      ancladas.add(fraccionSeleccionada);
+      anclarFraccionEnLinea(fraccionSeleccionada, correctoPct);
+
+      const btn = banco.querySelector(`[data-idx="${fraccionSeleccionada}"]`);
+      if (btn) {
+        btn.classList.remove('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-500');
+        btn.classList.add('border-green-400', 'bg-green-50', 'text-green-700', 'opacity-50', 'pointer-events-none');
+      }
+
+      fraccionSeleccionada = null;
+
+      if (ancladas.size === r.fracciones.length) {
+        respondiendo = false;
+        feedback.classList.remove('hidden');
+        feedback.innerHTML = `
+          <div class="flex items-center gap-2 justify-center">
+            <span class="text-2xl">✅</span>
+            <span class="font-bold text-green-700">¡Correcto!</span>
+          </div>
+          <button id="btn-siguiente" class="mt-4 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors">Siguiente ronda →</button>
+        `;
+        document.getElementById('btn-siguiente').addEventListener('click', () => {
+          rondaIdx++;
+          renderRonda();
+        });
+      }
+    } else {
+      const btn = banco.querySelector(`[data-idx="${fraccionSeleccionada}"]`);
+      if (btn) {
+        btn.classList.remove('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-500');
+        btn.classList.add('border-red-400', 'bg-red-50', 'text-red-700');
+        setTimeout(() => {
+          btn.classList.remove('border-red-400', 'bg-red-50', 'text-red-700');
+          btn.classList.add('border-gray-300', 'bg-white', 'text-gray-800');
+        }, 800);
+      }
+      fraccionSeleccionada = null;
+    }
+  }
+
+  function anclarFraccionEnLinea(idx, posPct) {
+    const r = rondas[rondaIdx];
+    const f = r.fracciones[idx];
+
+    const el = document.createElement('div');
+    el.className = 'absolute top-[-34px] flex flex-col items-center gap-1';
+    el.style.left = `${posPct}%`;
+    el.innerHTML = `
+      ${renderForma('circulo', f.num, f.den)}
+      <span class="text-[9px] font-bold text-blue-700 bg-blue-100 px-1 rounded">${f.texto}</span>
+    `;
+    lineaContenedor.appendChild(el);
+  }
+
+  function mostrarFeedback(msg, tipo = 'error') {
+    feedback.classList.remove('hidden');
+    const color = tipo === 'warn' ? 'text-yellow-700 bg-yellow-50' : 'text-red-700 bg-red-50';
+    feedback.innerHTML = `
+      <div class="flex items-center gap-2 justify-center p-2 rounded-lg ${color}">
+        <span class="text-xl">${tipo === 'warn' ? '⚠️' : '❌'}</span>
+        <span class="font-bold text-sm">${msg}</span>
+      </div>
+    `;
+    setTimeout(() => { feedback.classList.add('hidden'); feedback.innerHTML = ''; }, 2000);
+  }
+
+  function mostrarResultadoFinal() {
+    lineaTrack.innerHTML = '';
+    banco.innerHTML = '';
+    instruccionEl.textContent = '';
+    resultadoFinal.classList.remove('hidden');
+    resultadoFinal.innerHTML = `
+      <div class="text-4xl mb-2">🎉</div>
+      <h3 class="text-2xl font-extrabold text-gray-800 mb-2">¡Completaste las 3 rondas!</h3>
+      <p class="text-gray-600">Ya sabes ubicar fracciones en la línea numérica del 0 al 1.</p>
+    `;
+  }
+
+  // Event listener de la línea: se agrega UNA sola vez, fuera de renderRonda
+  lineaContenedor.addEventListener('click', manejarClicLinea);
+
+  renderRonda();
+</script>

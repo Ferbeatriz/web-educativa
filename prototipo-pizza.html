@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipo: Fracción como Pizza (Círculo)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .pizza-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+    .pizza-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transform: rotate(-90deg); /* empezar desde las 12 en punto */
+    }
+    .pizza-label {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .pizza-sector {
+      transition: fill 0.2s ease;
+      cursor: pointer;
+    }
+    .pizza-sector:hover {
+      filter: brightness(1.1);
+    }
+    .division-line {
+      stroke: #e5e7eb;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+
+  <div class="max-w-4xl w-full p-8">
+    <div class="flex flex-col items-center gap-8 text-center">
+      <h1 class="text-3xl font-extrabold text-gray-800">Prototipo: Fracción como Pizza</h1>
+      <p class="text-gray-600 max-w-md">Reemplazamos los bloques rectangulares por círculos divididos en porciones iguales (como una pizza).</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-2xl">
+        <!-- Ejemplo: 1/4 -->
+        <div class="flex flex-col items-center gap-4">
+          <div class="pizza-container">
+            <svg class="pizza-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <!-- Círculo base (borde) -->
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#e5e7eb" stroke-width="4" />
+              <!-- Líneas divisorias radiales -->
+              <line class="division-line" x1="60" y1="60" x2="60" y2="4" />
+              <line class="division-line" x1="60" y1="60" x2="116" y2="60" />
+              <line class="division-line" x1="60" y1="60" x2="60" y2="116" />
+              <line class="division-line" x1="60" y1="60" x2="4" y2="60" />
+              <!-- Sector pintado (1/4) -->
+              <path class="pizza-sector fill-blue-500" d="M 60 60 L 60 4 A 56 56 0 0 1 116 60 L 60 60 Z" />
+            </svg>
+          </div>
+          <div class="pizza-label text-blue-600">1/4</div>
+        </div>
+
+        <!-- Ejemplo: 1/2 -->
+        <div class="flex flex-col items-center gap-4">
+          <div class="pizza-container">
+            <svg class="pizza-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#e5e7eb" stroke-width="4" />
+              <line class="division-line" x1="60" y1="60" x2="60" y2="4" />
+              <line class="division-line" x1="60" y1="60" x2="116" y2="60" />
+              <line class="division-line" x1="60" y1="60" x2="60" y2="116" />
+              <line class="division-line" x1="60" y1="60" x2="4" y2="60" />
+              <!-- Sector pintado (2/4 = 1/2) -->
+              <path class="pizza-sector fill-blue-500" d="M 60 60 L 60 4 A 56 56 0 0 1 116 60 L 60 60 Z" />
+              <path class="pizza-sector fill-blue-500" d="M 60 60 L 116 60 A 56 56 0 0 1 60 116 L 60 60 Z" />
+            </svg>
+          </div>
+          <div class="pizza-label text-blue-600">1/2</div>
+        </div>
+
+        <!-- Ejemplo: 3/4 -->
+        <div class="flex flex-col items-center gap-4">
+          <div class="pizza-container">
+            <svg class="pizza-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#e5e7eb" stroke-width="4" />
+              <line class="division-line" x1="60" y1="60" x2="60" y2="4" />
+              <line class="division-line" x1="60" y1="60" x2="116" y2="60" />
+              <line class="division-line" x1="60" y1="60" x2="60" y2="116" />
+              <line class="division-line" x1="60" y1="60" x2="4" y2="60" />
+              <!-- Sector pintado (3/4) -->
+              <path class="pizza-sector fill-blue-500" d="M 60 60 L 60 4 A 56 56 0 0 1 116 60 L 60 60 Z" />
+              <path class="pizza-sector fill-blue-500" d="M 60 60 L 116 60 A 56 56 0 0 1 60 116 L 60 60 Z" />
+              <path class="pizza-sector fill-blue-500" d="M 60 60 L 60 116 A 56 56 0 0 1 4 60 L 60 60 Z" />
+            </svg>
+          </div>
+          <div class="pizza-label text-blue-600">3/4</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 w-full max-w-md">
+        <h2 class="text-lg font-bold text-gray-800 mb-3">Cómo se genera cada círculo</h2>
+        <ul class="text-sm text-gray-600 space-y-2 text-left">
+          <li>• <span class="font-semibold">SVG path</span> con arcos para crear cada sector (porción de pizza).</li>
+          <li>• <span class="font-semibold">Líneas radiales</span> desde el centro para dividir visualmente en porciones iguales.</li>
+          <li>• <span class="font-semibold">transform: rotate(-90deg)</span> para que empiece desde las 12 en punto.</li>
+          <li>• Radio de <span class="font-mono">56</span> px, centro en <span class="font-mono">(60, 60)</span>.</li>
+        </ul>
+      </div>
+
+      <div class="mt-8">
+        <button class="px-6 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors">
+          ✅ Este diseño me gusta, aplícalo a las lecciones
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

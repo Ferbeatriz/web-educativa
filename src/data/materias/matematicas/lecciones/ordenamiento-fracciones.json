@@ -1,0 +1,123 @@
+{
+  "id": "ordenamiento-fracciones",
+  "materia_id": "matematicas",
+  "tema": "fracciones",
+  "subtema": "ordenamiento",
+  "titulo": "Ordenamos Fracciones 📶",
+  "emoji": "📶",
+  "categoria": "Matemáticas",
+  "orden": 9,
+  "progreso_puntos": 150,
+  "descripcion": "Ordena fracciones de menor a mayor y de mayor a menor usando representaciones visuales de bloques de colores.",
+  "contenido_modulos": [
+    "Para ordenar fracciones, observamos cuál representa una parte más pequeña o más grande del todo.\n\n## De menor a mayor\nEmpezamos por la fracción más pequeña y terminamos en la más grande.\n\n**Ejemplo:** 1/4 < 1/2 < 3/4\n<div class=\"flex gap-4 my-4\">\n  <div class=\"flex flex-col items-center\">\n    <div class=\"grid grid-cols-4 gap-1\">\n      <div class=\"w-6 h-6 bg-blue-500\"></div><div class=\"w-6 h-6 bg-white border border-gray-300\"></div>\n      <div class=\"w-6 h-6 bg-white border border-gray-300\"></div><div class=\"w-6 h-6 bg-white border border-gray-300\"></div>\n    </div>\n    <span class=\"font-bold mt-1\">1/4</span>\n    <span class=\"text-[10px] text-gray-400 mt-1\">cuadrado</span>\n  </div>\n  <span class=\"text-2xl font-bold self-center\"><</span>\n  <div class=\"flex flex-col items-center\">\n    <div class=\"relative w-12 h-12\" style=\"background: conic-gradient(#3b82f6 0% 50%, #f1f5f9 50% 100%); border-radius: 50%; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.7rem; color: #475569;\">1/2</div>\n    <span class=\"text-[10px] text-gray-400 mt-1\">círculo</span>\n  </div>\n  <span class=\"text-2xl font-bold self-center\"><</span>\n  <div class=\"flex flex-col items-center\">\n    <svg viewBox=\"0 0 100 100\" class=\"w-12 h-12\" style=\"border: 2px solid #e2e8f0;\">\n      <path d=\"M50 5 L95 40 L80 95 L20 95 L5 40 Z\" fill=\"none\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <path d=\"M50 50 L50 5 L95 40 Z\" fill=\"#3b82f6\" />\n      <path d=\"M50 50 L95 40 L80 95 Z\" fill=\"#3b82f6\" />\n      <path d=\"M50 50 L80 95 L20 95 Z\" fill=\"#3b82f6\" />\n      <path d=\"M50 50 L20 95 L5 40 Z\" fill=\"#f1f5f9\" />\n      <path d=\"M50 50 L5 40 L50 5 Z\" fill=\"#f1f5f9\" />\n    </svg>\n    <span class=\"font-bold mt-1\">3/4</span>\n    <span class=\"text-[10px] text-gray-400 mt-1\">pentágono</span>\n  </div>\n</div>",
+    "Para ordenar fracciones, observamos cuál representa una parte más pequeña o más grande del todo.\n\n## De mayor a menor\n---\nEmpezamos por la más grande y terminamos en la más pequeña.\n\n**Ejemplo:** 3/5 > 2/5 > 1/5\n<div class=\"flex gap-4 my-4\">\n  <div class=\"flex flex-col items-center\">\n    <div class=\"relative w-12 h-12\" style=\"background: conic-gradient(#3b82f6 0% 60%, #f1f5f9 60% 100%); border-radius: 50%; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.7rem; color: #475569;\">3/5</div>\n    <span class=\"text-[10px] text-gray-400 mt-1\">círculo</span>\n  </div>\n  <span class=\"text-2xl font-bold self-center\">></span>\n  <div class=\"flex flex-col items-center\">\n    <div class=\"grid grid-cols-5 gap-1\">\n      <div class=\"w-6 h-6 bg-blue-500\"></div><div class=\"w-6 h-6 bg-blue-500\"></div><div class=\"w-6 h-6 bg-white border border-gray-300\"></div><div class=\"w-6 h-6 bg-white border border-gray-300\"></div><div class=\"w-6 h-6 bg-white border border-gray-300\"></div>\n    </div>\n    <span class=\"font-bold mt-1\">2/5</span>\n    <span class=\"text-[10px] text-gray-400 mt-1\">cuadrado</span>\n  </div>\n  <span class=\"text-2xl font-bold self-center\">></span>\n  <div class=\"flex flex-col items-center\">\n    <svg viewBox=\"0 0 100 100\" class=\"w-12 h-12\" style=\"border: 2px solid #e2e8f0;\">\n      <path d=\"M50 5 L95 40 L80 95 L20 95 L5 40 Z\" fill=\"none\" stroke=\"#cbd5e1\" stroke-width=\"2\"/>\n      <path d=\"M50 50 L50 5 L95 40 Z\" fill=\"#3b82f6\" />\n      <path d=\"M50 50 L95 40 L80 95 Z\" fill=\"#f1f5f9\" />\n      <path d=\"M50 50 L80 95 L20 95 Z\" fill=\"#f1f5f9\" />\n      <path d=\"M50 50 L20 95 L5 40 Z\" fill=\"#f1f5f9\" />\n      <path d=\"M50 50 L5 40 L50 5 Z\" fill=\"#f1f5f9\" />\n    </svg>\n    <span class=\"font-bold mt-1\">1/5</span>\n    <span class=\"text-[10px] text-gray-400 mt-1\">pentágono</span>\n  </div>\n</div>"
+  ],
+  "banco_trivia": [
+    {
+      "id": "of01",
+      "pregunta": "Martina comió 2/5 de un chocolate y Diego comió 4/5. ¿Quién comió menos?",
+      "opciones": [
+        "Martina",
+        "Diego",
+        "Comieron lo mismo",
+        "No se puede saber"
+      ],
+      "respuesta_correcta": 0
+    },
+    {
+      "id": "of02",
+      "pregunta": "Lucía comió 1/2 de una galleta y Mateo comió 1/4. ¿Quién comió menos?",
+      "opciones": [
+        "Lucía",
+        "Mateo",
+        "Comieron lo mismo",
+        "No se puede saber"
+      ],
+      "respuesta_correcta": 1
+    },
+    {
+      "id": "of03",
+      "pregunta": "Ordena de menor a mayor: 1/4, 1/2, 3/4",
+      "opciones": [
+        "1/4, 1/2, 3/4",
+        "3/4, 1/2, 1/4",
+        "1/2, 1/4, 3/4",
+        "3/4, 1/4, 1/2"
+      ],
+      "respuesta_correcta": 0
+    },
+    {
+      "id": "of04",
+      "pregunta": "Ordena de mayor a menor: 3/5, 2/5, 1/5",
+      "opciones": [
+        "3/5, 2/5, 1/5",
+        "1/5, 2/5, 3/5",
+        "2/5, 3/5, 1/5",
+        "1/5, 3/5, 2/5"
+      ],
+      "respuesta_correcta": 0
+    },
+    {
+      "id": "of05",
+      "pregunta": "Ordena de menor a mayor: 1/3, 2/3, 3/3",
+      "opciones": [
+        "1/3, 2/3, 3/3",
+        "3/3, 2/3, 1/3",
+        "2/3, 1/3, 3/3",
+        "3/3, 1/3, 2/3"
+      ],
+      "respuesta_correcta": 0
+    },
+    {
+      "id": "of06",
+      "pregunta": "¿Cuál fracción es la más pequeña: 1/4, 1/2, 3/4?",
+      "opciones": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "Todas son iguales"
+      ],
+      "respuesta_correcta": 0
+    },
+    {
+      "id": "of07",
+      "pregunta": "¿Cuál fracción es la más grande: 3/5, 2/5, 1/5?",
+      "opciones": [
+        "3/5",
+        "2/5",
+        "1/5",
+        "Todas son iguales"
+      ],
+      "respuesta_correcta": 0
+    },
+    {
+      "id": "of08",
+      "pregunta": "Si ordenas de mayor a menor 1/3, 2/3, 3/3, ¿cuál va primero?",
+      "opciones": [
+        "3/3",
+        "2/3",
+        "1/3",
+        "Ninguna"
+      ],
+      "respuesta_correcta": 0
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Ordenar fracciones",
+      "emoji": "📶",
+      "definicion": "Colocar varias fracciones en secuencia, de la más pequeña a la más grande o viceversa."
+    },
+    {
+      "termino": "Menor a mayor",
+      "emoji": "📈",
+      "definicion": "Empezar por la fracción más pequeña y terminar en la más grande."
+    },
+    {
+      "termino": "Mayor a menor",
+      "emoji": "📉",
+      "definicion": "Empezar por la fracción más grande y terminar en la más pequeña."
+    }
+  ]
+}

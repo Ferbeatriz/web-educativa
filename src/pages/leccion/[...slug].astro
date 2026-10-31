@@ -9,6 +9,8 @@ import TutorPasos from '../../components/tutor/TutorPasos.astro';
 import TriviaRotativa from '../../components/TriviaRotativa.astro';
 import ListaProblemas from '../../components/ejercicios/ListaProblemas.astro';
 import EjerciciosGuiados from '../../components/ejercicios/EjerciciosGuiados.astro';
+import ComparadorFracciones from '../../components/ejercicios/ComparadorFracciones.astro';
+import OrdenadorFracciones from '../../components/ejercicios/OrdenadorFracciones.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -319,17 +321,15 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
             );
           })}
         </section>
-      ) : (
-        <div class="bg-white rounded-3xl p-10 text-center shadow-sm border border-gray-100 mb-10">
-          <div class="text-6xl mb-4">📝</div>
-          <h3 class="text-xl font-extrabold text-gray-800 mb-2">
-            Contenido en preparación
-          </h3>
-          <p class="text-gray-500">
-            Esta lección se está redactando. ¡Vuelve pronto!
-          </p>
-        </div>
-      )}
+      ) : null}
+
+      {leccion.id === 'comparacion-fracciones' ? (
+        <ComparadorFracciones />
+      ) : null}
+
+      {leccion.id === 'ordenamiento-fracciones' ? (
+        <OrdenadorFracciones />
+      ) : null}
 
       <!-- 📖 GLOSARIO -->
       <Glosario palabras={glosario} />
