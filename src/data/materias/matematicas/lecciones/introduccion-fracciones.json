@@ -1,0 +1,113 @@
+{
+  "id": "introduccion-fracciones",
+  "materia_id": "matematicas",
+  "tema": "fracciones",
+  "subtema": "introduccion",
+  "titulo": "Introducción a las Fracciones 🍕",
+  "categoria": "Matemáticas",
+  "emoji": "🍕",
+  "progreso_puntos": 150,
+  "descripcion": "Aprende qué son las fracciones y cómo representar partes de un todo concreto.",
+  "contenido_modulos": [
+    "# 🍕 ¿Qué es una fracción?\n\n\n\nImagina que tienes una **pizza entera** y la partes en trozos iguales para compartir con tus amigos. Cada trozo que te llevas es una **fracción** de la pizza.\n\n\nUna fracción representa **una o más partes de un todo dividido en partes iguales**.\n\n\n> **Idea fuerza**: Una fracción nos dice cuántas partes tomamos de un todo que se dividió en partes iguales.\n\n\n---\n\n# 📊 Partes de una fracción\n\n\n\nToda fracción tiene dos números:\n\n\n- **Numerador**: el número de arriba. Nos dice **cuántas partes tomamos**.\n- **Denominador**: el número de abajo. Nos dice **en cuántas partes iguales se dividió el todo**.\n\n\n| Fracción | Numerador | Denominador |\n|----------|-----------|-------------|\n| 1/2 | 1 | 2 |\n| 1/3 | 1 | 3 |\n| 2/3 | 2 | 3 |\n| 1/4 | 1 | 4 |\n| 3/4 | 3 | 4 |\n\n\nEn la fracción **3/4**:\n\n- El **numerador es 3** (tomamos 3 partes).\n- El **denominador es 4** (el todo se dividió en 4 partes iguales).\n\n\n---\n\n# 🎨 Ejemplos visuales\n\n\n\nMira cómo se ven las fracciones representadas con bloques de color:\n\n\n**1/2 - Un medio**\n<div class=\"flex gap-1 my-4\">\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-white border-2 border-gray-300\"></div>\n</div>\n\n\n**1/4 - Un cuarto**\n<div class=\"flex gap-1 my-4\">\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-white border-2 border-gray-300\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-white border-2 border-gray-300\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-white border-2 border-gray-300\"></div>\n</div>\n\n\n**3/4 - Tres cuartos**\n<div class=\"flex gap-1 my-4\">\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-white border-2 border-gray-300\"></div>\n</div>\n\n\n**2/3 - Dos tercios**\n<div class=\"flex gap-1 my-4\">\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-blue-500\"></div>\n  <div class=\"w-10 h-10 rounded-md bg-white border-2 border-gray-300\"></div>\n</div>\n\n\n---\n\n# 🎯 Lectura de fracciones\n\n\n\nLas fracciones se leen diciendo primero el numerador y luego el denominador con su nombre especial:\n\n\n| Fracción | Se lee |\n|----------|--------|\n| 1/2 | un medio |\n| 1/3 | un tercio |\n| 2/3 | dos tercios |\n| 1/4 | un cuarto |\n| 3/4 | tres cuartos |\n\n\n---\n\n# 🎮 Ahora te toca practica\n\n\n\n<!-- TUTOR: fracciones-practica -->"
+  ],
+  "banco_trivia": [
+    {
+      "pregunta": "¿Qué representa el numerador en una fracción?",
+      "opciones": [
+        "En cuántas partes se dividió el todo",
+        "Cuántas partes tomamos del todo",
+        "El tamaño de cada parte",
+        "El número total de objetos"
+      ],
+      "respuesta_correcta": 1
+    },
+    {
+      "pregunta": "¿Qué representa el denominador en una fracción?",
+      "opciones": [
+        "Cuántas partes tomamos",
+        "En cuántas partes iguales se dividió el todo",
+        "El resultado de la división",
+        "Cuántas partes sobran"
+      ],
+      "respuesta_correcta": 1
+    },
+    {
+      "pregunta": "En la fracción 3/4, ¿cuántas partes se pintan de un total de 4?",
+      "opciones": [
+        "1 parte",
+        "2 partes",
+        "3 partes",
+        "4 partes"
+      ],
+      "respuesta_correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál fracción representa un medio?",
+      "opciones": [
+        "1/3",
+        "1/4",
+        "1/2",
+        "2/3"
+      ],
+      "respuesta_correcta": 2
+    },
+    {
+      "pregunta": "Si una barra se divide en 3 partes iguales y pintas 2, ¿qué fracción es?",
+      "opciones": [
+        "1/3",
+        "2/3",
+        "3/2",
+        "1/2"
+      ],
+      "respuesta_correcta": 1
+    },
+    {
+      "pregunta": "¿Qué fracción es más grande: 1/2 o 1/4?",
+      "opciones": [
+        "1/4",
+        "1/2",
+        "Son iguales",
+        "No se puede saber"
+      ],
+      "respuesta_correcta": 1
+    },
+    {
+      "pregunta": "En la fracción 2/3, ¿qué número es el denominador?",
+      "opciones": [
+        "2",
+        "3",
+        "5",
+        "1"
+      ],
+      "respuesta_correcta": 1
+    },
+    {
+      "pregunta": "Si divides un pastel en 4 partes iguales y te comes 1 parte, ¿qué fracción te comiste?",
+      "opciones": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "4/1"
+      ],
+      "respuesta_correcta": 0
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Fracción",
+      "emoji": "🍕",
+      "definicion": "Una o más partes de un todo dividido en partes iguales."
+    },
+    {
+      "termino": "Numerador",
+      "emoji": "🔢",
+      "definicion": "El número de arriba de la fracción. Indica cuántas partes se toman."
+    },
+    {
+      "termino": "Denominador",
+      "emoji": "🔢",
+      "definicion": "El número de abajo de la fracción. Indica en cuántas partes iguales se dividió el todo."
+    }
+  ]
+}

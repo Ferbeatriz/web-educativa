@@ -77,6 +77,17 @@
       "archivo": "lecciones/division-repaso-3basico.json",
       "tipo": "ejercicios-guiados",
       "activa": true
+    },
+
+    {
+      "id": "introduccion-fracciones",
+      "titulo": "Introducción a las Fracciones",
+      "emoji": "🍕",
+      "orden": 7,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/introduccion-fracciones.json",
+      "activa": true
     }
 
   ]

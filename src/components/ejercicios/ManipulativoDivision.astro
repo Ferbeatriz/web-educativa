@@ -8,7 +8,6 @@ interface Props {
 }
 
 const { dividendo, divisor, cocienteEsperado, problemaId, visible = false } = Astro.props;
-console.log('Props recibidas en frontmatter:', { dividendo, divisor, cocienteEsperado });
 const resto = dividendo % divisor;
 
 // Banco de cartas generado dinámicamente a partir del dividendo y el divisor
@@ -85,14 +84,10 @@ for (let v = 1; v <= 9; v++) {
     const cocienteEsperado = parseInt(contenedor.dataset.cocienteEsperado, 10);
     const problemaId = contenedor.dataset.problemaId;
     const restoEsperado = parseInt(contenedor.dataset.restoEsperado, 10);
-    console.log('Valores del DOM:', { dividendo, divisor, cocienteEsperado, problemaId, restoEsperado });
 
     let cartaSeleccionada = null;
     let cajas = Array.from({ length: divisor }).map(() => ({ valor: 0, cartas: [] }));
     let sobrantes = { valor: 0, cartas: [] };
-    console.log('Variables recibidas:', { dividendo, divisor, cocienteEsperado });
-    console.log('Cajas iniciales:', cajas);
-    console.log('Divisor:', divisor, 'Dividendo:', dividendo);
 
     // Listener 1: Seleccionar carta del banco
     contenedor.addEventListener('click', (e) => {
@@ -110,30 +105,20 @@ for (let v = 1; v <= 9; v++) {
 
     // Listener 2: Mover carta a la caja o a sobrantes
     contenedor.addEventListener('click', (e) => {
-      console.log('Listener 2 ejecutado');
       const caja = e.target.closest('[data-caja]');
       const zonaSobrantes = e.target.closest('[data-zona-sobrantes]');
-      console.log('Caja encontrada:', caja);
-      console.log('Zona sobrantes encontrada:', zonaSobrantes);
 
       if (caja && cartaSeleccionada) {
-        console.log('Moviendo carta a caja...');
         const cajaIndex = parseInt(caja.dataset.caja, 10);
-        console.log('Índice de caja:', cajaIndex);
         const cajaObj = cajas[cajaIndex];
-        console.log('Caja objeto:', cajaObj);
         if (!cajaObj) return;
-        console.log('Valor antes:', cajaObj.valor);
         cajaObj.valor += cartaSeleccionada.valor;
-        console.log('Valor después:', cajaObj.valor);
         cajaObj.cartas.push({ ...cartaSeleccionada });
         cartaSeleccionada = null;
         contenedor.querySelectorAll('.carta-banco').forEach(b => b.classList.remove('seleccionada'));
         renderizar();
-        console.log('Después de renderizar:', cajas[cajaIndex]);
         verificarVictoria();
       } else if (zonaSobrantes && cartaSeleccionada) {
-        console.log('Moviendo carta a sobrantes...');
         sobrantes.valor += cartaSeleccionada.valor;
         sobrantes.cartas.push({ ...cartaSeleccionada });
         cartaSeleccionada = null;

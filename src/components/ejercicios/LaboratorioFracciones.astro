@@ -1,0 +1,330 @@
+---
+interface Props {
+  visible?: boolean;
+}
+
+const { visible = false } = Astro.props;
+
+const ejercicios = [
+  { denominador: 2, numeradorObjetivo: 1, texto: '1/2' },
+  { denominador: 4, numeradorObjetivo: 1, texto: '1/4' },
+  { denominador: 3, numeradorObjetivo: 1, texto: '1/3' },
+  { denominador: 3, numeradorObjetivo: 2, texto: '2/3' },
+  { denominador: 4, numeradorObjetivo: 3, texto: '3/4' },
+];
+---
+
+<div
+  class="laboratorio-fracciones"
+  style={visible ? '' : 'display: none'}
+>
+  <div class="encabezado">
+    <h2 class="titulo-fraccion" id="titulo-fraccion">
+      Pinta <span id="numerador-objetivo">{ejercicios[0].numeradorObjetivo}</span> de
+      <span id="denominador">{ejercicios[0].denominador}</span> partes
+      (<span id="fraccion-texto">{ejercicios[0].texto}</span>)
+    </h2>
+    <div class="contador" id="contador">
+      Partes seleccionadas: <span id="contador-valor">0</span>
+    </div>
+  </div>
+
+  <div class="barra-contenedor">
+    {Array.from({ length: ejercicios[0].denominador }).map((_, i) => (
+      <button
+        class="parte"
+        data-indice={i}
+        aria-pressed="false"
+      ></button>
+    ))}
+  </div>
+
+  <div id="mensaje" class="mensaje oculto" role="alert"></div>
+
+  <div class="fraccion-grande oculto" id="fraccion-grande">
+    <span id="fraccion-grande-valor">{ejercicios[0].texto}</span>
+  </div>
+
+  <button class="btn-siguiente oculto" id="btn-siguiente">
+    Siguiente ejercicio
+  </button>
+
+  <div id="mensaje-final" class="mensaje-final oculto">
+    <h3>¡Felicitaciones!</h3>
+    <p>Completaste las 5 rondas del laboratorio de fracciones.</p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded: Inicializando LaboratorioFracciones');
+
+    (() => {
+      const ejerciciosData = [
+        { denominador: 2, numeradorObjetivo: 1, texto: '1/2' },
+        { denominador: 4, numeradorObjetivo: 1, texto: '1/4' },
+        { denominador: 3, numeradorObjetivo: 1, texto: '1/3' },
+        { denominador: 3, numeradorObjetivo: 2, texto: '2/3' },
+        { denominador: 4, numeradorObjetivo: 3, texto: '3/4' },
+      ];
+
+      const contenedor = document.querySelector('.laboratorio-fracciones');
+      if (!contenedor) {
+        console.log('No se encontró el contenedor .laboratorio-fracciones');
+        return;
+      }
+      console.log('Contenedor encontrado');
+
+      let rondaActual = 0;
+      let seleccionadas = new Set();
+      let completado = false;
+
+      const tituloEl = contenedor.querySelector('#titulo-fraccion');
+      const numeradorObjEl = contenedor.querySelector('#numerador-objetivo');
+      const denominadorEl = contenedor.querySelector('#denominador');
+      const fraccionTextoEl = contenedor.querySelector('#fraccion-texto');
+      const contadorEl = contenedor.querySelector('#contador-valor');
+      const barraEl = contenedor.querySelector('.barra-contenedor');
+      const mensajeEl = contenedor.querySelector('#mensaje');
+      const fraccionGrandeEl = contenedor.querySelector('#fraccion-grande');
+      const fraccionGrandeValorEl = contenedor.querySelector('#fraccion-grande-valor');
+      const btnSiguienteEl = contenedor.querySelector('#btn-siguiente');
+      const mensajeFinalEl = contenedor.querySelector('#mensaje-final');
+
+      function renderBarra() {
+        const ejercicio = ejerciciosData[rondaActual];
+        console.log('Renderizando barra para ronda', rondaActual, 'denominador:', ejercicio.denominador);
+        barraEl.innerHTML = '';
+        Array.from({ length: ejercicio.denominador }).forEach((_, i) => {
+          console.log('Creando parte', i);
+          const btn = document.createElement('button');
+          btn.className = 'parte';
+          btn.dataset.indice = i;
+          btn.setAttribute('aria-pressed', seleccionadas.has(i) ? 'true' : 'false');
+          if (seleccionadas.has(i)) btn.classList.add('seleccionada');
+          btn.addEventListener('click', () => toggleParte(i));
+          barraEl.appendChild(btn);
+        });
+        console.log('Partes creadas:', barraEl.children.length);
+        actualizarContador();
+      }
+
+    function toggleParte(indice) {
+      if (seleccionadas.has(indice)) {
+        seleccionadas.delete(indice);
+      } else {
+        seleccionadas.add(indice);
+      }
+      renderBarra();
+      validar();
+    }
+
+    function actualizarContador() {
+      const ejercicio = ejerciciosData[rondaActual];
+      contadorEl.textContent = seleccionadas.size;
+      numeradorObjEl.textContent = ejercicio.numeradorObjetivo;
+      denominadorEl.textContent = ejercicio.denominador;
+      fraccionTextoEl.textContent = ejercicio.texto;
+    }
+
+    function validar() {
+      const ejercicio = ejerciciosData[rondaActual];
+      const seleccionadasCount = seleccionadas.size;
+      const objetivo = ejercicio.numeradorObjetivo;
+
+      ocultarMensaje();
+      fraccionGrandeEl.classList.add('oculto');
+      btnSiguienteEl.classList.add('oculto');
+
+      if (seleccionadasCount === objetivo) {
+        mensajeEl.textContent = `¡Correcto! Pintaste ${seleccionadasCount} de ${ejercicio.denominador} partes.`;
+        mensajeEl.className = 'mensaje exito';
+        mensajeEl.classList.remove('oculto');
+
+        fraccionGrandeValorEl.textContent = ejercicio.texto;
+        fraccionGrandeEl.classList.remove('oculto');
+
+        if (rondaActual === ejerciciosData.length - 1) {
+          btnSiguienteEl.classList.add('oculto');
+          mensajeFinalEl.classList.remove('oculto');
+          completado = true;
+        } else {
+          btnSiguienteEl.classList.remove('oculto');
+        }
+      } else if (seleccionadasCount > 0) {
+        const direccion = seleccionadasCount > objetivo ? 'más' : 'menos';
+        mensajeEl.textContent = `Casi, revisa cuántas partes necesitas (seleccionaste ${seleccionadasCount}, necesitas ${objetivo}).`;
+        mensajeEl.className = 'mensaje error';
+        mensajeEl.classList.remove('oculto');
+      }
+    }
+
+    function ocultarMensaje() {
+      mensajeEl.classList.add('oculto');
+      mensajeEl.textContent = '';
+    }
+
+    btnSiguienteEl.addEventListener('click', () => {
+      if (completado) return;
+      rondaActual++;
+      seleccionadas = new Set();
+      ocultarMensaje();
+      fraccionGrandeEl.classList.add('oculto');
+      btnSiguienteEl.classList.add('oculto');
+      renderBarra();
+    });
+
+    renderBarra();
+  })();
+  });
+</script>
+
+<style>
+  .laboratorio-fracciones {
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .encabezado {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .titulo-fraccion {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .contador {
+    font-size: 1.1rem;
+    color: #64748b;
+  }
+
+  .barra-contenedor {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .parte {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #94a3b8;
+  }
+
+  .parte:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+  }
+
+  .parte.seleccionada {
+    background: #3b82f6;
+    border-color: #2563eb;
+    color: white;
+  }
+
+  .parte[aria-pressed="true"] {
+    background: #3b82f6;
+    border-color: #2563eb;
+    color: white;
+  }
+
+  .mensaje {
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    display: none;
+  }
+
+  .mensaje.oculto {
+    display: none;
+  }
+
+  .mensaje.exito {
+    background: #dcfce7;
+    color: #166534;
+    border: 2px solid #16a34a;
+  }
+
+  .mensaje.error {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 2px solid #ef4444;
+  }
+
+  .fraccion-grande {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #16a34a;
+    text-align: center;
+    margin: 1.5rem 0;
+    display: none;
+  }
+
+  .fraccion-grande.oculto {
+    display: none;
+  }
+
+  .btn-siguiente {
+    display: none;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background: #3b82f6;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-siguiente.oculto {
+    display: none;
+  }
+
+  .btn-siguiente:not(.oculto):hover {
+    background: #2563eb;
+  }
+
+  .mensaje-final {
+    text-align: center;
+    padding: 2rem;
+    background: #f0fdf4;
+    border: 2px solid #16a34a;
+    border-radius: 12px;
+    margin-top: 2rem;
+    display: none;
+  }
+
+  .mensaje-final.oculto {
+    display: none;
+  }
+
+  .mensaje-final h3 {
+    color: #166534;
+    margin-top: 0;
+  }
+
+  .mensaje-final p {
+    color: #166534;
+    margin: 0.5rem 0 0 0;
+  }
+</style>
