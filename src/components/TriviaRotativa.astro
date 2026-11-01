@@ -124,7 +124,7 @@ const {
       const opcionesHtml = p.opciones.map((op, j) => `
         <li>
           <label class="opcion" data-indice="${j}">
-            <input type="radio" name="p-${p.id}" value="${j}">
+            <input type="radio" name="pregunta-${i}" value="${j}">
             <span class="letra">${String.fromCharCode(65 + j)}</span>
             <span class="texto">${escapeHtml(op)}</span>
           </label>
