@@ -58,6 +58,26 @@
       "duracion_estimada_min": 15,
       "archivo": "lecciones/los-textos-poeticos.json",
       "activa": true
+    },
+    {
+      "id": "la-infografia",
+      "titulo": "La Infografía 📊",
+      "emoji": "📊",
+      "orden": 6,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/la-infografia.json",
+      "activa": true
+    },
+    {
+      "id": "la-noticia",
+      "titulo": "La Noticia 🗞️",
+      "emoji": "🗞️",
+      "orden": 7,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/la-noticia.json",
+      "activa": true
     }
   ]
 }

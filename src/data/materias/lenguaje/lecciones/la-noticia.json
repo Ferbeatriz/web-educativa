@@ -1,0 +1,79 @@
+{
+  "id": "la-noticia",
+  "titulo": "La Noticia 🗞️",
+  "categoria": "Lenguaje",
+  "emoji": "🗞️",
+  "progreso_puntos": 50,
+  "contenido_modulos": [
+    "# 🗞️ ¿Qué es una noticia?\n\nLa noticia es un **texto informativo** que comunica un hecho real que ocurrió o está ocurriendo y que puede ser importante o interesante para las personas.\n\nPodemos encontrar noticias en diarios, revistas, páginas de internet, televisión y otros medios de comunicación. Pueden informar sobre deportes, descubrimientos científicos o acontecimientos de una comunidad.\n\n> **Idea fuerza**: Una noticia cuenta un hecho real y actual.",
+    "# 🎯 La idea principal\n\nLa idea principal es **el hecho más importante** que la noticia quiere comunicar.\n\nPara encontrarla, pregúntate: **¿Qué ocurrió?**\n\nPor ejemplo, si una noticia informa que estudiantes plantaron árboles en su escuela, la idea principal es que los estudiantes realizaron una actividad para cuidar el medioambiente.",
+    "# 🧱 La estructura de la noticia\n\nGeneralmente contiene:\n\n- **Titular**: el título que presenta el hecho principal.\n- **Bajada**: información adicional debajo del titular que resume la noticia.\n- **Fotografía**: una imagen relacionada con el hecho.\n- **Pie de foto**: explica brevemente lo que muestra la fotografía.\n- **Cuerpo de la noticia**: desarrolla la información y explica qué ocurrió.\n\n*Nota*: No todas las noticias tienen exactamente los mismos elementos.",
+    "# ❓ Las 6 preguntas clave\n\nPara comprender una noticia, busca las respuestas a:\n\n1. **¿Qué ocurrió?** (El hecho).\n2. **¿Quiénes participaron?** (Las personas).\n3. **¿Cuándo ocurrió?** (La fecha o el día).\n4. **¿Dónde ocurrió?** (El lugar).\n5. **¿Cómo ocurrió?** (Las circunstancias).\n6. **¿Por qué ocurrió?** (La razón o el motivo).\n\nResponder estas preguntas es la mejor forma de entender una noticia completa.",
+    "# 📰 Ejemplo de noticia\n\n**Titular**: Estudiantes plantan árboles en su escuela.\n**Bajada**: La actividad se realizó para cuidar el medioambiente.\n**Fotografía**: Niños y niñas cavando un hoyo y plantando un árbol.\n**Pie de foto**: Los estudiantes de tercero básico participaron en la plantación.\n**Cuerpo**: El viernes 23 de mayo, los estudiantes de la Escuela Los Robles plantaron árboles nativos en el patio. La actividad fue organizada por los profesores y apoderados, y los niños aprendieron sobre el cuidado de la naturaleza.",
+    "# 💡 Para recordar\n\nUna noticia no es un cuento. **No es inventada**, ocurre en la realidad. El periodista investiga, observa y escribe los hechos de forma clara y objetiva.\n\n> **Idea fuerza**: Las noticias nos mantienen informados sobre lo que pasa en el mundo."
+  ],
+  "banco_trivia": [
+    {
+      "dificultad": "media",
+      "pregunta": "¿Qué es una noticia?",
+      "opciones": ["Un cuento inventado", "Un texto que informa sobre un hecho real y actual", "Una poesía", "Una receta"],
+      "respuesta_correcta": 1,
+      "explicacion": "La noticia informa sobre hechos reales que ocurrieron o están ocurriendo."
+    },
+    {
+      "dificultad": "media",
+      "pregunta": "¿Qué parte de la noticia presenta el hecho más importante como título?",
+      "opciones": ["El pie de foto", "La bajada", "El titular", "El cuerpo"],
+      "respuesta_correcta": 2,
+      "explicacion": "El titular es el título principal que destaca el hecho más importante."
+    },
+    {
+      "dificultad": "dificil",
+      "pregunta": "¿Cuál es la función de la bajada en una noticia?",
+      "opciones": ["Mostrar una imagen", "Resumir la noticia y entregar información adicional bajo el título", "Indicar el autor del diario", "Explicar la fotografía"],
+      "respuesta_correcta": 1,
+      "explicacion": "La bajada resume y amplía la información del titular."
+    },
+    {
+      "dificultad": "dificil",
+      "pregunta": "¿Cuál de estas preguntas NO corresponde a las 6 preguntas clave de una noticia?",
+      "opciones": ["¿Qué ocurrió?", "¿Cuándo ocurrió?", "¿Cuánto cuesta?", "¿Por qué ocurrió?"],
+      "respuesta_correcta": 2,
+      "explicacion": "Las 6 preguntas clave son: Qué, quiénes, cuándo, dónde, cómo y por qué."
+    },
+    {
+      "dificultad": "media",
+      "pregunta": "¿Qué parte de la noticia explica brevemente lo que aparece en la fotografía?",
+      "opciones": ["El titular", "El cuerpo", "El pie de foto", "La bajada"],
+      "respuesta_correcta": 2,
+      "explicacion": "El pie de foto describe la imagen."
+    },
+    {
+      "dificultad": "muy_dificil",
+      "pregunta": "¿Cómo se puede encontrar la idea principal de una noticia?",
+      "opciones": ["Leyendo solo el pie de foto", "Preguntándose qué ocurrió y cuál es el hecho más importante", "Buscando las palabras más largas", "Leyendo el nombre del diario"],
+      "respuesta_correcta": 1,
+      "explicacion": "La idea principal se descubre identificando el hecho más importante de la noticia."
+    },
+    {
+      "dificultad": "dificil",
+      "pregunta": "¿Qué diferencia a una noticia de un cuento?",
+      "opciones": ["La noticia es más larga", "La noticia cuenta hechos reales, el cuento es inventado", "La noticia tiene imágenes", "La noticia es más entretenida"],
+      "respuesta_correcta": 1,
+      "explicacion": "La noticia informa sobre la realidad; el cuento es ficción."
+    },
+    {
+      "dificultad": "muy_dificil",
+      "pregunta": "Si una noticia dice: 'El lunes, bomberos rescataron a un gato en un árbol', ¿cuál es el hecho principal?",
+      "opciones": ["Un gato se subió a un árbol", "El rescate de un gato por bomberos", "El lunes es un día de la semana", "El árbol era muy alto"],
+      "respuesta_correcta": 1,
+      "explicacion": "El hecho más importante (la idea principal) es el rescate del gato."
+    }
+  ],
+  "glosario": [
+    { "termino": "Noticia", "emoji": "🗞️", "definicion": "Texto informativo que comunica un hecho real y actual." },
+    { "termino": "Titular", "emoji": "📰", "definicion": "Título principal que destaca el hecho más importante." },
+    { "termino": "Bajada", "emoji": "📝", "definicion": "Texto breve bajo el titular que resume la noticia." },
+    { "termino": "Pie de foto", "emoji": "📸", "definicion": "Texto que explica brevemente lo que muestra una imagen." }
+  ]
+}

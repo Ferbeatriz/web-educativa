@@ -1,0 +1,77 @@
+{
+  "id": "la-infografia",
+  "titulo": "La Infografía 📊",
+  "categoria": "Lenguaje",
+  "emoji": "📊",
+  "progreso_puntos": 50,
+  "contenido_modulos": [
+    "# 📊 ¿Qué es una infografía?\n\nUna infografía es un **texto informativo** que combina palabras, imágenes y elementos gráficos para explicar un tema de manera clara, breve y atractiva.\n\nSu propósito es **informar y ayudar a comprender** un tema de forma visual. Podemos encontrar infografías sobre animales, alimentación saludable, el cuidado del agua, el espacio o el cuerpo humano.\n\n> **Idea fuerza**: Las imágenes en una infografía no están para decorar; también entregan información.",
+    "# 🧱 ¿Cuál es su estructura?\n\nAunque no todas son iguales, generalmente contienen:\n\n- **Título**: indica el tema.\n- **Subtítulos**: organizan la información.\n- **Imágenes o dibujos**: ayudan a comprender el tema.\n- **Textos breves**: entregan información importante.\n- **Datos relevantes**: presentan características, cantidades o consejos.\n- **Elementos gráficos**: flechas, números, símbolos y cuadros que ordenan la información.",
+    "# 🕵️ ¿Cómo leer una infografía?\n\nPara comprender una infografía, sigue estos pasos:\n\n1. **Observa el título**: te dice de qué se trata.\n2. **Mira las imágenes**: piensa qué información te entregan.\n3. **Lee los subtítulos y textos breves**: busca los datos importantes.\n4. **Observa los elementos gráficos**: las flechas y números muestran relaciones o pasos.\n5. **Explica con tus palabras**: ¿Qué aprendiste?\n\nAl leer, pregúntate: ¿Cuál es el tema? ¿Qué datos son importantes? ¿Qué muestran las imágenes?",
+    "# 🌍 Ejemplo: Cuidar los recursos naturales\n\nImagina una infografía con el título **\"Cómo cuidar los recursos naturales\"**. Sus subtítulos podrían ser:\n\n1. **Cuida el agua**: cierra la llave, repara fugas.\n2. **Protege los bosques**: planta árboles, evita la tala.\n3. **Reduce, reutiliza y recicla**: separa residuos, usa menos plástico.\n4. **Ahorra energía**: apaga las luces, desconecta aparatos.\n\nCada subtítulo tiene su propio dibujo (una gota, un árbol, un símbolo de reciclaje, un foco) que refuerza el mensaje.",
+    "# 💡 Para recordar\n\nUna infografía debe ser **clara, breve y visual**. Si tiene demasiado texto, deja de ser una infografía y se convierte en un artículo.\n\n> **Idea fuerza**: Las palabras y las imágenes trabajan juntas para que aprendas rápido."
+  ],
+  "banco_trivia": [
+    {
+      "dificultad": "media",
+      "pregunta": "¿Qué es una infografía?",
+      "opciones": ["Un cuento largo", "Un texto que combina palabras e imágenes para informar", "Una noticia de televisión", "Una receta de cocina"],
+      "respuesta_correcta": 1,
+      "explicacion": "La infografía es un texto informativo visual que mezcla palabras e imágenes."
+    },
+    {
+      "dificultad": "media",
+      "pregunta": "¿Cuál es el propósito principal de una infografía?",
+      "opciones": ["Entretener con un cuento", "Vender un producto", "Informar y ayudar a comprender un tema de forma visual", "Enseñar a cocinar"],
+      "respuesta_correcta": 2,
+      "explicacion": "Su objetivo es explicar de forma clara, breve y atractiva."
+    },
+    {
+      "dificultad": "dificil",
+      "pregunta": "En una infografía, ¿para qué sirven las flechas y los números?",
+      "opciones": ["Para adornar", "Para indicar pasos o relaciones entre la información", "Para medir el tiempo", "Para hacer sumas"],
+      "respuesta_correcta": 1,
+      "explicacion": "Los elementos gráficos como flechas y números ayudan a ordenar y mostrar relaciones."
+    },
+    {
+      "dificultad": "media",
+      "pregunta": "¿Qué parte de la infografía indica el tema principal?",
+      "opciones": ["Las imágenes", "Los textos breves", "El título", "Las flechas"],
+      "respuesta_correcta": 2,
+      "explicacion": "El título indica de qué se trata la infografía."
+    },
+    {
+      "dificultad": "dificil",
+      "pregunta": "¿Cuál de estos NO es un elemento típico de una infografía?",
+      "opciones": ["Subtítulos", "Imágenes", "Capítulos de novela", "Datos relevantes"],
+      "respuesta_correcta": 2,
+      "explicacion": "Las infografías no tienen capítulos de novela, son textos breves y visuales."
+    },
+    {
+      "dificultad": "muy_dificil",
+      "pregunta": "Si una infografía tiene textos muy largos, ¿qué característica está perdiendo?",
+      "opciones": ["La claridad y brevedad visual", "El título", "Los colores", "El autor"],
+      "respuesta_correcta": 0,
+      "explicacion": "La infografía debe ser visual y breve; los textos largos la convierten en un artículo."
+    },
+    {
+      "dificultad": "muy_dificil",
+      "pregunta": "En el ejemplo de los recursos naturales, ¿qué relación tiene el dibujo de una gota con el texto?",
+      "opciones": ["Ninguna, es solo decorativo", "Refuerza visualmente el subtítulo 'Cuida el agua'", "Indica que hay que bañarse", "Es el título principal"],
+      "respuesta_correcta": 1,
+      "explicacion": "Las imágenes entregan información y refuerzan el texto, no son solo decorativas."
+    },
+    {
+      "dificultad": "dificil",
+      "pregunta": "¿Cuál es el orden más útil para leer una infografía?",
+      "opciones": ["Leer los textos y no mirar las imágenes", "Mirar solo las imágenes", "Ver el título, observar imágenes, leer textos y explicar", "Leer de abajo hacia arriba"],
+      "respuesta_correcta": 2,
+      "explicacion": "Este orden ayuda a comprender la información visual y textual de forma integral."
+    }
+  ],
+  "glosario": [
+    { "termino": "Infografía", "emoji": "📊", "definicion": "Texto informativo que combina palabras e imágenes para explicar un tema." },
+    { "termino": "Subtítulo", "emoji": "📌", "definicion": "Título secundario que organiza la información en partes." },
+    { "termino": "Elemento gráfico", "emoji": "➡️", "definicion": "Flechas, números, símbolos o cuadros que ayudan a ordenar la información." }
+  ]
+}
