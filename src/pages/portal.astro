@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Portal de Accesos — Aprende Jugando">
+  <main class="max-w-5xl mx-auto px-4 py-12 md:py-20">
+    <div class="text-center mb-10 md:mb-14">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-3xl shadow mb-4">
+        🦉
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">
+        Portal de Accesos
+      </h1>
+      <p class="text-gray-600 max-w-xl mx-auto">
+        Elige la vista que necesitas. Cada tarjeta te lleva a un espacio distinto de la plataforma.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+      <!-- Alumna -->
+      <a
+        href="/login"
+        class="group bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+      >
+        <div class="text-4xl mb-3">👧</div>
+        <h2 class="text-xl font-extrabold text-gray-800 mb-1">Alumna</h2>
+        <p class="text-gray-600 text-sm mb-4">Ir a mi plataforma</p>
+        <span class="text-purple-600 font-bold text-sm group-hover:underline">Entrar →</span>
+      </a>
+
+      <!-- Profesora (Admin) -->
+      <a
+        href="/admin"
+        class="group bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+      >
+        <div class="text-4xl mb-3">👩‍🏫</div>
+        <h2 class="text-xl font-extrabold text-gray-800 mb-1">Profesora (Admin)</h2>
+        <p class="text-gray-600 text-sm mb-4">Panel de administración</p>
+        <span class="text-purple-600 font-bold text-sm group-hover:underline">Entrar →</span>
+      </a>
+
+      <!-- Apoderado -->
+      <a
+        href="/apoderado/informe"
+        class="group bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+      >
+        <div class="text-4xl mb-3">👨‍👧</div>
+        <h2 class="text-xl font-extrabold text-gray-800 mb-1">Apoderado</h2>
+        <p class="text-gray-600 text-sm mb-4">Ver informe de progreso</p>
+        <span class="text-purple-600 font-bold text-sm group-hover:underline">Entrar →</span>
+      </a>
+
+      <!-- Público -->
+      <a
+        href="/que-aprende"
+        class="group bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+      >
+        <div class="text-4xl mb-3">🌐</div>
+        <h2 class="text-xl font-extrabold text-gray-800 mb-1">Público</h2>
+        <p class="text-gray-600 text-sm mb-4">¿Qué aprenden esta semana?</p>
+        <span class="text-purple-600 font-bold text-sm group-hover:underline">Entrar →</span>
+      </a>
+    </div>
+  </main>
+</Layout>
