@@ -1,0 +1,259 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Informe de Progreso Mensual — Aprende Jugando">
+  <style>
+    @media print {
+      header, footer, .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+      }
+      main {
+        padding: 0 !important;
+      }
+      .print-card {
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+      }
+      @page {
+        margin: 1.5cm;
+      }
+    }
+  </style>
+
+  <main class="max-w-3xl mx-auto px-4 py-8 md:py-12">
+
+    <!-- Botón PDF (oculto al imprimir) -->
+    <div class="no-print mb-6 flex justify-end">
+      <button
+        id="btn-pdf"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition shadow"
+      >
+        📄 Descargar PDF
+      </button>
+    </div>
+
+    <!-- Sin sesión -->
+    <div id="sin-sesion" class="hidden">
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div class="text-5xl mb-4">🔒</div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Necesitas iniciar sesión</h2>
+        <p class="text-gray-600 mb-6">
+          Para ver el informe, primero debes entrar con tu usuario y contraseña.
+        </p>
+        <a
+          href="/login"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition"
+        >
+          Ir a iniciar sesión
+        </a>
+      </div>
+    </div>
+
+    <!-- Contenido del informe -->
+    <div id="informe-contenido">
+      <div class="flex items-center justify-center py-12">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <span class="ml-3 text-gray-600">Cargando informe...</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    import { getToken, getPerfil } from '../../lib/auth';
+    import {
+      getResumenProgreso,
+      getRacha,
+      getLogros,
+      getProgresoPorMateria,
+    } from '../../lib/progreso';
+
+    const contenido = document.getElementById('informe-contenido')!;
+    const sinSesion = document.getElementById('sin-sesion')!;
+
+    const NOMBRES_MATERIA: Record<string, string> = {
+      matematicas: 'Matemáticas',
+      lenguaje: 'Lenguaje',
+      ciencias: 'Ciencias',
+      historia: 'Historia y Geografía',
+      ingles: 'Inglés',
+      programacion: 'Programación',
+    };
+
+    function formatearFecha(isoOrDate: string | Date): string {
+      const fecha = typeof isoOrDate === 'string'
+        ? new Date(isoOrDate.replace(' ', 'T') + (isoOrDate.includes('T') ? '' : 'Z'))
+        : isoOrDate;
+      return fecha.toLocaleDateString('es-CL', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    }
+
+    async function init() {
+      const token = getToken();
+      if (!token) {
+        contenido.classList.add('hidden');
+        sinSesion.classList.remove('hidden');
+        return;
+      }
+
+      const [perfilRes, resumenRes, rachaRes, logrosRes, materiasRes] = await Promise.all([
+        getPerfil(),
+        getResumenProgreso(),
+        getRacha(),
+        getLogros(),
+        getProgresoPorMateria(),
+      ]);
+
+      if (!perfilRes.ok || !perfilRes.alumna) {
+        contenido.classList.add('hidden');
+        sinSesion.classList.remove('hidden');
+        return;
+      }
+
+      const alumna = perfilRes.alumna;
+      const resumen = resumenRes.resumen;
+      const nivel = resumenRes.nivel;
+      const racha = rachaRes.racha;
+      const logros = (logrosRes.logros || []).filter((l) => l.desbloqueado);
+      const materias = materiasRes.materias || [];
+
+      let sugerencia = '';
+      const candidatos = materias.filter((m) => m.completadas > 0);
+      if (candidatos.length > 0) {
+        const menor = candidatos.reduce((a, b) => a.completadas < b.completadas ? a : b);
+        const nombre = NOMBRES_MATERIA[menor.materia_id] || menor.materia_id;
+        sugerencia = `Como próximo desafío, puede reforzar <strong>${nombre}</strong> (lleva ${menor.completadas} lecciones completadas).`;
+      }
+
+      const fechaGen = formatearFecha(new Date());
+
+      contenido.innerHTML = `
+        <!-- Encabezado del informe -->
+        <div class="print-card bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-2xl shadow">
+              🦉
+            </div>
+            <div>
+              <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+                Informe de Progreso Mensual
+              </h1>
+              <p class="text-sm text-gray-500">Plataforma "Aprende Jugando"</p>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-3">Generado el ${fechaGen}</p>
+        </div>
+
+        <!-- Datos de la alumna -->
+        <div class="print-card bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
+          <h2 class="text-xl font-extrabold text-gray-800 mb-4">👧 Datos de la alumna</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">Nombre</p>
+              <p class="text-gray-800 font-bold">${alumna.nombre}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">Nivel actual</p>
+              <p class="text-gray-800 font-bold">
+                ${nivel ? `${nivel.emoji} ${nivel.nombre} (nivel ${nivel.numero})` : '—'}
+              </p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">XP total</p>
+              <p class="text-gray-800 font-bold">${resumen ? resumen.xp_total : 0} XP</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">Lecciones completadas</p>
+              <p class="text-gray-800 font-bold">${resumen ? resumen.lecciones_completadas : 0}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">Materias exploradas</p>
+              <p class="text-gray-800 font-bold">${resumen ? resumen.materias_exploradas : 0}</p>
+            </div>
+            ${alumna.clase ? `
+            <div>
+              <p class="text-sm text-gray-500 font-semibold uppercase tracking-wide mb-1">Clase</p>
+              <p class="text-gray-800 font-bold">${alumna.clase.nombre} (${alumna.clase.codigo})</p>
+            </div>
+            ` : ''}
+          </div>
+        </div>
+
+        <!-- Racha -->
+        <div class="print-card bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
+          <h2 class="text-xl font-extrabold text-gray-800 mb-4">🔥 Racha de estudio</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+            <div class="bg-orange-50 rounded-xl p-4">
+              <p class="text-3xl font-extrabold text-orange-600">${racha ? racha.dias_consecutivos : 0}</p>
+              <p class="text-sm text-gray-600 mt-1">Días consecutivos</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-4">
+              <p class="text-3xl font-extrabold text-green-600">${racha ? racha.dias_activos_ultimos_30 : 0}</p>
+              <p class="text-sm text-gray-600 mt-1">Días activos (últimos 30)</p>
+            </div>
+            <div class="bg-purple-50 rounded-xl p-4">
+              <p class="text-3xl font-extrabold text-purple-600">${racha ? racha.racha_maxima : 0}</p>
+              <p class="text-sm text-gray-600 mt-1">Racha máxima</p>
+            </div>
+          </div>
+          ${racha && racha.activo_hoy ? '<p class="text-sm text-green-600 font-semibold mt-3 text-center">✅ Activa hoy</p>' : ''}
+        </div>
+
+        <!-- Logros desbloqueados -->
+        <div class="print-card bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
+          <h2 class="text-xl font-extrabold text-gray-800 mb-4">🏅 Logros desbloqueados</h2>
+          ${logros.length > 0 ? `
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              ${logros.map((l) => `
+                <div class="text-center bg-gray-50 rounded-xl p-3">
+                  <div class="text-3xl mb-1">${l.emoji}</div>
+                  <p class="text-xs font-bold text-gray-700">${l.titulo}</p>
+                  <p class="text-[10px] text-gray-500 mt-0.5">${l.descripcion}</p>
+                </div>
+              `).join('')}
+            </div>
+          ` : `
+            <p class="text-gray-600 text-center py-4">
+              Aún no ha desbloqueado logros. ¡Sigue practicando para conseguir el primero! 🌟
+            </p>
+          `}
+        </div>
+
+        <!-- Áreas de mejora -->
+        <div class="print-card bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
+          <h2 class="text-xl font-extrabold text-gray-800 mb-4">🌱 Áreas de mejora</h2>
+          <p class="text-gray-700 leading-relaxed mb-3">
+            El progreso de tu hija es constante. Para seguir avanzando, se recomienda:
+          </p>
+          <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+            <li>Practicar 10 minutos al día en la plataforma.</li>
+            <li>Revisar las lecciones donde cometió errores y volver a intentarlas.</li>
+            <li>Conversar con ella sobre lo que aprendió esta semana.</li>
+          </ul>
+          ${sugerencia ? `<p class="text-gray-700 mt-2">${sugerencia}</p>` : ''}
+          <p class="text-sm text-gray-500 mt-3 italic">
+            Nota: los patrones de error detallados estarán disponibles en una próxima versión del informe.
+          </p>
+        </div>
+
+        <!-- Pie -->
+        <div class="text-center text-xs text-gray-400 mt-8 pt-4 border-t border-gray-200">
+          <p>Informe generado automáticamente el ${fechaGen}.</p>
+          <p>Aprende Jugando — Plataforma educativa interactiva.</p>
+        </div>
+      `;
+
+      document.getElementById('btn-pdf')?.addEventListener('click', () => window.print());
+    }
+
+    init();
+  </script>
+</Layout>
+
