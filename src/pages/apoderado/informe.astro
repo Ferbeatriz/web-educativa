@@ -124,12 +124,26 @@ import Layout from '../../layouts/Layout.astro';
       const logros = (logrosRes.logros || []).filter((l) => l.desbloqueado);
       const materias = materiasRes.materias || [];
 
+      const ACTIVIDADES_10_MIN: Record<string, string> = {
+        matematicas: 'Usen 10 objetos de la casa (frijoles, botones, lápices) y pídanle que los reparta en 2, 3 o 4 grupos iguales. Pregúntenle cuántos quedaron en cada grupo y cuántos sobraron.',
+        lenguaje: 'Lean juntos una noticia corta del diario o una página de un libro. Pídanle que les cuente qué ocurrió y quiénes participaron.',
+        ciencias: 'Salgan al patio o miren por la ventana. Pídanle que les describa 3 cosas vivas y 3 cosas no vivas que vea.',
+        historia: 'Pídanle que les cuente qué hacía la abuela o el abuelo cuando era niño, y compárenlo con lo que ella hace hoy.',
+        ingles: 'Pídanle que les nombre 5 colores o 5 partes de la casa en inglés.',
+      };
+
       let sugerencia = '';
+      let desafioId = '';
+      let desafioNombre = '';
+      let actividad10 = '';
       const candidatos = materias.filter((m) => m.completadas > 0);
       if (candidatos.length > 0) {
         const menor = candidatos.reduce((a, b) => a.completadas < b.completadas ? a : b);
         const nombre = NOMBRES_MATERIA[menor.materia_id] || menor.materia_id;
         sugerencia = `Como próximo desafío, puede reforzar <strong>${nombre}</strong> (lleva ${menor.completadas} lecciones completadas).`;
+        desafioId = menor.materia_id;
+        desafioNombre = nombre;
+        actividad10 = ACTIVIDADES_10_MIN[menor.materia_id] || '';
       }
 
       const fechaGen = formatearFecha(new Date());
@@ -238,6 +252,15 @@ import Layout from '../../layouts/Layout.astro';
             <li>Conversar con ella sobre lo que aprendió esta semana.</li>
           </ul>
           ${sugerencia ? `<p class="text-gray-700 mt-2">${sugerencia}</p>` : ''}
+           ${actividad10 ? `
+             <div class="no-print mt-4 rounded-xl bg-yellow-50 border border-yellow-200 p-4 flex gap-3 items-start">
+               <span class="text-2xl leading-none">💡</span>
+               <div>
+                 <p class="font-bold text-yellow-800 mb-1">Actividad de 10 minutos — ${desafioNombre}</p>
+                 <p class="text-sm text-yellow-900 leading-relaxed">${actividad10}</p>
+               </div>
+             </div>
+           ` : ''}
           <p class="text-sm text-gray-500 mt-3 italic">
             Nota: los patrones de error detallados estarán disponibles en una próxima versión del informe.
           </p>
