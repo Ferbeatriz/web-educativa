@@ -11,6 +11,7 @@ import ListaProblemas from '../../components/ejercicios/ListaProblemas.astro';
 import EjerciciosGuiados from '../../components/ejercicios/EjerciciosGuiados.astro';
 import ComparadorFracciones from '../../components/ejercicios/ComparadorFracciones.astro';
 import OrdenadorFracciones from '../../components/ejercicios/OrdenadorFracciones.astro';
+import SimuladorFracciones from '../../components/ejercicios/SimuladorFracciones.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -92,6 +93,7 @@ const glosario = leccion.glosario || [];
 
 // Expresión regular para detectar el marcador del tutor
 const TUTOR_REGEX = /<!--\s*TUTOR:\s*([a-z0-9-]+)\s*-->/i;
+const SIMULADOR_REGEX = /<!--\s*SIMULADOR:\s*([a-z0-9-]+)\s*-->/i;
 
 // Detectar tipo de lección
 const esEjercicios = !!(leccion.niveles && !leccion.contenido_modulos);
@@ -299,6 +301,22 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
                       <TutorPasos ejercicio={tutorData} color={c.c500} />
                     </div>
                   </div>
+                </div>
+              );
+            }
+
+            const simMatch = parrafo.match(SIMULADOR_REGEX);
+            const simId = simMatch ? simMatch[1] : null;
+            if (simId === 'fracciones') {
+              const textoAntes = parrafo.replace(SIMULADOR_REGEX, '').trim();
+              return (
+                <div class="space-y-4">
+                  {textoAntes && (
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+                      <div class="prose-markdown max-w-none" set:html={marked.parse(textoAntes)} />
+                    </div>
+                  )}
+                  <SimuladorFracciones />
                 </div>
               );
             }

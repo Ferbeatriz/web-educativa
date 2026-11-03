@@ -1,0 +1,180 @@
+---
+// src/components/ejercicios/SimuladorFracciones.astro
+// Simulador interactivo de fracciones con círculos conic-gradient.
+---
+
+<div id="simulador-fracciones" class="bg-white rounded-2xl shadow p-6 md:p-8 max-w-2xl mx-auto">
+  <h2 class="text-xl font-extrabold text-gray-800 mb-4 text-center">Simulador de fracciones 🍕</h2>
+
+  <div class="flex flex-wrap items-end justify-center gap-4 mb-6">
+    <div class="flex flex-col items-center">
+      <label class="text-sm font-bold text-gray-600 mb-1">Color</label>
+      <input
+        id="sf-color"
+        type="color"
+        value="#3b82f6"
+        class="w-14 h-14 rounded-xl border-2 border-gray-200 cursor-pointer bg-white"
+      />
+    </div>
+    <div class="flex flex-col items-center">
+      <label class="text-sm font-bold text-gray-600 mb-1">Numerador</label>
+      <input
+        id="sf-num"
+        type="number"
+        min="0"
+        max="60"
+        value="1"
+        class="w-20 h-14 text-center text-xl font-extrabold rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
+      />
+    </div>
+    <div class="flex items-center text-2xl font-extrabold text-gray-400 h-14">/</div>
+    <div class="flex flex-col items-center">
+      <label class="text-sm font-bold text-gray-600 mb-1">Denominador</label>
+      <input
+        id="sf-den"
+        type="number"
+        min="1"
+        max="12"
+        value="4"
+        class="w-20 h-14 text-center text-xl font-extrabold rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
+      />
+    </div>
+  </div>
+
+  <div id="sf-circles" class="flex flex-wrap justify-center gap-6 mb-6"></div>
+
+  <div class="text-center space-y-1">
+    <p class="text-2xl font-extrabold text-gray-800">
+      Fracción: <span id="sf-frac" class="text-blue-600">1/4</span>
+    </p>
+    <p id="sf-mixed-wrap" class="text-lg font-bold text-gray-600 hidden">
+      Número mixto: <span id="sf-mixed" class="text-blue-600">1 1/4</span>
+    </p>
+  </div>
+
+  <p class="text-xs text-gray-400 text-center mt-4">
+    Haz clic en una porción del círculo para pintar o despintar.
+  </p>
+</div>
+<script>
+  const colorInput = document.getElementById('sf-color');
+  const numInput = document.getElementById('sf-num');
+  const denInput = document.getElementById('sf-den');
+  const circlesEl = document.getElementById('sf-circles');
+  const fracEl = document.getElementById('sf-frac');
+  const mixedWrap = document.getElementById('sf-mixed-wrap');
+  const mixedEl = document.getElementById('sf-mixed');
+
+  let color = colorInput.value;
+  let num = parseInt(numInput.value, 10) || 0;
+  let den = parseInt(denInput.value, 10) || 1;
+
+  function clampNum(v) {
+    v = parseInt(v, 10);
+    if (isNaN(v)) v = 0;
+    return Math.max(0, Math.min(60, v));
+  }
+  function clampDen(v) {
+    v = parseInt(v, 10);
+    if (isNaN(v) || v < 1) v = 1;
+    return Math.max(1, Math.min(12, v));
+  }
+
+  function render() {
+    num = clampNum(num);
+    den = clampDen(den);
+    numInput.value = num;
+    denInput.value = den;
+    color = colorInput.value;
+
+    const fullCircles = Math.floor(num / den);
+    const rem = num % den;
+    let totalCircles = fullCircles + (rem > 0 ? 1 : 0);
+    if (totalCircles === 0) totalCircles = 1;
+
+    circlesEl.innerHTML = '';
+    for (let ci = 0; ci < totalCircles; ci++) {
+      const isFull = ci < fullCircles;
+      const isPartial = !isFull && ci === fullCircles && rem > 0;
+      const filledSlices = isFull ? den : (isPartial ? rem : 0);
+
+      const pct = (filledSlices / den) * 100;
+      const circle = document.createElement('div');
+      circle.className = 'relative w-40 h-40 rounded-full border-4 border-gray-200 shadow-sm';
+      circle.style.background = `conic-gradient(${color} 0% ${pct}%, #f1f5f9 ${pct}% 100%)`;
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 100 100');
+      svg.setAttribute('class', 'absolute inset-0 w-full h-full');
+      svg.style.cursor = 'pointer';
+      const cx = 50, cy = 50, r = 50;
+      for (let s = 0; s < den; s++) {
+        const startAngle = (s / den) * 2 * Math.PI - Math.PI / 2;
+        const endAngle = ((s + 1) / den) * 2 * Math.PI - Math.PI / 2;
+        const x1 = cx + r * Math.cos(startAngle);
+        const y1 = cy + r * Math.sin(startAngle);
+        const x2 = cx + r * Math.cos(endAngle);
+        const y2 = cy + r * Math.sin(endAngle);
+        const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'transparent');
+        path.setAttribute('stroke', 'rgba(255,255,255,0.5)');
+        path.setAttribute('stroke-width', '1');
+        path.dataset.circle = String(ci);
+        path.dataset.sector = String(s);
+        path.addEventListener('click', () => handleSectorClick(ci, s));
+        svg.appendChild(path);
+      }
+      circle.appendChild(svg);
+
+      const label = document.createElement('div');
+      label.className = 'absolute inset-0 flex items-center justify-center pointer-events-none font-extrabold text-gray-700 text-lg';
+      label.textContent = `${filledSlices}/${den}`;
+      circle.appendChild(label);
+
+      circlesEl.appendChild(circle);
+    }
+
+    fracEl.textContent = `${num}/${den}`;
+    if (num >= den) {
+      const whole = Math.floor(num / den);
+      const r = num % den;
+      mixedEl.textContent = r === 0 ? `${whole}` : `${whole} ${r}/${den}`;
+      mixedWrap.classList.remove('hidden');
+    } else {
+      mixedWrap.classList.add('hidden');
+    }
+  }
+
+  function handleSectorClick(ci, s) {
+    const fullCircles = Math.floor(num / den);
+    const rem = num % den;
+    if (ci < fullCircles) {
+      num = ci * den + s;
+    } else if (ci === fullCircles && rem > 0) {
+      if (s < rem) {
+        num = ci * den + s;
+      } else {
+        num = ci * den + s + 1;
+      }
+    } else {
+      num = ci * den + s + 1;
+    }
+    render();
+  }
+
+  colorInput.addEventListener('input', render);
+  numInput.addEventListener('input', () => {
+    num = clampNum(numInput.value);
+    render();
+  });
+  denInput.addEventListener('input', () => {
+    den = clampDen(denInput.value);
+    render();
+  });
+
+  render();
+</script>
+
