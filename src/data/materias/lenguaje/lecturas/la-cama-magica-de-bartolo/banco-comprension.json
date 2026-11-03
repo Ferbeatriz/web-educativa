@@ -1,0 +1,458 @@
+{
+  "libro": "la-cama-magica-de-bartolo",
+  "tipo": "comprension",
+  "total_preguntas": 30,
+  "distribucion": { "media": 12, "dificil": 12, "muy_dificil": 6 },
+  "preguntas": [
+  {
+    "id": "c01",
+    "dificultad": "media",
+    "tema": "El protagonista y su carácter",
+    "pregunta": "¿Por qué Bartolo se preocupaba de llegar siempre desarreglado a su casa?",
+    "opciones": [
+      "Porque no le gustaba bañarse.",
+      "Para que su mamá no se preocupara por él.",
+      "Para que su mamá no le diera un ataque si llegaba impecable.",
+      "Porque era la moda entre sus amigos."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "Bartolo decía que si un día llegaba limpio a su casa, a su mamá le podría dar un ataque, y él no quería eso porque quería verla saludable.",
+    "pista": "Capítulo 1: 'Bartolo'. Fíjate en la conversación que tiene con su mamá sobre su ropa."
+  },
+  {
+    "id": "c02",
+    "dificultad": "media",
+    "tema": "El inicio del viaje",
+    "pregunta": "¿Qué estaba haciendo Bartolo justo antes de que su cama comenzara a volar?",
+    "opciones": [
+      "Leyendo un libro de aventuras.",
+      "Mirando fijamente el techo de su habitación sin parpadear.",
+      "Durmiendo profundamente.",
+      "Jugando con su perro en el patio."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo se puso a mirar fijamente el techo, pensando en todo lo que le gustaría hacer, hasta que sus ojos se irritaron y la cama comenzó a moverse.",
+    "pista": "Capítulo 2: 'Querer es poder'. Revisa el momento previo al despegue."
+  },
+  {
+    "id": "c03",
+    "dificultad": "dificil",
+    "tema": "El viaje",
+    "pregunta": "Cuando Bartolo despertó y sintió el frío de la nieve, ¿qué pensó inicialmente sobre lo que estaba viviendo?",
+    "opciones": [
+      "Que estaba en un sueño.",
+      "Que había llegado a la playa.",
+      "Que su mamá lo había ido a buscar.",
+      "Que su cama se había roto."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Al principio, Bartolo pensó que todo había sido un sueño, pero al sentir el frío de la nieve se dio cuenta de que era real.",
+    "pista": "Capítulo 3: 'La ciudad asombrosa'. Fíjate en lo que siente al despertar en la nieve."
+  },
+  {
+    "id": "c04",
+    "dificultad": "media",
+    "tema": "La ciudad secreta",
+    "pregunta": "¿Quiénes habitaban la fantástica ciudad secreta a la que llegó Bartolo?",
+    "opciones": [
+      "Solo niños y niñas de la Cordillera.",
+      "Conejos y algunos zorros.",
+      "Pumas y cóndores.",
+      "Seres mágicos invisibles."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "En la ciudad secreta vivían conejos y también algunos zorros, como Oliverio.",
+    "pista": "Capítulo 3: 'La ciudad asombrosa'. Observa a los personajes que describen la ciudad."
+  },
+  {
+    "id": "c05",
+    "dificultad": "dificil",
+    "tema": "Los nuevos amigos",
+    "pregunta": "¿Cómo conoció Bartolo a Oliverio, el zorro?",
+    "opciones": [
+      "Oliverio lo invitó a comer a su casa.",
+      "Casi lo atropella con su moto-silueta.",
+      "Se encontraron en la cima de una montaña.",
+      "Bartolo lo rescató de un meteorito."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo conoció a Oliverio cuando el zorro casi lo atropella con su moto-silueta, ya que andaba muy apurado.",
+    "pista": "Capítulo 4: 'Bartolo conoce nuevos amigos'. Fíjate en el primer encuentro entre ambos."
+  },
+  {
+    "id": "c06",
+    "dificultad": "media",
+    "tema": "El problema central",
+    "pregunta": "¿Cuál era el gran problema que debían resolver Bartolo y sus nuevos amigos?",
+    "opciones": [
+      "Encontrar un tesoro escondido.",
+      "Salvar al mundo porque, tal como estaban las cosas, ¡el sol no podría salir!",
+      "Regresar a Bartolo a su casa.",
+      "Construir una nueva ciudad."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "El problema central de la historia es que, tal como estaban las cosas, el sol no podía salir, y debían hacer algo para salvarlo.",
+    "pista": "Capítulo 5: 'Tal como están las cosas'. Presta atención a la conversación sobre el sol."
+  },
+  {
+    "id": "c07",
+    "dificultad": "dificil",
+    "tema": "Personajes secundarios",
+    "pregunta": "¿Quién era Sofía en la historia?",
+    "opciones": [
+      "Una niña que vivía en la ciudad y se dedicaba a arreglar los problemas de los muebles.",
+      "La mamá de Bartolo.",
+      "Una conejita que vivía en la ciudad secreta.",
+      "La dueña de la moto-silueta."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Sofía era una niña que vivía en la ciudad, y se decía que ella podía ayudar a resolver problemas, como el de la cama de Bartolo. Se dedicaba a arreglar muebles.",
+    "pista": "Capítulo 5: 'Tal como están las cosas'. Pascual lleva a Bartolo a casa de Sofía para pedir ayuda."
+  },
+  {
+    "id": "c08",
+    "dificultad": "muy_dificil",
+    "tema": "Inferencia sobre el zorro",
+    "pregunta": "El zorro le dijo a Bartolo que se llamaba 'Roelzo', pero su verdadero nombre era Oliverio. ¿Qué nos dice esto sobre el personaje?",
+    "opciones": [
+      "Que era un mentiroso compulsivo.",
+      "Que no le gustaba su nombre y prefería usar uno inventado.",
+      "Que era un personaje algo tramposo o juguetón, que inventaba nombres.",
+      "Que tenía problemas de memoria."
+    ],
+    "respuesta_correcta": 2,
+    "explicacion": "El hecho de que Oliverio inventara un nombre falso ('Roelzo') sugiere que es un personaje juguetón, algo tramposo o que le gusta confundir a los demás. Es parte de su personalidad cómica.",
+    "pista": "Capítulo 4: 'Bartolo conoce nuevos amigos'. Presta atención a la presentación del zorro."
+  },
+  {
+    "id": "c09",
+    "dificultad": "media",
+    "tema": "Características de la ciudad",
+    "pregunta": "¿Qué característica tenían las casas de la ciudad secreta?",
+    "opciones": [
+      "Eran de color blanco y muy pequeñas.",
+      "Tenían forma de reloj de arena y eran transparentes.",
+      "Estaban hechas de madera y tenían techos de paja.",
+      "Flotaban en el aire."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Las casas de la ciudad tenían forma de reloj de arena y eran transparentes.",
+    "pista": "Capítulo 3: 'La ciudad asombrosa'. Lee la descripción que se hace del lugar."
+  },
+  {
+    "id": "c10",
+    "dificultad": "dificil",
+    "tema": "Los árboles de la ciudad",
+    "pregunta": "¿Qué tenían de especial los árboles de la ciudad secreta?",
+    "opciones": [
+      "Eran árboles gigantes que llegaban al cielo.",
+      "Daban diversos tipos de frutas y dulces.",
+      "Sus hojas eran de color azul.",
+      "Hablaban con los conejos."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Los árboles de esa ciudad producían varios tipos de frutas y también dulces.",
+    "pista": "Capítulo 3: 'La ciudad asombrosa'. Fíjate en la descripción de la flora del lugar."
+  },
+  {
+    "id": "c11",
+    "dificultad": "media",
+    "tema": "El regreso a casa",
+    "pregunta": "¿Qué quería Bartolo hacer después de conocer a sus nuevos amigos y enterarse del problema?",
+    "opciones": [
+      "Quedarse a vivir para siempre en la ciudad secreta.",
+      "Regresar a su casa.",
+      "Convertirse en el líder de la ciudad.",
+      "Llevar a todos sus amigos a su casa."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo quería volver a su casa, pero al mismo tiempo, sus amigos necesitaban su ayuda para resolver el problema del sol.",
+    "pista": "Capítulo 5: 'Tal como están las cosas'. Presta atención a lo que Bartolo dice que quiere hacer."
+  },
+  {
+    "id": "c12",
+    "dificultad": "dificil",
+    "tema": "El rol de Sofía",
+    "pregunta": "¿Por qué Pascual decidió llevar a Bartolo a la casa de Sofía?",
+    "opciones": [
+      "Porque Sofía era la única que podía arreglar la cama mágica y hacer que Bartolo volviera a casa.",
+      "Porque Sofía era la mamá de Bartolo.",
+      "Porque Sofía tenía una cama igual a la de Bartolo.",
+      "Porque Sofía quería conocer a Bartolo."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Pascual confiaba en que Sofía podría ayudarlos con sus problemas y hacer que la cama mágica llevara a Bartolo de vuelta a su casa.",
+    "pista": "Capítulo 5: 'Tal como están las cosas'. Fíjate en la razón que da Pascual para visitar a Sofía."
+  },
+  {
+    "id": "c13",
+    "dificultad": "media",
+    "tema": "La moto-silueta",
+    "pregunta": "¿Qué vehículo conducía Oliverio, el zorro?",
+    "opciones": [
+      "Una bicicleta voladora.",
+      "Una moto-silueta.",
+      "Un auto con forma de zanahoria.",
+      "Un trineo tirado por conejos."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Oliverio se movilizaba en una 'moto-silueta', un vehículo muy veloz y peculiar de la ciudad secreta.",
+    "pista": "Capítulo 4: 'Bartolo conoce nuevos amigos'. Fíjate en cómo llega Oliverio."
+  },
+  {
+    "id": "c14",
+    "dificultad": "dificil",
+    "tema": "El humor en la historia",
+    "pregunta": "Cuando Bartolo escuchó el nombre de Pascual, dijo: '¡Tú debes ser el que pone los huevos de chocolate!'. ¿Qué provocó esta frase?",
+    "opciones": [
+      "Que todos se enojaran con Bartolo.",
+      "Que todos se rieran, porque era un chiste.",
+      "Que Pascual se sintiera ofendido.",
+      "Que Bartolo tuviera que disculparse."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La frase de Bartolo fue un chiste que hizo reír a todos, mostrando el tono humorístico de la historia y la confusión de Bartolo con las costumbres del lugar.",
+    "pista": "Capítulo 4: 'Bartolo conoce nuevos amigos'. Revisa la reacción de los personajes ante la frase de Bartolo."
+  },
+  {
+    "id": "c15",
+    "dificultad": "muy_dificil",
+    "tema": "Inferencia sobre el título",
+    "pregunta": "¿Por qué crees que la cama de Bartolo se volvió mágica?",
+    "opciones": [
+      "Porque Bartolo sopló una vela mágica.",
+      "Porque Bartolo deseó con mucha fuerza vivir aventuras y la cama lo escuchó.",
+      "Porque un mago se la regaló.",
+      "Porque la cama era vieja y tenía un resorte mágico."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La historia sugiere que la magia surge del deseo intenso de Bartolo de vivir aventuras. El título 'Querer es poder' del capítulo 2 refuerza esta idea.",
+    "pista": "Capítulo 2: 'Querer es poder'. Reflexiona sobre lo que Bartolo estaba pensando antes del despegue."
+  },
+  {
+    "id": "c16",
+    "dificultad": "media",
+    "tema": "El nombre del capítulo",
+    "pregunta": "El capítulo 2 se llama 'Querer es poder'. ¿Qué relación tiene este título con lo que le sucede a Bartolo?",
+    "opciones": [
+      "Que Bartolo quería tener poderes y los obtuvo.",
+      "Que el deseo de Bartolo de volar y vivir aventuras fue tan fuerte que la cama se movió.",
+      "Que Bartolo quería ser más fuerte que sus amigos.",
+      "Que el poder de la cama se activaba con la fuerza física."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "El título sugiere que el deseo intenso de Bartolo (querer) fue lo que desencadenó la magia (poder) que hizo volar su cama.",
+    "pista": "Capítulo 2: 'Querer es poder'. Piensa en el significado del refrán."
+  },
+  {
+    "id": "c17",
+    "dificultad": "dificil",
+    "tema": "La valentía de Bartolo",
+    "pregunta": "Al principio, Bartolo sintió miedo cuando su cama empezó a volar. ¿Qué hizo que cambiara de opinión y empezara a disfrutar del viaje?",
+    "opciones": [
+      "La sensación de volar era maravillosa.",
+      "Recordó que tenía que salvar el mundo.",
+      "Se dio cuenta de que no tenía otra opción.",
+      "Su mamá le dijo que no tuviera miedo."
+    ],
+    "respuesta_correcta": 0,
+    "explicacion": "Aunque al principio se asustó, la sensación de volar le pareció tan maravillosa que terminó gustándole.",
+    "pista": "Capítulo 2: 'Querer es poder'. Fíjate en las emociones de Bartolo durante el vuelo."
+  },
+  {
+    "id": "c18",
+    "dificultad": "muy_dificil",
+    "tema": "La amistad",
+    "pregunta": "¿Qué demuestra la decisión de Bartolo de ayudar a sus amigos con el problema del sol, a pesar de que él quería volver a casa?",
+    "opciones": [
+      "Que Bartolo era un niño egoísta que solo pensaba en sí mismo.",
+      "Que Bartolo valoraba más la amistad y la ayuda a los demás que su propio deseo de regresar.",
+      "Que Bartolo no quería volver a casa.",
+      "Que Bartolo tenía miedo de viajar solo."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo posterga su deseo de volver a casa para ayudar a sus nuevos amigos, demostrando que es un niño generoso y solidario.",
+    "pista": "Capítulo 5: 'Tal como están las cosas'. Piensa en el dilema de Bartolo entre volver o ayudar."
+  },
+  {
+    "id": "c19",
+    "dificultad": "media",
+    "tema": "El escenario principal",
+    "pregunta": "¿Dónde se encuentra la ciudad secreta a la que llega Bartolo?",
+    "opciones": [
+      "En el fondo del mar.",
+      "En la Cordillera de los Andes.",
+      "En el desierto de Atacama.",
+      "En una isla desierta."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La cama de Bartolo vuela hasta la Cordillera de los Andes, donde descubre la ciudad secreta.",
+    "pista": "Capítulo 3: 'La ciudad asombrosa'. El nombre del capítulo y la descripción del lugar lo indican."
+  },
+  {
+    "id": "c20",
+    "dificultad": "dificil",
+    "tema": "La rutina de Bartolo",
+    "pregunta": "Antes de la aventura, ¿cómo era un día típico en la vida de Bartolo?",
+    "opciones": [
+      "Se quedaba en casa leyendo y dibujando.",
+      "Iba al colegio, jugaba, subía a los árboles a cazar lagartijas y volvía sucio a casa.",
+      "Ayudaba a su mamá en las tareas del hogar.",
+      "Entrenaba para ser un gran deportista."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo era un niño activo y travieso: iba a la escuela, jugaba, se subía a los árboles y siempre llegaba sucio a casa.",
+    "pista": "Capítulo 1: 'Bartolo'. Lee la descripción de sus actividades diarias."
+  },
+  {
+    "id": "c21",
+    "dificultad": "media",
+    "tema": "La reacción de la mamá",
+    "pregunta": "Cuando Bartolo regresa de su aventura, ¿cómo lo recibe su mamá?",
+    "opciones": [
+      "Lo regaña por haber desaparecido.",
+      "Se pone muy feliz y lo abraza.",
+      "No se da cuenta de que se fue.",
+      "Le pregunta qué le pasó en la ropa."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La mamá de Bartolo se alegra mucho de verlo de vuelta y lo abraza. La historia tiene un final feliz y cálido.",
+    "pista": "Capítulo final. Fíjate en el reencuentro entre Bartolo y su mamá."
+  },
+  {
+    "id": "c22",
+    "dificultad": "dificil",
+    "tema": "Los habitantes de la ciudad",
+    "pregunta": "Además de conejos y zorros, ¿qué otros animales habitaban o visitaban la ciudad?",
+    "opciones": [
+      "Leones y tigres.",
+      "Pumas, como Valentín.",
+      "Elefantes y jirafas.",
+      "Aves exóticas."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "En la historia aparece Valentín, un puma que es amigo de los protagonistas.",
+    "pista": "Capítulo 4 o 5. Busca menciones de otros animales además de los conejos y zorros."
+  },
+  {
+    "id": "c23",
+    "dificultad": "muy_dificil",
+    "tema": "La misión de los personajes",
+    "pregunta": "¿Qué misión debían cumplir Bartolo y sus amigos para resolver el problema del sol?",
+    "opciones": [
+      "Construir un cohete para ir al sol.",
+      "Encontrar la 'lasaña' que salvaría al mundo.",
+      "Convencer al sol de que saliera.",
+      "Apagar el fuego que cubría el cielo."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La misión heroica consistía en conseguir la 'lasaña' que salvaría al mundo para que el sol pudiera salir.",
+    "pista": "Revisa las reseñas del libro: mencionan la 'heroica lasaña de salvar al mundo'."
+  },
+  {
+    "id": "c24",
+    "dificultad": "media",
+    "tema": "El respeto por los demás",
+    "pregunta": "Cuando Bartolo llega a la ciudad, ¿cómo trata a los habitantes que son diferentes a él?",
+    "opciones": [
+      "Con miedo y desconfianza.",
+      "Con curiosidad y amabilidad, haciendo amigos rápidamente.",
+      "Con indiferencia, sin hablarles.",
+      "Con superioridad, sintiéndose mejor que ellos."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo se muestra curioso y amigable, lo que le permite hacer amigos rápidamente a pesar de las diferencias.",
+    "pista": "Capítulo 4: 'Bartolo conoce nuevos amigos'. Observa cómo interactúa con Oliverio y Pascual."
+  },
+  {
+    "id": "c25",
+    "dificultad": "dificil",
+    "tema": "El trabajo en equipo",
+    "pregunta": "¿Qué nos enseña la historia sobre la importancia de trabajar en equipo?",
+    "opciones": [
+      "Que cada uno debe resolver sus problemas solo.",
+      "Que la unión de diferentes habilidades y perspectivas permite resolver grandes desafíos.",
+      "Que el más fuerte siempre debe liderar.",
+      "Que los amigos no son necesarios para lograr objetivos."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Bartolo, Oliverio, Pascual, Valentín y Sofía combinan sus talentos para enfrentar el problema del sol, demostrando que el trabajo en equipo es fundamental.",
+    "pista": "Piensa en cómo cada personaje aporta algo distinto a la misión."
+  },
+  {
+    "id": "c26",
+    "dificultad": "muy_dificil",
+    "tema": "El significado del viaje",
+    "pregunta": "¿Qué representa el viaje de Bartolo en la cama mágica para su crecimiento personal?",
+    "opciones": [
+      "Una simple travesura sin consecuencias.",
+      "Una oportunidad para demostrar su valentía, hacer amigos y ayudar a los demás.",
+      "Una forma de escapar de sus responsabilidades escolares.",
+      "Un castigo por portarse mal."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "El viaje de Bartolo es una aventura que lo hace crecer: demuestra valentía, hace nuevos amigos y aprende el valor de ayudar a los demás.",
+    "pista": "Reflexiona sobre los cambios en Bartolo desde el inicio hasta el final."
+  },
+  {
+    "id": "c27",
+    "dificultad": "media",
+    "tema": "El escenario: la ciudad",
+    "pregunta": "¿Cómo se movilizaban las casas de la ciudad secreta?",
+    "opciones": [
+      "Volaban por el aire.",
+      "Se balanceaban hasta voltearse para subir al segundo piso.",
+      "Caminaban sobre ruedas.",
+      "Flotaban en el agua."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "Las casas tenían forma de reloj de arena y, para subir al segundo piso, se balanceaban hasta voltearse.",
+    "pista": "Capítulo 4: 'Bartolo conoce nuevos amigos'. Lee la descripción de cómo los conejos subían al segundo piso."
+  },
+  {
+    "id": "c28",
+    "dificultad": "dificil",
+    "tema": "El final de la historia",
+    "pregunta": "¿Qué sucede con la cama de Bartolo al final de la historia?",
+    "opciones": [
+      "Se destruye en el viaje.",
+      "Vuelve a volar con Bartolo a su casa.",
+      "Se queda en la ciudad secreta.",
+      "Deja de ser mágica para siempre."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La cama mágica trae a Bartolo de vuelta a su casa, concluyendo la aventura.",
+    "pista": "Capítulo final. Fíjate en cómo regresa Bartolo."
+  },
+  {
+    "id": "c29",
+    "dificultad": "muy_dificil",
+    "tema": "Los valores de la historia",
+    "pregunta": "¿Cuál de estos valores NO se destaca en la historia?",
+    "opciones": [
+      "La amistad.",
+      "La valentía.",
+      "La solidaridad.",
+      "La competencia desleal."
+    ],
+    "respuesta_correcta": 3,
+    "explicacion": "La historia promueve la amistad, la valentía y la solidaridad, pero no la competencia desleal.",
+    "pista": "Piensa en las acciones de Bartolo y sus amigos a lo largo del relato."
+  },
+  {
+    "id": "c30",
+    "dificultad": "dificil",
+    "tema": "La creatividad de Bartolo",
+    "pregunta": "¿Qué cualidad de Bartolo fue clave para que la aventura comenzara?",
+    "opciones": [
+      "Su fuerza física.",
+      "Su imaginación y capacidad de soñar despierto.",
+      "Su habilidad para pelear.",
+      "Su inteligencia para las matemáticas."
+    ],
+    "respuesta_correcta": 1,
+    "explicacion": "La imaginación de Bartolo, al pensar en todas las cosas que le gustaría hacer, es lo que desencadena la magia de la cama.",
+    "pista": "Capítulo 2: 'Querer es poder'. Fíjate en lo que Bartolo estaba imaginando."
+  }
+  ]
+}

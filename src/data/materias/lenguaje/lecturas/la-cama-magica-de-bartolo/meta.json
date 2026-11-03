@@ -1,0 +1,47 @@
+{
+  "id": "la-cama-magica-de-bartolo",
+  "titulo": "La cama mágica de Bartolo",
+  "autor": "Mauricio Paredes",
+  "autora": "Mauricio Paredes",
+  "ilustradora": "—",
+  "editorial": "—",
+  "genero": "Novela infantil de aventuras",
+  "año": "",
+  "pais": "",
+  "emoji": "🛏️",
+  "color": "lenguaje",
+  "nivel": "4° básico",
+  "activo": true,
+  "descripcion": "Bartolo es un niño travieso y soñador. Una noche, su cama despega y lo lleva a una ciudad secreta en la Cordillera de los Andes, donde vivirá una aventura increíble junto a nuevos amigos.",
+  "sinopsis": "Bartolo es un niño travieso y soñador. Una noche, su cama despega y lo lleva a una ciudad secreta en la Cordillera de los Andes, donde vivirá una aventura increíble junto a nuevos amigos.",
+  "temas": [
+    "La amistad",
+    "La aventura",
+    "La imaginación",
+    "El trabajo en equipo",
+    "La solidaridad"
+  ],
+  "personajes": [
+    { "nombre": "Bartolo", "rol": "Protagonista. Niño travieso y soñador" },
+    { "nombre": "Oliverio (Roelzo)", "rol": "Zorro juguetón y algo tramposo" },
+    { "nombre": "Pascual", "rol": "Conejo sabio y calmado" },
+    { "nombre": "Valentín", "rol": "Puma amigo de los protagonistas" },
+    { "nombre": "Sofía", "rol": "Niña que arregla muebles" }
+  ],
+  "configuracion": {
+    "preguntas_por_sesion": {
+      "comprension": 10,
+      "desarrollo": 5,
+      "relectura": 3
+    },
+    "distribucion_dificultad": {
+      "media": 0.30,
+      "dificil": 0.40,
+      "muy_dificil": 0.30
+    },
+    "orden_presentacion": "ascendente",
+    "persistencia": true,
+    "mezclar_opciones": true,
+    "mostrar_pistas": true
+  }
+}

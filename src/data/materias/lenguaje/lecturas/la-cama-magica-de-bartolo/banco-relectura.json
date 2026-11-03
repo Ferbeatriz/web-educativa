@@ -1,0 +1,134 @@
+{
+  "libro": "la-cama-magica-de-bartolo",
+  "tipo": "relectura",
+  "total_desafios": 10,
+  "distribucion": { "media": 5, "dificil": 3, "muy_dificil": 2 },
+  "desafios": [
+  {
+    "id": "r01",
+    "dificultad": "media",
+    "tema": "La ciudad secreta",
+    "titulo": "Dibuja la ciudad secreta",
+    "instrucciones": [
+      "Vuelve al capítulo 3, 'La ciudad asombrosa'.",
+      "Lee la descripción de las casas, los árboles y los habitantes.",
+      "Dibuja cómo te imaginas la ciudad secreta, incluyendo al menos 3 elementos que se describen en el texto."
+    ],
+    "pista": "Fíjate en la forma de las casas, los colores y lo que producen los árboles.",
+    "entregable": "Un dibujo de la ciudad secreta con una breve explicación de los elementos incluidos."
+  },
+  {
+    "id": "r02",
+    "dificultad": "media",
+    "tema": "El carácter de Bartolo",
+    "titulo": "Haz una ficha de Bartolo",
+    "instrucciones": [
+      "Relee el capítulo 1, 'Bartolo'.",
+      "Anota 5 características de Bartolo (cómo es físicamente y cómo es su personalidad).",
+      "Escribe una frase que resuma por qué es un niño especial."
+    ],
+    "pista": "Piensa en su forma de vestir, sus juegos y su relación con su mamá.",
+    "entregable": "Una ficha con las 5 características y la frase resumen."
+  },
+  {
+    "id": "r03",
+    "dificultad": "dificil",
+    "tema": "La motivación de Bartolo",
+    "titulo": "Analiza el título del capítulo 2",
+    "instrucciones": [
+      "Relee el capítulo 2, 'Querer es poder'.",
+      "Explica con tus palabras qué significa el refrán 'querer es poder'.",
+      "Escribe cómo se relaciona este refrán con lo que le pasó a Bartolo."
+    ],
+    "pista": "Piensa en el deseo de Bartolo de vivir aventuras y lo que sucedió con su cama.",
+    "entregable": "Un párrafo de 5 a 8 oraciones explicando la relación."
+  },
+  {
+    "id": "r04",
+    "dificultad": "media",
+    "tema": "Los personajes",
+    "titulo": "Mapa de amigos",
+    "instrucciones": [
+      "Relee los capítulos 4 y 5, donde Bartolo conoce a sus amigos.",
+      "Haz un mapa o esquema con los nombres de los 4 amigos de Bartolo (Oliverio, Pascual, Valentín y Sofía).",
+      "Escribe una característica principal de cada uno."
+    ],
+    "pista": "Fíjate en cómo se comportan y qué dicen en la historia.",
+    "entregable": "Un mapa visual (puede ser un dibujo o una tabla) con los nombres y características."
+  },
+  {
+    "id": "r05",
+    "dificultad": "dificil",
+    "tema": "El problema del sol",
+    "titulo": "Investiga sobre el sol",
+    "instrucciones": [
+      "Vuelve a la parte donde se menciona el problema del sol.",
+      "Busca en un libro o en internet por qué es importante el sol para la vida en la Tierra.",
+      "Escribe 3 razones por las que el sol es fundamental."
+    ],
+    "pista": "Piensa en la luz, el calor y las plantas.",
+    "entregable": "Una lista de 3 razones explicadas."
+  },
+  {
+    "id": "r06",
+    "dificultad": "muy_dificil",
+    "tema": "El humor de Oliverio",
+    "titulo": "Escribe un diálogo divertido",
+    "instrucciones": [
+      "Relee las escenas donde aparece Oliverio, el zorro.",
+      "Elige un momento y escribe un diálogo inventado entre Oliverio y Bartolo.",
+      "El diálogo debe mostrar el carácter juguetón y algo tramposo de Oliverio."
+    ],
+    "pista": "Usa expresiones divertidas y un tono exagerado.",
+    "entregable": "Un diálogo de al menos 6 intervenciones."
+  },
+  {
+    "id": "r07",
+    "dificultad": "media",
+    "tema": "La amistad",
+    "titulo": "Carta para un amigo",
+    "instrucciones": [
+      "Piensa en la decisión de Bartolo de ayudar a sus amigos.",
+      "Escribe una carta breve a un amigo o amiga tuya, contándole lo que aprendiste sobre la amistad con esta historia."
+    ],
+    "pista": "Puedes empezar con 'Querido/a...' y terminar con 'Te quiere, ...'.",
+    "entregable": "Una carta de 5 a 8 oraciones."
+  },
+  {
+    "id": "r08",
+    "dificultad": "dificil",
+    "tema": "El escenario",
+    "titulo": "Compara la ciudad con tu entorno",
+    "instrucciones": [
+      "Relee la descripción de la ciudad secreta.",
+      "Haz una lista de 3 diferencias y 3 similitudes entre la ciudad secreta y tu ciudad o barrio."
+    ],
+    "pista": "Piensa en las casas, los árboles, los animales y las costumbres.",
+    "entregable": "Una tabla con 3 diferencias y 3 similitudes."
+  },
+  {
+    "id": "r09",
+    "dificultad": "muy_dificil",
+    "tema": "La creatividad",
+    "titulo": "Inventa un nuevo capítulo",
+    "instrucciones": [
+      "Imagina que Bartolo vuelve a la ciudad secreta.",
+      "Escribe un nuevo capítulo corto (5 a 8 oraciones) contando una nueva aventura con sus amigos."
+    ],
+    "pista": "Puedes incluir un nuevo problema y una solución ingeniosa.",
+    "entregable": "Un texto narrativo de 5 a 8 oraciones."
+  },
+  {
+    "id": "r10",
+    "dificultad": "media",
+    "tema": "El final",
+    "titulo": "El reencuentro",
+    "instrucciones": [
+      "Relee el final de la historia, cuando Bartolo regresa a casa.",
+      "Escribe cómo te imaginas la conversación entre Bartolo y su mamá después de la aventura."
+    ],
+    "pista": "Piensa en lo que Bartolo le contaría y cómo reaccionaría su mamá.",
+    "entregable": "Un diálogo o un párrafo de 5 a 8 oraciones."
+  }
+  ]
+}

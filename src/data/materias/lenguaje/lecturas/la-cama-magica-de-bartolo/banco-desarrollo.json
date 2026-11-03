@@ -1,0 +1,193 @@
+{
+  "libro": "la-cama-magica-de-bartolo",
+  "tipo": "desarrollo",
+  "total_preguntas": 15,
+  "distribucion": { "media": 6, "dificil": 6, "muy_dificil": 3 },
+  "preguntas": [
+  {
+    "id": "d01",
+    "dificultad": "media",
+    "tema": "El carácter de Bartolo",
+    "pregunta": "Describe cómo es Bartolo. ¿Qué cosas le gusta hacer y cómo es su relación con su mamá?",
+    "criterios": [
+      "Menciona que es travieso, activo y soñador.",
+      "Nombra actividades como jugar, ensuciarse, subir a los árboles.",
+      "Explica la anécdota de que no se arregla para no darle un ataque a su mamá."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d02",
+    "dificultad": "media",
+    "tema": "El inicio del viaje",
+    "pregunta": "¿Cómo comienza el viaje de Bartolo? Explica qué estaba haciendo él justo antes de que la cama despegara.",
+    "criterios": [
+      "Menciona que estaba mirando fijamente el techo.",
+      "Describe que pensaba en todas las cosas que le gustaría hacer.",
+      "Explica que la cama se movió y salió volando por un agujero en el cielo.",
+      "Incluye la sensación de miedo inicial y luego de disfrute."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d03",
+    "dificultad": "dificil",
+    "tema": "La ciudad secreta",
+    "pregunta": "Describe la ciudad secreta a la que llega Bartolo. ¿Cómo son sus casas, sus árboles y quiénes la habitan?",
+    "criterios": [
+      "Menciona que está en la Cordillera de los Andes.",
+      "Describe las casas con forma de reloj de arena y transparentes.",
+      "Nombra los árboles que dan frutas y dulces.",
+      "Indica que la habitan conejos y zorros (y menciona a Valentín el puma)."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d04",
+    "dificultad": "media",
+    "tema": "Los nuevos amigos",
+    "pregunta": "¿Quiénes son los nuevos amigos que hace Bartolo y cómo es cada uno?",
+    "criterios": [
+      "Menciona a Oliverio, el zorro juguetón y algo tramposo.",
+      "Menciona a Pascual, el conejo sabio y calmado.",
+      "Menciona a Valentín, el puma.",
+      "Menciona a Sofía, la niña que arregla muebles."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d05",
+    "dificultad": "dificil",
+    "tema": "El problema central",
+    "pregunta": "Explica cuál es el gran problema que deben resolver Bartolo y sus amigos y por qué es tan grave.",
+    "criterios": [
+      "Identifica que el sol no podrá salir.",
+      "Explica que esto afectaría a todo el mundo.",
+      "Menciona que la misión es conseguir la 'lasaña' para salvarlo."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d06",
+    "dificultad": "muy_dificil",
+    "tema": "La personalidad de Oliverio",
+    "pregunta": "¿Cómo es Oliverio, el zorro? ¿Por qué crees que le dijo a Bartolo que se llamaba 'Roelzo'?",
+    "criterios": [
+      "Lo describe como juguetón, algo tramposo y divertido.",
+      "Explica que inventó el nombre 'Roelzo' como una broma o para confundir a Bartolo.",
+      "Reflexiona sobre lo que esto dice de su personalidad."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d07",
+    "dificultad": "media",
+    "tema": "El rol de Sofía",
+    "pregunta": "¿Quién es Sofía y qué papel juega en la historia?",
+    "criterios": [
+      "Menciona que es una niña que vive en la ciudad.",
+      "Explica que se dedica a arreglar los problemas de los muebles.",
+      "Indica que Pascual la busca para que ayude a Bartolo a volver a casa."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d08",
+    "dificultad": "dificil",
+    "tema": "La amistad",
+    "pregunta": "Bartolo quería volver a su casa, pero decidió quedarse para ayudar a sus amigos. ¿Qué nos enseña esta decisión sobre la amistad?",
+    "criterios": [
+      "Explica que Bartolo antepuso la necesidad de sus amigos a su propio deseo.",
+      "Reflexiona sobre el valor de la solidaridad y la generosidad.",
+      "Conecta con la idea de que los amigos verdaderos se ayudan."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d09",
+    "dificultad": "media",
+    "tema": "El humor en la historia",
+    "pregunta": "La historia tiene momentos divertidos. Describe una situación cómica del libro y explica por qué te pareció graciosa.",
+    "criterios": [
+      "Elige una escena cómica (ej. el chiste de los huevos de chocolate, la moto-silueta, el nombre 'Roelzo').",
+      "Describe la situación con detalles.",
+      "Explica qué la hace graciosa."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d10",
+    "dificultad": "muy_dificil",
+    "tema": "El título del libro",
+    "pregunta": "¿Por qué crees que el libro se llama 'La cama mágica de Bartolo'? ¿Qué representa la cama en la historia?",
+    "criterios": [
+      "Explica que la cama es el vehículo de la aventura.",
+      "Reflexiona sobre la magia como símbolo del poder de los sueños y la imaginación.",
+      "Conecta la cama con el deseo de Bartolo de vivir aventuras."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d11",
+    "dificultad": "dificil",
+    "tema": "El crecimiento de Bartolo",
+    "pregunta": "¿Cómo cambia Bartolo desde el inicio hasta el final de la historia? ¿Qué aprende?",
+    "criterios": [
+      "Menciona que al principio es un niño travieso y soñador.",
+      "Indica que durante la aventura demuestra valentía, solidaridad y capacidad de hacer amigos.",
+      "Explica que aprende el valor de ayudar a los demás y de la amistad."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d12",
+    "dificultad": "media",
+    "tema": "Los habitantes de la ciudad",
+    "pregunta": "¿Qué características tienen los conejos y zorros que viven en la ciudad secreta?",
+    "criterios": [
+      "Menciona que son animales que hablan y se comportan como personas.",
+      "Describe que viven en casas con forma de reloj de arena.",
+      "Indica que tienen costumbres peculiares, como balancear las casas para subir."
+    ],
+    "extension": "5 a 8 oraciones"
+  },
+  {
+    "id": "d13",
+    "dificultad": "dificil",
+    "tema": "El trabajo en equipo",
+    "pregunta": "¿Cómo colaboran los diferentes personajes para enfrentar el problema del sol? ¿Qué aporta cada uno?",
+    "criterios": [
+      "Menciona el liderazgo o la imaginación de Bartolo.",
+      "El conocimiento o la sabiduría de Pascual.",
+      "La valentía o la fuerza de Valentín.",
+      "La habilidad de Sofía para resolver problemas.",
+      "La astucia o el humor de Oliverio."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d14",
+    "dificultad": "muy_dificil",
+    "tema": "La importancia de los sueños",
+    "pregunta": "La historia comienza con Bartolo mirando el techo y pensando en todo lo que le gustaría hacer. ¿Qué nos dice esto sobre la importancia de soñar y tener imaginación?",
+    "criterios": [
+      "Reflexiona sobre cómo los sueños pueden impulsar acciones y aventuras.",
+      "Conecta la imaginación de Bartolo con el inicio de la magia.",
+      "Explica que la historia valora la creatividad y la capacidad de soñar despierto."
+    ],
+    "extension": "6 a 10 oraciones"
+  },
+  {
+    "id": "d15",
+    "dificultad": "dificil",
+    "tema": "La relación con la mamá",
+    "pregunta": "¿Cómo es la relación entre Bartolo y su mamá? ¿Qué detalles de la historia nos lo muestran?",
+    "criterios": [
+      "Menciona que Bartolo se preocupa por la salud de su mamá (la anécdota del ataque).",
+      "Describe que la mamá se alegra y lo abraza cuando regresa.",
+      "Reflexiona sobre el cariño y la complicidad entre ellos."
+    ],
+    "extension": "6 a 10 oraciones"
+  }
+  ]
+}

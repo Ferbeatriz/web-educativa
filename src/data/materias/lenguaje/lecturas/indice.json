@@ -17,6 +17,18 @@
       "carpeta": "la-historia-de-manu"
     },
     {
+      "id": "la-cama-magica-de-bartolo",
+      "titulo": "La cama mágica de Bartolo",
+      "autor": "Mauricio Paredes",
+      "autora": "Mauricio Paredes",
+      "ilustradora": "—",
+      "editorial": "—",
+      "emoji": "🛏️",
+      "nivel": "4° básico",
+      "activo": true,
+      "carpeta": "la-cama-magica-de-bartolo"
+    },
+    {
       "id": "el-lugar-mas-bonito-del-mundo",
       "titulo": "El lugar más bonito del mundo",
       "autora": "Ann Cameron",
