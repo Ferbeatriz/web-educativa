@@ -81,6 +81,16 @@
       "orden": 6,
       "activo": true,
       "submodulos": []
+    },
+    {
+      "id": "musica",
+      "nombre": "Música",
+      "descripcion": "Aprende a tocar y leer música",
+      "emoji": "🎵",
+      "color": "programacion",
+      "activo": true,
+      "orden": 7,
+      "submodulos": []
     }
   ]
 }

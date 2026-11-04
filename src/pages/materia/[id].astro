@@ -181,67 +181,254 @@ const tieneCursos = materia.cursos_especiales && materia.cursos_especiales.lengt
     )}
 
     <!-- 📚 LECCIONES DIRECTAS -->
-    {tieneLecciones && (
-      <section class="mb-10">
-        <div class="flex items-center gap-3 mb-5">
-          <span class="text-3xl">📚</span>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
-            Lecciones
-          </h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {materia.lecciones
-            .filter((l: any) => l.activa !== false)
-            .sort((a: any, b: any) => a.orden - b.orden)
-            .map((lec: any) => (
-              <a
-                href={`/leccion/${materia.id}/${lec.id}`}
-                class="group block bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
-              >
-                <div
-                  class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
-                ></div>
-
-                <div class="relative z-10">
-                  <div class="flex items-start justify-between mb-4">
-                    <div
-                      class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform"
-                      style={`background: ${c.c100};`}
-                    >
-                      {lec.emoji}
-                    </div>
-                    {lec.nivel && (
-                      <span
-                        class="text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide"
-                        style={`background: ${c.c100}; color: ${c.c700};`}
-                      >
-                        {lec.nivel}
-                      </span>
-                    )}
-                  </div>
-                  <h3 class="text-lg font-extrabold text-gray-800 mb-1 leading-tight">
-                    {lec.titulo}
-                  </h3>
-                  {lec.duracion_estimada_min && (
-                    <p class="text-xs text-gray-400 font-bold mb-3">
-                      ⏱️ ~{lec.duracion_estimada_min} min
-                    </p>
-                  )}
-                  <span
-                    class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
-                    style={`color: ${c.c500};`}
-                  >
-                    Empezar <span class="text-base">→</span>
-                  </span>
+    {tieneLecciones && (() => {
+      const leccionesActivas = materia.lecciones
+        .filter((l: any) => l.activa !== false)
+        .sort((a: any, b: any) => a.orden - b.orden);
+      const tieneGrupos = leccionesActivas.some((l: any) => l.grupo);
+      const grupoLabels: Record<string, string> = {
+        multiplicacion: 'Multiplicación',
+        resta: 'Sustracción',
+        division: 'División',
+        fracciones: 'Fracciones',
+      };
+      const grupoEmojis: Record<string, string> = {
+        multiplicacion: '🔢',
+        resta: '➖',
+        division: '➗',
+        fracciones: '🍕',
+      };
+      const grupoDesc: Record<string, string> = {
+        multiplicacion: 'Propiedades y operaciones de multiplicación',
+        resta: 'Resta con reserva y problemas',
+        division: 'Introducción, reparto y problemas',
+        fracciones: 'Introducción, comparación y ordenamiento',
+      };
+      const groupOrder = ['multiplicacion', 'resta', 'division', 'fracciones', 'general'];
+      const gruposMap: Record<string, any[]> = {};
+      for (const lec of leccionesActivas) {
+        const g = lec.grupo || 'general';
+        if (!gruposMap[g]) gruposMap[g] = [];
+        gruposMap[g].push(lec);
+      }
+      const grupos = Object.keys(gruposMap).sort(
+        (a, b) => groupOrder.indexOf(a) - groupOrder.indexOf(b)
+      );
+      return (
+        <>
+          {/* VISTA DE CATEGORÍAS */}
+          <div id="vista-categorias" class={tieneGrupos ? '' : 'hidden'}>
+            {tieneGrupos && (
+              <section class="mb-10">
+                <div class="flex items-center gap-3 mb-5">
+                  <span class="text-3xl">📚</span>
+                  <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+                    Categorías
+                  </h2>
                 </div>
-              </a>
-            ))
-          }
-        </div>
-      </section>
-    )}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {grupos.map((g) => (
+                    <button
+                      type="button"
+                      data-cat-grupo={g}
+                      class="group relative block w-full text-left bg-white rounded-[1.75rem] p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                    >
+                      <div
+                        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                        style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
+                      ></div>
+                      <div class="relative z-10">
+                        <div class="flex items-start justify-between mb-5">
+                          <div
+                            class="w-16 h-16 md:w-20 md:h-20 rounded-3xl flex items-center justify-center text-4xl md:text-5xl shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+                            style={`background: linear-gradient(135deg, ${c.c400} 0%, ${c.c600} 100%);`}
+                          >
+                            {grupoEmojis[g] || '📚'}
+                          </div>
+                          <span
+                            class="text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide"
+                            style={`background: ${c.c100}; color: ${c.c700};`}
+                          >
+                            {gruposMap[g].length} lecciones
+                          </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-2 leading-tight">
+                          {grupoLabels[g] || g}
+                        </h3>
+                        <p class="text-sm text-gray-500 mb-4 leading-snug">
+                          {grupoDesc[g] || ''}
+                        </p>
+                        <div class="flex items-center justify-end">
+                          <span
+                            class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+                            style={`color: ${c.c500};`}
+                          >
+                            Ver lecciones
+                            <span class="text-base">→</span>
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
 
+          {/* VISTA DE LECCIONES */}
+          <div id="vista-lecciones" class={tieneGrupos ? 'hidden' : ''}>
+            {tieneGrupos && (
+              <button
+                id="volver-categorias"
+                type="button"
+                class="inline-flex items-center gap-2 text-brand-600 font-bold mb-6 hover:gap-3 transition-all text-sm"
+              >
+                ← Volver a categorías
+              </button>
+            )}
+            {grupos.map((g) => (
+              <section data-lec-grupo={g} class="mb-10 hidden">
+                <div class="flex items-center gap-3 mb-5">
+                  <span class="text-3xl">{grupoEmojis[g] || '📚'}</span>
+                  <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+                    {grupoLabels[g] || g}
+                  </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {gruposMap[g].map((lec: any) => (
+                    <a
+                      href={`/leccion/${materia.id}/${lec.id}`}
+                      class="group block bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+                    >
+                      <div
+                        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                        style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
+                      ></div>
+                      <div class="relative z-10">
+                        <div class="flex items-start justify-between mb-4">
+                          <div
+                            class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform"
+                            style={`background: ${c.c100};`}
+                          >
+                            {lec.emoji}
+                          </div>
+                          {lec.nivel && (
+                            <span
+                              class="text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide"
+                              style={`background: ${c.c100}; color: ${c.c700};`}
+                            >
+                              {lec.nivel}
+                            </span>
+                          )}
+                        </div>
+                        <h3 class="text-lg font-extrabold text-gray-800 mb-1 leading-tight">
+                          {lec.titulo}
+                        </h3>
+                        {lec.duracion_estimada_min && (
+                          <p class="text-xs text-gray-400 font-bold mb-3">
+                            ⏱️ ~{lec.duracion_estimada_min} min
+                          </p>
+                        )}
+                        <span
+                          class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+                          style={`color: ${c.c500};`}
+                        >
+                          Empezar <span class="text-base">→</span>
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ))}
+            {!tieneGrupos && (
+              <section class="mb-10">
+                <div class="flex items-center gap-3 mb-5">
+                  <span class="text-3xl">📚</span>
+                  <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800">
+                    Lecciones
+                  </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {leccionesActivas.map((lec: any) => (
+                    <a
+                      href={`/leccion/${materia.id}/${lec.id}`}
+                      class="group block bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+                    >
+                      <div
+                        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                        style={`background: linear-gradient(135deg, ${c.c50} 0%, white 100%);`}
+                      ></div>
+                      <div class="relative z-10">
+                        <div class="flex items-start justify-between mb-4">
+                          <div
+                            class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-sm group-hover:scale-110 transition-transform"
+                            style={`background: ${c.c100};`}
+                          >
+                            {lec.emoji}
+                          </div>
+                          {lec.nivel && (
+                            <span
+                              class="text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wide"
+                              style={`background: ${c.c100}; color: ${c.c700};`}
+                            >
+                              {lec.nivel}
+                            </span>
+                          )}
+                        </div>
+                        <h3 class="text-lg font-extrabold text-gray-800 mb-1 leading-tight">
+                          {lec.titulo}
+                        </h3>
+                        {lec.duracion_estimada_min && (
+                          <p class="text-xs text-gray-400 font-bold mb-3">
+                            ⏱️ ~{lec.duracion_estimada_min} min
+                          </p>
+                        )}
+                        <span
+                          class="font-extrabold text-sm group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+                          style={`color: ${c.c500};`}
+                        >
+                          Empezar <span class="text-base">→</span>
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </>
+      );
+    })()}
+    <script>
+      (function () {
+        const catView = document.getElementById('vista-categorias');
+        const lecView = document.getElementById('vista-lecciones');
+        const backBtn = document.getElementById('volver-categorias');
+        function showGroup(g) {
+          if (!catView || !lecView) return;
+          catView.classList.add('hidden');
+          lecView.classList.remove('hidden');
+          lecView.querySelectorAll('section[data-lec-grupo]').forEach((sec) => {
+            if (sec.getAttribute('data-lec-grupo') === g) {
+              sec.classList.remove('hidden');
+            } else {
+              sec.classList.add('hidden');
+            }
+          });
+        }
+        document.querySelectorAll('[data-cat-grupo]').forEach((btn) => {
+          btn.addEventListener('click', () => showGroup(btn.getAttribute('data-cat-grupo')));
+        });
+        if (backBtn) {
+          backBtn.addEventListener('click', () => {
+            if (lecView) lecView.classList.add('hidden');
+            if (catView) catView.classList.remove('hidden');
+            lecView.querySelectorAll('section[data-lec-grupo]').forEach((sec) => sec.classList.add('hidden'));
+          });
+        }
+      })();
+    </script>
     <!-- 📚 CLUB DE LECTURA (solo en Lenguaje) -->
     {materia.id === 'lenguaje' && (
       <section class="mb-10">

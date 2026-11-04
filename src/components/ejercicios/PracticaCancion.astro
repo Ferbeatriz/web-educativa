@@ -1,0 +1,110 @@
+---
+import MetalofonoVirtual from './MetalofonoVirtual.astro';
+
+interface Props {
+  leccion: any;
+}
+const { leccion } = Astro.props;
+const notas = leccion.notas || [];
+---
+
+<div id="practica-cancion" class="bg-white rounded-2xl shadow p-6 md:p-8 max-w-3xl mx-auto">
+  <h2 class="text-xl font-extrabold text-gray-800 mb-2 text-center">
+    {leccion.titulo} {leccion.emoji}
+  </h2>
+  <p class="text-sm text-gray-500 text-center mb-6">{leccion.descripcion}</p>
+
+  <script type="application/json" id="practica-notas" set:html={JSON.stringify(notas)}></script>
+
+  <div class="mb-4">
+    <p class="text-sm font-bold text-gray-600 mb-2 text-center">Partitura (toca la nota resaltada)</p>
+    <div id="partitura" class="flex flex-wrap justify-center gap-2">
+      {notas.map((n: string, i: number) => (
+        <span
+          class="nota px-3 py-1 rounded-full font-bold bg-gray-200 text-gray-700"
+          data-idx={i}
+        >
+          {n}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div id="mensaje" class="text-center font-bold text-red-600 min-h-[1.5rem] mb-4"></div>
+
+  <MetalofonoVirtual />
+
+  <div id="final" class="hidden text-center mt-6">
+    <p class="text-2xl font-extrabold text-green-600 mb-4">¡Lo lograste! 🎉</p>
+    <button
+      id="reiniciar"
+      type="button"
+      class="px-6 py-3 rounded-2xl bg-purple-600 text-white font-bold hover:scale-105 transition"
+    >
+      Reiniciar
+    </button>
+  </div>
+</div>
+
+<style>
+  .nota.actual { background: #3b82f6; color: #fff; box-shadow: 0 0 0 3px #93c5fd; }
+  .nota.correcta { background: #22c55e; color: #fff; }
+  .nota.incorrecta { background: #ef4444; color: #fff; }
+</style>
+
+<script>
+  const notas = JSON.parse(document.getElementById('practica-notas').textContent);
+  let idx = 0;
+  const partitura = document.getElementById('partitura');
+  const mensaje = document.getElementById('mensaje');
+  const final = document.getElementById('final');
+
+  function actualizar() {
+    partitura.querySelectorAll('.nota').forEach((el, i) => {
+      el.classList.remove('actual', 'correcta', 'incorrecta');
+      if (i < idx) el.classList.add('correcta');
+      else if (i === idx) el.classList.add('actual');
+    });
+  }
+  actualizar();
+
+  document.addEventListener('nota-tocada', (e) => {
+    if (idx >= notas.length) return;
+    const tocada = e.detail.nota;
+    const correcta = notas[idx];
+    const currentEl = partitura.querySelector('.nota[data-idx="' + idx + '"]');
+    if (tocada === correcta) {
+      if (currentEl) {
+        currentEl.classList.remove('actual');
+        currentEl.classList.add('correcta');
+      }
+      idx++;
+      if (mensaje) mensaje.textContent = '';
+      if (idx >= notas.length) {
+        if (final) final.classList.remove('hidden');
+      } else {
+        actualizar();
+      }
+    } else {
+      if (currentEl) currentEl.classList.add('incorrecta');
+      if (mensaje) mensaje.textContent = '¡Oops! La nota correcta es ' + correcta;
+      setTimeout(() => {
+        if (currentEl) currentEl.classList.remove('incorrecta');
+        actualizar();
+      }, 800);
+    }
+  });
+
+  const reiniciar = document.getElementById('reiniciar');
+  if (reiniciar) {
+    reiniciar.addEventListener('click', () => {
+      idx = 0;
+      if (final) final.classList.add('hidden');
+      if (mensaje) mensaje.textContent = '';
+      partitura.querySelectorAll('.nota').forEach((el) => {
+        el.classList.remove('correcta', 'incorrecta', 'actual');
+      });
+      actualizar();
+    });
+  }
+</script>

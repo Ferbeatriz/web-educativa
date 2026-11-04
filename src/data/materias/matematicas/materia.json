@@ -16,10 +16,9 @@
       "nivel": "básico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/propiedades-multiplicacion.json",
-      "activa": true
+      "activa": true,
+      "grupo": "multiplicacion"
     },
-
-
     {
       "id": "introduccion-division",
       "titulo": "Introducción a la División",
@@ -28,10 +27,9 @@
       "nivel": "básico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/introduccion-division.json",
-      "activa": true
+      "activa": true,
+      "grupo": "division"
     },
-
-
     {
       "id": "resta-con-reserva",
       "titulo": "Resta con reserva",
@@ -40,9 +38,9 @@
       "nivel": "básico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/resta-con-reserva.json",
-      "activa": true
+      "activa": true,
+      "grupo": "resta"
     },
-
     {
       "id": "division-problemas",
       "titulo": "Problemas de división",
@@ -52,10 +50,9 @@
       "duracion_estimada_min": 30,
       "archivo": "ejercicios/division-problemas.json",
       "tipo": "ejercicios",
-      "activa": true
+      "activa": true,
+      "grupo": "division"
     },
-
-
     {
       "id": "division-reparto-3basico",
       "titulo": "Repartimos en partes iguales",
@@ -65,7 +62,8 @@
       "duracion_estimada_min": 30,
       "archivo": "lecciones/division-reparto-3basico.json",
       "tipo": "ejercicios-guiados",
-      "activa": true
+      "activa": true,
+      "grupo": "division"
     },
     {
       "id": "division-repaso-3basico",
@@ -76,9 +74,9 @@
       "duracion_estimada_min": 25,
       "archivo": "lecciones/division-repaso-3basico.json",
       "tipo": "ejercicios-guiados",
-      "activa": true
+      "activa": true,
+      "grupo": "division"
     },
-
     {
       "id": "introduccion-fracciones",
       "titulo": "Introducción a las Fracciones",
@@ -87,9 +85,9 @@
       "nivel": "básico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/introduccion-fracciones.json",
-      "activa": true
+      "activa": true,
+      "grupo": "fracciones"
     },
-
     {
       "id": "comparacion-fracciones",
       "titulo": "Comparamos Fracciones ⚖️",
@@ -98,9 +96,9 @@
       "nivel": "básico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/comparacion-fracciones.json",
-      "activa": true
+      "activa": true,
+      "grupo": "fracciones"
     },
-
     {
       "id": "ordenamiento-fracciones",
       "titulo": "Ordenamos Fracciones 📶",
@@ -109,8 +107,8 @@
       "nivel": "básico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/ordenamiento-fracciones.json",
-      "activa": true
+      "activa": true,
+      "grupo": "fracciones"
     }
-
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "id": "el-negro-jose",
+  "titulo": "El Negro José",
+  "categoria": "Música",
+  "emoji": "🎶",
+  "progreso_puntos": 50,
+  "descripcion": "Aprende a tocar el clásico de Illapu en el metalófono.",
+  "notas": [
+    "SOL", "LA", "SI", "DO",
+    "DO", "SI", "LA", "SOL",
+    "LA", "SI", "LA", "SOL",
+    "MI", "SOL", "LA", "SOL"
+  ]
+}

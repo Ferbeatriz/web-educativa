@@ -1,0 +1,17 @@
+{
+  "id": "cancion-estrellita",
+  "materia_id": "musica",
+  "tema": "musica",
+  "subtema": "canciones",
+  "titulo": "Estrellita ¿Dónde estás? ⭐",
+  "categoria": "Música",
+  "emoji": "⭐",
+  "progreso_puntos": 100,
+  "descripcion": "Aprende a tocar la canción Estrellita en el metalófono virtual.",
+  "notas": ["DO", "DO", "SOL", "SOL", "LA", "LA", "SOL", "FA", "FA", "MI", "MI", "RE", "RE", "DO"],
+  "contenido_modulos": [
+    "# ⭐ Estrellita ¿Dónde estás?\n\nEsta es una de las canciones más famosas del mundo. ¡Vamos a tocarla en el metalófono!\n\nEscucha la melodía y luego toca las notas en el orden correcto."
+  ],
+  "banco_trivia": [],
+  "glosario": []
+}

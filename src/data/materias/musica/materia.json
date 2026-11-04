@@ -1,0 +1,32 @@
+{
+  "id": "musica",
+  "nombre": "Música",
+  "descripcion": "Aprende a tocar y leer música",
+  "emoji": "🎵",
+  "color": "programacion",
+  "color_hex": "#D946EF",
+  "orden": 7,
+  "activo": true,
+  "lecciones": [
+    {
+      "id": "cancion-estrellita",
+      "titulo": "Estrellita ¿Dónde estás? ⭐",
+      "emoji": "⭐",
+      "orden": 1,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/cancion-estrellita.json",
+      "activa": true
+    },
+    {
+      "id": "el-negro-jose",
+      "titulo": "El Negro José",
+      "emoji": "🎶",
+      "orden": 2,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/el-negro-jose.json",
+      "activa": true
+    }
+  ]
+}

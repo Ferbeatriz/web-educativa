@@ -11,6 +11,7 @@ import ListaProblemas from '../../components/ejercicios/ListaProblemas.astro';
 import EjerciciosGuiados from '../../components/ejercicios/EjerciciosGuiados.astro';
 import ComparadorFracciones from '../../components/ejercicios/ComparadorFracciones.astro';
 import OrdenadorFracciones from '../../components/ejercicios/OrdenadorFracciones.astro';
+import PracticaCancion from '../../components/ejercicios/PracticaCancion.astro';
 import SimuladorFracciones from '../../components/ejercicios/SimuladorFracciones.astro';
 
 export async function getStaticPaths() {
@@ -331,6 +332,10 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
 
       {leccion.id === 'ordenamiento-fracciones' ? (
         <OrdenadorFracciones />
+      ) : null}
+
+      { (leccion.notas && leccion.notas.length > 0) ? (
+        <PracticaCancion leccion={leccion} />
       ) : null}
 
       <!-- 📖 GLOSARIO -->
