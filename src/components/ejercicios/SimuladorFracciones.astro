@@ -1,62 +1,86 @@
 ---
 // src/components/ejercicios/SimuladorFracciones.astro
-// Simulador interactivo de fracciones con círculos conic-gradient.
+// Simulador interactivo de fracciones con círculos conic-gradient (modal flotante).
 ---
 
-<div id="simulador-fracciones" class="bg-white rounded-2xl shadow p-6 md:p-8 max-w-2xl mx-auto">
-  <h2 class="text-xl font-extrabold text-gray-800 mb-4 text-center">Simulador de fracciones 🍕</h2>
+<!-- Modal -->
+<div id="modal-simulador" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl max-w-lg w-full relative p-6 md:p-8">
+    <button id="sf-close" type="button" aria-label="Cerrar" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 font-bold">✕</button>
 
-  <div class="flex flex-wrap items-end justify-center gap-4 mb-6">
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-1">Color</label>
-      <input
-        id="sf-color"
-        type="color"
-        value="#3b82f6"
-        class="w-14 h-14 rounded-xl border-2 border-gray-200 cursor-pointer bg-white"
-      />
-    </div>
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-1">Numerador</label>
-      <input
-        id="sf-num"
-        type="number"
-        min="0"
-        max="60"
-        value="1"
-        class="w-20 h-14 text-center text-xl font-extrabold rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
-      />
-    </div>
-    <div class="flex items-center text-2xl font-extrabold text-gray-400 h-14">/</div>
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-1">Denominador</label>
-      <input
-        id="sf-den"
-        type="number"
-        min="1"
-        max="12"
-        value="4"
-        class="w-20 h-14 text-center text-xl font-extrabold rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
-      />
+    <div id="simulador-fracciones">
+      <h2 class="text-xl font-extrabold text-gray-800 mb-4 text-center">Simulador de fracciones 🍕</h2>
+
+      <div class="flex flex-wrap items-end justify-center gap-4 mb-6">
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-1">Color</label>
+          <input
+            id="sf-color"
+            type="color"
+            value="#3b82f6"
+            class="w-14 h-14 rounded-xl border-2 border-gray-200 cursor-pointer bg-white"
+          />
+        </div>
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-1">Numerador</label>
+          <input
+            id="sf-num"
+            type="number"
+            min="0"
+            max="60"
+            value="1"
+            class="w-20 h-14 text-center text-xl font-extrabold rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
+          />
+        </div>
+        <div class="flex items-center text-2xl font-extrabold text-gray-400 h-14">/</div>
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-1">Denominador</label>
+          <input
+            id="sf-den"
+            type="number"
+            min="1"
+            max="12"
+            value="4"
+            class="w-20 h-14 text-center text-xl font-extrabold rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <div id="sf-circles" class="flex flex-wrap justify-center gap-6 mb-6"></div>
+
+      <div class="text-center space-y-1">
+        <p class="text-2xl font-extrabold text-gray-800">
+          Fracción: <span id="sf-frac" class="text-blue-600">1/4</span>
+        </p>
+        <p id="sf-mixed-wrap" class="text-lg font-bold text-gray-600 hidden">
+          Número mixto: <span id="sf-mixed" class="text-blue-600">1 1/4</span>
+        </p>
+      </div>
+
+      <p class="text-xs text-gray-400 text-center mt-4">
+        Haz clic en una porción del círculo para pintar o despintar.
+      </p>
     </div>
   </div>
-
-  <div id="sf-circles" class="flex flex-wrap justify-center gap-6 mb-6"></div>
-
-  <div class="text-center space-y-1">
-    <p class="text-2xl font-extrabold text-gray-800">
-      Fracción: <span id="sf-frac" class="text-blue-600">1/4</span>
-    </p>
-    <p id="sf-mixed-wrap" class="text-lg font-bold text-gray-600 hidden">
-      Número mixto: <span id="sf-mixed" class="text-blue-600">1 1/4</span>
-    </p>
-  </div>
-
-  <p class="text-xs text-gray-400 text-center mt-4">
-    Haz clic en una porción del círculo para pintar o despintar.
-  </p>
 </div>
+
+<!-- Botón flotante -->
+<button id="sf-fab" type="button" aria-label="Abrir simulador" class="fixed bottom-6 right-6 z-40 bg-purple-600 text-white rounded-full p-4 shadow-lg hover:scale-105 transition">🍕</button>
+
 <script>
+  const modal = document.getElementById('modal-simulador');
+  const closeBtn = document.getElementById('sf-close');
+  const fab = document.getElementById('sf-fab');
+
+  function openModal() { modal.classList.remove('hidden'); }
+  function closeModal() { modal.classList.add('hidden'); }
+
+  fab.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
   const colorInput = document.getElementById('sf-color');
   const numInput = document.getElementById('sf-num');
   const denInput = document.getElementById('sf-den');
@@ -107,32 +131,41 @@
       svg.setAttribute('viewBox', '0 0 100 100');
       svg.setAttribute('class', 'absolute inset-0 w-full h-full');
       svg.style.cursor = 'pointer';
-      const cx = 50, cy = 50, r = 50;
-      for (let s = 0; s < den; s++) {
-        const startAngle = (s / den) * 2 * Math.PI - Math.PI / 2;
-        const endAngle = ((s + 1) / den) * 2 * Math.PI - Math.PI / 2;
-        const x1 = cx + r * Math.cos(startAngle);
-        const y1 = cy + r * Math.sin(startAngle);
-        const x2 = cx + r * Math.cos(endAngle);
-        const y2 = cy + r * Math.sin(endAngle);
-        const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const d = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
-        path.setAttribute('d', d);
-        path.setAttribute('fill', 'transparent');
-        path.setAttribute('stroke', 'rgba(255,255,255,0.5)');
-        path.setAttribute('stroke-width', '1');
-        path.dataset.circle = String(ci);
-        path.dataset.sector = String(s);
-        path.addEventListener('click', () => handleSectorClick(ci, s));
-        svg.appendChild(path);
-      }
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', '0');
+      rect.setAttribute('y', '0');
+      rect.setAttribute('width', '100');
+      rect.setAttribute('height', '100');
+      rect.setAttribute('fill', 'transparent');
+      svg.appendChild(rect);
+
+      svg.addEventListener('click', (e) => {
+        const bounds = svg.getBoundingClientRect();
+        const x = (e.clientX - bounds.left) / bounds.width * 100;
+        const y = (e.clientY - bounds.top) / bounds.height * 100;
+        const dx = x - 50;
+        const dy = y - 50;
+        if (Math.hypot(dx, dy) < 8) return; // ignora clics en el centro
+        let angle = Math.atan2(dy, dx);
+        if (angle < 0) angle += 2 * Math.PI;
+        const adjusted = (angle + Math.PI / 2) % (2 * Math.PI);
+        const step = (2 * Math.PI) / den;
+        const sector = Math.min(den - 1, Math.max(0, Math.floor(adjusted / step)));
+        handleSectorClick(ci, sector);
+      });
+
       circle.appendChild(svg);
 
       const label = document.createElement('div');
       label.className = 'absolute inset-0 flex items-center justify-center pointer-events-none font-extrabold text-gray-700 text-lg';
       label.textContent = `${filledSlices}/${den}`;
       circle.appendChild(label);
+
+      const centerBlock = document.createElement('div');
+      centerBlock.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full';
+      centerBlock.style.pointerEvents = 'auto';
+      centerBlock.addEventListener('click', (e) => e.stopPropagation());
+      circle.appendChild(centerBlock);
 
       circlesEl.appendChild(circle);
     }
@@ -149,19 +182,14 @@
   }
 
   function handleSectorClick(ci, s) {
-    const fullCircles = Math.floor(num / den);
-    const rem = num % den;
-    if (ci < fullCircles) {
-      num = ci * den + s;
-    } else if (ci === fullCircles && rem > 0) {
-      if (s < rem) {
-        num = ci * den + s;
-      } else {
-        num = ci * den + s + 1;
-      }
+    const globalIdx = ci * den + s;
+
+    if (globalIdx === num - 1) {
+      num = num - 1;
     } else {
-      num = ci * den + s + 1;
+      num = globalIdx + 1;
     }
+
     render();
   }
 
@@ -177,4 +205,3 @@
 
   render();
 </script>
-

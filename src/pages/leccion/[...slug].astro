@@ -305,23 +305,7 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
               );
             }
 
-            const simMatch = parrafo.match(SIMULADOR_REGEX);
-            const simId = simMatch ? simMatch[1] : null;
-            if (simId === 'fracciones') {
-              const textoAntes = parrafo.replace(SIMULADOR_REGEX, '').trim();
-              return (
-                <div class="space-y-4">
-                  {textoAntes && (
-                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
-                      <div class="prose-markdown max-w-none" set:html={marked.parse(textoAntes)} />
-                    </div>
-                  )}
-                  <SimuladorFracciones />
-                </div>
-              );
-            }
-
-            return (
+             return (
               <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
                 <div class="flex items-start gap-4">
                   <span
@@ -386,6 +370,7 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
       </div>
 
     </main>
+    {leccion.id.includes('fraccion') && <SimuladorFracciones />}
   </Layout>
 )}
 
