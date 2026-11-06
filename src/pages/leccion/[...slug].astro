@@ -13,6 +13,7 @@ import ComparadorFracciones from '../../components/ejercicios/ComparadorFraccion
 import OrdenadorFracciones from '../../components/ejercicios/OrdenadorFracciones.astro';
 import PracticaCancion from '../../components/ejercicios/PracticaCancion.astro';
 import SimuladorFracciones from '../../components/ejercicios/SimuladorFracciones.astro';
+import LaboratorioOperacionesFracciones from '../../components/ejercicios/LaboratorioOperacionesFracciones.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -375,7 +376,12 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
       </div>
 
     </main>
-    {leccion.id.includes('fraccion') && <SimuladorFracciones />}
+    {leccion.id.includes('fraccion') && (
+  <>
+    <SimuladorFracciones />
+    <LaboratorioOperacionesFracciones />
+  </>
+)}
   </Layout>
 )}
 

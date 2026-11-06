@@ -1,0 +1,187 @@
+<!-- Botón flotante -->
+<button id="btn-abrir-laboratorio" class="fixed bottom-24 right-6 z-50 bg-purple-600 text-white rounded-full p-4 shadow-lg hover:scale-110 transition flex items-center justify-center text-2xl" title="Laboratorio de Operaciones">
+  🧮
+</button>
+
+<!-- Modal -->
+<div id="modal-laboratorio" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full relative max-h-[90vh] overflow-y-auto">
+    <button id="btn-cerrar-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-900 text-3xl font-bold z-10">&times;</button>
+    
+    <div class="p-6 md:p-8">
+      <h2 class="text-2xl font-extrabold text-gray-800 mb-6 text-center">Laboratorio de Operaciones 🧮</h2>
+      
+      <!-- Controles -->
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-10 bg-gray-50 p-4 rounded-xl border border-gray-200">
+        
+        <!-- Operacion -->
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Operación</label>
+          <div class="flex gap-2">
+            <button data-op="+" class="operacion-btn w-12 h-12 rounded-lg border-2 border-purple-500 bg-purple-50 text-purple-700 font-bold text-xl hover:bg-purple-100 transition">+</button>
+            <button data-op="-" class="operacion-btn w-12 h-12 rounded-lg border-2 border-gray-300 bg-white text-gray-700 font-bold text-xl hover:border-purple-300 transition">-</button>
+            <button data-op="×" class="operacion-btn w-12 h-12 rounded-lg border-2 border-gray-300 bg-white text-gray-700 font-bold text-xl hover:border-purple-300 transition">×</button>
+            <button data-op="÷" class="operacion-btn w-12 h-12 rounded-lg border-2 border-gray-300 bg-white text-gray-700 font-bold text-xl hover:border-purple-300 transition">÷</button>
+          </div>
+        </div>
+
+        <!-- Fraccion 1 -->
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Fracción 1</label>
+          <div class="flex flex-col gap-1 items-center">
+            <input type="number" id="num1" min="0" value="1" class="w-16 rounded border-2 border-gray-300 px-2 py-1 text-center font-bold text-lg focus:outline-none focus:border-purple-500">
+            <div class="w-16 h-1 bg-gray-400"></div>
+            <input type="number" id="den1" min="1" value="2" class="w-16 rounded border-2 border-gray-300 px-2 py-1 text-center font-bold text-lg focus:outline-none focus:border-purple-500">
+          </div>
+        </div>
+
+        <!-- Fraccion 2 -->
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Fracción 2</label>
+          <div class="flex flex-col gap-1 items-center">
+            <input type="number" id="num2" min="0" value="1" class="w-16 rounded border-2 border-gray-300 px-2 py-1 text-center font-bold text-lg focus:outline-none focus:border-purple-500">
+            <div class="w-16 h-1 bg-gray-400"></div>
+            <input type="number" id="den2" min="1" value="4" class="w-16 rounded border-2 border-gray-300 px-2 py-1 text-center font-bold text-lg focus:outline-none focus:border-purple-500">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Area de visualización (Horizontal forzado) -->
+      <div class="flex flex-row items-center justify-center gap-2 md:gap-4 mb-10 overflow-x-auto pb-4">
+        <div id="fraccion1-container" class="flex flex-row items-center gap-1"></div>
+        <span id="operador-símbolo" class="text-3xl md:text-4xl font-bold text-purple-600">+</span>
+        <div id="fraccion2-container" class="flex flex-row items-center gap-1"></div>
+        <span class="text-2xl md:text-3xl text-gray-400 font-bold">=</span>
+        <div id="fraccion-resultado-container" class="flex flex-row items-center gap-1"></div>
+      </div>
+
+      <!-- Explicación -->
+      <div id="explicacion" class="bg-blue-50 border-l-4 border-blue-400 rounded-r-xl p-6 w-full max-w-3xl mx-auto">
+        <p class="text-sm text-blue-800 font-bold mb-1">Explicación paso a paso:</p>
+        <p id="texto-explicacion" class="text-lg text-blue-900 leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function mcd(a, b) { while (b) { const t = b; b = a % b; a = t; } return a; }
+function mcm(a, b) { return Math.abs(a * b) / mcd(a, b); }
+function simplificar(num, den) { if (den === 0) return { num: 0, den: 1 }; const divisor = mcd(Math.abs(num), den); return { num: Math.floor(num / divisor), den: Math.floor(den / divisor) }; }
+
+function operarFracciones(n1, d1, n2, d2, op) { 
+  if (d1 === 0 || d2 === 0) return null; 
+  let numResult, denResult; 
+  switch (op) { 
+    case '+': { const mcmS = mcm(d1, d2); numResult = (mcmS / d1) * n1 + (mcmS / d2) * n2; denResult = mcmS; } break; 
+    case '-': { const mcmR = mcm(d1, d2); numResult = (mcmR / d1) * n1 - (mcmR / d2) * n2; denResult = mcmR; } break; 
+    case '×': numResult = n1 * n2; denResult = d1 * d2; break; 
+    case '÷': if (n2 === 0) return null; numResult = n1 * d2; denResult = d1 * n2; break; 
+    default: numResult = 0; denResult = 1; 
+  } 
+  return simplificar(numResult, denResult); 
+}
+
+function generarCirculoHTML(num, den, etiqueta) {
+  const enteros = Math.floor(num / den);
+  const resto = num % den;
+  let html = '';
+  
+  for (let i = 0; i < enteros; i++) {
+    html += `<div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full border-4 border-gray-200 shadow-sm mx-1" style="background: conic-gradient(#3b82f6 100%, #f1f5f9 100%);"><div class="absolute inset-0 flex items-center justify-center pointer-events-none font-extrabold text-gray-700 text-sm md:text-lg">${etiqueta}</div></div>`;
+  }
+  
+  if (resto > 0) {
+    const porcentaje = (resto / den) * 100;
+    html += `<div class="relative w-20 h-20 md:w-28 md:h-28 rounded-full border-4 border-gray-200 shadow-sm mx-1" style="background: conic-gradient(#3b82f6 ${porcentaje}%, #f1f5f9 ${porcentaje}% 100%);"><div class="absolute inset-0 flex items-center justify-center pointer-events-none font-extrabold text-gray-700 text-sm md:text-lg">${etiqueta}</div></div>`;
+  }
+  return html;
+}
+
+function generarExplicacion(n1, d1, n2, d2, op, resultado) {
+  if (op === '+' || op === '-') {
+    const mcmVal = mcm(d1, d2);
+    const n1Conv = n1 * (mcmVal / d1);
+    const n2Conv = n2 * (mcmVal / d2);
+    return `Buscamos denominador común (${mcmVal}). Convertimos a ${n1Conv}/${mcmVal} y ${n2Conv}/${mcmVal}. Luego ${op === '+' ? 'sumamos' : 'restamos'}: ${n1Conv}/${mcmVal} ${op} ${n2Conv}/${mcmVal} = ${resultado.num}/${resultado.den}.`;
+  }
+  if (op === '×') {
+    return `Multiplicamos en línea recta: ${n1}×${n2}=${n1*n2} y ${d1}×${d2}=${d1*d2}. Simplificamos y obtenemos ${resultado.num}/${resultado.den}.`;
+  }
+  if (op === '÷') {
+    return `Invertimos la segunda fracción y multiplicamos: ${n1}×${d2}=${n1*d2} y ${d1}×${n2}=${d1*n2}. Simplificamos y obtenemos ${resultado.num}/${resultado.den}.`;
+  }
+  return '';
+}
+
+let operacionActual = '+';
+let num1 = 1, den1 = 2, num2 = 1, den2 = 4;
+
+function actualizarTodo() { 
+  const f1 = document.getElementById('fraccion1-container');
+  const f2 = document.getElementById('fraccion2-container');
+  const fr = document.getElementById('fraccion-resultado-container');
+  const opSim = document.getElementById('operador-símbolo');
+  const txt = document.getElementById('texto-explicacion');
+  
+  if(!f1 || !f2 || !fr || !opSim || !txt) return;
+
+  opSim.textContent = operacionActual;
+  f1.innerHTML = generarCirculoHTML(num1, den1, `${num1}/${den1}`);
+  f2.innerHTML = generarCirculoHTML(num2, den2, `${num2}/${den2}`);
+  
+  const resultado = operarFracciones(num1, den1, num2, den2, operacionActual);
+  if (resultado) {
+    fr.innerHTML = generarCirculoHTML(resultado.num, resultado.den, `${resultado.num}/${resultado.den}`);
+    txt.textContent = generarExplicacion(num1, den1, num2, den2, operacionActual, resultado);
+  } else {
+    fr.innerHTML = '<div class="text-red-500 font-bold">Error: Div/0</div>';
+    txt.textContent = 'No se puede realizar la operación.';
+  }
+}
+
+document.querySelectorAll('.operacion-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.operacion-btn').forEach(b => {
+      b.classList.remove('border-purple-500', 'bg-purple-50', 'text-purple-700');
+      b.classList.add('border-gray-300', 'bg-white', 'text-gray-700');
+    });
+    btn.classList.remove('border-gray-300', 'bg-white', 'text-gray-700');
+    btn.classList.add('border-purple-500', 'bg-purple-50', 'text-purple-700');
+    operacionActual = btn.dataset.op;
+    actualizarTodo();
+  });
+});
+
+['num1', 'den1', 'num2', 'den2'].forEach(id => {
+  const input = document.getElementById(id);
+  if(input) {
+    input.addEventListener('input', () => {
+      num1 = parseInt(document.getElementById('num1').value) || 0;
+      den1 = parseInt(document.getElementById('den1').value) || 1;
+      num2 = parseInt(document.getElementById('num2').value) || 0;
+      den2 = parseInt(document.getElementById('den2').value) || 1;
+      actualizarTodo();
+    });
+  }
+});
+
+const modal = document.getElementById('modal-laboratorio');
+const btnAbrir = document.getElementById('btn-abrir-laboratorio');
+const btnCerrar = document.getElementById('btn-cerrar-modal');
+
+if(btnAbrir && modal) {
+  btnAbrir.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    actualizarTodo();
+  });
+}
+
+if(btnCerrar && modal) {
+  btnCerrar.addEventListener('click', () => modal.classList.add('hidden'));
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+  });
+}
+</script>
