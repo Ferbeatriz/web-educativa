@@ -14,19 +14,41 @@ const notas = leccion.notas || [];
   </h2>
   <p class="text-sm text-gray-500 text-center mb-6">{leccion.descripcion}</p>
 
-  <script type="application/json" id="practica-notas" set:html={JSON.stringify(notas)}></script>
+  <!-- Botón Auto-play -->
+  <div class="mb-4">
+    <button
+      id="btn-auto-play"
+      type="button"
+      class="w-full md:w-auto px-6 py-3 rounded-2xl bg-indigo-600 text-white font-bold text-lg hover:scale-105 transition mb-2"
+      onclick="playSong()"
+    >
+      ▶️ Escuchar canción
+    </button>
+    <span id="auto-play-status" class="text-xs text-gray-500 hidden">Auto-play en progreso...</span>
+  </div>
 
   <div class="mb-4">
     <p class="text-sm font-bold text-gray-600 mb-2 text-center">Partitura (toca la nota resaltada)</p>
     <div id="partitura" class="flex flex-wrap justify-center gap-2">
-      {notas.map((n: string, i: number) => (
-        <span
-          class="nota px-3 py-1 rounded-full font-bold bg-gray-200 text-gray-700"
-          data-idx={i}
-        >
-          {n}
-        </span>
-      ))}
+      {notas.map((n: any, i: number) => {
+        const dur = n.duracion || 1;
+        const claseBase = "nota px-3 py-1 rounded-full font-bold";
+        const claseDuracion = dur === 0.5 ? "nota-pequeña" : "nota-grande";
+        const tamaño = dur === 0.5 ? "text-sm" : "text-lg";
+        const opacity = dur === 0.5 ? 0.7 : 1;
+        return (
+          <span
+            class={
+              `${claseBase} ${claseDuracion} font-bold bg-gray-200 text-gray-700 ${tamaño}`
+              + ` data-duracion=${dur} data-idx=${i}`
+            }
+            style={{ opacity }}
+            data-idx={i}
+          >
+            {n.nota}
+          </span>
+        );
+      })}
     </div>
   </div>
 
@@ -50,29 +72,71 @@ const notas = leccion.notas || [];
   .nota.actual { background: #3b82f6; color: #fff; box-shadow: 0 0 0 3px #93c5fd; }
   .nota.correcta { background: #22c55e; color: #fff; }
   .nota.incorrecta { background: #ef4444; color: #fff; }
+  .nota-pequeña { font-size: 0.7rem; min-height: 1.2rem; }
+  .nota-grande { font-size: 1.2rem; min-height: 1.8rem; }
 </style>
 
 <script>
-  const notas = JSON.parse(document.getElementById('practica-notas').textContent);
-  let idx = 0;
+  // Parse las notas con duración
+  let notasParseadas;
+  try {
+    const raw = document.getElementById('practica-notas').textContent;
+    notasParseadas = JSON.parse(raw);
+    // Convertir formato antiguo si es necesario
+    if (notasParseadas && Array.isArray(notasParseadas) && notasParseadas[0] && typeof notasParseadas[0] === 'string') {
+      // Formato antiguo: solo cadenas
+      notasParseadas = notasParseadas.map((n) => ({ nota: n, duracion: 1 }));
+    }
+  } catch (e) {
+    notasParseadas = notas.map((n) => ({ nota: n, duracion: 1 }));
+  }
+
   const partitura = document.getElementById('partitura');
   const mensaje = document.getElementById('mensaje');
   const final = document.getElementById('final');
+  const btnAutoPlay = document.getElementById('btn-auto-play');
+  const autoPlayStatus = document.getElementById('auto-play-status');
+
+  let idx = 0;
+  let isAutoPlaying = false;
+  let autoPlayInterval = null;
+  const duracionBase = 600; // milisegundos por negra (duracion 1)
 
   function actualizar() {
-    partitura.querySelectorAll('.nota').forEach((el, i) => {
-      el.classList.remove('actual', 'correcta', 'incorrecta');
-      if (i < idx) el.classList.add('correcta');
-      else if (i === idx) el.classList.add('actual');
+    partitura.querySelectorAll('.nota').forEach((el) => {
+      el.classList.remove('actual', 'correcta', 'incorrecta', 'nota-pequeña', 'nota-grande');
+      const dur = parseFloat(el.dataset.duracion);
+      if (isNaN(dur)) el.classList.add('nota-grande');
+      else if (dur === 0.5) el.classList.add('nota-pequeña');
+      else el.classList.add('nota-grande');
     });
   }
   actualizar();
 
-  document.addEventListener('nota-tocada', (e) => {
-    if (idx >= notas.length) return;
-    const tocada = e.detail.nota;
-    const correcta = notas[idx];
+  function tocarNota(idx) {
+    if (idx >= notasParseadas.length) return;
+    const notaObj = notasParseadas[idx];
+    const evento = new CustomEvent('nota-tocada', { detail: { nota: notaObj.nota } });
+    partitura.dispatchEvent(evento);
+
+    // Resaltar la nota en la partitura
+    partitura.querySelectorAll('.nota').forEach((el, i) => {
+      el.classList.remove('actual', 'correcta', 'incorrecta');
+    });
     const currentEl = partitura.querySelector('.nota[data-idx="' + idx + '"]');
+    if (currentEl) {
+      currentEl.classList.add('actual');
+    }
+  }
+
+  document.addEventListener('nota-tocada', (e) => {
+    if (isAutoPlaying) return; // Bloquear entrada durante auto-play
+
+    if (idx >= notasParseadas.length) return;
+    const tocada = e.detail.nota;
+    const correcta = notasParseadas[idx].nota;
+    const currentEl = partitura.querySelector('.nota[data-idx="' + idx + '"]');
+
     if (tocada === correcta) {
       if (currentEl) {
         currentEl.classList.remove('actual');
@@ -80,7 +144,7 @@ const notas = leccion.notas || [];
       }
       idx++;
       if (mensaje) mensaje.textContent = '';
-      if (idx >= notas.length) {
+      if (idx >= notasParseadas.length) {
         if (final) final.classList.remove('hidden');
       } else {
         actualizar();
@@ -95,16 +159,60 @@ const notas = leccion.notas || [];
     }
   });
 
-  const reiniciar = document.getElementById('reiniciar');
-  if (reiniciar) {
-    reiniciar.addEventListener('click', () => {
-      idx = 0;
-      if (final) final.classList.add('hidden');
-      if (mensaje) mensaje.textContent = '';
-      partitura.querySelectorAll('.nota').forEach((el) => {
-        el.classList.remove('correcta', 'incorrecta', 'actual');
-      });
-      actualizar();
-    });
+  // Tarea 2: Función async paraforzar la inicialización del AudioContext
+  async function playSong() {
+    // Forzar la creación y reanudación del AudioContext
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') {
+      await audioCtx.resume();
+    }
+
+    let idxActual = 0;
+
+    function siguienteNota() {
+      if (idxActual >= notasParseadas.length) {
+        finalizarAutoPlay();
+        return;
+      }
+
+      const notaObj = notasParseadas[idxActual];
+      // Disparar evento para que MetalofonoVirtual lo escuche
+      document.dispatchEvent(new CustomEvent('nota-tocada', { detail: { nota: notaObj.nota } }));
+
+      // Calcular tiempo de espera basado en duración
+      const duracion = notaObj.duracion || 1;
+      const tiempoEsperada = duracion * duracionBase; // 600ms para negra, 300ms para corchea
+
+      idxActual++;
+
+      // Programar siguiente nota
+      autoPlayInterval = setTimeout(siguienteNota, tiempoEsperada);
+    }
+
+    function finalizarAutoPlay() {
+      isAutoPlaying = false;
+      if (btnAutoPlay) btnAutoPlay.textContent = '▶️ Escuchar canción';
+      if (autoPlayStatus) autoPlayStatus.classList.add('hidden');
+      if (autoPlayInterval) {
+        clearTimeout(autoPlayInterval);
+        autoPlayInterval = null;
+      }
+      if (idx > 0) {
+        actualizar();
+      }
+    }
+
+    isAutoPlaying = true;
+    if (btnAutoPlay) btnAutoPlay.textContent = '⏸️ Pausar';
+    if (autoPlayStatus) autoPlayStatus.classList.remove('hidden');
+
+    siguienteNota();
   }
+
+  if (btnAutoPlay) {
+    btnAutoPlay.addEventListener('click', playSong);
+  }
+
+  // Inicializar
+  actualizar();
 </script>

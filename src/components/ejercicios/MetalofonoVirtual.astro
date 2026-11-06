@@ -1,59 +1,68 @@
----
-// Metalófono virtual: 7 notas naturales con Web Audio API
-const notas = [
-  { nombre: 'DO', color: 'bg-red-500', freq: 261.63 },
-  { nombre: 'RE', color: 'bg-orange-500', freq: 293.66 },
-  { nombre: 'MI', color: 'bg-yellow-400', freq: 329.63 },
-  { nombre: 'FA', color: 'bg-green-500', freq: 349.23 },
-  { nombre: 'SOL', color: 'bg-sky-400', freq: 392.00 },
-  { nombre: 'LA', color: 'bg-blue-600', freq: 440.00 },
-  { nombre: 'SI', color: 'bg-purple-600', freq: 493.88 },
-];
----
-
-<div class="metalofono flex flex-wrap justify-center gap-3 my-4">
-  {notas.map((n) => (
-    <button
-      type="button"
-      data-nota={n.nombre}
-      data-freq={n.freq}
-      class={`metalofono-tecla ${n.color} text-white font-extrabold text-lg w-16 h-24 md:w-20 md:h-28 rounded-2xl shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-end justify-center pb-3`}
-    >
-      {n.nombre}
-    </button>
-  ))}
+<div class="w-full overflow-x-auto py-8">
+  <div class="flex flex-row justify-center items-end gap-1 min-w-max mx-auto px-4">
+    <div class="relative flex flex-col items-center">
+      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="DO#">DO#</button>
+      <button class="w-14 h-36 bg-red-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="DO">DO</button>
+    </div>
+    <div class="relative flex flex-col items-center">
+      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="RE#">RE#</button>
+      <button class="w-14 h-36 bg-orange-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="RE">RE</button>
+    </div>
+    <div class="relative flex flex-col items-center">
+      <div class="absolute -top-5 w-8 h-12"></div>
+      <button class="w-14 h-36 bg-yellow-400 rounded-b-lg shadow-lg text-gray-800 font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="MI">MI</button>
+    </div>
+    <div class="relative flex flex-col items-center">
+      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="FA#">FA#</button>
+      <button class="w-14 h-36 bg-green-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="FA">FA</button>
+    </div>
+    <div class="relative flex flex-col items-center">
+      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="SOL#">SOL#</button>
+      <button class="w-14 h-36 bg-teal-400 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="SOL">SOL</button>
+    </div>
+    <div class="relative flex flex-col items-center">
+      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="LA#">LA#</button>
+      <button class="w-14 h-36 bg-blue-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="LA">LA</button>
+    </div>
+    <div class="relative flex flex-col items-center">
+      <div class="absolute -top-5 w-8 h-12"></div>
+      <button class="w-14 h-36 bg-purple-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="SI">SI</button>
+    </div>
+  </div>
 </div>
 
 <script>
   let audioCtx = null;
-  function getCtx() {
-    if (!audioCtx) {
-      const Ctx = window.AudioContext || window.webkitAudioContext;
-      if (Ctx) audioCtx = new Ctx();
-    }
-    return audioCtx;
+  const frecuencias = { 'DO': 261.63, 'DO#': 277.18, 'RE': 293.66, 'RE#': 311.13, 'MI': 329.63, 'FA': 349.23, 'FA#': 369.99, 'SOL': 392.00, 'SOL#': 415.30, 'LA': 440.00, 'LA#': 466.16, 'SI': 493.88 };
+
+  window.tocarNota = function(nota) {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const freq = frecuencias[nota];
+    if (!freq) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 1.2);
   }
-  function play(freq) {
-    const ctx = getCtx();
-    if (!ctx) return;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.value = freq;
-    const now = ctx.currentTime;
-    gain.gain.setValueAtTime(0.6, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-    osc.connect(gain).connect(ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.45);
-  }
-  document.querySelectorAll('.metalofono-tecla').forEach((btn) => {
+
+  document.querySelectorAll('[data-nota]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const nota = btn.getAttribute('data-nota');
-      const freq = parseFloat(btn.getAttribute('data-freq'));
-      play(freq);
-      const ev = new CustomEvent('nota-tocada', { detail: { nota }, bubbles: true });
-      btn.dispatchEvent(ev);
+      const nota = btn.dataset.nota;
+      if (nota) {
+        window.tocarNota(nota);
+        document.dispatchEvent(new CustomEvent('nota-tocada', { detail: { nota: nota } }));
+      }
     });
+  });
+
+  document.addEventListener('nota-tocada', (e) => {
+    window.tocarNota(e.detail.nota);
   });
 </script>

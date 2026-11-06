@@ -8,7 +8,64 @@
   "emoji": "⭐",
   "progreso_puntos": 100,
   "descripcion": "Aprende a tocar la canción Estrellita en el metalófono virtual.",
-  "notas": ["DO", "DO", "SOL", "SOL", "LA", "LA", "SOL", "FA", "FA", "MI", "MI", "RE", "RE", "DO"],
+  "notas": [
+    {
+      "nota": "DO",
+      "duracion": 1
+    },
+    {
+      "nota": "DO",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "FA",
+      "duracion": 1
+    },
+    {
+      "nota": "FA",
+      "duracion": 1
+    },
+    {
+      "nota": "MI",
+      "duracion": 1
+    },
+    {
+      "nota": "MI",
+      "duracion": 1
+    },
+    {
+      "nota": "RE",
+      "duracion": 1
+    },
+    {
+      "nota": "RE",
+      "duracion": 1
+    },
+    {
+      "nota": "DO",
+      "duracion": 1
+    }
+  ],
   "contenido_modulos": [
     "# ⭐ Estrellita ¿Dónde estás?\n\nEsta es una de las canciones más famosas del mundo. ¡Vamos a tocarla en el metalófono!\n\nEscucha la melodía y luego toca las notas en el orden correcto."
   ],

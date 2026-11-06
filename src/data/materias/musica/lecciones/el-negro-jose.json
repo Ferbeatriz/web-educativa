@@ -6,9 +6,69 @@
   "progreso_puntos": 50,
   "descripcion": "Aprende a tocar el clásico de Illapu en el metalófono.",
   "notas": [
-    "SOL", "LA", "SI", "DO",
-    "DO", "SI", "LA", "SOL",
-    "LA", "SI", "LA", "SOL",
-    "MI", "SOL", "LA", "SOL"
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "SI",
+      "duracion": 1
+    },
+    {
+      "nota": "DO",
+      "duracion": 1
+    },
+    {
+      "nota": "DO",
+      "duracion": 1
+    },
+    {
+      "nota": "SI",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "SI",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "MI",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    },
+    {
+      "nota": "LA",
+      "duracion": 1
+    },
+    {
+      "nota": "SOL",
+      "duracion": 1
+    }
   ]
 }

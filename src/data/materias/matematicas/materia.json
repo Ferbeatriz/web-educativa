@@ -109,6 +109,28 @@
       "archivo": "lecciones/ordenamiento-fracciones.json",
       "activa": true,
       "grupo": "fracciones"
+    },
+    {
+      "id": "operaciones-fracciones",
+      "titulo": "Operaciones con Fracciones",
+      "emoji": "🧮",
+      "orden": 10,
+      "nivel": "basico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/operaciones-fracciones.json",
+      "activo": true,
+      "grupo": "fracciones"
+    },
+    {
+      "id": "examen-fracciones",
+      "titulo": "Examen Final",
+      "emoji": "🏆",
+      "orden": 11,
+      "nivel": "basico",
+      "duracion_estimada_min": 30,
+      "archivo": "lecciones/examen-fracciones.json",
+      "activo": true,
+      "grupo": "fracciones"
     }
   ]
 }
