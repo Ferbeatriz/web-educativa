@@ -1,0 +1,72 @@
+{
+  "id": "multiplos-equivalentes",
+  "materia_id": "matematicas",
+  "categoria": "Matemáticas",
+  "emoji": "🧩",
+  "titulo": "Múltiplos y Equivalentes 🧩",
+  "progreso_puntos": 50,
+  "contenido_modulos": [
+    "# 🔢 ¿Qué es un múltiplo?\n\nUn **múltiplo** es el resultado de multiplicar un número por cualquier número entero (1, 2, 3, 4...).\n\nPor ejemplo, los múltiplos del número **3** son:\n- 3 × 1 = **3**\n- 3 × 2 = **6**\n- 3 × 3 = **9**\n- 3 × 4 = **12**\n\nLos múltiplos son infinitos, ¡nunca terminan!",
+    "# 📊 El Mínimo Común Múltiplo (m.c.m)\n\nEl **m.c.m** es el múltiplo más pequeño que dos o más números tienen en común.\n\nImagina que queremos encontrar el m.c.m de **2 y 3**:\n- Múltiplos de 2: 2, 4, **6**, 8, 10...\n- Múltiplos de 3: 3, **6**, 9, 12...\n\nEl primer número que se repite en ambas listas es el **6**. ¡Ese es el m.c.m!\n\n> **Idea fuerza**: El m.c.m nos sirve para igualar los denominadores cuando sumamos o restamos fracciones con distinto denominador.",
+    "# ⚖️ Fracciones Equivalentes\n\nDos fracciones son **equivalentes** cuando representan la misma cantidad del entero, aunque se escriban con números diferentes.\n\nMira estos dos círculos: ¡El área pintada es exactamente la misma!\n\n<div class=\"flex items-center justify-center gap-8 my-6\">\n  <div class=\"flex flex-col items-center\">\n    <div class=\"w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-gray-200\" style=\"background: conic-gradient(#3b82f6 0% 50%, #f1f5f9 50% 100%);\"></div>\n    <span class=\"mt-2 font-bold text-lg\">1/2</span>\n  </div>\n  <span class=\"text-2xl font-bold text-gray-400\">=</span>\n  <div class=\"flex flex-col items-center\">\n    <div class=\"w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-gray-200\" style=\"background: conic-gradient(#3b82f6 0% 50%, #f1f5f9 50% 100%);\"></div>\n    <span class=\"mt-2 font-bold text-lg\">2/4</span>\n  </div>\n</div>\n\n¿Cómo se obtienen? Multiplicando el numerador y el denominador por el mismo número. Si multiplicamos 1/2 por 2 arriba y abajo, obtenemos 2/4."
+  ],
+  "banco_trivia": [
+    {
+      "id": "mq01",
+      "dificultad": "media",
+      "pregunta": "¿Cuál de estos números es un múltiplo de 4?",
+      "opciones": ["10", "14", "16", "18"],
+      "respuesta_correcta": 2,
+      "explicacion": "16 es múltiplo de 4 porque 4 × 4 = 16."
+    },
+    {
+      "id": "mq02",
+      "dificultad": "media",
+      "pregunta": "¿Cuál es el mínimo común múltiplo (m.c.m) de 2 y 4?",
+      "opciones": ["2", "4", "6", "8"],
+      "respuesta_correcta": 1,
+      "explicacion": "Los múltiplos de 2 son 2, 4, 6... y los de 4 son 4, 8, 12... El primero que se repite es el 4."
+    },
+    {
+      "id": "mq03",
+      "dificultad": "dificil",
+      "pregunta": "¿Qué fracción es equivalente a 1/3?",
+      "opciones": ["2/5", "2/6", "3/4", "1/4"],
+      "respuesta_correcta": 1,
+      "explicacion": "2/6 es equivalente a 1/3 porque si multiplicas 1×2=2 y 3×2=6, obtienes 2/6."
+    },
+    {
+      "id": "mq04",
+      "dificultad": "dificil",
+      "pregunta": "Para sumar 1/2 + 1/3, necesitamos buscar el m.c.m de 2 y 3. ¿Cuál es?",
+      "opciones": ["3", "4", "5", "6"],
+      "respuesta_correcta": 3,
+      "explicacion": "El m.c.m de 2 y 3 es 6, porque es el primer múltiplo que comparten (2, 4, 6... y 3, 6, 9...)."
+    },
+    {
+      "id": "mq05",
+      "dificultad": "muy_dificil",
+      "pregunta": "Si tengo 2/4 de una pizza, ¿a qué fracción es equivalente?",
+      "opciones": ["1/2", "1/4", "3/4", "4/4"],
+      "respuesta_correcta": 0,
+      "explicacion": "2/4 es equivalente a 1/2 porque si divides el numerador y el denominador por 2, obtienes 1/2."
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Múltiplo",
+      "emoji": "🔢",
+      "definicion": "Resultado de multiplicar un número por 1, 2, 3..."
+    },
+    {
+      "termino": "M.c.m",
+      "emoji": "📊",
+      "definicion": "El múltiplo más pequeño que comparten dos o más números."
+    },
+    {
+      "termino": "Equivalente",
+      "emoji": "⚖️",
+      "definicion": "Fracciones que se escriben diferente pero representan la misma cantidad."
+    }
+  ]
+}
