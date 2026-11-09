@@ -5,6 +5,7 @@
   "capitulo_numero": 2,
   "objetivo": "Analizar las señales y decisiones del protagonista en el momento en que su cama comienza a volar",
   "fondo_beige": "#FAFDF3",
+  "fragmento": "Bartolo miró fijamente el techo, pensando en todas las aventuras que le gustaría tener, hasta que sus ojos se irritaron y la cama comenzó a moverse.",
   "pasos": [
     {
       "n": 1,
@@ -17,7 +18,7 @@
       ],
       "respuesta_correcta": "Mirando fijamente el techo de su habitación sin parpadear.",
       "feedback_correcto": "¡Correcto! Bartolo se puso a mirar fijamente el techo, pensando en todo lo que le gustaría hacer, hasta que sus ojos se irritaron y la cama comenzó a moverse.",
-      "feedback_incorrecto": "Inténtalo de nuevo. Revisa el Capítulo 2: 'Querer es poder'.",
+      "feedback_error": "Inténtalo de nuevo. Revisa el Capítulo 2: 'Querer es poder'.",
       "errores_comunes": {
         "leer_libro": "No, Bartolo no estaba leyendo en ese momento.",
         "dormir": "No, Bartolo no dormía profundamente, estaba en un estado de vigilia onírica."
@@ -34,7 +35,7 @@
       ],
       "respuesta_correcta": "Estaba pensando en todos los viajes y aventuras que le gustaría tener.",
       "feedback_correcto": "¡Correcto! Bartolo estaba soñando despierto sobre todas las cosas que le gustaría tener.",
-      "feedback_incorrecto": "Inténtalo de nuevo. Pensa en lo que Bartolo soñaba antes del despegue.",
+      "feedback_error": "Inténtalo de nuevo. Pensa en lo que Bartolo soñaba antes del despegue.",
       "errores_comunes": {
         "pensar_en_mamá": "No, no estaba esperando a su mamá en ese momento.",
         "pensar_en_comida": "No, no estaba pensando en comida."
@@ -51,7 +52,7 @@
       ],
       "respuesta_correcta": "Sintió que el colchón se movía bajo él.",
       "feedback_correcto": "¡Correcto! Bartolo sintió que el colchón se movía bajo él, fue la primera señal física.",
-      "feedback_incorrecto": "Inténtalo de nuevo. Fíjate en las sensaciones físicas que describió Bartolo.",
+      "feedback_error": "Inténtalo de nuevo. Fíjate en las sensaciones físicas que describió Bartolo.",
       "errores_comunes": {
         "ruido_pared": "No fue un ruido en la pared, fue una sensación física.",
         "luces_brillantes": "No vio luces al principio, solo sintió movimiento."

@@ -67,7 +67,7 @@ const meta = datos.meta;
       </button>
     </div>
 
-    <script is:inline define:vars={{ datosParaElCliente: datos.trivia }}>
+    <script is:inline define:vars={{ datosParaElCliente: { ...datos.trivia, configuracion: meta.configuracion } }}>
       window.__CUESTIONARIO_DATOS__ = datosParaElCliente;
     </script>
 
