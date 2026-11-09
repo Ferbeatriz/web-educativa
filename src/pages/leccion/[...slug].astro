@@ -7,6 +7,7 @@ import BotonCompletar from '../../components/BotonCompletar.astro';
 import Glosario from '../../components/Glosario.astro';
 import TutorPasos from '../../components/tutor/TutorPasos.astro';
 import TriviaRotativa from '../../components/TriviaRotativa.astro';
+import TutorAnalisis from '../../components/ejercicios/TutorAnalisis.astro';
 import ListaProblemas from '../../components/ejercicios/ListaProblemas.astro';
 import EjerciciosGuiados from '../../components/ejercicios/EjerciciosGuiados.astro';
 import ComparadorFracciones from '../../components/ejercicios/ComparadorFracciones.astro';
@@ -341,6 +342,10 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
 
       <!-- 📖 GLOSARIO -->
       <Glosario palabras={glosario} />
+<!-- ANÁLISIS GUIADO -->
+      {leccion.analisis && (
+        <TutorAnalisis analisis={leccion.analisis} />
+      )}
 
       <!-- 🧠 TRIVIA (fija o rotativa) -->
       {leccion.banco_trivia && leccion.banco_trivia.length > 0 ? (

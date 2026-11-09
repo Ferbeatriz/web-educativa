@@ -39,6 +39,26 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ## 🎯 Estado actual (commit `45f90c1`, 2026-10-15)
 
+
+> Última actualización: 2026-11-06
+> Commit de referencia: ( 5237d0d..4a1b606  )
+
+## 🚨 Protocolo Obligatorio de Respaldo y Traspaso
+**Regla de oro:** La IA a cargo NUNCA debe terminar una sesión de trabajo sin recordarle a la usuaria realizar los siguientes dos pasos. 
+**Cuándo activar:** Al terminar un componente, al cambiar de materia, o cuando la conversación sea muy extensa.
+**Pasos:**
+1. **Git:** Recordar a la usuaria ejecutar `git add .`, `git commit`, `git push`.
+2. **Documentación:** Generar la actualización de `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con el resumen de avances.
+
+## Estado actual
+- **Matemáticas (Fracciones):** Módulo 100% completado. Se agregó la lección "Múltiplos y Equivalentes 🧩" (orden 7). Se mejoró la teoría de operaciones con visualizaciones en el Módulo 1 (suma) y Módulo 4 (división). Se ampliaron los bancos de preguntas a 10 por lección (con IDs únicos para evitar fallos en TriviaRotativa).
+- **Laboratorio de Operaciones:** Componente flotante funcional (botón 🧮) que permite operar fracciones visualmente.
+- **Pendientes:** 
+  - Módulo de Música: Arreglar el audio del metalófono y el botón de Auto-play.
+  - Mes 3 (Roadmap): Iniciar Análisis Guiado en Lenguaje.
+
+
+
 ### Últimas sesiones cerradas
 
 - **2026-10-12**: Motor de errores en producción (Worker `7ca9a592`) + panel docente `/admin/metricas`.

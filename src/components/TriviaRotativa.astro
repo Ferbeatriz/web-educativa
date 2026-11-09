@@ -121,7 +121,18 @@ const {
     function renderPregunta(p, i, total) {
       const c = COLORES_DIFICULTAD[p.dificultad] || COLORES_DIFICULTAD.media;
 
-      const opcionesHtml = p.opciones.map((op, j) => `
+      // Mezclar opciones aleatoriamente para evitar sesgo de letra B
+      const opcionesMezcladas = [...p.opciones];
+      // Algoritmo de Fisher-Yates
+      for (let j = opcionesMezcladas.length - 1; j > 0; j--) {
+        const k = Math.floor(Math.random() * (j + 1));
+        [opcionesMezcladas[j], opcionesMezcladas[k]] = [opcionesMezcladas[k], opcionesMezcladas[j]];
+      }
+      // Recuperar el nuevo índice de la respuesta correcta después de mezclar
+      const indiceCorrectoOriginal = p.respuesta_correcta;
+      const nuevaRespuestaCorrecta = opcionesMezcladas.indexOf(p.opciones[indiceCorrectoOriginal]);
+
+      const opcionesHtml = opcionesMezcladas.map((op, j) => `
         <li>
           <label class="opcion" data-indice="${j}">
             <input type="radio" name="pregunta-${i}" value="${j}">
@@ -132,7 +143,7 @@ const {
       `).join('');
 
       return `
-        <article class="pregunta" data-id="${p.id}" data-correcta="${p.respuesta_correcta}">
+        <article class="pregunta" data-id="${p.id}" data-correcta="${nuevaRespuestaCorrecta}">
           <header class="preg-header">
             <span class="preg-num">Pregunta ${i + 1} de ${total}</span>
             <span class="preg-etiqueta" style="background:${c.bg};color:${c.texto};border:1px solid ${c.borde}">

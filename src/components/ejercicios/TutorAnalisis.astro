@@ -1,0 +1,147 @@
+---
+interface Paso {
+  n: number;
+  pregunta: string;
+  opciones: string[];
+  respuesta_correcta: string;
+  feedback_error: string;
+}
+
+interface Analisis {
+  titulo: string;
+  fragmento: string;
+  pasos: Paso[];
+  revelacion_final: string;
+}
+
+interface Props {
+  analisis: Analisis;
+}
+
+const { analisis } = Astro.props;
+---
+
+<div id="tutor-analisis" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-4xl mx-auto my-8 border border-gray-100">
+  
+  <div class="text-center mb-6">
+    <h2 class="text-2xl font-extrabold text-gray-800 mb-2">🕵️ Análisis Guiado</h2>
+    <p class="text-gray-500 font-medium">{analisis.titulo}</p>
+  </div>
+
+  <!-- Fragmento del texto -->
+  <div class="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-r-xl mb-8 shadow-sm">
+    <p class="text-gray-800 text-lg leading-relaxed italic">"{analisis.fragmento}"</p>
+  </div>
+
+  <!-- Contenedor de los pasos -->
+  <div id="contenedor-pasos">
+    <!-- Aquí se inyectarán los pasos dinámicamente con JS -->
+  </div>
+
+  <!-- Pantalla final -->
+  <div id="pantalla-final" class="hidden text-center py-8">
+    <div class="text-6xl mb-4">🎉</div>
+    <h3 class="text-2xl font-extrabold text-green-600 mb-4">¡Análisis completado!</h3>
+    <div class="bg-green-50 border-2 border-green-200 p-6 rounded-2xl text-lg text-green-900 mb-6">
+      <p class="font-bold mb-2">La revelación final:</p>
+      <p>{analisis.revelacion_final}</p>
+    </div>
+  </div>
+
+</div>
+
+<script define:vars={{ analisis }}>
+  const pasos = analisis.pasos;
+  let pasoActual = 0;
+
+  const contenedor = document.getElementById('contenedor-pasos');
+  const pantallaFinal = document.getElementById('pantalla-final');
+
+  function mezclar(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  function renderizarPaso() {
+    if (pasoActual >= pasos.length) {
+      contenedor.classList.add('hidden');
+      pantallaFinal.classList.remove('hidden');
+      return;
+    }
+
+    const paso = pasos[pasoActual];
+    const opcionesMezcladas = mezclar([...paso.opciones]);
+
+    let opcionesHTML = '';
+    opcionesMezcladas.forEach(op => {
+      opcionesHTML += `
+        <button class="btn-opcion w-full text-left p-4 mb-3 rounded-xl border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition-all font-medium text-gray-700" data-opcion="${op}">
+          ${op}
+        </button>
+      `;
+    });
+
+    contenedor.innerHTML = `
+      <div class="bg-gray-50 rounded-xl p-6 mb-4">
+        <span class="inline-block bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+          Paso ${paso.n} de ${pasos.length}
+        </span>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">${paso.pregunta}</h3>
+        <div id="lista-opciones">
+          ${opcionesHTML}
+        </div>
+        <div id="feedback" class="hidden p-4 rounded-xl mt-4 font-medium"></div>
+        <button id="btn-siguiente" class="hidden mt-6 w-full bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-all">
+          Siguiente paso →
+        </button>
+      </div>
+    `;
+
+    const feedback = document.getElementById('feedback');
+    const btnSiguiente = document.getElementById('btn-siguiente');
+
+    // Lógica de clic en opciones
+    document.querySelectorAll('.btn-opcion').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const seleccion = e.target.getAttribute('data-opcion');
+        
+        // Deshabilitar todos los botones
+        document.querySelectorAll('.btn-opcion').forEach(b => {
+          b.disabled = true;
+          b.classList.remove('hover:border-purple-400', 'hover:bg-purple-50');
+        });
+
+        if (seleccion === paso.respuesta_correcta) {
+          // Correcto
+          e.target.classList.add('border-green-500', 'bg-green-50', 'text-green-800');
+          feedback.classList.remove('hidden');
+          feedback.className = 'p-4 rounded-xl mt-4 font-medium bg-green-100 text-green-800';
+          feedback.innerHTML = '✅ ¡Muy bien!';
+          btnSiguiente.classList.remove('hidden');
+        } else {
+          // Incorrecto
+          e.target.classList.add('border-red-500', 'bg-red-50', 'text-red-800');
+          feedback.classList.remove('hidden');
+          feedback.className = 'p-4 rounded-xl mt-4 font-medium bg-red-100 text-red-800';
+          feedback.innerHTML = `❌ ${paso.feedback_error}`;
+          
+          // Mostrar la correcta
+          document.querySelectorAll('.btn-opcion').forEach(b => {
+            if (b.getAttribute('data-opcion') === paso.respuesta_correcta) {
+              b.classList.add('border-green-500', 'bg-green-50', 'text-green-800');
+            }
+          });
+          btnSiguiente.classList.remove('hidden');
+        }
+      });
+    });
+
+    // Lógica del botón siguiente
+    btnSiguiente.addEventListener('click', () => {
+      pasoActual++;
+      renderizarPaso();
+    });
+  }
+
+  // Iniciar
+  renderizarPaso();
+</script>

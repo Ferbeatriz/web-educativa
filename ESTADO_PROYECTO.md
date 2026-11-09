@@ -1,7 +1,7 @@
 # 📊 ESTADO DEL PROYECTO — web-educativa
 
-> Última actualización: 2026-10-15
-> Commit de referencia: `45f90c1`
+> Última actualización: 2026-11-06
+> Commit de referencia: `4a1b606 `
 > Worker en producción: `7ca9a592` (2026-10-12)
 > Proyecto: Plataforma educativa interactiva para niñas de 9-12 años
 
@@ -176,7 +176,18 @@ web-educativa/
 
 ---
 
-## ✅ Estado actual (2026-10-14)
+## ✅ Estado actual (2026-11-06)
+
+### Últimos avances (2026-11-06)
+- Se completó la sección de Fracciones en Matemáticas:
+  - Nueva lección "Múltiplos y Equivalentes" (explicación del m.c.m y fracciones equivalentes).
+  - Visualización de círculos (conic-gradient) en la teoría de suma y división.
+  - Ampliación de preguntas en el banco de trivia (10 preguntas por lección).
+- El "Laboratorio de Operaciones con Fracciones" ahora funciona como un modal flotante en todas las lecciones de fracciones.
+- *Regla de trabajo:* A partir de hoy, se debe activar el protocolo de respaldo (Git + actualización de documentación) antes de cerrar cada sesión o cambiar de tema.
+
+
+
 
 ### Fases completadas
 

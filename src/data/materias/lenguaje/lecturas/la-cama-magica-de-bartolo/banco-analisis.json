@@ -1,0 +1,63 @@
+{
+  "libro": "la-cama-magica-de-bartolo",
+  "tipo": "analisis_guiado",
+  "capitulo": "El despegue de la cama mágica",
+  "capitulo_numero": 2,
+  "objetivo": "Analizar las señales y decisiones del protagonista en el momento en que su cama comienza a volar",
+  "fondo_beige": "#FAFDF3",
+  "pasos": [
+    {
+      "n": 1,
+      "pregunta": "¿Qué estaba haciendo Bartolo justo antes de que su cama comenzara a volar?",
+      "opciones": [
+        "Leyendo un libro de aventuras.",
+        "Mirando fijamente el techo de su habitación sin parpadear.",
+        "Durmiendo profundamente.",
+        "Jugando con su perro en el patio."
+      ],
+      "respuesta_correcta": "Mirando fijamente el techo de su habitación sin parpadear.",
+      "feedback_correcto": "¡Correcto! Bartolo se puso a mirar fijamente el techo, pensando en todo lo que le gustaría hacer, hasta que sus ojos se irritaron y la cama comenzó a moverse.",
+      "feedback_incorrecto": "Inténtalo de nuevo. Revisa el Capítulo 2: 'Querer es poder'.",
+      "errores_comunes": {
+        "leer_libro": "No, Bartolo no estaba leyendo en ese momento.",
+        "dormir": "No, Bartolo no dormía profundamente, estaba en un estado de vigilia onírica."
+      }
+    },
+    {
+      "n": 2,
+      "pregunta": "¿Qué Bartolo sentía o pensaba mientras miraba el techo?",
+      "opciones": [
+        "Que tenía sueño y quería seguir durmiendo.",
+        "Estaba pensando en todos los viajes y aventuras que le gustaría tener.",
+        "Que esperaba que su mamá entrara a la habitación.",
+        "Que quería levantarse a jugar con su perro."
+      ],
+      "respuesta_correcta": "Estaba pensando en todos los viajes y aventuras que le gustaría tener.",
+      "feedback_correcto": "¡Correcto! Bartolo estaba soñando despierto sobre todas las cosas que le gustaría tener.",
+      "feedback_incorrecto": "Inténtalo de nuevo. Pensa en lo que Bartolo soñaba antes del despegue.",
+      "errores_comunes": {
+        "pensar_en_mamá": "No, no estaba esperando a su mamá en ese momento.",
+        "pensar_en_comida": "No, no estaba pensando en comida."
+      }
+    },
+    {
+      "n": 3,
+      "pregunta": "¿Qué señal indicó que la cama comenzaba a moverse?",
+      "opciones": [
+        "Oyó un ruido fuerte en la pared.",
+        "Sintió el frío de la nieve al despertar.",
+        "Vio luces brillantes en la habitación.",
+        "Sintió que el colchón se movía bajo él."
+      ],
+      "respuesta_correcta": "Sintió que el colchón se movía bajo él.",
+      "feedback_correcto": "¡Correcto! Bartolo sintió que el colchón se movía bajo él, fue la primera señal física.",
+      "feedback_incorrecto": "Inténtalo de nuevo. Fíjate en las sensaciones físicas que describió Bartolo.",
+      "errores_comunes": {
+        "ruido_pared": "No fue un ruido en la pared, fue una sensación física.",
+        "luces_brillantes": "No vio luces al principio, solo sintió movimiento."
+      }
+    }
+  ],
+  "revelacion_final": "El momento en que Bartolo miró fijamente el techo fue la clave: sus deseos y pensamientos soñadores fueron el desencadenante mágico que hizo despegar su cama. El poder de la imaginación es el verdadero motor de la aventura.",
+  "consejo_final": "Al leer como un detective, prestando atención a los detalles pequeños y las señales que el autor deja, descubrirás que las historias tienen capas mucho más ricas de lo que parecen al primer vistazo."
+}
