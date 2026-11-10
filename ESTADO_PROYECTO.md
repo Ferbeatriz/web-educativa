@@ -192,7 +192,11 @@ web-educativa/
 - El "Laboratorio de Operaciones con Fracciones" ahora funciona como un modal flotante en todas las lecciones de fracciones.
 - *Regla de trabajo:* A partir de hoy, se debe activar el protocolo de respaldo (Git + actualización de documentación) antes de cerrar cada sesión o cambiar de tema.
 
-
+### 2026-11-09 (Tarde)
+- **Matemáticas:** Completadas las lecciones de Perímetro (OA 21) y Área (OA 23).
+- **Teoría:** Rediseñada con un enfoque narrado y ejemplos cotidianos para 3° básico.
+- **Componentes:** Creados `LaboratorioPerimetro.astro` y `LaboratorioArea.astro` que permiten visualizar y calcular el perímetro (cerca) y el área (cuadrícula) de forma interactiva.
+- **Alerta Cline:** El asistente Cline falló repetidamente al intentar modificar archivos (ignoró las reglas del archivo `.clinerules` y usó Python). Se establece que a partir de ahora el código se pegará manualmente.
 
 
 ### Fases completadas

@@ -186,25 +186,28 @@ const tieneCursos = materia.cursos_especiales && materia.cursos_especiales.lengt
         .filter((l: any) => l.activa !== false)
         .sort((a: any, b: any) => a.orden - b.orden);
       const tieneGrupos = leccionesActivas.some((l: any) => l.grupo);
-      const grupoLabels: Record<string, string> = {
+            const grupoLabels: Record<string, string> = {
         multiplicacion: 'Multiplicación',
         resta: 'Sustracción',
         division: 'División',
         fracciones: 'Fracciones',
+        medicion: 'Área y Perímetro',
       };
       const grupoEmojis: Record<string, string> = {
         multiplicacion: '🔢',
         resta: '➖',
         division: '➗',
         fracciones: '🍕',
+        medicion: '📏',
       };
       const grupoDesc: Record<string, string> = {
         multiplicacion: 'Propiedades y operaciones de multiplicación',
         resta: 'Resta con reserva y problemas',
         division: 'Introducción, reparto y problemas',
         fracciones: 'Introducción, comparación y ordenamiento',
+        medicion: 'Cálculo de perímetro y área de figuras',
       };
-      const groupOrder = ['multiplicacion', 'resta', 'division', 'fracciones', 'general'];
+      const groupOrder = ['multiplicacion', 'resta', 'division', 'fracciones', 'medicion', 'general'];
       const gruposMap: Record<string, any[]> = {};
       for (const lec of leccionesActivas) {
         const g = lec.grupo || 'general';
@@ -400,15 +403,17 @@ const tieneCursos = materia.cursos_especiales && materia.cursos_especiales.lengt
         </>
       );
     })()}
-    <script>
+        <script>
       (function () {
         const catView = document.getElementById('vista-categorias');
         const lecView = document.getElementById('vista-lecciones');
         const backBtn = document.getElementById('volver-categorias');
-        function showGroup(g) {
+
+        function showGroup(g, updateHistory = true) {
           if (!catView || !lecView) return;
           catView.classList.add('hidden');
           lecView.classList.remove('hidden');
+          
           lecView.querySelectorAll('section[data-lec-grupo]').forEach((sec) => {
             if (sec.getAttribute('data-lec-grupo') === g) {
               sec.classList.remove('hidden');
@@ -416,16 +421,54 @@ const tieneCursos = materia.cursos_especiales && materia.cursos_especiales.lengt
               sec.classList.add('hidden');
             }
           });
+
+          // Agregar el grupo a la URL y al historial del navegador
+          if (updateHistory) {
+            history.pushState({ group: g }, '', '#grupo-' + g);
+          }
         }
-        document.querySelectorAll('[data-cat-grupo]').forEach((btn) => {
-          btn.addEventListener('click', () => showGroup(btn.getAttribute('data-cat-grupo')));
-        });
-        if (backBtn) {
-          backBtn.addEventListener('click', () => {
-            if (lecView) lecView.classList.add('hidden');
-            if (catView) catView.classList.remove('hidden');
+
+        function showCategories(updateHistory = true) {
+          if (catView) catView.classList.remove('hidden');
+          if (lecView) {
+            lecView.classList.add('hidden');
             lecView.querySelectorAll('section[data-lec-grupo]').forEach((sec) => sec.classList.add('hidden'));
+          }
+          
+          // Limpiar la URL y el historial
+          if (updateHistory) {
+            history.pushState({ group: null }, '', window.location.pathname + window.location.search);
+          }
+        }
+
+        // Escuchar clics en las categorías
+        document.querySelectorAll('[data-cat-grupo]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const g = btn.getAttribute('data-cat-grupo');
+            if(g) showGroup(g);
           });
+        });
+
+        // Botón de volver a categorías
+        if (backBtn) {
+          backBtn.addEventListener('click', () => showCategories());
+        }
+
+        // Escuchar cuando el usuario usa los botones de Atrás/Adelante del navegador
+        window.addEventListener('popstate', () => {
+          const hash = window.location.hash;
+          if (hash && hash.startsWith('#grupo-')) {
+            const g = hash.replace('#grupo-', '');
+            showGroup(g, false); // false para no volver a guardar en el historial
+          } else {
+            showCategories(false);
+          }
+        });
+
+        // Si se recarga la página y hay un #grupo en la URL, mostrar esa vista directamente
+        const initialHash = window.location.hash;
+        if (initialHash && initialHash.startsWith('#grupo-')) {
+          showGroup(initialHash.replace('#grupo-', ''), false);
         }
       })();
     </script>

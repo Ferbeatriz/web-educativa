@@ -1,5 +1,5 @@
 ---
-// Laboratorio de Perímetro (OA 21)
+// Laboratorio de Perímetro (OA 21) con dimensiones en los lados
 ---
 
 <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto my-8 border border-gray-100">
@@ -20,9 +20,19 @@
 
   <!-- Visualización -->
   <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
-    <div id="figura" class="relative bg-blue-100 border-4 border-dashed border-blue-400 transition-all duration-500 flex items-center justify-center">
-      <!-- Las dimensiones se manejan por JS -->
-      <span id="texto-area" class="text-blue-800 font-bold opacity-50 select-none">Área</span>
+    <!-- Contenedor relativo para poder posicionar los textos de los lados -->
+    <div id="contenedor-figura" class="relative">
+      
+      <!-- Etiquetas de medidas (se posicionan con JS/CSS) -->
+      <span id="label-top" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">5 m</span>
+      <span id="label-bottom" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">5 m</span>
+      <span id="label-left" class="absolute top-1/2 -left-12 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">3 m</span>
+      <span id="label-right" class="absolute top-1/2 -right-12 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">3 m</span>
+
+      <!-- La figura en sí -->
+      <div id="figura" class="relative bg-blue-100 border-4 border-dashed border-blue-400 transition-all duration-500 flex items-center justify-center">
+        <span id="texto-area" class="text-blue-800 font-bold opacity-50 select-none">Área</span>
+      </div>
     </div>
   </div>
 
@@ -39,6 +49,12 @@
   const figura = document.getElementById('figura') as HTMLElement;
   const resultadoTexto = document.getElementById('resultado-texto') as HTMLElement;
 
+  // Elementos de las medidas
+  const labelTop = document.getElementById('label-top') as HTMLElement;
+  const labelBottom = document.getElementById('label-bottom') as HTMLElement;
+  const labelLeft = document.getElementById('label-left') as HTMLElement;
+  const labelRight = document.getElementById('label-right') as HTMLElement;
+
   function actualizarPerimetro() {
     let base = parseInt(inputBase.value) || 1;
     let altura = parseInt(inputAltura.value) || 1;
@@ -53,6 +69,12 @@
     const escala = 30;
     figura.style.width = `${base * escala}px`;
     figura.style.height = `${altura * escala}px`;
+
+    // Actualizar los textos de las medidas
+    labelTop.textContent = `${base} m`;
+    labelBottom.textContent = `${base} m`;
+    labelLeft.textContent = `${altura} m`;
+    labelRight.textContent = `${altura} m`;
 
     // Calcular perímetro
     const perimetro = base + base + altura + altura;

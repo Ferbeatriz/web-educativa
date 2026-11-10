@@ -1,5 +1,5 @@
 ---
-// Laboratorio de Área (OA 23)
+// Laboratorio de Área (OA 23) con dimensiones en los lados
 ---
 
 <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto my-8 border border-gray-100">
@@ -20,8 +20,19 @@
 
   <!-- Visualización de la cuadrícula -->
   <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
-    <div id="cuadricula" class="grid gap-1 bg-gray-100 p-2 rounded-lg border-2 border-gray-300">
-      <!-- Los cuadraditos se generan por JS -->
+    <!-- Contenedor relativo para las etiquetas -->
+    <div id="contenedor-area" class="relative">
+      
+      <!-- Etiquetas de medidas -->
+      <span id="label-top" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">4</span>
+      <span id="label-bottom" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">4</span>
+      <span id="label-left" class="absolute top-1/2 -left-8 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">3</span>
+      <span id="label-right" class="absolute top-1/2 -right-8 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">3</span>
+
+      <!-- La cuadrícula -->
+      <div id="cuadricula" class="grid gap-1 bg-gray-100 p-2 rounded-lg border-2 border-gray-300">
+        <!-- Los cuadraditos se generan por JS -->
+      </div>
     </div>
   </div>
 
@@ -38,6 +49,12 @@
   const cuadricula = document.getElementById('cuadricula') as HTMLElement;
   const resultadoTexto = document.getElementById('resultado-texto') as HTMLElement;
 
+  // Etiquetas de las medidas
+  const labelTop = document.getElementById('label-top') as HTMLElement;
+  const labelBottom = document.getElementById('label-bottom') as HTMLElement;
+  const labelLeft = document.getElementById('label-left') as HTMLElement;
+  const labelRight = document.getElementById('label-right') as HTMLElement;
+
   function actualizarArea() {
     let base = parseInt(inputBase.value) || 1;
     let altura = parseInt(inputAltura.value) || 1;
@@ -47,6 +64,12 @@
     if (altura > 8) altura = 8;
     inputBase.value = base.toString();
     inputAltura.value = altura.toString();
+
+    // Actualizar etiquetas
+    labelTop.textContent = base.toString();
+    labelBottom.textContent = base.toString();
+    labelLeft.textContent = altura.toString();
+    labelRight.textContent = altura.toString();
 
     // Configurar la cuadrícula CSS
     cuadricula.style.gridTemplateColumns = `repeat(${base}, 1fr)`;
