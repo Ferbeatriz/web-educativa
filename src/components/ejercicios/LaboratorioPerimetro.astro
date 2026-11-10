@@ -1,84 +1,86 @@
 ---
-// Laboratorio de Perímetro (OA 21) con dimensiones en los lados
+// Laboratorio de Perímetro (OA 21) - Modal Flotante
 ---
 
-<div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto my-8 border border-gray-100">
-  <h2 class="text-2xl font-extrabold text-gray-800 text-center mb-2">📏 Laboratorio de Perímetro</h2>
-  <p class="text-center text-gray-500 mb-6">Imagina que quieres poner una cerca alrededor de una plaza. ¿Cuántos metros de cerca necesitas?</p>
+<!-- Botón Flotante (FAB) -->
+<button id="btn-abrir-perimetro" class="fixed bottom-40 right-6 z-40 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:scale-105 transition flex items-center justify-center text-2xl" title="Laboratorio de Perímetro">
+  📏
+</button>
 
-  <!-- Controles -->
-  <div class="flex flex-col md:flex-row justify-center gap-6 mb-8 bg-gray-50 p-4 rounded-xl">
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-2">Base (metros)</label>
-      <input type="number" id="input-base" min="1" max="10" value="5" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-purple-500 focus:outline-none">
-    </div>
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-2">Altura (metros)</label>
-      <input type="number" id="input-altura" min="1" max="10" value="3" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-purple-500 focus:outline-none">
-    </div>
-  </div>
+<!-- Modal -->
+<div id="modal-perimetro" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full relative max-h-[90vh] overflow-y-auto">
+    <button id="btn-cerrar-perimetro" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold z-10">&times;</button>
+    
+    <div class="p-6 md:p-8">
+      <h2 class="text-2xl font-extrabold text-gray-800 text-center mb-2">📏 Laboratorio de Perímetro</h2>
+      <p class="text-center text-gray-500 mb-6">Imagina que quieres poner una cerca alrededor de una plaza. ¿Cuántos metros de cerca necesitas?</p>
 
-  <!-- Visualización -->
-  <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
-    <!-- Contenedor relativo para poder posicionar los textos de los lados -->
-    <div id="contenedor-figura" class="relative">
-      
-      <!-- Etiquetas de medidas (se posicionan con JS/CSS) -->
-      <span id="label-top" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">5 m</span>
-      <span id="label-bottom" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">5 m</span>
-      <span id="label-left" class="absolute top-1/2 -left-12 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">3 m</span>
-      <span id="label-right" class="absolute top-1/2 -right-12 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">3 m</span>
+      <!-- Controles -->
+      <div class="flex flex-col md:flex-row justify-center gap-6 mb-8 bg-gray-50 p-4 rounded-xl">
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Base (metros)</label>
+          <input type="number" id="per-input-base" min="1" max="10" value="5" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-purple-500 focus:outline-none">
+        </div>
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Altura (metros)</label>
+          <input type="number" id="per-input-altura" min="1" max="10" value="3" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-purple-500 focus:outline-none">
+        </div>
+      </div>
 
-      <!-- La figura en sí -->
-      <div id="figura" class="relative bg-blue-100 border-4 border-dashed border-blue-400 transition-all duration-500 flex items-center justify-center">
-        <span id="texto-area" class="text-blue-800 font-bold opacity-50 select-none">Área</span>
+      <!-- Visualización -->
+      <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
+        <div id="per-contenedor-figura" class="relative">
+          <span id="per-label-top" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">5 m</span>
+          <span id="per-label-bottom" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">5 m</span>
+          <span id="per-label-left" class="absolute top-1/2 -left-12 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">3 m</span>
+          <span id="per-label-right" class="absolute top-1/2 -right-12 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-blue-600 font-bold text-sm z-10">3 m</span>
+
+          <div id="per-figura" class="relative bg-blue-100 border-4 border-dashed border-blue-400 transition-all duration-500 flex items-center justify-center">
+            <span class="text-blue-800 font-bold opacity-50 select-none">Perímetro</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div class="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
+        <p class="text-purple-900 font-bold mb-1">Explicación paso a paso:</p>
+        <p id="per-resultado-texto" class="text-lg text-purple-800"></p>
       </div>
     </div>
-  </div>
-
-  <!-- Resultado -->
-  <div class="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-xl">
-    <p class="text-purple-900 font-bold mb-1">Explicación paso a paso:</p>
-    <p id="resultado-texto" class="text-lg text-purple-800"></p>
   </div>
 </div>
 
 <script>
-  const inputBase = document.getElementById('input-base') as HTMLInputElement;
-  const inputAltura = document.getElementById('input-altura') as HTMLInputElement;
-  const figura = document.getElementById('figura') as HTMLElement;
-  const resultadoTexto = document.getElementById('resultado-texto') as HTMLElement;
+  const inputBase = document.getElementById('per-input-base') as HTMLInputElement;
+  const inputAltura = document.getElementById('per-input-altura') as HTMLInputElement;
+  const figura = document.getElementById('per-figura') as HTMLElement;
+  const resultadoTexto = document.getElementById('per-resultado-texto') as HTMLElement;
 
-  // Elementos de las medidas
-  const labelTop = document.getElementById('label-top') as HTMLElement;
-  const labelBottom = document.getElementById('label-bottom') as HTMLElement;
-  const labelLeft = document.getElementById('label-left') as HTMLElement;
-  const labelRight = document.getElementById('label-right') as HTMLElement;
+  const labelTop = document.getElementById('per-label-top') as HTMLElement;
+  const labelBottom = document.getElementById('per-label-bottom') as HTMLElement;
+  const labelLeft = document.getElementById('per-label-left') as HTMLElement;
+  const labelRight = document.getElementById('per-label-right') as HTMLElement;
 
   function actualizarPerimetro() {
     let base = parseInt(inputBase.value) || 1;
     let altura = parseInt(inputAltura.value) || 1;
     
-    // Validar límites
     if (base > 10) base = 10;
     if (altura > 10) altura = 10;
     inputBase.value = base.toString();
     inputAltura.value = altura.toString();
 
-    // Escalar para que se vea en pantalla (ej. 1 metro = 30px)
     const escala = 30;
     figura.style.width = `${base * escala}px`;
     figura.style.height = `${altura * escala}px`;
 
-    // Actualizar los textos de las medidas
     labelTop.textContent = `${base} m`;
     labelBottom.textContent = `${base} m`;
     labelLeft.textContent = `${altura} m`;
     labelRight.textContent = `${altura} m`;
 
-    // Calcular perímetro
     const perimetro = base + base + altura + altura;
-    
     resultadoTexto.innerHTML = `
       Para saber el perímetro, sumamos todos los lados de la figura.<br>
       <strong>P = ${base} + ${altura} + ${base} + ${altura} = ${perimetro} metros</strong>.<br>
@@ -89,6 +91,21 @@
   inputBase.addEventListener('input', actualizarPerimetro);
   inputAltura.addEventListener('input', actualizarPerimetro);
 
-  // Inicializar
-  actualizarPerimetro();
+  const modal = document.getElementById('modal-perimetro');
+  const btnAbrir = document.getElementById('btn-abrir-perimetro');
+  const btnCerrar = document.getElementById('btn-cerrar-perimetro');
+
+  if(btnAbrir && modal) {
+    btnAbrir.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      actualizarPerimetro();
+    });
+  }
+
+  if(btnCerrar && modal) {
+    btnCerrar.addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.add('hidden');
+    });
+  }
 </script>

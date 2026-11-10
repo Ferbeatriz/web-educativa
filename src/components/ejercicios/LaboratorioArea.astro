@@ -1,86 +1,88 @@
 ---
-// Laboratorio de Área (OA 23) con dimensiones en los lados
+// Laboratorio de Área (OA 23) - Modal Flotante
 ---
 
-<div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto my-8 border border-gray-100">
-  <h2 class="text-2xl font-extrabold text-gray-800 text-center mb-2">🟦 Laboratorio de Área</h2>
-  <p class="text-center text-gray-500 mb-6">El área es la cantidad de cuadraditos de 1x1 que caben dentro de una figura.</p>
+<!-- Botón Flotante (FAB) -->
+<button id="btn-abrir-area" class="fixed bottom-24 right-6 z-40 bg-green-600 text-white rounded-full p-4 shadow-lg hover:scale-105 transition flex items-center justify-center text-2xl" title="Laboratorio de Área">
+  🟦
+</button>
 
-  <!-- Controles -->
-  <div class="flex flex-col md:flex-row justify-center gap-6 mb-8 bg-gray-50 p-4 rounded-xl">
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-2">Base (cuadraditos)</label>
-      <input type="number" id="input-base" min="1" max="8" value="4" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-green-500 focus:outline-none">
-    </div>
-    <div class="flex flex-col items-center">
-      <label class="text-sm font-bold text-gray-600 mb-2">Altura (cuadraditos)</label>
-      <input type="number" id="input-altura" min="1" max="8" value="3" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-green-500 focus:outline-none">
-    </div>
-  </div>
+<!-- Modal -->
+<div id="modal-area" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full relative max-h-[90vh] overflow-y-auto">
+    <button id="btn-cerrar-area" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold z-10">&times;</button>
+    
+    <div class="p-6 md:p-8">
+      <h2 class="text-2xl font-extrabold text-gray-800 text-center mb-2">🟦 Laboratorio de Área</h2>
+      <p class="text-center text-gray-500 mb-6">El área es la cantidad de cuadraditos de 1x1 que caben dentro de una figura.</p>
 
-  <!-- Visualización de la cuadrícula -->
-  <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
-    <!-- Contenedor relativo para las etiquetas -->
-    <div id="contenedor-area" class="relative">
-      
-      <!-- Etiquetas de medidas -->
-      <span id="label-top" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">4</span>
-      <span id="label-bottom" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">4</span>
-      <span id="label-left" class="absolute top-1/2 -left-8 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">3</span>
-      <span id="label-right" class="absolute top-1/2 -right-8 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">3</span>
+      <!-- Controles -->
+      <div class="flex flex-col md:flex-row justify-center gap-6 mb-8 bg-gray-50 p-4 rounded-xl">
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Base (cuadraditos)</label>
+          <input type="number" id="area-input-base" min="1" max="8" value="4" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-green-500 focus:outline-none">
+        </div>
+        <div class="flex flex-col items-center">
+          <label class="text-sm font-bold text-gray-600 mb-2">Altura (cuadraditos)</label>
+          <input type="number" id="area-input-altura" min="1" max="8" value="3" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-green-500 focus:outline-none">
+        </div>
+      </div>
 
-      <!-- La cuadrícula -->
-      <div id="cuadricula" class="grid gap-1 bg-gray-100 p-2 rounded-lg border-2 border-gray-300">
-        <!-- Los cuadraditos se generan por JS -->
+      <!-- Visualización de la cuadrícula -->
+      <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
+        <div id="area-contenedor" class="relative">
+          <span id="area-label-top" class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">4</span>
+          <span id="area-label-bottom" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">4</span>
+          <span id="area-label-left" class="absolute top-1/2 -left-8 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">3</span>
+          <span id="area-label-right" class="absolute top-1/2 -right-8 -translate-y-1/2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-green-600 font-bold text-sm z-10">3</span>
+
+          <div id="area-cuadricula" class="grid gap-1 bg-gray-100 p-2 rounded-lg border-2 border-gray-300">
+            <!-- Los cuadraditos se generan por JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
+        <p class="text-green-900 font-bold mb-1">Explicación paso a paso:</p>
+        <p id="area-resultado-texto" class="text-lg text-green-800"></p>
       </div>
     </div>
-  </div>
-
-  <!-- Resultado -->
-  <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
-    <p class="text-green-900 font-bold mb-1">Explicación paso a paso:</p>
-    <p id="resultado-texto" class="text-lg text-green-800"></p>
   </div>
 </div>
 
 <script>
-  const inputBase = document.getElementById('input-base') as HTMLInputElement;
-  const inputAltura = document.getElementById('input-altura') as HTMLInputElement;
-  const cuadricula = document.getElementById('cuadricula') as HTMLElement;
-  const resultadoTexto = document.getElementById('resultado-texto') as HTMLElement;
+  const inputBase = document.getElementById('area-input-base') as HTMLInputElement;
+  const inputAltura = document.getElementById('area-input-altura') as HTMLInputElement;
+  const cuadricula = document.getElementById('area-cuadricula') as HTMLElement;
+  const resultadoTexto = document.getElementById('area-resultado-texto') as HTMLElement;
 
-  // Etiquetas de las medidas
-  const labelTop = document.getElementById('label-top') as HTMLElement;
-  const labelBottom = document.getElementById('label-bottom') as HTMLElement;
-  const labelLeft = document.getElementById('label-left') as HTMLElement;
-  const labelRight = document.getElementById('label-right') as HTMLElement;
+  const labelTop = document.getElementById('area-label-top') as HTMLElement;
+  const labelBottom = document.getElementById('area-label-bottom') as HTMLElement;
+  const labelLeft = document.getElementById('area-label-left') as HTMLElement;
+  const labelRight = document.getElementById('area-label-right') as HTMLElement;
 
   function actualizarArea() {
     let base = parseInt(inputBase.value) || 1;
     let altura = parseInt(inputAltura.value) || 1;
     
-    // Límites para que no se desborde la pantalla
     if (base > 8) base = 8;
     if (altura > 8) altura = 8;
     inputBase.value = base.toString();
     inputAltura.value = altura.toString();
 
-    // Actualizar etiquetas
     labelTop.textContent = base.toString();
     labelBottom.textContent = base.toString();
     labelLeft.textContent = altura.toString();
     labelRight.textContent = altura.toString();
 
-    // Configurar la cuadrícula CSS
     cuadricula.style.gridTemplateColumns = `repeat(${base}, 1fr)`;
     cuadricula.innerHTML = '';
 
-    // Crear los cuadraditos
     const totalCuadraditos = base * altura;
     for (let i = 0; i < totalCuadraditos; i++) {
       const cuadrado = document.createElement('div');
       cuadrado.className = 'w-10 h-10 md:w-12 md:h-12 bg-green-400 rounded-sm shadow-sm transition-all duration-300';
-      // Animación de entrada
       cuadrado.style.opacity = '0';
       setTimeout(() => {
         cuadrado.style.opacity = '1';
@@ -89,7 +91,6 @@
       cuadricula.appendChild(cuadrado);
     }
 
-    // Calcular área
     const area = base * altura;
     resultadoTexto.innerHTML = `
       Para saber el área, multiplicamos la base por la altura.<br>
@@ -101,6 +102,21 @@
   inputBase.addEventListener('input', actualizarArea);
   inputAltura.addEventListener('input', actualizarArea);
 
-  // Inicializar
-  actualizarArea();
+  const modal = document.getElementById('modal-area');
+  const btnAbrir = document.getElementById('btn-abrir-area');
+  const btnCerrar = document.getElementById('btn-cerrar-area');
+
+  if(btnAbrir && modal) {
+    btnAbrir.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      actualizarArea();
+    });
+  }
+
+  if(btnCerrar && modal) {
+    btnCerrar.addEventListener('click', () => modal.classList.add('hidden'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.add('hidden');
+    });
+  }
 </script>

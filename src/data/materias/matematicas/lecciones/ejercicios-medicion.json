@@ -1,0 +1,104 @@
+{
+  "id": "ejercicios-medicion",
+  "titulo": "Desafíos de Área y Perímetro 📐",
+  "categoria": "Matemáticas",
+  "emoji": "📐",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "# 🏗️ ¡Vamos a la vida real!\n\nYa sabemos calcular el perímetro (el borde) y el área (la superficie). Ahora es el momento de usar esas fórmulas para resolver problemas del día a día.\n\nImagina que eres arquitecta, jardinera o pintora. Lee con atención cada problema, fíjate qué te piden calcular (¿el borde o el espacio de adentro?) y elige la respuesta correcta.\n\n> **Consejo**: Si te piden \"cercar\", \"bordear\" o \"poner un marco\", es **perímetro**. Si te piden \"pintar\", \"cubrir\" o \"alfombrar\", es **área**."
+  ],
+  "banco_trivia": [
+    {
+      "id": "em01",
+      "dificultad": "media",
+      "pregunta": "Para cercar un jardín cuadrado que mide 4 metros por cada lado, ¿cuántos metros de cerco necesitas?",
+      "opciones": ["8 metros", "16 metros", "12 metros", "4 metros"],
+      "respuesta_correcta": 1,
+      "explicacion": "El perímetro de un cuadrado es 4 × lado. Entonces, 4 × 4 = 16 metros. ¡Necesitas 16 metros de cerco para rodearlo!"
+    },
+    {
+      "id": "em02",
+      "dificultad": "media",
+      "pregunta": "Quieres poner una cinta alrededor de una tarjeta rectangular que mide 10 cm de largo y 5 cm de ancho. ¿Cuánta cinta necesitas?",
+      "opciones": ["15 cm", "50 cm", "30 cm", "20 cm"],
+      "respuesta_correcta": 2,
+      "explicacion": "El perímetro del rectángulo es 2 × (largo + ancho). Entonces, 2 × (10 + 5) = 2 × 15 = 30 cm de cinta."
+    },
+    {
+      "id": "em03",
+      "dificultad": "dificil",
+      "pregunta": "Un parque rectangular tiene un perímetro de 20 metros. Si su base mide 6 metros, ¿cuánto mide su altura?",
+      "opciones": ["4 metros", "14 metros", "8 metros", "10 metros"],
+      "respuesta_correcta": 0,
+      "explicacion": "Sabemos que P = 2 × (base + altura). Si el perímetro es 20, la suma de base + altura es 10. Si la base es 6, la altura debe ser 4 (porque 6 + 4 = 10)."
+    },
+    {
+      "id": "em04",
+      "dificultad": "media",
+      "pregunta": "Para que una ventana cuadrada de 2 metros de lado no deje pasar el viento, debes sellar todo su borde. ¿Cuántos metros de sello necesitas?",
+      "opciones": ["2 metros", "4 metros", "8 metros", "6 metros"],
+      "respuesta_correcta": 2,
+      "explicacion": "El perímetro de la ventana es 4 × lado. Entonces, 4 × 2 = 8 metros de sello para recorrer todo el borde."
+    },
+    {
+      "id": "em05",
+      "dificultad": "muy_dificil",
+      "pregunta": "Un triángulo tiene un lado que mide 3 cm, otro de 4 cm y otro de 5 cm. Si quieres rodearlo con un cordón, ¿cuánto cordón necesitas?",
+      "opciones": ["12 cm", "20 cm", "9 cm", "15 cm"],
+      "respuesta_correcta": 0,
+      "explicacion": "El perímetro de un triángulo es la suma de sus tres lados: 3 + 4 + 5 = 12 cm."
+    },
+    {
+      "id": "em06",
+      "dificultad": "media",
+      "pregunta": "Quieres cubrir una mesa rectangular de 5 metros de largo por 2 metros de ancho con un mantel. ¿Cuánta tela necesitas?",
+      "opciones": ["7 metros cuadrados", "14 metros cuadrados", "10 metros cuadrados", "20 metros cuadrados"],
+      "respuesta_correcta": 2,
+      "explicacion": "Para cubrir la superficie necesitas el área: base × altura. Entonces, 5 × 2 = 10 metros cuadrados de tela."
+    },
+    {
+      "id": "em07",
+      "dificultad": "media",
+      "pregunta": "El piso de una pieza cuadrada mide 3 metros por cada lado. ¿Cuántos metros cuadrados de alfombra necesitas para cubrirlo completamente?",
+      "opciones": ["6 metros cuadrados", "12 metros cuadrados", "9 metros cuadrados", "3 metros cuadrados"],
+      "respuesta_correcta": 2,
+      "explicacion": "El área del cuadrado es lado × lado. Entonces, 3 × 3 = 9 metros cuadrados de alfombra."
+    },
+    {
+      "id": "em08",
+      "dificultad": "dificil",
+      "pregunta": "Para pintar una pared rectangular de 6 metros de alto y 4 metros de ancho, ¿cuántos metros cuadrados de superficie debes pintar?",
+      "opciones": ["10 metros cuadrados", "24 metros cuadrados", "20 metros cuadrados", "12 metros cuadrados"],
+      "respuesta_correcta": 1,
+      "explicacion": "El área de la pared es base × altura. Entonces, 6 × 4 = 24 metros cuadrados."
+    },
+    {
+      "id": "em09",
+      "dificultad": "dificil",
+      "pregunta": "Un rectángulo tiene un área de 12 cm². Si su base mide 4 cm, ¿cuánto mide su altura?",
+      "opciones": ["3 cm", "8 cm", "4 cm", "6 cm"],
+      "respuesta_correcta": 0,
+      "explicacion": "Sabemos que el área es base × altura. Si el área es 12 y la base es 4, entonces la altura debe ser 3 (porque 4 × 3 = 12)."
+    },
+    {
+      "id": "em10",
+      "dificultad": "muy_dificil",
+      "pregunta": "Tienes un cuadrado de papel de 10 cm de lado y quieres recortar un rectángulo de 5 cm de base por 3 cm de altura en su interior. ¿Cuál es el área del rectángulo que recortaste?",
+      "opciones": ["30 cm²", "15 cm²", "50 cm²", "8 cm²"],
+      "respuesta_correcta": 1,
+      "explicacion": "El área del rectángulo recortado es base × altura = 5 × 3 = 15 cm². ¡El tamaño del papel cuadrado no importa para calcular el área del recorte!"
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Cercar",
+      "emoji": "🚧",
+      "definicion": "Poner una cerca o borde alrededor de un lugar (perímetro)."
+    },
+    {
+      "termino": "Cubrir",
+      "emoji": "🎨",
+      "definicion": "Llenar una superficie con algo (área)."
+    }
+  ]
+}

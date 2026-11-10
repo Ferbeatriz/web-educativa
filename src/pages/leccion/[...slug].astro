@@ -345,13 +345,8 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
       <!-- 📖 GLOSARIO -->
       <Glosario palabras={glosario} />
 
-      {leccion.id === 'perimetro' ? (
-        <LaboratorioPerimetro />
-      ) : null}
-
-      {leccion.id === 'area' ? (
-        <LaboratorioArea />
-      ) : null}
+      {(leccion.id === 'perimetro' || leccion.id === 'ejercicios-medicion') &&                      <LaboratorioPerimetro />}
+{(leccion.id === 'area' || leccion.id === 'ejercicios-medicion') && <LaboratorioArea />}
 
 <!-- ANÁLISIS GUIADO -->
       {leccion.analisis && (

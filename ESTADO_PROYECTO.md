@@ -192,12 +192,21 @@ web-educativa/
 - El "Laboratorio de Operaciones con Fracciones" ahora funciona como un modal flotante en todas las lecciones de fracciones.
 - *Regla de trabajo:* A partir de hoy, se debe activar el protocolo de respaldo (Git + actualización de documentación) antes de cerrar cada sesión o cambiar de tema.
 
-### 2026-11-09 (Tarde)
-- **Matemáticas:** Completadas las lecciones de Perímetro (OA 21) y Área (OA 23).
-- **Teoría:** Rediseñada con un enfoque narrado y ejemplos cotidianos para 3° básico.
-- **Componentes:** Creados `LaboratorioPerimetro.astro` y `LaboratorioArea.astro` que permiten visualizar y calcular el perímetro (cerca) y el área (cuadrícula) de forma interactiva.
-- **Alerta Cline:** El asistente Cline falló repetidamente al intentar modificar archivos (ignoró las reglas del archivo `.clinerules` y usó Python). Se establece que a partir de ahora el código se pegará manualmente.
 
+### 2026-11-10 (Tarde)
+- **Matemáticas:** Completadas las lecciones de Perímetro (OA 21) y Área (OA 23).
+- **Teoría Visual:** Se agregaron animaciones SVG (un punto que recorre el perímetro) y animaciones CSS (cuadraditos que llenan el área) en las lecciones. Las fórmulas ahora incluyen la nomenclatura de lados con letras (a, b).
+- **Navegación:** Se corrigió el sistema de navegación en `materia/[id].astro` para que el botón "Atrás" del navegador mantenga al usuario en la categoría que estaba viendo (usando `history.pushState` y anclas `#grupo-...`).
+- **Nombre de Categoría:** Se cambió el nombre técnico "medicion" por "Área y Perímetro" en la vista de categorías.
+
+
+
+### 2026-11-10 (Tarde)
+- **Matemáticas:** Completadas las lecciones de Perímetro (OA 21) y Área (OA 23).
+- **Teoría Visual:** Se agregaron animaciones SVG (punto que recorre el perímetro) y animaciones CSS (cuadraditos que llenan el área) en las lecciones. Las fórmulas ahora incluyen la nomenclatura de lados con letras (a, b).
+- **Navegación:** Se corrigió el sistema de navegación en `materia/[id].astro` para que el botón "Atrás" del navegador mantenga al usuario en la categoría que estaba viendo (usando `history.pushState` y anclas `#grupo-...`).
+- **Categorías:** Se cambió el nombre técnico "medicion" por "Área y Perímetro" en la vista de categorías de Matemáticas.
+- **Commit:** 2429007.
 
 ### Fases completadas
 

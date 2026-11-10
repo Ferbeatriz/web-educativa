@@ -37,11 +37,13 @@ Por favor, lee esos archivos primero y luego continuamos."
 - `ROADMAP_3_MESES.md` → Plan de 3 meses (gamificación, apoderado, portafolio).
 ---
 
-## Estado actual (2026-11-09)
-- **Matemáticas:** Módulo de Fracciones 100% completo. Nuevas lecciones de Perímetro y Área listas con teoría y laboratorios interactivos.
-- **Lenguaje:** Club de Lectura con pestañas de "Comprensión" y "Análisis Guiado" (funcionando en Bartolo).
-- **Protocolo:** A partir de esta fecha, se exige que la IA entregue el código completo para que la usuaria lo pegue manualmente. NO SE DEBE CONFIAR EN LA EDICIÓN DE ARCHIVOS AUTOMÁTICA por parte de asistentes como Cline.
-
+## Estado actual (2026-11-10)
+- **Matemáticas:** El módulo de Fracciones, Perímetro y Área está 100% completo. Los laboratorios interactivos y las animaciones visuales funcionan.
+- **Navegación:** Las categorías de materias ahora usan anclas en la URL, por lo que la navegación (adelante/atrás) funciona correctamente.
+- **Pendientes prioritarios:** 
+  1. Reparar el audio del módulo de Música (metalófono).
+  2. Comenzar el Mes 3 (Portafolio, notificaciones, etc.).
+- **Protocolo IA:** Cline ha fallado repetidamente en la edición de archivos (ignorando `.clinerules` y usando Python). Se recomienda encarecidamente que el usuario pegue el código manualmente y use la IA solo para generar el código.
 ## 🚨 Protocolo Obligatorio de Respaldo y Traspaso
 **Regla de oro:** La IA a cargo NUNCA debe terminar una sesión de trabajo sin recordarle a la usuaria realizar los siguientes dos pasos. 
 **Cuándo activar:** Al terminar un componente, al cambiar de materia, o cuando la conversación sea muy extensa.

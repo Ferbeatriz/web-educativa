@@ -164,6 +164,19 @@
       "archivo": "lecciones/examen-fracciones.json",
       "activo": true,
       "grupo": "fracciones"
+    },
+
+    {
+      "id": "ejercicios-medicion",
+      "titulo": "Desafíos de Área y Perímetro 📐",
+      "emoji": "📐",
+      "orden": 14,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/ejercicios-medicion.json",
+      "activo": true,
+      "grupo": "medicion"
     }
+
   ]
 }
