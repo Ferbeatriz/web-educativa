@@ -179,6 +179,12 @@ web-educativa/
 ## ✅ Estado actual (2026-11-06)
 
 ### Últimos avances (2026-11-06)
+
+### 2026-11-09
+- **Club de Lectura:** Se implementó el sistema de pestañas (Trivia / Análisis Guiado) en la vista de los libros.
+- **Tutor de Análisis:** El componente `TutorAnalisis.astro` es totalmente funcional. Muestra fragmentos de texto y pasos guiados con opciones mezcladas y feedback personalizado.
+- **Trivia:** Se corrigió la inyección de datos para que `CuestionarioAleatorio.astro` lea la `configuracion` del `meta.json` y renderice las preguntas correctamente.
+- **Base de Datos:** Creado el `banco-analisis.json` para "La cama mágica de Bartolo". Los archivos para Manú y El Lugar quedaron creados vacíos para futuras implementaciones.
 - Se completó la sección de Fracciones en Matemáticas:
   - Nueva lección "Múltiplos y Equivalentes" (explicación del m.c.m y fracciones equivalentes).
   - Visualización de círculos (conic-gradient) en la teoría de suma y división.

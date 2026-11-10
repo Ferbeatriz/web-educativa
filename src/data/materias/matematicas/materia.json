@@ -133,10 +133,32 @@
       "grupo": "fracciones"
     },
     {
+      "id": "perimetro",
+      "titulo": "Perímetro 📏",
+      "emoji": "📏",
+      "orden": 12,
+      "nivel": "basico",
+      "duracion_estimada_min": 30,
+      "archivo": "lecciones/perimetro.json",
+      "activa": true,
+      "grupo": "medicion"
+    },
+    {
+      "id": "area",
+      "titulo": "Área 🟦",
+      "emoji": "🟦",
+      "orden": 13,
+      "nivel": "basico",
+      "duracion_estimada_min": 30,
+      "archivo": "lecciones/area.json",
+      "activa": true,
+      "grupo": "medicion"
+    },
+    {
       "id": "examen-fracciones",
       "titulo": "Examen Final",
       "emoji": "\ud83c\udfc6",
-      "orden": 12,
+      "orden": 14,
       "nivel": "basico",
       "duracion_estimada_min": 30,
       "archivo": "lecciones/examen-fracciones.json",

@@ -1,0 +1,83 @@
+---
+// Laboratorio de Área (OA 23)
+---
+
+<div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 max-w-3xl mx-auto my-8 border border-gray-100">
+  <h2 class="text-2xl font-extrabold text-gray-800 text-center mb-2">🟦 Laboratorio de Área</h2>
+  <p class="text-center text-gray-500 mb-6">El área es la cantidad de cuadraditos de 1x1 que caben dentro de una figura.</p>
+
+  <!-- Controles -->
+  <div class="flex flex-col md:flex-row justify-center gap-6 mb-8 bg-gray-50 p-4 rounded-xl">
+    <div class="flex flex-col items-center">
+      <label class="text-sm font-bold text-gray-600 mb-2">Base (cuadraditos)</label>
+      <input type="number" id="input-base" min="1" max="8" value="4" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-green-500 focus:outline-none">
+    </div>
+    <div class="flex flex-col items-center">
+      <label class="text-sm font-bold text-gray-600 mb-2">Altura (cuadraditos)</label>
+      <input type="number" id="input-altura" min="1" max="8" value="3" class="w-24 text-center text-lg font-bold border-2 border-gray-300 rounded-lg py-2 focus:border-green-500 focus:outline-none">
+    </div>
+  </div>
+
+  <!-- Visualización de la cuadrícula -->
+  <div class="flex flex-col items-center justify-center min-h-[300px] mb-6">
+    <div id="cuadricula" class="grid gap-1 bg-gray-100 p-2 rounded-lg border-2 border-gray-300">
+      <!-- Los cuadraditos se generan por JS -->
+    </div>
+  </div>
+
+  <!-- Resultado -->
+  <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-xl">
+    <p class="text-green-900 font-bold mb-1">Explicación paso a paso:</p>
+    <p id="resultado-texto" class="text-lg text-green-800"></p>
+  </div>
+</div>
+
+<script>
+  const inputBase = document.getElementById('input-base') as HTMLInputElement;
+  const inputAltura = document.getElementById('input-altura') as HTMLInputElement;
+  const cuadricula = document.getElementById('cuadricula') as HTMLElement;
+  const resultadoTexto = document.getElementById('resultado-texto') as HTMLElement;
+
+  function actualizarArea() {
+    let base = parseInt(inputBase.value) || 1;
+    let altura = parseInt(inputAltura.value) || 1;
+    
+    // Límites para que no se desborde la pantalla
+    if (base > 8) base = 8;
+    if (altura > 8) altura = 8;
+    inputBase.value = base.toString();
+    inputAltura.value = altura.toString();
+
+    // Configurar la cuadrícula CSS
+    cuadricula.style.gridTemplateColumns = `repeat(${base}, 1fr)`;
+    cuadricula.innerHTML = '';
+
+    // Crear los cuadraditos
+    const totalCuadraditos = base * altura;
+    for (let i = 0; i < totalCuadraditos; i++) {
+      const cuadrado = document.createElement('div');
+      cuadrado.className = 'w-10 h-10 md:w-12 md:h-12 bg-green-400 rounded-sm shadow-sm transition-all duration-300';
+      // Animación de entrada
+      cuadrado.style.opacity = '0';
+      setTimeout(() => {
+        cuadrado.style.opacity = '1';
+      }, i * 30);
+      
+      cuadricula.appendChild(cuadrado);
+    }
+
+    // Calcular área
+    const area = base * altura;
+    resultadoTexto.innerHTML = `
+      Para saber el área, multiplicamos la base por la altura.<br>
+      <strong>A = ${base} × ${altura} = ${area} cuadraditos</strong>.<br>
+      <span class="text-sm text-green-600 mt-2 block">¡La figura ocupa un espacio de ${area} unidades cuadradas!</span>
+    `;
+  }
+
+  inputBase.addEventListener('input', actualizarArea);
+  inputAltura.addEventListener('input', actualizarArea);
+
+  // Inicializar
+  actualizarArea();
+</script>

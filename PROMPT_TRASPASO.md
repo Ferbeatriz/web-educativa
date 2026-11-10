@@ -37,9 +37,11 @@ Por favor, lee esos archivos primero y luego continuamos."
 - `ROADMAP_3_MESES.md` → Plan de 3 meses (gamificación, apoderado, portafolio).
 ---
 
-## 🎯 Estado actual (commit `45f90c1`, 2026-10-15)
-
-
+## 🎯 Estado actual (2026-11-09)
+- **Lenguaje:** El Club de Lectura cuenta ahora con dos pestañas: "Comprensión y Trivia" y "Análisis Guiado". 
+- **Análisis Guiado:** Implementado en "La cama mágica de Bartolo" (banco-analisis.json). Incluye el componente `TutorAnalisis.astro` (que mezcla opciones y da feedback paso a paso).
+- **Matemáticas:** Módulo de fracciones 100% completado (lecciones, laboratorio de operaciones y trivias ampliadas).
+- **Próximo paso:** Iniciar la creación de bancos de análisis para los otros libros del Club de Lectura (Manú y El Lugar) o retomar el módulo de Música (audio del metalófono).
 > Última actualización: 2026-11-06
 > Commit de referencia: ( 5237d0d..4a1b606  )
 

@@ -1,0 +1,96 @@
+{
+  "id": "perimetro",
+  "materia_id": "matematicas",
+  "tema": "perimetro",
+  "subtema": "basico",
+  "titulo": "Perímetro 📏",
+  "categoria": "Matemáticas",
+  "emoji": "📏",
+  "progreso_puntos": 150,
+  "descripcion": "Aprende a calcular el perímetro de figuras geométricas.",
+    "contenido_modulos": [
+    "# 📏 ¡Bienvenida al mundo del Perímetro!\n\nHoy vamos a aprender a medir el **borde** de las figuras. Imagina que quieres poner una cerca de madera alrededor de tu jardín. Para saber cuánta madera comprar, necesitas medir todo el contorno. ¡Eso es el perímetro!\n\nEl **perímetro** es la distancia total que recorre el borde de una figura. Se mide en unidades de longitud, como centímetros (cm) o metros (m).",
+    "# 🟦 El Perímetro del Rectángulo\n\nEl rectángulo tiene 4 lados, pero no todos son iguales: tiene dos lados largos (la base) y dos lados cortos (la altura).\n\nPara calcular su perímetro, podemos sumar sus 4 lados:\n**P = base + altura + base + altura**\n\nO, para hacerlo más rápido, sumamos una base más una altura y lo multiplicamos por 2 (porque hay dos de cada uno):\n**P = 2 × (base + altura)**\n\n*Ejemplo: Si un rectángulo tiene 5 cm de base y 3 cm de altura, su perímetro es 2 × (5 + 3) = 16 cm.*\n\n> **Idea fuerza**: Para el rectángulo, suma la base y la altura, y multiplica por 2.",
+    "# 🟨 El Perímetro del Cuadrado\n\nEl cuadrado es muy especial: ¡sus 4 lados son exactamente iguales! Por eso, no necesitamos sumar lados diferentes.\n\nPara calcular su perímetro, solo tenemos que sumar sus 4 lados:\n**P = lado + lado + lado + lado**\n\nO, lo que es lo mismo, multiplicar la medida de un lado por 4:\n**P = 4 × lado**\n\n*Ejemplo: Si un cuadrado tiene 4 cm de lado, su perímetro es 4 × 4 = 16 cm.*\n\n> **Idea fuerza**: Para el cuadrado, solo mide un lado y multiplícalo por 4."
+  ],
+  "banco_preguntas": [
+    {
+      "id": "pe01",
+      "pregunta": "¿Qué es el perímetro de una figura geométrica?",
+      "opciones": ["La distancia total alrededor de la figura", "El área de la figura", "La altura de la figura", "El volumen de la figura"],
+      "respuesta_correcta": 0,
+      "explicacion": "El perímetro es la distancia total alrededor de la figura, sumando la longitud de todos sus lados."
+    },
+    {
+      "id": "pe02",
+      "pregunta": "¿Cuál es la fórmula para calcular el perímetro de un rectángulo?",
+      "opciones": ["P = base × altura", "P = 2 × (base + altura)", "P = 4 × lado", "P = base + altura"],
+      "respuesta_correcta": 1,
+      "explicacion": "La fórmula P = 2 × (base + altura) considera los dos lados de base y los dos lados de altura."
+    },
+    {
+      "id": "pe03",
+      "pregunta": "¿Cuál es la fórmula para el perímetro de un cuadrado?",
+      "opciones": ["P = base × altura", "P = 2 × (base + altura)", "P = 4 × lado", "P = lado + lado"],
+      "respuesta_correcta": 2,
+      "explicacion": "Como los cuatro lados son iguales, multiplicamos el lado por 4."
+    },
+    {
+      "id": "pe04",
+      "pregunta": "¿Cuál es el perímetro de un rectángulo de base 5 cm y altura 3 cm?",
+      "opciones": ["8 cm", "15 cm", "16 cm", "30 cm"],
+      "respuesta_correcta": 2,
+      "explicacion": "P = 2 × (5 + 3) = 2 × 8 = 16 cm"
+    },
+    {
+      "id": "pe05",
+      "pregunta": "¿Cuál es el perímetro de un cuadrado de lado 7 cm?",
+      "opciones": ["14 cm", "21 cm", "28 cm", "35 cm"],
+      "respuesta_correcta": 2,
+      "explicacion": "P = 4 × 7 = 28 cm"
+    },
+    {
+      "id": "pe06",
+      "pregunta": "¿Cuál es el perímetro de una figura con lados de 2 cm, 4 cm, 2 cm y 4 cm?",
+      "opciones": ["10 cm", "12 cm", "14 cm", "16 cm"],
+      "respuesta_correcta": 1,
+      "explicacion": "2 + 4 + 2 + 4 = 12 cm"
+    },
+    {
+      "id": "pe07",
+      "pregunta": "Un rectángulo tiene perímetro de 24 cm y base de 7 cm. ¿Cuál es su altura?",
+      "opciones": ["3 cm", "4 cm", "5 cm", "6 cm"],
+      "respuesta_correcta": 2,
+      "explicacion": "24 = 2 × (7 + altura) → 12 = 7 + altura → altura = 5 cm"
+    },
+    {
+      "id": "pe08",
+      "pregunta": "¿Cuál es el perímetro de un triángulo equilátero con lado de 6 cm?",
+      "opciones": ["6 cm", "12 cm", "18 cm", "24 cm"],
+      "respuesta_correcta": 2,
+      "explicacion": "P = 6 + 6 + 6 = 18 cm"
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Perímetro",
+      "emoji": "📏",
+      "definicion": "La distancia total alrededor de una figura geométrica, obtenida sumando la longitud de todos sus lados."
+    },
+    {
+      "termino": "Rectángulo",
+      "emoji": "📐",
+      "definicion": "Una figura con cuatro lados y cuatro ángulos rectos, donde los lados opuestos son iguales."
+    },
+    {
+      "termino": "Cuadrado",
+      "emoji": "✓",
+      "definicion": "Una figura con cuatro lados iguales y cuatro ángulos rectos."
+    }
+  ],
+  "duracion_estimada_min": 30,
+  "nivel": "basico",
+  "activa": true,
+  "archivo": "lecciones/perimetro.json",
+  "grupo": "medicion"
+}

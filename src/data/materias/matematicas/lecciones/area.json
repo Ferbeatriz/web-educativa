@@ -1,0 +1,97 @@
+{
+  "id": "area",
+  "materia_id": "matematicas",
+  "tema": "area",
+  "subtema": "basico",
+  "titulo": "Área 🟦",
+  "categoria": "Matemáticas",
+  "emoji": "🟦",
+  "progreso_puntos": 150,
+  "descripcion": "Aprende a calcular el área de figuras geométricas.",
+
+  "contenido_modulos": [    
+    "# 🟦 ¡Bienvenida al mundo del Área!\n\nAhora que ya sabemos medir el borde (perímetro), vamos a aprender a medir el **espacio que ocupa** una figura por dentro. Imagina que quieres pintar una pared o cubrir una mesa con un mantel. Para saber cuánta pintura o tela necesitas, debes calcular el área.\n\nEl **área** es la medida de la superficie que está dentro de una figura. Se mide en **unidades cuadradas** (como cm² o m²), porque estamos contando cuántos cuadraditos de 1x1 caben dentro.",
+    "# 🟦 El Área del Rectángulo\n\nImagina que tienes un rectángulo formado por muchos cuadraditos de 1x1. Para saber cuántos cuadraditos hay en total, no necesitas contarlos uno por uno. ¡Puedes usar una fórmula!\n\nPara calcular el área del rectángulo, multiplicamos la medida de su base por la medida de su altura:\n**A = base × altura**\n\n*Ejemplo: Si un rectángulo tiene 5 cm de base y 3 cm de altura, su área es 5 × 3 = 15 cm².*\n\n> **Idea fuerza**: El área del rectángulo es base por altura.",
+    "# 🟨 El Área del Cuadrado\n\nComo el cuadrado es un caso especial de rectángulo (donde todos sus lados miden lo mismo), su fórmula es muy parecida.\n\nEn lugar de multiplicar base por altura, multiplicamos lado por lado:\n**A = lado × lado**\n\n*Ejemplo: Si un cuadrado tiene 4 cm de lado, su área es 4 × 4 = 16 cm².*\n\n> **Idea fuerza**: El área del cuadrado es lado por lado."
+  ],
+  "banco_preguntas": [
+    {
+      "id": "ar01",
+      "pregunta": "¿Qué representa el área de una figura geométrica?",
+      "opciones": ["La distancia total alrededor de la figura", "La superficie que ocupa la figura", "El perímetro de la figura", "El volumen de la figura"],
+      "respuesta_correcta": 1,
+      "explicacion": "El área representa la superficie que ocupa la figura, es decir, cuántas unidades cuadradas caben dentro de ella."
+    },
+    {
+      "id": "ar02",
+      "pregunta": "¿Cuál es la fórmula para el área de un rectángulo?",
+      "opciones": ["A = base × altura", "A = 2 × (base + altura)", "A = 4 × lado", "A = base + altura"],
+      "respuesta_correcta": 0,
+      "explicacion": "El área de un rectángulo se calcula multiplicando su base por su altura."
+    },
+    {
+      "id": "ar03",
+      "pregunta": "¿Cuál es la fórmula para el área de un cuadrado?",
+      "opciones": ["A = base × altura", "A = 2 × (base + altura)", "A = lado × lado", "A = base + altura"],
+      "respuesta_correcta": 2,
+      "explicacion": "Como todos los lados son iguales, multiplicamos el lado por sí mismo."
+    },
+    {
+      "id": "ar04",
+      "pregunta": "¿Cuál es el área de un rectángulo de base 5 cm y altura 3 cm?",
+      "opciones": ["8 cm²", "15 cm²", "20 cm²", "30 cm²"],
+      "respuesta_correcta": 1,
+      "explicacion": "A = 5 × 3 = 15 cm²"
+    },
+    {
+      "id": "ar05",
+      "pregunta": "¿Cuál es el área de un cuadrado de lado 6 cm?",
+      "opciones": ["12 cm²", "18 cm²", "24 cm²", "36 cm²"],
+      "respuesta_correcta": 3,
+      "explicacion": "A = 6 × 6 = 36 cm²"
+    },
+    {
+      "id": "ar06",
+      "pregunta": "¿Cuál es el área de un triángulo con base 8 cm y altura 5 cm?",
+      "opciones": ["20 cm²", "30 cm²", "40 cm²", "45 cm²"],
+      "respuesta_correcta": 1,
+      "explicacion": "A = (8 × 5) ÷ 2 = 40 ÷ 2 = 20 cm²"
+    },
+    {
+      "id": "ar07",
+      "pregunta": "Un rectángulo tiene área de 42 cm² y base de 7 cm. ¿Cuál es su altura?",
+      "opciones": ["3 cm", "6 cm", "7 cm", "14 cm"],
+      "respuesta_correcta": 1,
+      "explicacion": "42 = 7 × altura → altura = 42 ÷ 7 = 6 cm"
+    },
+    {
+      "id": "ar08",
+      "pregunta": "¿Cuál es el área de un triángulo con base 6 cm y altura 4 cm?",
+      "opciones": ["12 cm²", "24 cm²", "36 cm²", "48 cm²"],
+      "respuesta_correcta": 0,
+      "explicacion": "A = (6 × 4) ÷ 2 = 24 ÷ 2 = 12 cm²"
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Área",
+      "emoji": "🟦",
+      "definicion": "La medida de la superficie que ocupa una figura geométrica, expresada en unidades cuadradas."
+    },
+    {
+      "termino": "Rectángulo",
+      "emoji": "📐",
+      "definicion": "Una figura con cuatro lados y cuatro ángulos rectos, donde los lados opuestos son iguales."
+    },
+    {
+      "termino": "Cuadrado",
+      "emoji": "✓",
+      "definicion": "Una figura con cuatro lados iguales y cuatro ángulos rectos."
+    }
+  ],
+  "duracion_estimada_min": 30,
+  "nivel": "basico",
+  "activa": true,
+  "archivo": "lecciones/area.json",
+  "grupo": "medicion"
+}

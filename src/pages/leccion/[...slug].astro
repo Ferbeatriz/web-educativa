@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import TriviaQuiz from '../../components/TriviaQuiz.astro';
 import { marked } from 'marked';
+import LaboratorioPerimetro from '../../components/ejercicios/LaboratorioPerimetro.astro';
+import LaboratorioArea from '../../components/ejercicios/LaboratorioArea.astro';
 import BarraProgresoLectura from '../../components/BarraProgresoLectura.astro';
 import BotonCompletar from '../../components/BotonCompletar.astro';
 import Glosario from '../../components/Glosario.astro';
@@ -342,6 +344,15 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
 
       <!-- 📖 GLOSARIO -->
       <Glosario palabras={glosario} />
+
+      {leccion.id === 'perimetro' ? (
+        <LaboratorioPerimetro />
+      ) : null}
+
+      {leccion.id === 'area' ? (
+        <LaboratorioArea />
+      ) : null}
+
 <!-- ANÁLISIS GUIADO -->
       {leccion.analisis && (
         <TutorAnalisis analisis={leccion.analisis} />
