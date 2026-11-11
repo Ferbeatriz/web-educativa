@@ -208,6 +208,20 @@ web-educativa/
 - **Categorías:** Se cambió el nombre técnico "medicion" por "Área y Perímetro" en la vista de categorías de Matemáticas.
 - **Commit:** 2429007.
 
+### 2026-11-10 (Noche)
+- **Matemáticas (Geometría):** Módulo 100% terminado.
+- **Nuevas Lecciones:** Se agregó la lección de "Desafíos de Área y Perímetro" con 10 problemas contextualizados (word problems) de la vida real.
+- **Simuladores:** Los laboratorios de Perímetro (📏) y Área (🟦) ahora funcionan como botones flotantes (FAB) y ventanas modales. Se les asignaron IDs únicos para evitar conflictos cuando coexisten en la misma lección.
+- **Interacción:** Los simuladores permiten ver las medidas dinámicamente en los lados de las figuras y actualizan la explicación matemática en tiempo real.
+- **Commit de referencia:** (anotar el hash del commit que acabas de hacer).
+
+### 2026-11-11 (Tutor Docente IA)
+- **Tutor Docente:** Totalmente funcional en el panel de admin.
+- **Backend:** Endpoint `POST /api/docente/chat` usando Groq (`openai/gpt-oss-20b`). La API Key está guardada como secreto en Cloudflare (`GROQ_API_KEY`).
+- **Frontend:** Componente `TutorDocente.astro` con CSS puro (para no depender de Tailwind en el admin) y renderizado de Markdown usando la librería `marked`.
+- **Prompt:** Se instruyó a la IA para no usar tablas y enfocarse en pedagogía chilena.
+
+
 ### Fases completadas
 
 | Fase | Componente | Estado |

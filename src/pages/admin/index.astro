@@ -1,5 +1,8 @@
 ---
 // Panel admin: dashboard principal con estadísticas
+
+import TutorDocente from '../../components/admin/TutorDocente.astro'; // <-- Importamos el Tutor
+
 ---
 
 <!DOCTYPE html>
@@ -258,6 +261,9 @@
         </div>
       </main>
     </div>
+
+    <!-- NUEVO: Componente del Tutor flotante -->
+    <TutorDocente />
 
     <script>
       import { verificarAdmin, logoutAdmin, getToken } from '../../lib/admin';

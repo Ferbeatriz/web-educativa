@@ -38,11 +38,16 @@ Por favor, lee esos archivos primero y luego continuamos."
 ---
 
 ## Estado actual (2026-11-10)
-- **Matemáticas:** El módulo de Fracciones, Perímetro y Área está 100% completo. Los laboratorios interactivos y las animaciones visuales funcionan.
-- **Navegación:** Las categorías de materias ahora usan anclas en la URL, por lo que la navegación (adelante/atrás) funciona correctamente.
-- **Pendientes prioritarios:** 
-  1. Reparar el audio del módulo de Música (metalófono).
-  2. Comenzar el Mes 3 (Portafolio, notificaciones, etc.).
+- **Matemáticas:** Eje de Números y Operaciones (básico) + Geometría/Medición (completado). Los módulos de Fracciones, Perímetro y Área están 100% operativos.
+- **Lenguaje:** Comprensión lectora (Trivia + Análisis Guiado) funcionando en el Club de Lectura.
+- **Música:** Metalófono virtual creado, pero con problemas de audio pendientes.
+- **Próximos pasos sugeridos:** 
+  1. Reparar el audio del Metalófono.
+  2. Iniciar el eje de Escritura en Lenguaje (OA 12-22).
+  3. Comenzar el Mes 3 del roadmap (Portafolio / Notificaciones).
+
+
+
 - **Protocolo IA:** Cline ha fallado repetidamente en la edición de archivos (ignorando `.clinerules` y usando Python). Se recomienda encarecidamente que el usuario pegue el código manualmente y use la IA solo para generar el código.
 ## 🚨 Protocolo Obligatorio de Respaldo y Traspaso
 **Regla de oro:** La IA a cargo NUNCA debe terminar una sesión de trabajo sin recordarle a la usuaria realizar los siguientes dos pasos. 
@@ -51,13 +56,10 @@ Por favor, lee esos archivos primero y luego continuamos."
 1. **Git:** Recordar a la usuaria ejecutar `git add .`, `git commit`, `git push`.
 2. **Documentación:** Generar la actualización de `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con el resumen de avances.
 
-## Estado actual
-- **Matemáticas (Fracciones):** Módulo 100% completado. Se agregó la lección "Múltiplos y Equivalentes 🧩" (orden 7). Se mejoró la teoría de operaciones con visualizaciones en el Módulo 1 (suma) y Módulo 4 (división). Se ampliaron los bancos de preguntas a 10 por lección (con IDs únicos para evitar fallos en TriviaRotativa).
-- **Laboratorio de Operaciones:** Componente flotante funcional (botón 🧮) que permite operar fracciones visualmente.
-- **Pendientes:** 
-  - Módulo de Música: Arreglar el audio del metalófono y el botón de Auto-play.
-  - Mes 3 (Roadmap): Iniciar Análisis Guiado en Lenguaje.
 
+## Estado actual (2026-11-11)
+- **Tutor Docente (IA):** Integrado y funcionando. Usa Groq. Para migrar a DeepSeek o Claude, solo se debe cambiar la URL, la API Key y el modelo en `workers/api/src/routes/docente.ts`.
+- **Pendientes:** Reparar audio del Metalófono o avanzar con Escritura en Lenguaje.
 
 
 ### Últimas sesiones cerradas

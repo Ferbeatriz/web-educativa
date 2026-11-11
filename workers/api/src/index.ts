@@ -51,14 +51,18 @@ import {
 import { handleTestEmail } from './routes/admin-email';
 import { handleRegistrarIntento } from './routes/tutor';
 
+// NUEVO: Importar el tutor docente
+import { handleDocenteChat } from './routes/docente';
 
 import type { EnvEmail } from './lib/email';
+
 type Env = EnvAuth & EnvAdmin & EnvEmail & { 
   DB: D1Database; 
   ENVIRONMENT: string; 
   APP_NAME: string;
   ADMIN_EMAIL: string;
   INTENTOS_SALT: string;
+  GROQ_API_KEY: string; // NUEVO: Agregamos la llave de Groq
 };
 
 export default {
@@ -127,8 +131,14 @@ export default {
             'GET    /api/admin/alumnas/:id/progreso',
             'POST   /api/progreso/completar  (ahora notifica al admin)',
             'POST   /api/tutor/registrar-intento',
+            'POST   /api/docente/chat', // NUEVO
           ],
         });
+      }
+
+      // ---------- Docente (Tutor IA) ----------
+      if (path === '/api/docente/chat' && method === 'POST') {
+        return await handleDocenteChat(request, env);
       }
 
       // ---------- Auth (alumnas) ----------
@@ -156,7 +166,7 @@ export default {
         return await handleProgresoCompleto(request, env);
       }
 
-            const matchLeccion = path.match(/^\/api\/progreso\/leccion\/([^\/]+)$/);
+      const matchLeccion = path.match(/^\/api\/progreso\/leccion\/([^\/]+)$/);
       if (matchLeccion && method === 'GET') {
         return await handleEstadoLeccion(request, env, matchLeccion[1]);
       }
@@ -172,13 +182,10 @@ export default {
         return await handleProgresoPorMateria(request, env);
       }
 
-          // ---------- Tutor ----------
-          
+      // ---------- Tutor ----------
       if (path === '/api/tutor/registrar-intento' && method === 'POST') {
         return await handleRegistrarIntento(request, env);
       }
-
-
 
       // ---------- Admin: auth ----------
       if (path === '/api/admin/login' && method === 'POST') {
