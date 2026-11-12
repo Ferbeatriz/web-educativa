@@ -1,0 +1,134 @@
+{
+  "id": "planetas-sistema-solar",
+  "titulo": "Los planetas del Sistema Solar 🌌",
+  "categoria": "Ciencias Naturales",
+  "emoji": "🌌",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "### Módulo 1: El Sistema Solar y sus protagonistas\n¡Hola! Hoy vamos a explorar el maravilloso conjunto de cuerpos celestes que giran alrededor del Sol. Imagínate una pista de baile gigante donde el Sol es el centro y los planetas dan vueltas a su alrededor. Cada planeta tiene su propio estilo, tamaño y características. En este módulo conocerás la estructura básica del Sistema Solar y la diferencia entre planetas y asteroides.\n",
+    "### Módulo 2: Los planetas, uno por uno\nAhora que ya sabes quiénes son los protagonistas, vamos a sumergirnos en cada uno de ellos. Empezaremos con los planetas más cercanos al Sol: Mercurio y Venus. Luego, veremos a la Tierra y Marte, antes de entrar en el mundo de los gigantes gaseosos: Júpiter, Saturno, Urano y Neptuno. Al final, también hablaremos brevemente sobre el planeta recién descubierto Plutón, que hoy es considerado un planeta enano. <div class='bg-yellow-100 p-2 rounded'>¡Dato curioso! Júpiter tiene un enorme ojo rojo que es una tormenta que ha estado activa por cientos de años.</div>"
+  ],
+  "banco_trivia": [
+    {
+      "id": "p01",
+      "dificultad": "media",
+      "pregunta": "¿Cuál es el planeta más grande del Sistema Solar?",
+      "opciones": [
+        "A. Tierra",
+        "B. Marte",
+        "C. Júpiter",
+        "D. Venus"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "Júpiter es el planeta más grande, con un diámetro casi 11 veces mayor que el de la Tierra."
+    },
+    {
+      "id": "p02",
+      "dificultad": "media",
+      "pregunta": "¿Qué planeta es conocido por sus anillos espectaculares?",
+      "opciones": [
+        "A. Saturno",
+        "B. Neptuno",
+        "C. Urano",
+        "D. Marte"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Saturno tiene los anillos más famosos y visibles del Sistema Solar."
+    },
+    {
+      "id": "p03",
+      "dificultad": "dificil",
+      "pregunta": "¿Cuál planeta tiene más lunas reconocidas en el Sistema Solar?",
+      "opciones": [
+        "A. Júpiter",
+        "B. Saturno",
+        "C. Neptuno",
+        "D. Urano"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Júpiter cuenta con 79 lunas confirmadas, siendo el mayor número de lunas entre todos los planetas."
+    },
+    {
+      "id": "p04",
+      "dificultad": "muy_dificil",
+      "pregunta": "¿Qué planeta está compuesto mayormente de gases nobles y tiene una temperatura de superficie media de -200°C?",
+      "opciones": [
+        "A. Neptuno",
+        "B. Urano",
+        "C. Venus",
+        "D. Marte"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Neptuno es el planeta más frío del Sistema Solar, con temperaturas que rondan los -200°C y está compuesto principalmente de hidrógeno y helio."
+    },
+    {
+      "id": "p05",
+      "dificultad": "media",
+      "pregunta": "¿Cuál es el planeta más cercano al Sol?",
+      "opciones": [
+        "A. Venus",
+        "B. Mercurio",
+        "C. Tierra",
+        "D. Marte"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Mercurio es el planeta más cercano al Sol, con una órbita que dura solo 88 días terrestres."
+    },
+    {
+      "id": "p06",
+      "dificultad": "dificil",
+      "pregunta": "¿Qué planeta tiene la mayor densidad?",
+      "opciones": [
+        "A. Marte",
+        "B. Venus",
+        "C. Tierra",
+        "D. Mercurio"
+      ],
+      "respuesta_correcta": 3,
+      "explicacion": "Mercurio, aunque es el más pequeño de los planetas rocosos, tiene la mayor densidad de todos."
+    },
+    {
+      "id": "p07",
+      "dificultad": "muy_dificil",
+      "pregunta": "¿Cuál es el planeta que lleva el nombre de la diosa romana de la fertilidad?",
+      "opciones": [
+        "A. Venus",
+        "B. Júpiter",
+        "C. Mercurio",
+        "D. Saturno"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Venus recibe su nombre de la diosa romana de la belleza y la fertilidad."
+    },
+    {
+      "id": "p08",
+      "dificultad": "media",
+      "pregunta": "¿Cuál planeta se llama el \"planeta rojo\"?",
+      "opciones": [
+        "A. Marte",
+        "B. Venus",
+        "C. Júpiter",
+        "D. Saturno"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Marte es conocido como el planeta rojo debido a la presencia de óxidos de hierro en su superficie."
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Sistema Solar",
+      "emoji": "📖",
+      "definicion": "Conjunto formado por el Sol y todos los cuerpos que orbitan alrededor de él, incluidos planetas, lunas, asteroides y cometas."
+    },
+    {
+      "termino": "Planeta",
+      "emoji": "📖",
+      "definicion": "Cuerpo celeste que orbita alrededor de una estrella, tiene suficiente masa para que su gravedad forme una forma casi esférica y ha limpiado su órbita de otros escombros."
+    },
+    {
+      "termino": "Satélite Natural",
+      "emoji": "📖",
+      "definicion": "Cuerpo que orbita alrededor de un planeta o un asteroide, como la Luna, que orbita la Tierra."
+    }
+  ]
+}
