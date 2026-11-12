@@ -1,0 +1,98 @@
+{
+  "id": "textos-instructivos",
+  "titulo": "Textos Instructivos 📋",
+  "categoria": "Lenguaje",
+  "emoji": "📋",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "### 📋 ¿Qué son los textos instructivos?\n\nSon textos que explican, de forma ordenada y clara, cómo realizar una actividad, paso a paso.\n\n**¿Para qué sirven?**\nNos enseñan a realizar una tarea o actividad de manera correcta y segura, siguiendo instrucciones.\n\n**Ejemplos:**\n- 🍲 Recetas de cocina (por ejemplo, una ensalada).\n- ✈️ Instrucciones para construir objetos (por ejemplo, un avión de papel).\n- 🎲 Reglas de juego (por ejemplo, la escondida).\n\n> **Idea fuerza**: Los textos instructivos nos guían para hacer algo correctamente.",
+    "### 🧩 Partes de un texto instructivo\n\nGeneralmente, se organiza en:\n\n- **Título:** indica la actividad que se realizará.\n- **Materiales o ingredientes:** lista lo que necesitaremos.\n- **Pasos o instrucciones:** explica, en orden, qué hacer.\n- **Imágenes o dibujos:** acompañan y facilitan la comprensión.",
+    "### ✨ Características de los textos instructivos\n\n- 🎯 **Tienen un propósito claro:** enseñar a realizar una actividad.\n- 1️⃣ **Presentan una secuencia ordenada:** los pasos se indican en un orden lógico y numerados o con viñetas.\n- 🗣️ **Usan un lenguaje claro y sencillo:** emplean oraciones breves y palabras conocidas.\n- 👉 **Emplean verbos en modo imperativo:** indican la acción que debemos realizar (por ejemplo: corta, mezcla, agrega, pega).\n- ✔️ **Son precisos y concretos:** dan indicaciones exactas, sin información innecesaria (por ejemplo: \"Agrega dos cucharadas de azúcar\").\n- ⚠️ **Pueden incluir recomendaciones o cuidados:** para realizar la actividad de forma segura (por ejemplo: \"Pide ayuda a un adulto\").\n\n**Secuencia de pasos:** Las acciones se presentan en un orden que debemos respetar: **Primero** → **Luego o después** → **Finalmente**.\n\n**Verbos en modo imperativo:** Son palabras que dan una orden, consejo o indicación. *Ejemplos: corta, mezcla, dobla, coloca, dibuja, escribe, lava.*",
+    "### 🎲 Ejemplo: Instrucciones del juego Uno\n\n**¿Qué es?** Es un juego de cartas en el que debes quedarte sin cartas antes que los demás.\n\n**Materiales:** Un mazo de cartas del juego Uno.\n\n**Pasos para jugar:**\n1. **Preparar:** mezcla las cartas y reparte 7 cartas a cada jugador.\n2. **Comenzar:** coloca una carta del mazo en el centro de la mesa.\n3. **Jugar:** en tu turno, coloca una carta del mismo color o del mismo número que la del centro.\n4. **Cartas especiales:** también puedes usar las cartas de +2, salto, reversa o cambio de color.\n5. **Ganar:** cuando te quede una sola carta, di \"¡Uno!\". Gana el primer jugador que se quede sin cartas.\n\n**Reglas principales:**\n- Juega por turnos, en el sentido de las agujas del reloj.\n- Debes colocar cartas del mismo color o número.\n- Usa las cartas especiales según su indicación.\n- No olvides decir \"¡Uno!\" cuando te quede una sola carta.",
+    "### ✍️ ¿Cómo escribir nuestro propio texto instructivo?\n\nPara escribir un texto instructivo debemos:\n1. Pensar en una actividad que sepamos realizar.\n2. Escribir un título que indique qué haremos.\n3. Anotar los materiales que necesitamos.\n4. Explicar cada paso en el orden correcto.\n5. Utilizar verbos como corta, dibuja, mezcla o pega.\n6. Revisar que las instrucciones sean claras y fáciles de seguir.\n\n> **Lo más importante que debemos recordar**: Los textos instructivos nos enseñan a hacer algo, presentan pasos ordenados y utilizan verbos que indican acciones. Gracias a ellos podemos aprender nuevas actividades de manera autónoma y segura."
+  ],
+ 
+  "banco_trivia": [
+    {
+      "id": "ti01",
+      "dificultad": "media",
+      "pregunta": "¿Cuál es el propósito principal de un texto instructivo?",
+      "opciones": ["Contar una historia ficticia", "Enseñar a realizar una actividad paso a paso", "Expresar sentimientos del autor", "Informar sobre noticias de actualidad"],
+      "respuesta_correcta": 1,
+      "explicacion": "Los textos instructivos nos enseñan a realizar tareas de manera correcta y segura."
+    },
+    {
+      "id": "ti02",
+      "dificultad": "media",
+      "pregunta": "¿Cuál de los siguientes es un ejemplo de texto instructivo?",
+      "opciones": ["Un cuento sobre animales", "Una receta para preparar panqueques", "Un poema sobre la primavera", "Una noticia sobre un partido de fútbol"],
+      "respuesta_correcta": 1,
+      "explicacion": "Las recetas de cocina son textos instructivos porque nos dan pasos a seguir."
+    },
+    {
+      "id": "ti03",
+      "dificultad": "dificil",
+      "pregunta": "¿Qué parte de un texto instructivo nos indica los elementos que necesitaremos?",
+      "opciones": ["El título", "Los pasos o instrucciones", "Los materiales o ingredientes", "Las imágenes o dibujos"],
+      "respuesta_correcta": 2,
+      "explicacion": "La lista de materiales o ingredientes nos dice qué necesitamos antes de empezar."
+    },
+    {
+      "id": "ti04",
+      "dificultad": "media",
+      "pregunta": "¿Cuál de estas palabras es un verbo en modo imperativo?",
+      "opciones": ["Bonito", "Mesa", "Recorta", "Cocina (sustantivo)"],
+      "respuesta_correcta": 2,
+      "explicacion": "Recorta es un verbo que da una orden o indicación, típico de los textos instructivos."
+    },
+    {
+      "id": "ti05",
+      "dificultad": "dificil",
+      "pregunta": "¿Qué palabra usamos para indicar el último paso de una instrucción?",
+      "opciones": ["Primero", "Luego", "Finalmente", "Después"],
+      "respuesta_correcta": 2,
+      "explicacion": "Finalmente es el conector que cierra la secuencia de pasos."
+    },
+    {
+      "id": "ti06",
+      "dificultad": "media",
+      "pregunta": "¿Por qué los textos instructivos suelen usar imágenes o dibujos?",
+      "opciones": ["Para que el texto se vea más bonito", "Para ocupar el espacio en blanco de la hoja", "Para facilitar la comprensión de los pasos", "Para que los niños puedan colorearlos"],
+      "respuesta_correcta": 2,
+      "explicacion": "Las imágenes acompañan al texto y nos ayudan a entender mejor cómo hacer la actividad."
+    },
+    {
+      "id": "ti07",
+      "dificultad": "muy_dificil",
+      "pregunta": "Si un texto instructivo dice: 'Pide ayuda a un adulto para usar el cuchillo', ¿qué característica está cumpliendo?",
+      "opciones": ["Tener un propósito claro", "Usar verbos imperativos", "Incluir recomendaciones o cuidados", "Presentar una secuencia ordenada"],
+      "respuesta_correcta": 2,
+      "explicacion": "Es una recomendación de seguridad para realizar la actividad de forma segura."
+    },
+    {
+      "id": "ti08",
+      "dificultad": "dificil",
+      "pregunta": "Según lo aprendido, ¿cuál es el orden lógico de estos pasos? 1. Finalmente, revisa el resultado. 2. Primero, reúne los materiales. 3. Luego, sigue las instrucciones.",
+      "opciones": ["1 - 2 - 3", "2 - 3 - 1", "3 - 2 - 1", "2 - 1 - 3"],
+      "respuesta_correcta": 1,
+      "explicacion": "El orden correcto es: primero reunir materiales, luego seguir pasos y finalmente revisar."
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Instructivo",
+      "emoji": "📋",
+      "definicion": "Que tiene el propósito de enseñar o indicar cómo hacer algo paso a paso."
+    },
+    {
+      "termino": "Modo imperativo",
+      "emoji": "👉",
+      "definicion": "Forma de los verbos que se usa para dar órdenes, consejos o instrucciones (ej. corta, mezcla)."
+    },
+    {
+      "termino": "Secuencia",
+      "emoji": "1️⃣",
+      "definicion": "Orden lógico en el que ocurren las cosas (primero, luego, finalmente)."
+    }
+  ]
+}

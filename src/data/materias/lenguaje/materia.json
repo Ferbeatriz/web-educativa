@@ -78,6 +78,18 @@
       "duracion_estimada_min": 20,
       "archivo": "lecciones/la-noticia.json",
       "activa": true
+    },
+
+    {
+      "id": "textos-instructivos",
+      "titulo": "Textos Instructivos 📋",
+      "emoji": "📋",
+      "orden": 8,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/textos-instructivos.json",
+      "activo": true
     }
+
   ]
 }

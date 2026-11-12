@@ -35,8 +35,7 @@
 </div>
 
 <script>
-
-import { marked } from 'marked';
+  import { marked } from 'marked';
 
   document.addEventListener('DOMContentLoaded', () => {
     const btnOpen = document.getElementById('btn-open-chat');
@@ -46,24 +45,15 @@ import { marked } from 'marked';
     const chatInput = document.getElementById('chat-input') as HTMLInputElement;
     const btnSend = document.getElementById('btn-send-chat');
 
-    // Abrir y cerrar ventana
-    btnOpen?.addEventListener('click', () => {
-      if (chatWindow) chatWindow.style.display = 'flex';
-    });
-    
-    btnClose?.addEventListener('click', () => {
-      if (chatWindow) chatWindow.style.display = 'none';
-    });
+    btnOpen?.addEventListener('click', () => { if(chatWindow) chatWindow.style.display = 'flex'; });
+    btnClose?.addEventListener('click', () => { if(chatWindow) chatWindow.style.display = 'none'; });
 
-    // Enviar mensaje
     btnSend?.addEventListener('click', async () => {
       const prompt = chatInput.value.trim();
       if (!prompt) return;
 
       addMessage('user', prompt);
       chatInput.value = '';
-
-      // Mostrar mensaje temporal
       const tempBubble = addMessage('assistant', 'Escribiendo...');
 
       try {
@@ -74,42 +64,91 @@ import { marked } from 'marked';
         });
         const data = await response.json();
         
-        // Reemplazar mensaje temporal con la respuesta real
         if (data.ok) {
           tempBubble.innerHTML = marked.parse(data.reply);
+          intentarMostrarBotonGuardar(data.reply, tempBubble);
         } else {
-          tempBubble.textContent = 'Lo siento, hubo un error. Inténtalo de nuevo.';
+          tempBubble.textContent = 'Lo siento, hubo un error.';
         }
       } catch (error) {
-        tempBubble.textContent = 'Error de conexión con el servidor.';
+        tempBubble.textContent = 'Error de conexión.';
       }
     });
 
-    // Función para agregar mensajes
+    function intentarMostrarBotonGuardar(texto: string, contenedor: HTMLElement) {
+      try {
+        let jsonString = "";
+        const matchMarkdown = texto.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        
+        if (matchMarkdown && matchMarkdown[1]) {
+          jsonString = matchMarkdown[1];
+        } else {
+          const start = texto.indexOf('{');
+          const end = texto.lastIndexOf('}');
+          if (start !== -1 && end !== -1) {
+            jsonString = texto.substring(start, end + 1);
+          }
+        }
+
+        if (!jsonString) return;
+
+        const jsonObj = JSON.parse(jsonString);
+
+        const btnGuardar = document.createElement('button');
+        btnGuardar.innerHTML = '💾 Guardar Lección en la Plataforma';
+        btnGuardar.style.cssText = 'margin-top: 10px; background: #10b981; color: white; padding: 10px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; width: 100%; transition: all 0.2s;';
+        
+        btnGuardar.onmouseover = () => btnGuardar.style.background = '#059669';
+        btnGuardar.onmouseout = () => btnGuardar.style.background = '#10b981';
+
+        btnGuardar.onclick = async () => {
+          btnGuardar.textContent = 'Guardando...';
+          const materiaId = jsonObj.categoria ? jsonObj.categoria.toLowerCase().replace(/\s+/g, '') : 'lenguaje';
+          
+          try {
+            const res = await fetch('https://web-educativa-api.ferbeatriz.workers.dev/api/docente/guardar-leccion', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ leccionJson: jsonObj, materiaId: materiaId }),
+            });
+            const result = await res.json();
+            
+            if (result.ok) {
+              btnGuardar.textContent = '✅ ¡Guardada en GitHub!';
+              btnGuardar.style.background = '#3b82f6';
+            } else {
+              btnGuardar.textContent = '❌ Error al guardar (Revisa si ya existe)';
+              btnGuardar.style.background = '#ef4444';
+            }
+          } catch (e) {
+            btnGuardar.textContent = '❌ Error de conexión';
+            btnGuardar.style.background = '#ef4444';
+          }
+        };
+
+        contenedor.appendChild(document.createElement('br'));
+        contenedor.appendChild(btnGuardar);
+
+      } catch (e) {
+        console.error("Fallo al leer el JSON:", e);
+        const errorMsg = document.createElement('p');
+        errorMsg.textContent = "⚠️ La IA generó un JSON incompleto. Pídele que lo corrija.";
+        errorMsg.style.cssText = "color: #ef4444; font-size: 12px; margin-top: 8px;";
+        contenedor.appendChild(errorMsg);
+      }
+    }
+
     function addMessage(role: string, text: string): HTMLElement {
       const messageDiv = document.createElement('div');
       messageDiv.style.display = 'flex';
       messageDiv.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start';
       
       const bubble = document.createElement('div');
-      bubble.style.maxWidth = '80%';
-      bubble.style.padding = '12px';
-      bubble.style.borderRadius = '12px';
-      bubble.style.fontSize = '14px';
-      bubble.style.fontFamily = 'sans-serif';
-      
-      if (role === 'user') {
-        bubble.style.background = '#9333ea';
-        bubble.style.color = 'white';
-      } else {
-        bubble.style.background = '#e5e7eb';
-        bubble.style.color = '#1f2937';
-      }
-      
+      bubble.style.cssText = `max-width: 80%; padding: 12px; border-radius: 12px; font-size: 14px; font-family: sans-serif; ${role === 'user' ? 'background: #9333ea; color: white;' : 'background: #e5e7eb; color: #1f2937;'}`;
       bubble.textContent = text;
+      
       messageDiv.appendChild(bubble);
       chatMessages?.appendChild(messageDiv);
-      
       if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
       
       return bubble;
