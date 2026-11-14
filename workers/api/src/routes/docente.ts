@@ -111,40 +111,54 @@ export async function handleGuardarLeccion(request: Request, env: any): Promise<
   try {
     const { leccionJson, materiaId } = await request.json() as { leccionJson: any, materiaId: string };
     
-    // Extraemos el ID de la lección para nombrar el archivo
-    const leccionId = leccionJson.id;
-    const path = `src/data/materias/${materiaId}/lecciones/${leccionId}.json`;
+    // 1. LIMPIAR EL ID: Evitamos espacios o caracteres raros
+    const rawId = leccionJson.id || 'leccion-sin-id';
+    const leccionId = rawId.toLowerCase().replace(/[^a-z0-9-]/g, '-');
     
-    // Codificamos el contenido en Base64 (requisito de la API de GitHub)
+    const folderPath = `src/data/materias/${materiaId}/lecciones`;
+    const filePath = `${folderPath}/${leccionId}.json`;
+    
     const contentEncoded = btoa(unescape(encodeURIComponent(JSON.stringify(leccionJson, null, 2))));
+    const headers = {
+      'Authorization': `token ${env.GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'Web-Educativa-Worker'
+    };
 
-    // Llamada a la API de GitHub
-    const githubUrl = `https://api.github.com/repos/Ferbeatriz/web-educativa/contents/${path}`;
-    const response = await fetch(githubUrl, {
+    const baseUrl = `https://api.github.com/repos/Ferbeatriz/web-educativa/contents`;
+    const fileUrl = `${baseUrl}/${filePath}`;
+
+    // 2. Verificamos si el archivo ya existe para obtener su SHA
+    let sha = undefined;
+    const getRes = await fetch(fileUrl, { headers });
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    }
+
+    // 3. Guardamos la lección
+    const putBody: any = {
+      message: `Feat: lección autogenerada (${leccionId})`,
+      content: contentEncoded,
+      branch: 'main'
+    };
+    if (sha) putBody.sha = sha;
+
+    const response = await fetch(fileUrl, {
       method: 'PUT',
-      headers: {
-        'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'Web-Educativa-Worker'
-      },
-      body: JSON.stringify({
-        message: `Feat: nueva lección autogenerada (${leccionId})`,
-        content: contentEncoded,
-      })
+      headers,
+      body: JSON.stringify(putBody)
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(JSON.stringify(errorData));
+      // Si falla, devolvemos la ruta exacta para saber qué está mal
+      throw new Error(`Error GitHub: ${errorData.message} | Ruta intentada: ${filePath}`);
     }
 
-    return jsonResponse({ ok: true, message: 'Lección guardada en GitHub exitosamente.' });
-  } catch (error) {
+    return jsonResponse({ ok: true, message: 'Lección guardada exitosamente.' });
+  } catch (error: any) {
     console.error('Error guardando en GitHub:', error);
-    return jsonResponse({ ok: false, error: 'No se pudo guardar en GitHub. Revisa si el archivo ya existe.' }, 500);
+    return jsonResponse({ ok: false, error: error.message }, 500);
   }
 }
-
-
-
-

@@ -52,7 +52,7 @@ import { handleTestEmail } from './routes/admin-email';
 import { handleRegistrarIntento } from './routes/tutor';
 
 // NUEVO: Importar el tutor docente
-import { handleDocenteChat } from './routes/docente';
+import { handleDocenteChat, handleGuardarLeccion } from './routes/docente';
 
 import type { EnvEmail } from './lib/email';
 
@@ -139,6 +139,11 @@ export default {
       // ---------- Docente (Tutor IA) ----------
       if (path === '/api/docente/chat' && method === 'POST') {
         return await handleDocenteChat(request, env);
+      }
+
+      // ---------- Docente (Guardar Lección) ----------
+      if (path === '/api/docente/guardar-leccion' && method === 'POST') {
+        return await handleGuardarLeccion(request, env);
       }
 
       // ---------- Auth (alumnas) ----------

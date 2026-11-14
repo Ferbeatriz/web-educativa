@@ -101,9 +101,21 @@
         btnGuardar.onmouseover = () => btnGuardar.style.background = '#059669';
         btnGuardar.onmouseout = () => btnGuardar.style.background = '#10b981';
 
+        // AQUÍ ESTÁ EL ASYNC CORREGIDO
         btnGuardar.onclick = async () => {
           btnGuardar.textContent = 'Guardando...';
-          const materiaId = jsonObj.categoria ? jsonObj.categoria.toLowerCase().replace(/\s+/g, '') : 'lenguaje';
+          
+          // TRADUCTOR DE MATERIAS
+          const catLower = jsonObj.categoria ? jsonObj.categoria.toLowerCase() : '';
+          let materiaId = 'lenguaje'; 
+          
+          if (catLower.includes('matem')) materiaId = 'matematicas';
+          else if (catLower.includes('lengu')) materiaId = 'lenguaje';
+          else if (catLower.includes('cienc')) materiaId = 'ciencias';
+          else if (catLower.includes('hist')) materiaId = 'historia';
+          else if (catLower.includes('ingl')) materiaId = 'ingles';
+          else if (catLower.includes('music')) materiaId = 'musica';
+          else if (catLower.includes('progr')) materiaId = 'programacion';
           
           try {
             const res = await fetch('https://web-educativa-api.ferbeatriz.workers.dev/api/docente/guardar-leccion', {
@@ -117,7 +129,7 @@
               btnGuardar.textContent = '✅ ¡Guardada en GitHub!';
               btnGuardar.style.background = '#3b82f6';
             } else {
-              btnGuardar.textContent = '❌ Error al guardar (Revisa si ya existe)';
+              btnGuardar.textContent = '❌ ' + (result.error || 'Error al guardar');
               btnGuardar.style.background = '#ef4444';
             }
           } catch (e) {

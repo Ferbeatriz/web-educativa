@@ -27,6 +27,18 @@
       "duracion_estimada_min": 20,
       "archivo": "lecciones/la-fotosintesis.json",
       "activa": true
+    },
+
+    {
+      "id": "planetas-sistema-solar",
+      "titulo": "Los planetas del Sistema Solar 🌌",
+      "emoji": "🌍",
+      "orden": 3,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/planetas-sistema-solar.json",
+      "activo": true
     }
+
   ]
 }

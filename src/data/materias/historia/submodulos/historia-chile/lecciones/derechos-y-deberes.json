@@ -1,0 +1,96 @@
+{
+  "id": "derechos-y-deberes",
+  "titulo": "Mis Derechos y Deberes 📜",
+  "categoria": "Historia",
+  "emoji": "📜",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "### 🌟 ¿Qué son los derechos?\n\nLos derechos protegen nuestra vida y bienestar. Nos ayudan a crecer, aprender y vivir con cuidado. **Todos los niños y niñas tenemos los mismos derechos**, no importa de dónde vengamos.\n\nEs muy importante recordar que los derechos **no son premios** por portarnos bien. ¡Los tenemos siempre, por el solo hecho de ser personas!\n\nAlgunos de nuestros derechos son:\n- 🎒 **Aprender** y asistir a la escuela.\n- 🏥 **Recibir atención de salud** cuando estamos enfermos.\n- ⚽ **Jugar** y tener tiempo libre.\n- 🛌 **Descansar**.\n- 🪪 Tener un **nombre** y una identidad.\n- 🗣️ **Ser escuchados** y que nuestra opinión sea tomada en cuenta.\n- 🤝 **No ser discriminados** y recibir un buen trato.",
+    "### 🛡️ ¿Quiénes protegen nuestros derechos?\n\nLas familias, el Estado y la comunidad deben proteger nuestros derechos. \n\nSi algo nos preocupa o sentimos que nuestros derechos no se respetan, **siempre podemos pedir ayuda a un adulto de confianza**. Puede ser alguien de nuestra familia (como mamá, papá o abuelos) o alguien de nuestro colegio (como una profesora o el director).\n\nPor ejemplo: Si a Tomás no le permiten ir a la escuela porque debe trabajar, se está vulnerando su derecho a aprender. Si Sofía está enferma y la llevan al médico, se está respetando su derecho a la salud.",
+    "### 🤝 Mis deberes y responsabilidades\n\nAsí como tenemos derechos, también tenemos **deberes**. Los deberes son responsabilidades que debemos cumplir. Nos ayudan a cuidarnos, respetar a otras personas y convivir mejor.\n\nAlgunos de nuestros deberes son:\n- Tratar bien a los demás e incluirlos.\n- Escuchar con respeto y esperar mi turno.\n- Participar en clases y realizar mis actividades.\n- Cuidar mi higiene y pedir ayuda si la necesito.\n- Cuidar los materiales y los espacios comunes.\n- Colaborar con el orden en casa y en el colegio.",
+    "### ❤️ Respeto, Empatía e Inclusión\n\nPara convivir bien, necesitamos tres actitudes muy importantes:\n\n- **Respeto:** Tratar bien a los demás, aunque pensemos distinto.\n- **Empatía:** Intentar comprender cómo se siente otra persona. Por ejemplo, si un compañero se cae, notar si está triste y preguntarle cómo se siente.\n- **Inclusión:** Buscar que todos puedan participar. Por ejemplo, si en el recreo un grupo juega y llega una compañera nueva que no sabe las reglas, en vez de ignorarla, el grupo puede cambiar las reglas o invitarla a jugar para que todos se diviertan."
+  ],
+  "banco_trivia": [
+    {
+      "id": "dd01",
+      "dificultad": "media",
+      "pregunta": "¿Los derechos son premios que recibimos solo si nos portamos bien?",
+      "opciones": ["Sí, solo si sacamos buenas notas", "No, los tenemos siempre por ser personas", "Sí, pero solo los niños mayores", "No, solo los tienen los adultos"],
+      "respuesta_correcta": 1,
+      "explicacion": "Los derechos protegen nuestra vida y bienestar, y los tenemos siempre, sin importar nuestro comportamiento."
+    },
+    {
+      "id": "dd02",
+      "dificultad": "media",
+      "pregunta": "Si Sofía está enferma y un adulto la lleva al centro de salud, ¿qué derecho se está respetando?",
+      "opciones": ["El derecho a jugar", "El derecho a la identidad", "El derecho a recibir atención de salud", "El derecho a descansar"],
+      "respuesta_correcta": 2,
+      "explicacion": "Recibir cuidados médicos es un derecho fundamental de todos los niños y niñas."
+    },
+    {
+      "id": "dd03",
+      "dificultad": "dificil",
+      "pregunta": "¿A quién podemos pedir ayuda si sentimos que nuestros derechos no se están respetando?",
+      "opciones": ["A un adulto de confianza", "A un desconocido en la calle", "A nadie, debemos resolverlo solos", "Solo a nuestros amigos de la misma edad"],
+      "respuesta_correcta": 0,
+      "explicacion": "Siempre debemos recurrir a un adulto de confianza, como un familiar o un profesor."
+    },
+    {
+      "id": "dd04",
+      "dificultad": "media",
+      "pregunta": "¿Cuál de las siguientes acciones es un DEBER o responsabilidad?",
+      "opciones": ["Recibir atención cuando estoy enfermo", "Tener tiempo para jugar", "Cuidar los libros y materiales del curso", "Tener un nombre e identidad"],
+      "respuesta_correcta": 2,
+      "explicacion": "Cuidar los materiales es una responsabilidad para mantener un buen ambiente escolar."
+    },
+    {
+      "id": "dd05",
+      "dificultad": "dificil",
+      "pregunta": "En el recreo, un grupo juega con un hilo y llega una compañera nueva que no sabe las reglas. El grupo sigue jugando y no le explica. ¿Qué actitud les faltó?",
+      "opciones": ["Falta de respeto por las reglas", "Falta de empatía e inclusión", "Mucha responsabilidad", "Empatía, porque la ignoraron"],
+      "respuesta_correcta": 1,
+      "explicacion": "Faltó empatía para entender cómo se sentía la compañera y faltó inclusión para invitarla a jugar explicándole las reglas."
+    },
+    {
+      "id": "dd06",
+      "dificultad": "dificil",
+      "pregunta": "Si ves que un compañero nuevo está solo porque es diferente a los demás, ¿cuál es la mejor acción?",
+      "opciones": ["Ignorarlo para no perder tu recreo", "Reírte de sus costumbres", "Invitarlo a jugar e interesarte por él", "Decirle que se vaya a otra sala"],
+      "respuesta_correcta": 2,
+      "explicacion": "La inclusión y el respeto nos invitan a acercarnos y acoger a quienes se sienten solos o son diferentes."
+    },
+    {
+      "id": "dd07",
+      "dificultad": "muy_dificil",
+      "pregunta": "Tomás no va a la escuela porque lo obligan a trabajar todo el día. ¿Qué derecho se está vulnerando en su caso?",
+      "opciones": ["El derecho a tener un nombre", "El derecho a aprender y estudiar", "El derecho a descansar", "El derecho a jugar"],
+      "respuesta_correcta": 1,
+      "explicacion": "Todos los niños tienen derecho a aprender y asistir a la escuela, no a ser explotados en el trabajo infantil."
+    },
+    {
+      "id": "dd08",
+      "dificultad": "media",
+      "pregunta": "¿Cuál es la diferencia entre derecho y deber?",
+      "opciones": ["Son exactamente lo mismo", "Los derechos nos protegen y los deberes son responsabilidades que cumplimos", "Los derechos son para los adultos y los deberes para los niños", "Los deberes nos protegen y los derechos son reglas"],
+      "respuesta_correcta": 1,
+      "explicacion": "Los derechos nos protegen y garantizan nuestro bienestar; los deberes son nuestras responsabilidades para convivir bien."
+    }
+  ],
+  "glosario": [
+    {
+      "termino": "Empatía",
+      "emoji": "❤️",
+      "definicion": "Capacidad de comprender los sentimientos de otra persona."
+    },
+    {
+      "termino": "Inclusión",
+      "emoji": "🤝",
+      "definicion": "Acción de integrar a todas las personas en un grupo, sin dejar a nadie fuera."
+    },
+    {
+      "termino": "Derecho",
+      "emoji": "⚖️",
+      "definicion": "Norma que protege nuestra vida, bienestar y desarrollo."
+    }
+  ]
+}

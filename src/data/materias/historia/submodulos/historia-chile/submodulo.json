@@ -15,7 +15,19 @@
       "duracion_estimada_min": 20,
       "archivo": "lecciones/la-comunidad-y-sus-instituciones.json",
       "activa": true
+    },
+    {
+      "id": "derechos-y-deberes",
+      "titulo": "Mis Derechos y Deberes 📜",
+      "emoji": "📜",
+      "orden": 2,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/derechos-y-deberes.json",
+      "activo": true
     }
+
+
   ],
   "cursos_especiales": [
     {
