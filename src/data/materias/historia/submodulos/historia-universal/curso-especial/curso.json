@@ -1,0 +1,17 @@
+{
+  "id": "viaje-al-pasado",
+  "titulo": "Viaje al Pasado: Historia Universal",
+  "subtitulo": "Un viaje por la Línea de Tiempo",
+  "descripcion": "Curso especial de 5 capítulos sobre la línea de tiempo.",
+  "emoji": "🔥",
+  "color": "historia",
+  "progreso_puntos_por_capitulo": 100,
+  "total_capitulos": 5,
+  "capitulos": [
+    { "id": "capitulo-01", "numero": 1, "numero_romano": "I", "titulo": "El reloj gigante", "subtitulo": "La línea de tiempo y el Año 1", "emoji": "🕰️", "archivo": "capitulo-01.json", "activo": true },
+    { "id": "capitulo-02", "numero": 2, "numero_romano": "II", "titulo": "El mundo antes de los libros", "subtitulo": "La Prehistoria", "emoji": "🦴", "archivo": "capitulo-02.json", "activo": true },
+    { "id": "capitulo-03", "numero": 3, "numero_romano": "III", "titulo": "Pirámides y grandes ideas", "subtitulo": "La Edad Antigua", "emoji": "🏛️", "archivo": "capitulo-03.json", "activo": true },
+    { "id": "capitulo-04", "numero": 4, "numero_romano": "IV", "titulo": "Castillos, caballeros... ¿y en Chile?", "subtitulo": "La Edad Media", "emoji": "🏰", "archivo": "capitulo-04.json", "activo": true },
+    { "id": "capitulo-05", "numero": 5, "numero_romano": "V", "titulo": "Inventos y viajes", "subtitulo": "La Edad Moderna y Contemporánea", "emoji": "🚀", "archivo": "capitulo-05.json", "activo": true }
+  ]
+}

@@ -7,6 +7,9 @@ export async function getStaticPaths() {
   const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', { eager: true });
   const capitulosFiles = import.meta.glob('../../../data/materias/**/capitulo-*.json', { eager: true });
 
+
+  
+
   const paths = [];
 
   for (const cursoPath in cursosFiles) {
@@ -17,6 +20,9 @@ export async function getStaticPaths() {
     if (!curso || typeof curso !== 'object' || !Array.isArray(curso.capitulos)) {
       continue;
     }
+
+
+
 
     let materiaId = null;
     const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias', 'programacion'];
@@ -51,6 +57,7 @@ export async function getStaticPaths() {
 }
 
 const { curso, capitulo, materiaId } = Astro.props;
+const anioActual = new Date().getFullYear();
 
 const indiceActual = curso.capitulos.findIndex((c: any) => c.id === capitulo.id);
 const capituloAnterior = indiceActual > 0 ? curso.capitulos[indiceActual - 1] : null;
@@ -155,6 +162,48 @@ const nombreMateria = nombresMateria[materiaId] || 'Materia';
         ))}
       </section>
     )}
+
+        <!-- Línea de Tiempo Visual (Solo para el capítulo 1) -->
+    {capitulo.id === 'capitulo-01' && (
+      <section class="mb-10">
+        <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100">
+          <h3 class="text-lg font-extrabold text-gray-800 mb-8 text-center">Nuestra recta numérica del tiempo</h3>
+          
+          <div class="relative w-full h-32 flex items-center justify-center px-4 md:px-12">
+            <!-- La línea principal -->
+            <div class="absolute w-full h-2 bg-yellow-300 rounded-full left-0 right-0"></div>
+            
+            <!-- Punto izquierdo (Pasado) -->
+            <div class="absolute left-0 flex flex-col items-center">
+              <div class="w-4 h-4 bg-gray-400 rounded-full border-2 border-white z-10"></div>
+              <span class="mt-2 bg-white px-2 py-1 rounded shadow-sm border border-gray-200 text-gray-600 font-bold text-[10px] md:text-xs whitespace-nowrap">Antes del Año 1</span>
+            </div>
+
+            <!-- Punto central (Año 1) -->
+            <div class="absolute z-10 flex flex-col items-center">
+              <div class="w-8 h-8 bg-red-500 rounded-full border-4 border-white shadow-md flex items-center justify-center">
+                <div class="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+              <span class="mt-2 font-extrabold text-red-600 bg-white px-2 rounded shadow-sm border border-red-200 text-xs md:text-sm whitespace-nowrap">Año 1</span>
+            </div>
+
+            <!-- Punto derecho (Año Actual) -->
+            <div class="absolute right-0 flex flex-col items-center">
+              <div class="w-8 h-8 bg-blue-500 rounded-full border-4 border-white shadow-md flex items-center justify-center">
+                <div class="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+              <span class="mt-2 font-extrabold text-blue-600 bg-white px-2 rounded shadow-sm border border-blue-200 text-[10px] md:text-xs whitespace-nowrap">Hoy ({anioActual})</span>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+    )}
+
+
+
+
+
 
     <!-- Vocabulario -->
     {vocabulario.length > 0 && (

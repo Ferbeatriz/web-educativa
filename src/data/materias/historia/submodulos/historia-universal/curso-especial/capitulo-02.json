@@ -1,0 +1,18 @@
+{
+  "id": "capitulo-02",
+  "numero": 2,
+  "numero_romano": "II",
+  "titulo": "El mundo antes de los libros",
+  "subtitulo": "La Prehistoria",
+  "emoji": "🦴",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "### 🦴 El mundo antes de los libros (La Prehistoria)\n\nImagina un mundo sin escuelas, sin teléfonos y sin libros. Así era la **Prehistoria**.\n\nEste periodo es el más largo de todos y ocurrió **antes del año 1**. En esa época, los seres humanos vivían en cuevas, aprendieron a hacer fuego y fabricaban herramientas con piedras. La Prehistoria termina cuando los seres humanos inventaron la **escritura**."
+  ],
+  "vocabulario": [{ "termino": "Prehistoria", "definicion": "Periodo de la humanidad antes de la invención de la escritura." }],
+  "linea_tiempo": [{ "fecha": "Hace miles de años", "evento": "Los seres humanos viven en cuevas y crean herramientas de piedra." }, { "fecha": "Invención de la escritura", "evento": "Termina la Prehistoria y comienza la historia." }],
+  "trivia": [
+    { "id": "hu03", "pregunta": "En la Prehistoria, las personas vivían en cuevas y fabricaban herramientas de piedra. Esto ocurrió:", "opciones": ["Después de la invención de la escritura", "En la época de los castillos", "Mucho antes de que existiera la escritura", "En la Edad Moderna"], "respuesta_correcta": 2, "explicacion": "La Prehistoria es la etapa más antigua, antes de que los humanos aprendieran a escribir." }
+  ],
+  "actividades": []
+}

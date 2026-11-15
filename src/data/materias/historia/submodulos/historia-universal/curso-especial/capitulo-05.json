@@ -1,0 +1,20 @@
+{
+  "id": "capitulo-05",
+  "numero": 5,
+  "numero_romano": "V",
+  "titulo": "Inventos y viajes",
+  "subtitulo": "La Edad Moderna y Contemporánea",
+  "emoji": "🚀",
+  "progreso_puntos": 150,
+  "contenido_modulos": [
+    "### 🚀 Inventos y viajes (La Edad Moderna y Contemporánea)\n\nHacia 1492, Cristóbal Colón llega a América. ¡Este es el hito que marca el inicio de la **Edad Moderna**! En esta época, los barcos mejoraron muchísimo, se inventó la imprenta y los europeos comenzaron a viajar y explorar el mundo entero.\n\nFinalmente, llegamos a la **Edad Contemporánea**, que empezó con la Revolución Francesa y ¡llega hasta el día de hoy! Aquí se inventaron los autos, los aviones, los computadores e internet. Y aquí en Chile, vivimos nuestra propia historia: la Independencia y la actualidad."
+  ],
+  "vocabulario": [{ "termino": "Edad Contemporánea", "definicion": "La época histórica actual, desde la Revolución Francesa hasta hoy." }],
+  "linea_tiempo": [{ "fecha": "1492", "evento": "Comienza la Edad Moderna." }, { "fecha": "1789", "evento": "Revolución Francesa. Comienza la Edad Contemporánea." }, { "fecha": "Hoy", "evento": "¡Seguimos viviendo en la Edad Contemporánea!" }],
+  "trivia": [
+    { "id": "hu06", "pregunta": "El descubrimiento de América en 1492 marca el paso de la Edad Media a la:", "opciones": ["Prehistoria", "Edad Antigua", "Edad Moderna", "Edad Contemporánea"], "respuesta_correcta": 2, "explicacion": "La Edad Moderna comienza con los grandes viajes de exploración y el encuentro entre Europa y América." },
+    { "id": "hu07", "pregunta": "¿En qué época histórica vivimos actualmente, en la que existen computadores e internet?", "opciones": ["Edad Antigua", "Edad Media", "Edad Moderna", "Edad Contemporánea"], "respuesta_correcta": 3, "explicacion": "La Edad Contemporánea es la época desde la Revolución Francesa hasta el presente." },
+    { "id": "hu08", "pregunta": "Si ordenamos las épocas de la historia desde la más antigua a la más reciente, ¿cuál es el orden correcto?", "opciones": ["Prehistoria - Edad Media - Edad Antigua - Edad Contemporánea - Edad Moderna", "Prehistoria - Edad Antigua - Edad Media - Edad Moderna - Edad Contemporánea", "Edad Antigua - Prehistoria - Edad Moderna - Edad Media - Edad Contemporánea", "Edad Contemporánea - Edad Media - Edad Antigua - Prehistoria"], "respuesta_correcta": 1, "explicacion": "Primero fue la Prehistoria, luego la Edad Antigua, la Edad Media, la Edad Moderna y finalmente la Contemporánea." }
+  ],
+  "actividades": []
+}

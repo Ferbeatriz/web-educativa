@@ -1,0 +1,19 @@
+{
+  "id": "capitulo-01",
+  "numero": 1,
+  "numero_romano": "I",
+  "titulo": "El reloj gigante",
+  "subtitulo": "La línea de tiempo y el Año 1",
+  "emoji": "🕰️",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "### 🕰️ El reloj gigante (La Línea de Tiempo)\n\n¡Hola, viajera del tiempo! Para entender la historia, imagina que el tiempo es una carretera muy larga. En un extremo está el pasado (hace miles de años) y en el otro extremo estamos nosotros, en el presente.\n\nPara no perdernos, los historiadores inventaron la **Línea de Tiempo**. Es como una regla gigante donde ponemos los eventos en orden.\n\n**El misterioso 'Año 1':** Para poder contar los años, los historiadores necesitaban un punto de partida (como el kilómetro 0 de una carretera). Decidieron usar un evento muy famoso (el nacimiento de Jesús) para poner el 'Año 1'. No importa si tienes una religión o no; para los científicos, es solo un número que nos ayuda a saber qué pasó antes y qué pasó después."
+  ],
+  "vocabulario": [{ "termino": "Línea de Tiempo", "definicion": "Herramienta gráfica que ordena los eventos históricos de forma cronológica." }],
+  "linea_tiempo": [{ "fecha": "Antes del Año 1", "evento": "Todo lo que ocurrió antes de este punto de partida." }, { "fecha": "Año 1", "evento": "El punto de referencia de los historiadores." }],
+  "trivia": [
+    { "id": "hu01", "pregunta": "Para los historiadores, ¿qué evento marca el inicio de la historia?", "opciones": ["La invención de los autos", "La invención de la escritura", "La construcción de los castillos", "El descubrimiento de América"], "respuesta_correcta": 1, "explicacion": "Antes de la escritura era la Prehistoria. Con la escritura comienza la Edad Antigua y la historia misma." },
+    { "id": "hu02", "pregunta": "Si los historiadores usan el 'Año 1' como un punto de partida, ¿qué significa que algo haya pasado 'antes del año 1'?", "opciones": ["Que pasó hace muy poco tiempo", "Que pasó en la Prehistoria, hace miles de años", "Que pasó en el futuro", "Que pasó en la Edad Contemporánea"], "respuesta_correcta": 1, "explicacion": "El año 1 es el punto de referencia. Todo lo anterior (como la Prehistoria) ocurrió antes de ese año." }
+  ],
+  "actividades": [{ "emoji": "✏️", "titulo": "Dibuja tu línea de tiempo", "descripcion": "Dibuja una línea recta y ubica tres eventos importantes de tu vida." }]
+}

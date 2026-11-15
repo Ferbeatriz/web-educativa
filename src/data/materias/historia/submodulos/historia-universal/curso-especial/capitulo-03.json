@@ -1,0 +1,16 @@
+{
+  "id": "capitulo-03",
+  "numero": 3,
+  "numero_romano": "III",
+  "titulo": "Pirámides y grandes ideas",
+  "subtitulo": "La Edad Antigua",
+  "emoji": "🏛️",
+  "progreso_puntos": 100,
+  "contenido_modulos": [
+    "### 🏛️ Pirámides y grandes ideas (La Edad Antigua)\n\nLa **Edad Antigua** comienza justo después de la invención de la escritura (alrededor del año 3000 antes del año 1) y dura hasta la caída de un lugar muy famoso: el Imperio Romano.\n\nEn esta época nacieron las primeras civilizaciones importantes, como Egipto (¡con sus pirámides y faraones!), Grecia (tierra de grandes pensadores) y Roma (que construyó caminos y acueductos)."
+  ],
+  "vocabulario": [{ "termino": "Civilización", "definicion": "Sociedad con ciudades, leyes y cultura avanzada." }],
+  "linea_tiempo": [{ "fecha": "3000 a.C.", "evento": "Invención de la escritura. Comienza la Edad Antigua." }, { "fecha": "Año 476", "evento": "Caída del Imperio Romano." }],
+  "trivia": [],
+  "actividades": [{ "emoji": "🏛️", "titulo": "Investiga una civilización", "descripcion": "Elige Egipto, Grecia o Roma y busca un dato curioso sobre cómo vivían los niños en esa época." }]
+}

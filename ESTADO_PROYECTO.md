@@ -180,6 +180,13 @@ web-educativa/
 
 ### Últimos avances (2026-11-06)
 
+### 2026-11-14
+- **Historia:** Se creó la lección "Mis Derechos y Deberes" (basada en el texto escolar de 3° básico). 
+- **Estructura:** Se registró correctamente dentro del submódulo `historia-chile` (ruta: `src/data/materias/historia/submodulos/historia-chile/lecciones/`).
+- **Contenido:** Teoría sobre derechos, deberes, respeto, empatía e inclusión. 8 preguntas de trivia.
+
+
+
 ### 2026-11-09
 - **Club de Lectura:** Se implementó el sistema de pestañas (Trivia / Análisis Guiado) en la vista de los libros.
 - **Tutor de Análisis:** El componente `TutorAnalisis.astro` es totalmente funcional. Muestra fragmentos de texto y pasos guiados con opciones mezcladas y feedback personalizado.

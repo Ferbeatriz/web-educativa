@@ -1,0 +1,19 @@
+{
+  "id": "capitulo-04",
+  "numero": 4,
+  "numero_romano": "IV",
+  "titulo": "Castillos, caballeros... ¿y en Chile?",
+  "subtitulo": "La Edad Media",
+  "emoji": "🏰",
+  "progreso_puntos": 150,
+  "contenido_modulos": [
+    "### 🏰 Castillos, caballeros... ¿y en Chile? (La Edad Media)\n\nLa **Edad Media** es la época de los castillos, reyes y caballeros con armadura. Duró aproximadamente 1000 años, desde la caída del Imperio Romano hasta el descubrimiento de América (1492).\n\n**¡Ojo con un detalle importante!** Todo esto de los castillos y caballeros pasó **en Europa**.\n\nMientras en Europa había reyes, en América (y en Chile) vivían nuestros pueblos originarios, como los Mapuches, los Diaguitas o los Selk'nam. En Chile **no existieron** los castillos medievales ni los caballeros con armadura."
+  ],
+  "vocabulario": [{ "termino": "Edad Media", "definicion": "Época de la historia europea entre la Edad Antigua y la Edad Moderna." }],
+  "linea_tiempo": [{ "fecha": "Año 476", "evento": "Comienza la Edad Media en Europa." }, { "fecha": "1492", "evento": "Descubrimiento de América. Termina la Edad Media." }],
+  "trivia": [
+    { "id": "hu04", "pregunta": "La época de los castillos, los caballeros y los reyes (Edad Media) ocurrió principalmente en:", "opciones": ["América", "Chile", "Europa", "África"], "respuesta_correcta": 2, "explicacion": "Aunque vemos castillos en películas, estos son parte de la historia de Europa, no de América ni de Chile." },
+    { "id": "hu05", "pregunta": "Si viajáramos a la Edad Media, ¿qué pasaría si buscáramos castillos y caballeros en Chile?", "opciones": ["Encontraríamos muchos castillos", "No los encontraríamos, porque en Chile vivían pueblos originarios", "Encontraríamos caballeros Mapuches", "Los reyes de Chile nos recibirían"], "respuesta_correcta": 1, "explicacion": "En la Edad Media, en Europa había castillos. En Chile, los pueblos originarios ya tenían sus propias formas de vivir." }
+  ],
+  "actividades": []
+}

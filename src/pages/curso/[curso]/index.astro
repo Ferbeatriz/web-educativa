@@ -1,106 +1,104 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import CursoEspecial from '../../../components/CursoEspecial.astro';
 
 export async function getStaticPaths() {
-  // ⚠️ Los globs van DENTRO de getStaticPaths
-  const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', {
-    eager: true,
-  });
+  const cursosFiles = import.meta.glob('../../../data/materias/**/curso.json', { eager: true });
 
+console.log("--- BUSCANDO CURSOS ---");
+  console.log("Archivos encontrados:", Object.keys(cursosFiles));
+  
   const paths = [];
 
-  for (const path in cursosFiles) {
-    const cursoModulo = cursosFiles[path] as any;
+  for (const cursoPath in cursosFiles) {
+    const cursoModulo = cursosFiles[cursoPath] as any;
     const curso = cursoModulo?.default;
 
-    // Validación defensiva
     if (!curso || typeof curso !== 'object' || !Array.isArray(curso.capitulos)) {
       continue;
     }
 
-    // Detectar materia
     let materiaId = null;
     const materiasConocidas = ['lenguaje', 'matematicas', 'historia', 'ingles', 'ciencias', 'programacion'];
     for (const mid of materiasConocidas) {
-      if (path.includes(`/materias/${mid}/`)) {
+      if (cursoPath.includes(`/materias/${mid}/`)) {
         materiaId = mid;
         break;
       }
     }
     if (!materiaId) continue;
 
-    // Detectar submódulo (solo aplica a historia)
-    let submoduloId = null;
-    const matchSub = path.match(/\/submodulos\/([^/]+)\//);
-    if (matchSub) submoduloId = matchSub[1];
-
-    let submoduloAnidado = null;
-    const matchAnidado = path.match(/\/lecciones\/([^/]+)\/curso-especial\//);
-    if (matchAnidado) submoduloAnidado = matchAnidado[1];
-
     paths.push({
       params: { curso: curso.id },
-      props: {
-        curso,
-        materiaId,
-        submoduloId,
-        submoduloAnidado,
-      },
+      props: { curso, materiaId },
     });
   }
 
   return paths;
 }
 
-const { curso, materiaId, submoduloId, submoduloAnidado } = Astro.props;
+const { curso, materiaId } = Astro.props;
 
-const nombresMateria: Record<string, string> = {
-  lenguaje: 'Lenguaje',
-  matematicas: 'Matemáticas',
-  historia: 'Historia y Geografía',
-  ingles: 'Inglés',
-  ciencias: 'Ciencias',
-  programacion: 'Programación',
+// Colores
+const colores: Record<string, { c50: string; c100: string; c200: string; c400: string; c500: string; c600: string; c700: string }> = {
+  historia: { c50: '#FFFBEB', c100: '#FEF3C7', c200: '#FDE68A', c400: '#FBBF24', c500: '#F59E0B', c600: '#D97706', c700: '#B45309' },
+  // ... (agrega los demás colores si los necesitas)
 };
+const c = colores[curso.color] || colores.historia;
 
-const breadcrumb: { label: string; href: string }[] = [
-  { label: 'Inicio', href: '/' },
-];
-if (materiaId) {
-  breadcrumb.push({ label: nombresMateria[materiaId] || materiaId, href: `/materia/${materiaId}` });
-}
-if (submoduloId && submoduloAnidado) {
-  breadcrumb.push({
-    label: 'Historia Universal',
-    href: `/submodulo/${materiaId}/${submoduloId}`,
-  });
-  breadcrumb.push({
-    label: 'Antiguo Egipto',
-    href: `/submodulo/${materiaId}/${submoduloId}/${submoduloAnidado}`,
-  });
-}
+const estiloPortada = `background: linear-gradient(135deg, ${c.c500} 0%, ${c.c600} 50%, ${c.c700} 100%);`;
 ---
 
-<Layout title={`${curso.titulo} · Curso Especial`}>
-  <main class="max-w-4xl mx-auto px-4 py-6 md:py-10">
-
+<Layout title={`${curso.titulo} · Curso`}>
+  <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+    
     <nav class="text-sm font-bold mb-6 flex items-center gap-2 flex-wrap">
-      {breadcrumb.map((item, i) => (
-        <>
-          {i > 0 && <span class="text-gray-300">›</span>}
-          {i < breadcrumb.length - 1 ? (
-            <a href={item.href} class="text-brand-600 hover:underline">
-              {item.label}
-            </a>
-          ) : (
-            <span class="text-gray-500">{item.label}</span>
-          )}
-        </>
-      ))}
+      <a href="/" class="text-brand-600 hover:underline">Inicio</a>
+      <span class="text-gray-300">›</span>
+      <a href={`/materia/${materiaId}`} class="text-brand-600 hover:underline">Materia</a>
+      <span class="text-gray-300">›</span>
+      <span class="text-gray-500">{curso.titulo}</span>
     </nav>
 
-    <CursoEspecial curso={curso} materiaId={materiaId} />
+    <!-- Portada del Curso -->
+    <header class="rounded-[2rem] p-8 md:p-10 shadow-xl text-white mb-10 relative overflow-hidden" style={estiloPortada}>
+      <div class="absolute -top-6 -right-6 text-[180px] leading-none opacity-10 select-none pointer-events-none">
+        {curso.emoji}
+      </div>
+      <div class="relative z-10 flex flex-col items-center text-center">
+        <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-5xl shadow-lg mb-4">
+          {curso.emoji}
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-2">{curso.titulo}</h1>
+        <p class="text-lg text-white/90 font-bold mb-4">{curso.subtitulo}</p>
+        <p class="text-sm text-white/80 max-w-2xl">{curso.descripcion}</p>
+      </div>
+    </header>
+
+    <!-- Lista de Capítulos -->
+    <section>
+      <h2 class="text-2xl font-extrabold text-gray-800 mb-6 flex items-center gap-3">
+        <span class="text-3xl">📚</span> Capítulos del Curso
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {curso.capitulos.map((cap: any) => (
+          <a
+            href={`/curso/${curso.id}/${cap.id}`}
+            class="group block bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-300 transition-all"
+          >
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl font-extrabold" style={`background: ${c.c100}; color: ${c.c700};`}>
+                {cap.numero_romano}
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-lg font-bold text-gray-800 truncate">{cap.titulo}</h3>
+                <p class="text-sm text-gray-500 truncate">{cap.subtitulo}</p>
+              </div>
+              <span class="text-gray-300 group-hover:text-blue-500 transition-colors">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
 
   </main>
 </Layout>

@@ -37,5 +37,23 @@
       "activo": true,
       "archivo": "lecciones/antiguo-egipto/submodulo.json"
     }
-  ]
+  ],
+
+"cursos_especiales": [
+    {
+          
+      "id": "viaje-al-pasado",
+      "titulo": "Viaje al Pasado: Historia Universal",
+      "subtitulo": "Un viaje por la Linea de Tiempo",
+      "descripcion": "Curso especial de 5 capítulos sobre la línea de tiempo.",
+      "emoji": "🔥",
+      "orden": 1,
+      "activo": true,
+      "archivo": "curso-especial/viaje-al-pasado/curso.json"
+    
+    }
+
+]
+
+
 }

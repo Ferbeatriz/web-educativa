@@ -57,7 +57,12 @@ Por favor, lee esos archivos primero y luego continuamos."
 2. **Documentación:** Generar la actualización de `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con el resumen de avances.
 
 
-## Estado actual (2026-11-11)
+
+## Estado actual (2026-11-14)
+- **Historia:** Submódulo "Historia de Chile" con 2 lecciones (Comunidad e Instituciones + Derechos y Deberes).
+- **Tutor Docente:** Autoguardado de lecciones en GitHub funcionando al 100%. El botón verde permite guardar los JSON generados por la IA directamente en el repositorio.
+- **Próximos pasos:** Arreglar el audio del módulo de Música o iniciar el Mes 3 (Portafolio/Notificaciones).
+
 - **Tutor Docente (IA):** Integrado y funcionando. Usa Groq. Para migrar a DeepSeek o Claude, solo se debe cambiar la URL, la API Key y el modelo en `workers/api/src/routes/docente.ts`.
 - **Pendientes:** Reparar audio del Metalófono o avanzar con Escritura en Lenguaje.
 
