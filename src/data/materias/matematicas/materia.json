@@ -176,6 +176,29 @@
       "archivo": "lecciones/ejercicios-medicion.json",
       "activo": true,
       "grupo": "medicion"
+    },
+
+    {
+      "id": "practica-area-perimetro",
+      "titulo": "Práctica: Área y Perímetro 📐",
+      "emoji": "📐",
+      "orden": 15,
+      "nivel": "básico",
+      "duracion_estimada_min": 20,
+      "archivo": "lecciones/practica-area-perimetro.json",
+      "activo": true,
+      "grupo": "medicion"
+    },
+    {
+      "id": "sumas-centenas",
+      "titulo": "Sumas Verticales de Centenas ➕",
+      "emoji": "➕",
+      "orden": 16,
+      "nivel": "básico",
+      "duracion_estimada_min": 15,
+      "archivo": "lecciones/sumas-centenas.json",
+      "activo": true,
+      "grupo": "suma" 
     }
 
   ]

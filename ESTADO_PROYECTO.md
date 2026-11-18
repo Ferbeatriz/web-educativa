@@ -19,6 +19,45 @@ Plataforma web educativa modular con las siguientes características:
 - **Proyectos especiales**: Curso Ojo de Horus, Creadoras de Mundos Digitales, Selk'nam
 
 ---
+---
+
+## 🎯 Declaraciones de Intención y Enfoque Comercial (2026-11-16)
+
+**Misión del Proyecto:**
+Construir una plataforma de soluciones educativas que entregue acompañamiento interactivo y tecnológico a alumnas de educación básica, facilitando el aprendizaje autónomo y el refuerzo de contenidos alineados al MINEDUC.
+
+**Visión de Mercado (Hacia dónde vamos):**
+Dejar de ser solo una "web educativa" para convertirnos en un ecosistema de **soluciones educativas** dirigido a clientes corporativos (Colegios, SLEP, Corporaciones) y naturales (Apoderados). 
+
+**Segmentos Objetivo (Declaración de Clientes Potenciales):**
+
+1. **Alumnas (Usuarios Principales):** Niñas que buscan aprender de forma interactiva, usando IA y tecnología actualizada, dejando atrás el método tradicional de "leer y responder".
+2. **Apoderados (Beneficiarios y Clientes Naturales):** Padres con poco tiempo (o separados/divorciados) que necesitan que la plataforma acompañe a sus hijas en el aprendizaje, entregándoles reportes automáticos y guías de ayuda, sin tener que sentarse a estudiar con ellas.
+3. **Profesores (Usuarios de IA y Clientes Internos):** Docentes que desean tener más tiempo para sí mismos, evitando llevarse trabajo a la casa. La plataforma les entrega IA para generar material y automatizar la preparación de clases.
+4. **Establecimientos (Clientes Corporativos/B2B):** Colegios, directores, rectores y jefes de UTP que buscan mejorar los puntajes SIMCE/PAES y necesitan un sistema robusto de reportes sobre el estado académico y conductual de sus alumnas.
+
+**Enfoque Comercial:**
+El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Start-Up Chile, ANID) para escalar la plataforma, por lo que el proyecto debe transitar desde un MVP funcional hacia un modelo de negocio sostenible (SaaS educativo).
+
+### 🧠 Principio de Diseño: Maestría sobre Adicción (No a la Tecnología de Enganche)
+
+**Declaración:**
+La plataforma rechaza explícitamente las estrategias de "enganche" o adicción tecnológica utilizadas por redes sociales como Instagram, TikTok o X (scroll infinito, recompensas variables, notificaciones intrusivas, rankings públicos, comparaciones sociales). 
+
+**Nuestro Enfoque:**
+Buscamos **seducir a través de la maestría y la agencia**, no de la dopamina barata. La experiencia de usuario está diseñada para que la niña sienta orgullo por su propio progreso, no ansiedad por la aprobación externa. 
+
+**Directrices técnicas y de contenido:**
+1. **Sin castigos por inactividad:** La racha es informativa, nunca punitiva. Si la niña no entra por una semana, no se le "rompe" la racha ni se le quita nada.
+2. **Sin comparaciones públicas:** No existirán rankings entre compañeras ni marcadores de "quién tiene más XP que quién". El único espejo es el propio progreso (Portafolio personal).
+3. **Recompensas por mérito:** Los logros y el XP se ganan exclusivamente por completar tareas de aprendizaje (ej. resolver una división, terminar una lección), no por abrir la plataforma o hacer clic en un botón.
+4. **Sin notificaciones intrusivas:** No se enviarán alertas diseñadas para generar ansiedad o presión social (ej. "Tu amiga ya te superó"). Las notificaciones serán exclusivamente informativas (ej. "Tu informe de progreso está disponible").
+5. **Diseño limpio y respetuoso:** La interfaz no busca "atrapar" a la niña con estímulos visuales excesivos. Busca ser un espacio de refugio y concentración, con una estética sobria, cálida y profesional.
+
+
+
+
+
 
 ## 🏗️ Stack técnico
 
@@ -177,6 +216,11 @@ web-educativa/
 ---
 
 ## ✅ Estado actual (2026-11-06)
+
+### 2026-11-14 (Cierre Curso Historia Universal)
+- **Historia:** Se creó el curso especial "Viaje al Pasado" (5 capítulos) y se configuró su índice (`src/pages/curso/[curso]/index.astro`).
+- **UI/UX:** Se agregó una línea de tiempo visual en el Capítulo 1 que marca "Antes del Año 1", el "Año 1" y el "Año Actual" (calculado dinámicamente con `new Date().getFullYear()` para no tener que actualizarlo nunca).
+- **Fix:** Se corrigió el scope de la variable `anioActual` (estaba dentro de `getStaticPaths`, se movió al frontmatter general).
 
 ### Últimos avances (2026-11-06)
 

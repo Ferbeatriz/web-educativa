@@ -26,6 +26,37 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ---
 
+## 🚨 DECLARACIÓN DE INTENCIONES (LEER OBLIGATORIAMENTE)
+
+Este proyecto no es solo un repositorio de código; es un **producto comercial en preparación** con fines de financiamiento. 
+
+**Visión:** Somos una plataforma de **soluciones educativas** que busca resolver los siguientes dolores:
+- **Alumnas:** Quieren aprender de forma interactiva con IA.
+- **Apoderados:** No tienen tiempo ni interés de estudiar con sus hijas (especialmente padres separados). Necesitan reportes y acompañamiento.
+- **Profesores:** Quieren evitarse trabajo extra y tareas para la casa. Usan nuestra IA para planificar y crear material.
+- **Colegios:** Buscan mejores puntajes SIMCE/PAES y reportes de estado académico para la dirección.
+
+**Implicancia para la IA:** Toda nueva funcionalidad o lección que crees debe estar alineada con esta visión comercial. No se trata solo de "cumplir con el MINEDUC", sino de construir un producto deseable para los segmentos descritos.
+
+### 🧠 Principio de Diseño: Maestría sobre Adicción (No a la Tecnología de Enganche)
+
+**Declaración:**
+La plataforma rechaza explícitamente las estrategias de "enganche" o adicción tecnológica utilizadas por redes sociales como Instagram, TikTok o X (scroll infinito, recompensas variables, notificaciones intrusivas, rankings públicos, comparaciones sociales). 
+
+**Nuestro Enfoque:**
+Buscamos **seducir a través de la maestría y la agencia**, no de la dopamina barata. La experiencia de usuario está diseñada para que la niña sienta orgullo por su propio progreso, no ansiedad por la aprobación externa. 
+
+**Directrices técnicas y de contenido:**
+1. **Sin castigos por inactividad:** La racha es informativa, nunca punitiva. Si la niña no entra por una semana, no se le "rompe" la racha ni se le quita nada.
+2. **Sin comparaciones públicas:** No existirán rankings entre compañeras ni marcadores de "quién tiene más XP que quién". El único espejo es el propio progreso (Portafolio personal).
+3. **Recompensas por mérito:** Los logros y el XP se ganan exclusivamente por completar tareas de aprendizaje (ej. resolver una división, terminar una lección), no por abrir la plataforma o hacer clic en un botón.
+4. **Sin notificaciones intrusivas:** No se enviarán alertas diseñadas para generar ansiedad o presión social (ej. "Tu amiga ya te superó"). Las notificaciones serán exclusivamente informativas (ej. "Tu informe de progreso está disponible").
+5. **Diseño limpio y respetuoso:** La interfaz no busca "atrapar" a la niña con estímulos visuales excesivos. Busca ser un espacio de refugio y concentración, con una estética sobria, cálida y profesional.
+
+
+
+
+
 ## 📚 LECTURA OBLIGATORIA ANTES DE CUALQUIER ACCIÓN
 
 - `ALINEACION_MINEDUC.md` → Referencia curricular obligatoria.
@@ -57,7 +88,12 @@ Por favor, lee esos archivos primero y luego continuamos."
 2. **Documentación:** Generar la actualización de `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con el resumen de avances.
 
 
-
+## Estado actual (2026-11-14 - Cierre)
+- **Historia:** Módulo completo con "Historia de Chile" (Derechos y Deberes) y "Historia Universal" (Mini curso Viaje al Pasado).
+- **Tutor Docente IA:** Autoguardado en GitHub 100% funcional.
+- **Próximos pasos prioritarios:** 
+  1. Arreglar el audio del módulo de Música (Metalófono).
+  2. Iniciar el Mes 3 del Roadmap (Portafolio de la Alumna / Notificaciones a apoderados).
 ## Estado actual (2026-11-14)
 - **Historia:** Submódulo "Historia de Chile" con 2 lecciones (Comunidad e Instituciones + Derechos y Deberes).
 - **Tutor Docente:** Autoguardado de lecciones en GitHub funcionando al 100%. El botón verde permite guardar los JSON generados por la IA directamente en el repositorio.
