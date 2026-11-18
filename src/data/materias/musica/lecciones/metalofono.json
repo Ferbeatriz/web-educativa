@@ -1,0 +1,12 @@
+{
+  "id": "metalofono",
+  "titulo": "Metalófono Virtual 🎹",
+  "categoria": "Música",
+  "emoji": "🎹",
+  "progreso_puntos": 50,
+  "contenido_modulos": [
+    "### 🎹 ¡A tocar!\n\nUsa el metalófono virtual para experimentar con las notas musicales. Haz clic en las teclas de colores (notas naturales) y en las teclas negras (sostenidos)."
+  ],
+  "banco_trivia": [],
+  "glosario": []
+}

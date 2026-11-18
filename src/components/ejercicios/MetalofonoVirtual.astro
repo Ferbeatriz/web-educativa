@@ -1,68 +1,107 @@
-<div class="w-full overflow-x-auto py-8">
-  <div class="flex flex-row justify-center items-end gap-1 min-w-max mx-auto px-4">
-    <div class="relative flex flex-col items-center">
-      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="DO#">DO#</button>
-      <button class="w-14 h-36 bg-red-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="DO">DO</button>
-    </div>
-    <div class="relative flex flex-col items-center">
-      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="RE#">RE#</button>
-      <button class="w-14 h-36 bg-orange-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="RE">RE</button>
-    </div>
-    <div class="relative flex flex-col items-center">
-      <div class="absolute -top-5 w-8 h-12"></div>
-      <button class="w-14 h-36 bg-yellow-400 rounded-b-lg shadow-lg text-gray-800 font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="MI">MI</button>
-    </div>
-    <div class="relative flex flex-col items-center">
-      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="FA#">FA#</button>
-      <button class="w-14 h-36 bg-green-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="FA">FA</button>
-    </div>
-    <div class="relative flex flex-col items-center">
-      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="SOL#">SOL#</button>
-      <button class="w-14 h-36 bg-teal-400 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="SOL">SOL</button>
-    </div>
-    <div class="relative flex flex-col items-center">
-      <button class="tecla-negra absolute -top-5 z-10 w-8 h-12 bg-gray-800 rounded-b-md shadow-md text-white text-[10px] font-bold" data-nota="LA#">LA#</button>
-      <button class="w-14 h-36 bg-blue-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="LA">LA</button>
-    </div>
-    <div class="relative flex flex-col items-center">
-      <div class="absolute -top-5 w-8 h-12"></div>
-      <button class="w-14 h-36 bg-purple-500 rounded-b-lg shadow-lg text-white font-bold text-lg hover:brightness-110 active:scale-95 transition-all flex items-end justify-center pb-2" data-nota="SI">SI</button>
+---
+// Metalófono Virtual de 25 notas
+---
+
+<div class="bg-white rounded-2xl shadow-lg p-4 md:p-8 max-w-5xl mx-auto my-8 border border-gray-100">
+  <h2 class="text-2xl font-extrabold text-gray-800 text-center mb-2">🎼 Metalófono Virtual</h2>
+  <p class="text-center text-gray-500 mb-8">Haz clic en las teclas para tocar. Usa las teclas azules de arriba para los sostenidos.</p>
+
+  <!-- Contenedor principal del metalófono -->
+  <div class="w-full bg-yellow-100 rounded-xl border-4 border-yellow-400 shadow-inner p-2 overflow-hidden">
+    
+    <div class="flex w-full h-48 relative">
+      
+      <!-- Teclas naturales (las de abajo) -->
+      <div class="flex w-full h-full">
+        <button class="flex-1 bg-red-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-red-600" data-nota="C4">DO</button>
+        <button class="flex-1 bg-orange-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-orange-600" data-nota="D4">RE</button>
+        <button class="flex-1 bg-yellow-400 rounded-b-md shadow-md text-gray-800 font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-yellow-500" data-nota="E4">MI</button>
+        <button class="flex-1 bg-green-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-green-600" data-nota="F4">FA</button>
+        <button class="flex-1 bg-teal-400 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-teal-500" data-nota="G4">SOL</button>
+        <button class="flex-1 bg-blue-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-blue-600" data-nota="A4">LA</button>
+        <button class="flex-1 bg-purple-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-purple-600" data-nota="B4">SI</button>
+        
+        <!-- Segunda octava -->
+        <button class="flex-1 bg-red-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-red-600" data-nota="C5">DO</button>
+        <button class="flex-1 bg-orange-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-orange-600" data-nota="D5">RE</button>
+        <button class="flex-1 bg-yellow-400 rounded-b-md shadow-md text-gray-800 font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-yellow-500" data-nota="E5">MI</button>
+        <button class="flex-1 bg-green-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-green-600" data-nota="F5">FA</button>
+        <button class="flex-1 bg-teal-400 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-teal-500" data-nota="G5">SOL</button>
+        <button class="flex-1 bg-blue-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-blue-600" data-nota="A5">LA</button>
+        <button class="flex-1 bg-purple-500 rounded-b-md shadow-md text-white font-bold text-[10px] md:text-sm flex items-end justify-center pb-2 border-r border-purple-600" data-nota="B5">SI</button>
+      </div>
+
+      <!-- Teclas sostenidas (superpuestas de forma absoluta) -->
+      <div class="absolute inset-0 flex pointer-events-none">
+        <!-- DO# -->
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="C#4">DO#</button></div>
+        <!-- RE# -->
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="D#4">RE#</button></div>
+        <!-- (Sin MI#) -->
+        <div class="relative" style="width: 7.14%;"></div>
+        <!-- FA# -->
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="F#4">FA#</button></div>
+        <!-- SOL# -->
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="G#4">SOL#</button></div>
+        <!-- LA# -->
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="A#4">LA#</button></div>
+        <!-- (Sin SI#) -->
+        <div class="relative" style="width: 7.14%;"></div>
+        
+        <!-- Segunda octava -->
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="C#5">DO#</button></div>
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="D#5">RE#</button></div>
+        <div class="relative" style="width: 7.14%;"></div>
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="F#5">FA#</button></div>
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="G#5">SOL#</button></div>
+        <div class="relative" style="width: 7.14%;"><button class="tecla-sostenido absolute right-0 translate-x-1/2 w-3/4 h-24 bg-gray-800 rounded-b-md shadow-lg text-white text-[8px] flex items-end justify-center pb-1 pointer-events-auto" data-nota="A#5">LA#</button></div>
+        <div class="relative" style="width: 7.14%;"></div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
-  let audioCtx = null;
-  const frecuencias = { 'DO': 261.63, 'DO#': 277.18, 'RE': 293.66, 'RE#': 311.13, 'MI': 329.63, 'FA': 349.23, 'FA#': 369.99, 'SOL': 392.00, 'SOL#': 415.30, 'LA': 440.00, 'LA#': 466.16, 'SI': 493.88 };
+  // Usamos JavaScript puro para que Astro no se queje de tipos
+  const frecuencias = {
+    'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13, 'E4': 329.63, 'F4': 349.23, 'F#4': 369.99, 'G4': 392.00, 'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88,
+    'C5': 523.25, 'C#5': 554.37, 'D5': 587.33, 'D#5': 622.25, 'E5': 659.25, 'F5': 698.46, 'F#5': 739.99, 'G5': 783.99, 'G#5': 830.61, 'A5': 880.00, 'A#5': 932.33, 'B5': 987.77
+  };
 
-  window.tocarNota = function(nota) {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
+  let audioCtx = null;
+
+  function tocarNota(nota) {
     const freq = frecuencias[nota];
     if (!freq) return;
+
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = 'triangle';
+    
+    osc.type = 'triangle'; 
     osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    
     gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+    
     osc.connect(gain);
     gain.connect(audioCtx.destination);
+    
     osc.start();
-    osc.stop(audioCtx.currentTime + 1.2);
+    osc.stop(audioCtx.currentTime + 1.5);
   }
 
   document.querySelectorAll('[data-nota]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const nota = btn.dataset.nota;
-      if (nota) {
-        window.tocarNota(nota);
-        document.dispatchEvent(new CustomEvent('nota-tocada', { detail: { nota: nota } }));
-      }
+      if (nota) tocarNota(nota);
     });
-  });
-
-  document.addEventListener('nota-tocada', (e) => {
-    window.tocarNota(e.detail.nota);
   });
 </script>

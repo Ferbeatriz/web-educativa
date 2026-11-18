@@ -18,6 +18,7 @@ import PracticaCancion from '../../components/ejercicios/PracticaCancion.astro';
 import SimuladorFracciones from '../../components/ejercicios/SimuladorFracciones.astro';
 import LaboratorioOperacionesFracciones from '../../components/ejercicios/LaboratorioOperacionesFracciones.astro';
 import SumadorVertical from '../../components/ejercicios/SumadorVertical.astro';
+import MetalofonoVirtual from '../../components/ejercicios/MetalofonoVirtual.astro';
 
 export async function getStaticPaths() {
   const materiasFiles = import.meta.glob('../../data/materias/*/materia.json', { eager: true });
@@ -349,6 +350,7 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
       {(leccion.id === 'perimetro' || leccion.id === 'ejercicios-medicion' || leccion.id === 'practica-area-perimetro') && <LaboratorioPerimetro />}
 {(leccion.id === 'area' || leccion.id === 'ejercicios-medicion' || leccion.id === 'practica-area-perimetro') && <LaboratorioArea />}
 {leccion.id === 'sumas-centenas' && <SumadorVertical />}
+{leccion.id === 'metalofono' && <MetalofonoVirtual />}
 
 <!-- ANÁLISIS GUIADO -->
       {leccion.analisis && (

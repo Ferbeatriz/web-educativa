@@ -214,8 +214,18 @@ web-educativa/
 
 
 ---
+## ✅ Estado actual 
 
-## ✅ Estado actual (2026-11-06)
+
+### 2026-11-17
+- **Matemáticas:** Se agregaron dos nuevas lecciones de práctica:
+  - "Práctica: Área y Perímetro" (con ejercicios de conteo de cuadraditos y problemas de medidas).
+  - "Sumas Verticales de Centenas" (10 ejercicios de cálculo puro, sin teoría).
+- **Simulador:** Se creó el componente `SumadorVertical.astro` (flotante) que alinea dinámicamente sumas de hasta centenas de millón y muestra el resultado paso a paso.
+- **Integración:** El simulador de sumas se activa en la lección de "Sumas Verticales" y los simuladores de área/perímetro se activan en la nueva lección de práctica.
+
+
+(2026-11-06)
 
 ### 2026-11-14 (Cierre Curso Historia Universal)
 - **Historia:** Se creó el curso especial "Viaje al Pasado" (5 capítulos) y se configuró su índice (`src/pages/curso/[curso]/index.astro`).

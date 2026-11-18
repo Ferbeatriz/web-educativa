@@ -68,7 +68,15 @@ Buscamos **seducir a través de la maestría y la agencia**, no de la dopamina b
 - `ROADMAP_3_MESES.md` → Plan de 3 meses (gamificación, apoderado, portafolio).
 ---
 
-## Estado actual (2026-11-10)
+
+## Estado actual (2026-11-17)
+- **Matemáticas:** Módulo de Geometría y Operaciones reforzado con práctica y simuladores. 
+- **Tutor Docente:** Funcional con autoguardado en GitHub.
+- **Pendientes:** Reparar audio del metalófono o iniciar el Portafolio de la Alumna (Mes 3).
+
+
+
+(2026-11-10)
 - **Matemáticas:** Eje de Números y Operaciones (básico) + Geometría/Medición (completado). Los módulos de Fracciones, Perímetro y Área están 100% operativos.
 - **Lenguaje:** Comprensión lectora (Trivia + Análisis Guiado) funcionando en el Club de Lectura.
 - **Música:** Metalófono virtual creado, pero con problemas de audio pendientes.
