@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Mi Portafolio - Aprende Jugando">
+  <main class="max-w-5xl mx-auto px-4 py-8 md:py-12">
+    
+    <!-- Encabezado -->
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">
+        🏆 Mi Portafolio
+      </h1>
+      <p class="text-gray-600">
+        Aquí puedes ver todo lo que has logrado en tu aventura de aprendizaje.
+      </p>
+    </div>
+
+    <!-- Contenido dinámico -->
+    <div id="portafolio-contenido">
+      <div class="flex items-center justify-center py-12">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <span class="ml-3 text-gray-600">Cargando tu portafolio...</span>
+      </div>
+    </div>
+
+    <!-- Si no hay sesión -->
+    <div id="portafolio-sin-sesion" class="hidden">
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div class="text-5xl mb-4">🔒</div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Necesitas iniciar sesión</h2>
+        <p class="text-gray-600 mb-6">Para ver tu portafolio, primero debes entrar con tu usuario y contraseña.</p>
+        <a href="/login" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition">
+          Ir a iniciar sesión
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+  import { getToken, isLoggedIn, logout } from '../lib/auth';
+
+  const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
+  const contenedor = document.getElementById('portafolio-contenido');
+  const sinSesion = document.getElementById('portafolio-sin-sesion');
+
+  async function cargarPortafolio() {
+    // 1. Verificar sesión
+    if (!isLoggedIn()) {
+      contenedor?.classList.add('hidden');
+      sinSesion?.classList.remove('hidden');
+      return;
+    }
+
+    const token = getToken();
+    if (!token) {
+      contenedor?.classList.add('hidden');
+      sinSesion?.classList.remove('hidden');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/api/progreso/portafolio`, {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Si el token expiró o es inválido, cerramos sesión
+      if (response.status === 401) {
+        await logout();
+        window.location.href = '/login';
+        return;
+      }
+
+      if (!response.ok) throw new Error('Error al cargar datos');
+
+      const data = await response.json();
+      if (!data.ok) throw new Error(data.error || 'Error desconocido');
+
+      renderPortafolio(data.portafolio);
+    } catch (error) {
+      console.error('Error:', error);
+      if (contenedor) {
+        contenedor.innerHTML = `<div class="bg-red-50 text-red-700 p-6 rounded-xl text-center">Hubo un error al cargar tu portafolio. Intenta de nuevo más tarde.</div>`;
+      }
+    }
+  }
+
+  function renderPortafolio(p: any) {
+    if (!contenedor) return;
+
+    // Generar la lista de logros
+    const logrosHTML = p.logros.map((l: any) => `
+      <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 text-center w-24 h-24">
+        <div class="text-3xl mb-1">${l.emoji || '🏅'}</div>
+        <div class="text-[10px] font-bold text-gray-700 leading-tight">${l.titulo || l.logro_id}</div>
+      </div>
+    `).join('');
+
+    // Generar la lista de materias
+    const materiasHTML = p.materias.map((m: any) => `
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center">
+        <span class="font-bold text-gray-700 capitalize">${m.materia_id}</span>
+        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-bold">
+          ${m.completadas} lecciones
+        </span>
+      </div>
+    `).join('');
+
+    // Generar la lista de últimas lecciones
+    const leccionesHTML = p.lecciones.map((l: any) => `
+      <div class="flex items-center gap-3 p-3 border-b border-gray-50 last:border-0">
+        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+        <div class="flex-1">
+          <p class="text-sm font-bold text-gray-800">${l.leccion_id}</p>
+          <p class="text-xs text-gray-500">${l.materia_id}</p>
+        </div>
+        <span class="text-xs text-gray-400">${new Date(l.completada_en).toLocaleDateString('es-CL')}</span>
+      </div>
+    `).join('');
+
+    contenedor.innerHTML = `
+      <!-- Tarjeta de Bienvenida -->
+      <div class="bg-gradient-to-br from-purple-500 to-purple-700 rounded-3xl p-8 text-white mb-8 shadow-lg relative overflow-hidden">
+        <div class="absolute top-0 right-0 text-9xl opacity-20 -mt-4 -mr-4">🎓</div>
+        <h2 class="text-3xl font-extrabold mb-2">¡Hola, ${p.alumna.nombre}!</h2>
+        <p class="text-white/80 font-medium mb-6">Este es tu espacio personal de logros.</p>
+        
+        <div class="flex gap-4 flex-wrap">
+          <div class="bg-white/20 backdrop-blur px-6 py-3 rounded-2xl flex-1 min-w-[140px]">
+            <p class="text-xs uppercase font-bold text-white/70 mb-1">Nivel Actual</p>
+            <p class="text-xl font-extrabold">${p.nivel.emoji} ${p.nivel.nombre}</p>
+          </div>
+          <div class="bg-white/20 backdrop-blur px-6 py-3 rounded-2xl flex-1 min-w-[140px]">
+            <p class="text-xs uppercase font-bold text-white/70 mb-1">XP Total</p>
+            <p class="text-xl font-extrabold">${p.nivel.xp_total} XP</p>
+          </div>
+          <div class="bg-white/20 backdrop-blur px-6 py-3 rounded-2xl flex-1 min-w-[140px]">
+            <p class="text-xs uppercase font-bold text-white/70 mb-1">Racha</p>
+            <p class="text-xl font-extrabold">🔥 ${p.racha.dias_consecutivos} días</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Columna Izquierda: Logros y Materias -->
+        <div class="space-y-8">
+          <section>
+            <h3 class="text-xl font-extrabold text-gray-800 mb-4 flex items-center gap-2">🏅 Mis Logros</h3>
+            <div class="grid grid-cols-3 gap-3">
+              ${logrosHTML || '<p class="text-gray-500 text-sm">Aún no tienes logros. ¡Sigue aprendiendo!</p>'}
+            </div>
+          </section>
+
+          <section>
+            <h3 class="text-xl font-extrabold text-gray-800 mb-4 flex items-center gap-2">📚 Mi Progreso por Materia</h3>
+            <div class="space-y-3">
+              ${materiasHTML || '<p class="text-gray-500 text-sm">Aún no has completado lecciones.</p>'}
+            </div>
+          </section>
+        </div>
+
+        <!-- Columna Derecha: Últimas Lecciones -->
+        <div>
+          <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h3 class="text-xl font-extrabold text-gray-800 mb-4 flex items-center gap-2">📖 Mis Últimas Lecciones</h3>
+            <div class="divide-y divide-gray-50">
+              ${leccionesHTML || '<p class="text-gray-500 text-sm">Aún no tienes lecciones completadas.</p>'}
+            </div>
+          </section>
+        </div>
+      </div>
+    `;
+  }
+
+  cargarPortafolio();
+</script>
+</Layout>

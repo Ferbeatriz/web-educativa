@@ -533,3 +533,64 @@ async function verificarLogros(
 
   return desbloqueadosAhora;
 }
+
+// GET /api/progreso/portafolio
+export async function handlePortafolio(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) {
+    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+  }
+
+  const db = env.DB;
+
+  // 1. Datos básicos (XP, nivel, lecciones)
+  const resumen = await getResumenProgreso(db, alumna.id);
+  const nivel = calcularNivel(resumen.xp_total);
+
+  // 2. Logros desbloqueados
+  const logros = await getLogrosDesbloqueados(db, alumna.id);
+
+  // 3. Progreso por materia
+  const materias = await getLeccionesCompletadasPorMateria(db, alumna.id);
+
+  // 4. Racha
+  const diasActivos = await getDiasActivos(db, alumna.id);
+  const racha = calcularRacha(diasActivos);
+
+  // 5. Lecciones completadas (lista completa)
+  const lecciones = await getProgresoCompleto(db, alumna.id);
+
+  return jsonResponse({
+    ok: true,
+    portafolio: {
+      alumna: {
+        nombre: alumna.nombre,
+        usuario: alumna.usuario,
+      },
+      nivel: {
+        numero: nivel.numero,
+        nombre: nivel.nombre,
+        emoji: nivel.emoji,
+        xp_total: nivel.xp_total,
+        xp_siguiente: nivel.xp_siguiente_total,
+        porcentaje: nivel.porcentaje,
+        es_maximo: nivel.es_maximo,
+      },
+      resumen: {
+        lecciones_completadas: resumen.lecciones_completadas,
+        materias_exploradas: resumen.materias_exploradas,
+      },
+      racha: {
+        dias_consecutivos: racha.dias_consecutivos,
+        racha_maxima: racha.racha_maxima,
+        dias_activos_totales: racha.dias_activos_totales,
+      },
+      logros: logros,
+      materias: materias,
+      lecciones: lecciones.slice(0, 10), // Solo las últimas 10 lecciones
+    },
+  });
+}

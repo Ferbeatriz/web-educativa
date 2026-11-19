@@ -217,6 +217,11 @@ web-educativa/
 ## ✅ Estado actual 
 
 
+### 2026-11-18
+- **Música:** Módulo de música renovado. Se eliminaron las lecciones antiguas y se creó un **Metalófono Virtual de 25 notas** (incluye notas naturales y sostenidos). El componente usa Web Audio API para sintetizar el sonido y es responsive.
+
+
+
 ### 2026-11-17
 - **Matemáticas:** Se agregaron dos nuevas lecciones de práctica:
   - "Práctica: Área y Perímetro" (con ejercicios de conteo de cuadraditos y problemas de medidas).

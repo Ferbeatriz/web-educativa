@@ -68,8 +68,15 @@ Buscamos **seducir a través de la maestría y la agencia**, no de la dopamina b
 - `ROADMAP_3_MESES.md` → Plan de 3 meses (gamificación, apoderado, portafolio).
 ---
 
+## Estado actual (2026-11-18)
+- **Música:** Metalófono virtual funcional. Pendiente agregar canciones (El Negro José, Estrellita) como lecciones si se desea.
+- **Matemáticas:** Módulo completo con fracciones, geometría y práctica.
+- **Historia:** Módulo completo con Historia de Chile y Universal.
+- **Tutor Docente IA:** Funcional con autoguardado en GitHub.
+- **Próximos pasos:** Iniciar el Mes 3 (Portafolio de la Alumna) o postular a fondos de financiamiento.
 
-## Estado actual (2026-11-17)
+
+(2026-11-17)
 - **Matemáticas:** Módulo de Geometría y Operaciones reforzado con práctica y simuladores. 
 - **Tutor Docente:** Funcional con autoguardado en GitHub.
 - **Pendientes:** Reparar audio del metalófono o iniciar el Portafolio de la Alumna (Mes 3).

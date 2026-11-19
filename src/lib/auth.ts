@@ -3,7 +3,7 @@
  * Todas las llamadas al Worker pasan por acá.
  */
 
-const API_URL = import.meta.env.PUBLIC_API_URL || 'https://web-educativa-api.ferbeatriz.workers.dev';
+const API_URL = 'https://web-educativa-api.ferbeatriz.workers.dev';
 const TOKEN_KEY = 'web_educativa_token';
 const ALUMNA_KEY = 'web_educativa_alumna';
 

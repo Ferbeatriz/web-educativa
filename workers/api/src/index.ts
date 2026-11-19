@@ -53,6 +53,7 @@ import { handleRegistrarIntento } from './routes/tutor';
 
 // NUEVO: Importar el tutor docente
 import { handleDocenteChat, handleGuardarLeccion } from './routes/docente';
+import { handlePortafolio } from './routes/progreso';
 
 import type { EnvEmail } from './lib/email';
 
@@ -186,6 +187,11 @@ export default {
       if (path === '/api/progreso/por-materia' && method === 'GET') {
         return await handleProgresoPorMateria(request, env);
       }
+
+        if (path === '/api/progreso/portafolio' && method === 'GET') {
+         return await handlePortafolio(request, env);
+}
+
 
       // ---------- Tutor ----------
       if (path === '/api/tutor/registrar-intento' && method === 'POST') {
