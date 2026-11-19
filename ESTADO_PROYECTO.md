@@ -216,7 +216,10 @@ web-educativa/
 ---
 ## ✅ Estado actual 
 
-
+### 2026-11-19
+- **Portafolio de la Alumna:** Creada la página `/mi-portafolio`. Muestra nivel, XP, racha, logros, progreso por materia y últimas lecciones completadas.
+- **Backend:** Nuevo endpoint `GET /api/progreso/portafolio` que consolida todos los datos de la alumna.
+- **Fix crítico:** Se corrigió la URL de la API en `auth.ts` para que apunte siempre al Worker de producción y no al local (evitando el error 401 en el portafolio).
 ### 2026-11-18
 - **Música:** Módulo de música renovado. Se eliminaron las lecciones antiguas y se creó un **Metalófono Virtual de 25 notas** (incluye notas naturales y sostenidos). El componente usa Web Audio API para sintetizar el sonido y es responsive.
 

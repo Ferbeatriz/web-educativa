@@ -110,6 +110,51 @@ const {
       return div.innerHTML;
     }
 
+
+    // Función para procesar figuras de cuadrícula (soporta 2 o 3 partes)
+function procesarFiguras(texto: string): string {
+  // Primero, buscamos los marcadores con 3 partes (tipo:color)
+  texto = texto.replace(/{{FIGURA:(.*?):(.*?)}}/g, (match, tipo, color) => {
+    const figuras: Record<string, string[]> = {
+      'rectangulo_2x3': ['111', '111'],
+      'cuadrado_3x3': ['111', '111', '111'],
+      'rectangulo_2x5': ['11111', '11111'],
+    };
+    const filas = figuras[tipo];
+    if (!filas) return match;
+    return generarGrid(filas, color);
+  });
+
+  // Luego, buscamos los marcadores con 2 partes (tipo con color incluido)
+  texto = texto.replace(/{{FIGURA:(.*?)}}/g, (match, tipo) => {
+    const figuras: Record<string, { filas: string[], color: string }> = {
+      'ele_yellow': { filas: ['100', '100', '111'], color: 'yellow' },
+      'te_purple': { filas: ['111', '010', '010'], color: 'purple' },
+    };
+    const figura = figuras[tipo];
+    if (!figura) return match;
+    return generarGrid(figura.filas, figura.color);
+  });
+
+  return texto;
+}
+
+// Función auxiliar para generar el HTML de la cuadrícula
+function generarGrid(filas: string[], color: string): string {
+  const cols = filas[0].length;
+  let grid = `<div class="flex justify-center my-4"><div class="grid gap-1" style="grid-template-columns: repeat(${cols}, 1fr);">`;
+  filas.forEach(fila => {
+    fila.split('').forEach(celda => {
+      grid += celda === '1'
+        ? `<div class="w-10 h-10 md:w-12 md:h-12 bg-${color}-400 border border-${color}-500 rounded-sm"></div>`
+        : `<div class="w-10 h-10 md:w-12 md:h-12 bg-transparent"></div>`;
+    });
+  });
+  grid += `</div></div>`;
+  return grid;
+}
+     
+
     function actualizarProgreso() {
       const vistas = leerVistas(leccionId, 'trivia').length;
       const total = banco.length;
@@ -128,7 +173,9 @@ const {
         const k = Math.floor(Math.random() * (j + 1));
         [opcionesMezcladas[j], opcionesMezcladas[k]] = [opcionesMezcladas[k], opcionesMezcladas[j]];
       }
-      // Recuperar el nuevo índice de la respuesta correcta después de mezclar
+
+
+     // Recuperar el nuevo índice de la respuesta correcta después de mezclar
       const indiceCorrectoOriginal = p.respuesta_correcta;
       const nuevaRespuestaCorrecta = opcionesMezcladas.indexOf(p.opciones[indiceCorrectoOriginal]);
 
@@ -151,7 +198,7 @@ const {
             </span>
           </header>
           ${p.tema ? `<div class="preg-tema"><strong>Tema:</strong> ${escapeHtml(p.tema)}</div>` : ''}
-          <h3 class="preg-enunciado">${escapeHtml(p.pregunta)}</h3>
+          <h3 class="preg-enunciado">${procesarFiguras(p.pregunta)}</h3>
           <ul class="opciones">${opcionesHtml}</ul>
           <div class="preg-feedback" hidden></div>
         </article>

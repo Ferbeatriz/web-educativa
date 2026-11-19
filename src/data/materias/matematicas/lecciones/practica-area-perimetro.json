@@ -7,86 +7,46 @@
   "contenido_modulos": [
     "### 🧠 ¡A practicar!\n\nEn esta lección pondremos a prueba todo lo que aprendiste sobre área y perímetro. Lee con atención cada instrucción y calcula la respuesta."
   ],
-  "banco_trivia": [
+      "banco_trivia": [
     {
       "id": "ap01",
       "dificultad": "media",
-      "pregunta": "Observa la figura (rectángulo de 3x2 cuadraditos). ¿Cuál es su área?",
-      "opciones": ["5 unidades cuadradas", "6 unidades cuadradas", "7 unidades cuadradas", "8 unidades cuadradas"],
-      "respuesta_correcta": 1,
-      "explicacion": "Si cuentas los cuadraditos de la figura, hay 3 en la base y 2 de altura. 3 x 2 = 6 unidades cuadradas."
+      "pregunta": "Observa la figura. ¿Cuál es su área?\n\n{{FIGURA:rectangulo_2x3:blue}}",
+      "opciones": ["3 unidades cuadradas", "4 unidades cuadradas", "5 unidades cuadradas", "6 unidades cuadradas"],
+      "respuesta_correcta": 3,
+      "explicacion": "La figura tiene 2 filas de 3 cuadraditos cada una. 2 x 3 = 6 unidades cuadradas."
     },
     {
       "id": "ap02",
       "dificultad": "media",
-      "pregunta": "Observa la figura (cuadrado de 3x3 cuadraditos). ¿Cuál es su área?",
+      "pregunta": "Observa la figura. ¿Cuál es su área?\n\n{{FIGURA:cuadrado_3x3:green}}",
       "opciones": ["6 unidades cuadradas", "9 unidades cuadradas", "12 unidades cuadradas", "15 unidades cuadradas"],
       "respuesta_correcta": 1,
-      "explicacion": "Si cuentas los cuadraditos de la figura, hay 3 filas de 3 cuadraditos cada una. 3 x 3 = 9 unidades cuadradas."
+      "explicacion": "La figura es un cuadrado de 3x3. 3 x 3 = 9 unidades cuadradas."
     },
     {
       "id": "ap03",
       "dificultad": "dificil",
-      "pregunta": "Observa la figura (forma de L: 1 columna de 3 cuadraditos y 2 columnas de 1 cuadradito). ¿Cuál es su área?",
+      "pregunta": "Observa la figura en forma de L. ¿Cuál es su área?\n\n{{FIGURA:ele_yellow}}",
       "opciones": ["4 unidades cuadradas", "5 unidades cuadradas", "6 unidades cuadradas", "7 unidades cuadradas"],
       "respuesta_correcta": 1,
-      "explicacion": "Al contar todos los cuadraditos que forman la L, suman un total de 5 unidades cuadradas."
+      "explicacion": "La forma en L está compuesta por 5 cuadraditos. 3 en la columna izquierda y 2 en la base."
     },
     {
       "id": "ap04",
       "dificultad": "dificil",
-      "pregunta": "Observa la figura (forma de T: 3 cuadraditos arriba y 2 abajo en el centro). ¿Cuál es su área?",
+      "pregunta": "Observa la figura en forma de T. ¿Cuál es su área?\n\n{{FIGURA:te_purple}}",
       "opciones": ["4 unidades cuadradas", "5 unidades cuadradas", "6 unidades cuadradas", "7 unidades cuadradas"],
       "respuesta_correcta": 1,
-      "explicacion": "Al contar todos los cuadraditos que forman la T, suman un total de 5 unidades cuadradas."
+      "explicacion": "La forma de T está compuesta por 5 cuadraditos. 3 en la fila superior y 2 en la columna central."
     },
     {
       "id": "ap05",
       "dificultad": "dificil",
-      "pregunta": "Observa la figura (rectángulo de 5x2 cuadraditos). ¿Cuál es su área?",
+      "pregunta": "Observa la figura. ¿Cuál es su área?\n\n{{FIGURA:rectangulo_2x5:red}}",
       "opciones": ["7 unidades cuadradas", "10 unidades cuadradas", "12 unidades cuadradas", "15 unidades cuadradas"],
       "respuesta_correcta": 1,
-      "explicacion": "Si cuentas los cuadraditos, hay 5 en la base y 2 de altura. 5 x 2 = 10 unidades cuadradas."
-    },
-    {
-      "id": "ap06",
-      "dificultad": "dificil",
-      "pregunta": "Un patio rectangular mide 5 metros de largo y 3 metros de ancho. ¿Cuál es su área?",
-      "opciones": ["8 metros cuadrados", "15 metros cuadrados", "16 metros cuadrados", "20 metros cuadrados"],
-      "respuesta_correcta": 1,
-      "explicacion": "El área de un rectángulo es base x altura. 5 x 3 = 15 metros cuadrados."
-    },
-    {
-      "id": "ap07",
-      "dificultad": "muy_dificil",
-      "pregunta": "Un jardín tiene forma de L (como en la guía). Si su base mide 6 cm y su altura 6 cm, ¿cuál es su perímetro?",
-      "opciones": ["12 cm", "18 cm", "24 cm", "36 cm"],
-      "respuesta_correcta": 2,
-      "explicacion": "Para calcular el perímetro, debes sumar todos los lados de la figura. Aunque tiene forma de L, si sumas sus lados exteriores, el perímetro es 24 cm."
-    },
-    {
-      "id": "ap08",
-      "dificultad": "muy_dificil",
-      "pregunta": "Una ventana cuadrada tiene 4 metros de lado. ¿Cuál es su perímetro?",
-      "opciones": ["4 metros", "8 metros", "12 metros", "16 metros"],
-      "respuesta_correcta": 3,
-      "explicacion": "El perímetro de un cuadrado es 4 x lado. 4 x 4 = 16 metros."
-    },
-    {
-      "id": "ap09",
-      "dificultad": "muy_dificil",
-      "pregunta": "Una mesa rectangular mide 7 cm de largo y 4 cm de ancho. ¿Cuál es su perímetro?",
-      "opciones": ["11 cm", "22 cm", "28 cm", "30 cm"],
-      "respuesta_correcta": 1,
-      "explicacion": "El perímetro de un rectángulo es 2 x (largo + ancho). 2 x (7 + 4) = 2 x 11 = 22 cm."
-    },
-    {
-      "id": "ap10",
-      "dificultad": "muy_dificil",
-      "pregunta": "Un piso cuadrado tiene 5 metros de lado. ¿Cuál es su área?",
-      "opciones": ["10 metros cuadrados", "15 metros cuadrados", "20 metros cuadrados", "25 metros cuadrados"],
-      "respuesta_correcta": 3,
-      "explicacion": "El área de un cuadrado es lado x lado. 5 x 5 = 25 metros cuadrados."
+      "explicacion": "La figura tiene 2 filas de 5 cuadraditos. 2 x 5 = 10 unidades cuadradas."
     }
   ]
 }

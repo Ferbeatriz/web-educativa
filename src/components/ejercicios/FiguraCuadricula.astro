@@ -1,0 +1,19 @@
+---
+interface Props {
+  filas: string[]; // Un array de strings donde "1" es cuadrado y "0" es vacío
+}
+const { filas } = Astro.props;
+const cols = Math.max(...filas.map(f => f.length));
+---
+
+<div class="flex justify-center my-4">
+  <div class="grid gap-1" style={`grid-template-columns: repeat(${cols}, 1fr);`}>
+    {filas.map((fila) =>
+      fila.split('').map((celda) => (
+        celda === '1' 
+          ? <div class="w-8 h-8 md:w-10 md:h-10 bg-blue-400 border border-blue-500 rounded-sm"></div>
+          : <div class="w-8 h-8 md:w-10 md:h-10 bg-transparent"></div>
+      ))
+    )}
+  </div>
+</div>
