@@ -10,10 +10,12 @@
   "descripcion": "Aprende qué son las fracciones y cómo representar partes de un todo concreto.",
   "contenido_modulos": [
     "# 🍕 ¿Qué es una fracción?\n\n\n\nImagina que tienes una **pizza entera** y la partes en trozos iguales para compartir con tus amigos. Cada trozo que te llevas es una **fracción** de la pizza.\n\n\nUna fracción representa **una o más partes de un todo dividido en partes iguales**.\n\n\n> **Idea fuerza**: Una fracción nos dice cuántas partes tomamos de un todo que se dividió en partes iguales.\n\n\n---\n\n# 📊 Partes de una fracción\n\n\n\nToda fracción tiene dos números:\n\n\n- **Numerador**: el número de arriba. Nos dice **cuántas partes tomamos**.\n- **Denominador**: el número de abajo. Nos dice **en cuántas partes iguales se dividió el todo**.\n\n\n| Fracción | Numerador | Denominador |\n|----------|-----------|-------------|\n| 1/2 | 1 | 2 |\n| 1/3 | 1 | 3 |\n| 2/3 | 2 | 3 |\n| 1/4 | 1 | 4 |\n| 3/4 | 3 | 4 |\n\n\nEn la fracción **3/4**:\n\n- El **numerador es 3** (tomamos 3 partes).\n- El **denominador es 4** (el todo se dividió en 4 partes iguales).\n\n\n---",
-    "# 🎯 Lectura de fracciones\n\n\n\nLas fracciones se leen diciendo primero el numerador y luego el denominador con su nombre especial:\n\n\n| Fracción | Se lee |\n|----------|--------|\n| 1/2 | un medio |\n| 1/3 | un tercio |\n| 2/3 | dos tercios |\n| 1/4 | un cuarto |\n| 3/4 | tres cuartos |\n\n\n---\n\n# 🎮 Ahora te toca practica\n\n\n\n<!-- TUTOR: fracciones-practica -->"
+    "# 🎯 Lectura de fracciones\n\n\n\nLas fracciones se leen diciendo primero el numerador y luego el denominador con su nombre especial:\n\n\n| Fracción | Se lee |\n|----------|--------|\n| 1/2 | un medio |\n| 1/3 | un tercio |\n| 2/3 | dos tercios |\n| 1/4 | un cuarto |\n| 3/4 | tres cuartos |\n\n\n---\n\n# 🎮 Ahora te toca practicar\n\n\n\n<!-- TUTOR: fracciones-practica -->"
   ],
   "banco_trivia": [
     {
+      "id": "in01",
+      "dificultad": "media",
       "pregunta": "¿Qué representa el numerador en una fracción?",
       "opciones": [
         "En cuántas partes se dividió el todo",
@@ -21,9 +23,12 @@
         "El tamaño de cada parte",
         "El número total de objetos"
       ],
-      "respuesta_correcta": 1
+      "respuesta_correcta": 1,
+      "explicacion": "El numerador es el número de arriba e indica las partes que tomamos."
     },
     {
+      "id": "in02",
+      "dificultad": "media",
       "pregunta": "¿Qué representa el denominador en una fracción?",
       "opciones": [
         "Cuántas partes tomamos",
@@ -31,9 +36,12 @@
         "El resultado de la división",
         "Cuántas partes sobran"
       ],
-      "respuesta_correcta": 1
+      "respuesta_correcta": 1,
+      "explicacion": "El denominador es el número de abajo e indica en cuántas partes se dividió el entero."
     },
     {
+      "id": "in03",
+      "dificultad": "media",
       "pregunta": "En la fracción 3/4, ¿cuántas partes se pintan de un total de 4?",
       "opciones": [
         "1 parte",
@@ -41,9 +49,12 @@
         "3 partes",
         "4 partes"
       ],
-      "respuesta_correcta": 2
+      "respuesta_correcta": 2,
+      "explicacion": "El numerador 3 indica que se toman o pintan 3 partes."
     },
     {
+      "id": "in04",
+      "dificultad": "media",
       "pregunta": "¿Cuál fracción representa un medio?",
       "opciones": [
         "1/3",
@@ -51,9 +62,12 @@
         "1/2",
         "2/3"
       ],
-      "respuesta_correcta": 2
+      "respuesta_correcta": 2,
+      "explicacion": "1/2 representa la mitad de un entero."
     },
     {
+      "id": "in05",
+      "dificultad": "dificil",
       "pregunta": "Si una barra se divide en 3 partes iguales y pintas 2, ¿qué fracción es?",
       "opciones": [
         "1/3",
@@ -61,9 +75,12 @@
         "3/2",
         "1/2"
       ],
-      "respuesta_correcta": 1
+      "respuesta_correcta": 1,
+      "explicacion": "Se pintan 2 partes de un total de 3, por lo tanto es 2/3."
     },
     {
+      "id": "in06",
+      "dificultad": "dificil",
       "pregunta": "¿Qué fracción es más grande: 1/2 o 1/4?",
       "opciones": [
         "1/4",
@@ -71,9 +88,12 @@
         "Son iguales",
         "No se puede saber"
       ],
-      "respuesta_correcta": 1
+      "respuesta_correcta": 1,
+      "explicacion": "1/2 es más grande porque el entero se divide en menos partes, haciendo cada parte más grande."
     },
     {
+      "id": "in07",
+      "dificultad": "media",
       "pregunta": "En la fracción 2/3, ¿qué número es el denominador?",
       "opciones": [
         "2",
@@ -81,9 +101,12 @@
         "5",
         "1"
       ],
-      "respuesta_correcta": 1
+      "respuesta_correcta": 1,
+      "explicacion": "El denominador es el número de abajo, en este caso el 3."
     },
     {
+      "id": "in08",
+      "dificultad": "dificil",
       "pregunta": "Si divides un pastel en 4 partes iguales y te comes 1 parte, ¿qué fracción te comiste?",
       "opciones": [
         "1/4",
@@ -91,7 +114,8 @@
         "3/4",
         "4/1"
       ],
-      "respuesta_correcta": 0
+      "respuesta_correcta": 0,
+      "explicacion": "Comiste 1 parte de un total de 4, lo que se escribe como 1/4."
     }
   ],
   "glosario": [
