@@ -155,6 +155,56 @@ function generarGrid(filas: string[], color: string): string {
 }
      
 
+    // Función para enviar respuestas al backend (con manejo de errores silencioso)
+    async function enviarRespuestasAlBackend(
+      respuestas: { id: string, es_correcta: boolean, tipo: 'multiple' }[]
+    ) {
+      const token = localStorage.getItem('web_educativa_token');
+      if (!token) return;
+
+      // Enviar cada respuesta individualmente
+      for (const resp of respuestas) {
+        try {
+          await fetch('https://web-educativa-api.ferbeatriz.workers.dev/api/progreso/registrar-respuesta', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              leccion_id: leccionId,
+              pregunta_id: resp.id,
+              tipo: resp.tipo,
+              es_correcta: resp.es_correcta
+            })
+          });
+        } catch (e) {
+          console.warn('[trivia] Error al registrar respuesta:', e);
+        }
+      }
+
+      // Enviar avance total
+      try {
+        await fetch('https://web-educativa-api.ferbeatriz.workers.dev/api/progreso/actualizar-avance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            leccion_id: leccionId,
+            materia_id: 'matematicas', // TODO: hacer dinámico
+            total_preguntas: banco.length
+          })
+        });
+      } catch (e) {
+        console.warn('[trivia] Error al actualizar avance:', e);
+      }
+    }
+
+
+
+
     function actualizarProgreso() {
       const vistas = leerVistas(leccionId, 'trivia').length;
       const total = banco.length;
@@ -261,6 +311,26 @@ function generarGrid(filas: string[], color: string): string {
           feedback.innerHTML = `<strong>✗ Incorrecto</strong>La respuesta correcta era: <em>${escapeHtml(respuestaCorrectaTexto)}</em><br><br>${escapeHtml(explicacion)}`;
         }
       });
+
+
+      // Recolectar respuestas para enviar al backend
+      const respuestasParaEnviar: { id: string, es_correcta: boolean, tipo: 'multiple' }[] = [];
+      preguntasDOM.forEach(preg => {
+        const id = preg.dataset.id;
+        const correcta = parseInt(preg.dataset.correcta);
+        const seleccionada = preg.querySelector('input[type="radio"]:checked');
+        if (seleccionada) {
+          const valor = parseInt(seleccionada.value);
+          respuestasParaEnviar.push({
+            id,
+            es_correcta: valor === correcta,
+            tipo: 'multiple'
+          });
+        }
+      });
+
+      // Enviar al backend (sin bloquear la UI)
+      enviarRespuestasAlBackend(respuestasParaEnviar);
 
       const total = preguntasDOM.length;
       const porcentaje = total > 0 ? Math.round((correctas / total) * 100) : 0;
