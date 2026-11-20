@@ -209,3 +209,137 @@ function plantillaLeccionCompletada(d: DatosLeccionCompletada): string {
 </html>
   `.trim();
 }
+
+
+// ============================================================
+// NUEVO: Notificación de avance (completada o parcial)
+// ============================================================
+
+export interface DatosAvance {
+  alumnaNombre: string;
+  alumnaUsuario: string;
+  leccionTitulo: string;
+  materiaNombre: string;
+  porcentaje: number;
+  correctas: number;
+  incorrectas: number;
+  desarrollo: number;
+  totalPreguntas: number;
+}
+
+/**
+ * Envía un email al administrador con el avance de una lección.
+ * Se llama desde POST /api/progreso/actualizar-avance.
+ * Solo se envía si hay consentimiento parental (verificado en el endpoint).
+ */
+export async function notificarAdminAvance(
+  env: EnvNotificacionAdmin,
+  datos: DatosAvance
+): Promise<ResultadoEnvio> {
+  if (!env.ADMIN_EMAIL) {
+    console.warn('[email] ADMIN_EMAIL no configurado, saltando notificación');
+    return { ok: false, error: 'ADMIN_EMAIL no configurado' };
+  }
+
+  const asunto = `📊 ${datos.alumnaNombre} avanzó en "${datos.leccionTitulo}" (${datos.porcentaje}%)`;
+  const html = plantillaAvance(datos);
+
+  return enviarEmail(env, env.ADMIN_EMAIL, asunto, html);
+}
+
+/**
+ * Plantilla HTML para el email de avance.
+ */
+function plantillaAvance(d: DatosAvance): string {
+  const colorPorcentaje =
+    d.porcentaje >= 100 ? '#10B981' : d.porcentaje >= 50 ? '#F59E0B' : '#EF4444';
+  const estadoTexto =
+    d.porcentaje >= 100
+      ? '✅ Completada'
+      : d.porcentaje > 0
+        ? '⚠️ Parcial'
+        : '❌ No respondió';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Avance de lección</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F8F9FA; padding: 40px 20px; margin: 0;">
+  <div style="max-width: 560px; margin: 0 auto; background: white; border-radius: 16px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+
+    <div style="text-align: center; margin-bottom: 24px;">
+      <span style="font-size: 48px;">📊</span>
+    </div>
+
+    <h1 style="color: #1F2937; font-size: 22px; margin: 0 0 8px 0; text-align: center;">
+      Avance en una lección
+    </h1>
+
+    <p style="color: #6B7280; font-size: 14px; line-height: 1.6; margin: 0 0 24px 0; text-align: center;">
+      ${d.alumnaNombre} respondió una lección
+    </p>
+
+    <div style="background: #F9FAFB; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px 0; color: #6B7280; font-size: 14px;">Alumna</td>
+          <td style="padding: 8px 0; color: #1F2937; font-size: 14px; font-weight: 600; text-align: right;">${d.alumnaNombre}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: #6B7280; font-size: 14px;">Lección</td>
+          <td style="padding: 8px 0; color: #1F2937; font-size: 14px; font-weight: 600; text-align: right;">${d.leccionTitulo}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: #6B7280; font-size: 14px;">Materia</td>
+          <td style="padding: 8px 0; color: #1F2937; font-size: 14px; font-weight: 600; text-align: right;">${d.materiaNombre}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; color: #6B7280; font-size: 14px;">Estado</td>
+          <td style="padding: 8px 0; color: ${colorPorcentaje}; font-size: 14px; font-weight: 700; text-align: right;">${estadoTexto}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="background: ${colorPorcentaje}15; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 24px;">
+      <div style="font-size: 48px; font-weight: 800; color: ${colorPorcentaje}; margin-bottom: 4px;">${d.porcentaje}%</div>
+      <div style="font-size: 13px; color: #6B7280;">de cumplimiento</div>
+    </div>
+
+    <div style="background: #F9FAFB; border-radius: 12px; padding: 20px;">
+      <h3 style="color: #1F2937; font-size: 15px; margin: 0 0 12px 0;">Detalle de respuestas</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 6px 0; color: #6B7280; font-size: 14px;">✅ Correctas</td>
+          <td style="padding: 6px 0; color: #10B981; font-size: 14px; font-weight: 600; text-align: right;">${d.correctas}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #6B7280; font-size: 14px;">❌ Incorrectas</td>
+          <td style="padding: 6px 0; color: #EF4444; font-size: 14px; font-weight: 600; text-align: right;">${d.incorrectas}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #6B7280; font-size: 14px;">📝 Desarrollo</td>
+          <td style="padding: 6px 0; color: #8B5CF6; font-size: 14px; font-weight: 600; text-align: right;">${d.desarrollo}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px 0; color: #6B7280; font-size: 14px;">📋 Total preguntas</td>
+          <td style="padding: 6px 0; color: #1F2937; font-size: 14px; font-weight: 600; text-align: right;">${d.totalPreguntas}</td>
+        </tr>
+      </table>
+    </div>
+
+    <p style="color: #9CA3AF; font-size: 12px; line-height: 1.6; margin: 24px 0 0 0; padding-top: 24px; border-top: 1px solid #E5E7EB; text-align: center;">
+      Notificación automática de Web Educativa
+    </p>
+
+  </div>
+</body>
+</html>
+  `.trim();
+}
+
+
+
+

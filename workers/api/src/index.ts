@@ -18,6 +18,8 @@ import {
   handleRacha,
   handleLogros,
   handleProgresoPorMateria,
+  handleRegistrarRespuesta,
+  handleActualizarAvance,
 } from './routes/progreso';
 
 import {
@@ -191,6 +193,14 @@ export default {
         if (path === '/api/progreso/portafolio' && method === 'GET') {
          return await handlePortafolio(request, env);
 }
+
+    // NUEVO: rutas de respuestas y avance
+      if (path === '/api/progreso/registrar-respuesta' && method === 'POST') {
+        return await handleRegistrarRespuesta(request, env);
+      }
+      if (path === '/api/progreso/actualizar-avance' && method === 'POST') {
+        return await handleActualizarAvance(request, env, ctx);
+      }
 
 
       // ---------- Tutor ----------

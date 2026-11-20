@@ -366,4 +366,162 @@ export async function getDiasActivos(
   return (result.results ?? []).map((r) => r.dia);
 }
 
+// ============================================================
+// RESPUESTAS DE LECCIONES (con privacidad)
+// ============================================================
+
+export interface RespuestaItem {
+  leccion_id: string;
+  pregunta_id: string;
+  tipo: string;
+  respondida: number;
+  es_correcta: number | null;
+  respondida_en: string;
+}
+
+/**
+ * Registra una respuesta de la alumna.
+ * Usa alumna_hash, no alumna_id (privacidad).
+ * Devuelve true si fue insertado nuevo.
+ */
+export async function registrarRespuesta(
+  db: D1Database,
+  alumna_hash: string,
+  leccion_id: string,
+  pregunta_id: string,
+  tipo: 'multiple' | 'desarrollo' | 'vf',
+  es_correcta: boolean | null
+): Promise<boolean> {
+  const existente = await db
+    .prepare(
+      'SELECT id FROM respuestas_lecciones WHERE alumna_hash = ? AND leccion_id = ? AND pregunta_id = ?'
+    )
+    .bind(alumna_hash, leccion_id, pregunta_id)
+    .first<{ id: number }>();
+
+  if (existente) {
+    return false; // Ya estaba registrada (no duplicar)
+  }
+
+  await db
+    .prepare(
+      `INSERT INTO respuestas_lecciones 
+       (alumna_hash, leccion_id, pregunta_id, tipo, respondida, es_correcta) 
+       VALUES (?, ?, ?, ?, 1, ?)`
+    )
+    .bind(
+      alumna_hash,
+      leccion_id,
+      pregunta_id,
+      tipo,
+      es_correcta === null ? null : es_correcta ? 1 : 0
+    )
+    .run();
+
+  return true;
+}
+
+/**
+ * Obtiene las respuestas de una alumna para una lección específica.
+ * Usa alumna_hash (privacidad).
+ */
+export async function getRespuestasLeccion(
+  db: D1Database,
+  alumna_hash: string,
+  leccion_id: string
+): Promise<RespuestaItem[]> {
+  const result = await db
+    .prepare(
+      `SELECT leccion_id, pregunta_id, tipo, respondida, es_correcta, respondida_en
+       FROM respuestas_lecciones
+       WHERE alumna_hash = ? AND leccion_id = ?
+       ORDER BY respondida_en ASC`
+    )
+    .bind(alumna_hash, leccion_id)
+    .all<RespuestaItem>();
+  return result.results ?? [];
+}
+
+/**
+ * Calcula el porcentaje de cumplimiento de una lección.
+ * Necesita el total de preguntas (que viene del JSON de la lección).
+ */
+export async function calcularPorcentajeCumplimiento(
+  db: D1Database,
+  alumna_hash: string,
+  leccion_id: string,
+  total_preguntas: number
+): Promise<number> {
+  const result = await db
+    .prepare(
+      `SELECT COUNT(*) as respondidas
+       FROM respuestas_lecciones
+       WHERE alumna_hash = ? AND leccion_id = ? AND respondida = 1`
+    )
+    .bind(alumna_hash, leccion_id)
+    .first<{ respondidas: number }>();
+
+  const respondidas = result?.respondidas ?? 0;
+  if (total_preguntas === 0) return 0;
+  return Math.round((respondidas / total_preguntas) * 100);
+}
+
+/**
+ * Obtiene las últimas N lecciones respondidas por una alumna.
+ * Para el panel del admin (usa mapa_identidad para obtener el nombre).
+ */
+export async function getUltimasLeccionesPorAlumna(
+  db: D1Database,
+  alumna_hash: string,
+  limite: number = 3
+): Promise<{
+  leccion_id: string;
+  total_respuestas: number;
+  correctas: number;
+  incorrectas: number;
+  desarrollo: number;
+  ultima_respuesta: string;
+}[]> {
+  const result = await db
+    .prepare(
+      `SELECT
+         leccion_id,
+         COUNT(*) AS total_respuestas,
+         SUM(CASE WHEN es_correcta = 1 THEN 1 ELSE 0 END) AS correctas,
+         SUM(CASE WHEN es_correcta = 0 THEN 1 ELSE 0 END) AS incorrectas,
+         SUM(CASE WHEN tipo = 'desarrollo' THEN 1 ELSE 0 END) AS desarrollo,
+         MAX(respondida_en) AS ultima_respuesta
+       FROM respuestas_lecciones
+       WHERE alumna_hash = ?
+       GROUP BY leccion_id
+       ORDER BY ultima_respuesta DESC
+       LIMIT ?`
+    )
+    .bind(alumna_hash, limite)
+    .all<{
+      leccion_id: string;
+      total_respuestas: number;
+      correctas: number;
+      incorrectas: number;
+      desarrollo: number;
+      ultima_respuesta: string;
+    }>();
+  return result.results ?? [];
+}
+
+/**
+ * Verifica si una alumna tiene consentimiento parental activo.
+ */
+export async function tieneConsentimiento(
+  db: D1Database,
+  alumna_id: number
+): Promise<boolean> {
+  const result = await db
+    .prepare(
+      'SELECT consentimiento_padre FROM consentimientos_tracking WHERE alumna_id = ? AND consentimiento_padre = 1'
+    )
+    .bind(alumna_id)
+    .first<{ consentimiento_padre: number }>();
+  return result !== null;
+}
 

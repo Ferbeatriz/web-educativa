@@ -7,6 +7,8 @@
  * - GET  /api/progreso/racha          → Racha de días consecutivos
  * - GET  /api/progreso/logros         → Estado de los logros
  * - GET  /api/progreso/por-materia    → Progreso agregado por materia
+ * - POST /api/progreso/registrar-respuesta → Registra una respuesta
+ * - POST /api/progreso/actualizar-avance   → Calcula porcentaje y notifica
  */
 
 import { hashToken } from '../lib/crypto';
@@ -20,9 +22,14 @@ import {
   insertarLogroSiNoExiste,
   getLeccionesCompletadasPorMateria,
   getDiasActivos,
+  registrarRespuesta,
+  tieneConsentimiento,
+  calcularPorcentajeCumplimiento,
+  getRespuestasLeccion,
 } from '../lib/db';
 import {
   notificarAdminLeccionCompletada,
+  notificarAdminAvance,
   type EnvNotificacionAdmin,
 } from '../lib/email';
 
@@ -30,6 +37,7 @@ export interface Env extends EnvNotificacionAdmin {
   DB: D1Database;
   ENVIRONMENT: string;
   APP_NAME: string;
+  INTENTOS_SALT: string;
 }
 
 // ============================================================
@@ -100,9 +108,6 @@ function jsonResponse(data: unknown, status = 200): Response {
   });
 }
 
-/**
- * Middleware: obtiene la alumna logueada del token.
- */
 async function getAlumnaAutenticada(
   request: Request,
   env: Env
@@ -133,24 +138,9 @@ interface LogroCatalogo {
 }
 
 const LOGROS: LogroCatalogo[] = [
-  {
-    id: 'primera_leccion',
-    emoji: '🌱',
-    titulo: 'Primera lección',
-    descripcion: 'Completa tu primera lección.',
-  },
-  {
-    id: 'materia_completa',
-    emoji: '🏆',
-    titulo: 'Materia completa',
-    descripcion: 'Completa todas las lecciones de una materia.',
-  },
-  {
-    id: 'racha_7',
-    emoji: '🔥',
-    titulo: 'Semana activa',
-    descripcion: '7 días seguidos de actividad.',
-  },
+  { id: 'primera_leccion', emoji: '🌱', titulo: 'Primera lección', descripcion: 'Completa tu primera lección.' },
+  { id: 'materia_completa', emoji: '🏆', titulo: 'Materia completa', descripcion: 'Completa todas las lecciones de una materia.' },
+  { id: 'racha_7', emoji: '🔥', titulo: 'Semana activa', descripcion: '7 días seguidos de actividad.' },
 ];
 
 // ============================================================
@@ -185,7 +175,6 @@ function calcularRacha(dias: string[]): RachaCalculada {
   const diasDesc = [...dias].sort().reverse();
   const ultimoDia = diasDesc[0];
 
-  // Racha actual: solo cuenta si el último día es hoy o ayer.
   let rachaActual = 0;
   if (ultimoDia === hoy || ultimoDia === ayer) {
     let cursor = new Date(ultimoDia + 'T00:00:00Z');
@@ -200,7 +189,6 @@ function calcularRacha(dias: string[]): RachaCalculada {
     }
   }
 
-  // Racha máxima histórica.
   const diasAsc = [...dias].sort();
   let rachaMaxima = 0;
   let actual = 0;
@@ -218,9 +206,7 @@ function calcularRacha(dias: string[]): RachaCalculada {
     anterior = dia;
   }
 
-  const hace30 = new Date(Date.now() - 30 * 86400000)
-    .toISOString()
-    .slice(0, 10);
+  const hace30 = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
   const diasActivos30 = dias.filter((d) => d >= hace30).length;
 
   return {
@@ -237,12 +223,6 @@ function calcularRacha(dias: string[]): RachaCalculada {
 // Endpoints
 // ============================================================
 
-/**
- * POST /api/progreso/completar
- * Body: { leccion_id, materia_id }
- * Además del progreso, dispara una notificación por email al admin
- * y verifica si se desbloquearon logros.
- */
 export async function handleCompletarLeccion(
   request: Request,
   env: Env,
@@ -263,45 +243,26 @@ export async function handleCompletarLeccion(
   const { leccion_id, materia_id } = body;
 
   if (!leccion_id || !materia_id) {
-    return jsonResponse(
-      { ok: false, error: 'leccion_id y materia_id son obligatorios' },
-      400
-    );
+    return jsonResponse({ ok: false, error: 'leccion_id y materia_id son obligatorios' }, 400);
   }
 
   if (leccion_id.length > 100 || materia_id.length > 50) {
-    return jsonResponse(
-      { ok: false, error: 'IDs demasiado largos' },
-      400
-    );
+    return jsonResponse({ ok: false, error: 'IDs demasiado largos' }, 400);
   }
 
   if (materia_id.startsWith('#') || !/^[a-z0-9-]+$/.test(materia_id)) {
-    return jsonResponse(
-      { ok: false, error: 'ID de materia inválido' },
-      400
-    );
+    return jsonResponse({ ok: false, error: 'ID de materia inválido' }, 400);
   }
 
-  const resultado = await marcarLeccionCompletada(
-    env.DB,
-    alumna.id,
-    leccion_id,
-    materia_id
-  );
-
+  const resultado = await marcarLeccionCompletada(env.DB, alumna.id, leccion_id, materia_id);
   const resumen = await getResumenProgreso(env.DB, alumna.id);
   const nivel = calcularNivel(resumen.xp_total);
 
-  // 🏅 Verificar logros (solo si fue una lección nueva)
   let logrosDesbloqueados: string[] = [];
   if (resultado.insertado) {
     logrosDesbloqueados = await verificarLogros(env, alumna.id);
   }
 
-  // 🔔 Notificación por email al admin
-  // Solo se envía si es una lección nueva (no repetida).
-  // Usamos ctx.waitUntil para que Cloudflare no corte la promesa.
   if (resultado.insertado) {
     ctx.waitUntil(
       notificarAdminLeccionCompletada(env, {
@@ -315,12 +276,8 @@ export async function handleCompletarLeccion(
         nivelEmoji: nivel.emoji,
         esNueva: true,
       })
-        .then((res) => {
-          console.log('[notif] Resultado:', JSON.stringify(res));
-        })
-        .catch((err) => {
-          console.error('[notif] Error:', err);
-        })
+        .then((res) => console.log('[notif] Resultado:', JSON.stringify(res)))
+        .catch((err) => console.error('[notif] Error:', err))
     );
   } else {
     console.log('[notif] Lección ya completada, no se notifica.');
@@ -340,17 +297,12 @@ export async function handleCompletarLeccion(
   });
 }
 
-/**
- * GET /api/progreso/resumen
- */
 export async function handleResumenProgreso(
   request: Request,
   env: Env
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const resumen = await getResumenProgreso(env.DB, alumna.id);
   const nivel = calcularNivel(resumen.xp_total);
@@ -366,17 +318,12 @@ export async function handleResumenProgreso(
   });
 }
 
-/**
- * GET /api/progreso/completo
- */
 export async function handleProgresoCompleto(
   request: Request,
   env: Env
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const progreso = await getProgresoCompleto(env.DB, alumna.id);
   const resumen = await getResumenProgreso(env.DB, alumna.id);
@@ -394,39 +341,25 @@ export async function handleProgresoCompleto(
   });
 }
 
-/**
- * GET /api/progreso/leccion/:id
- */
 export async function handleEstadoLeccion(
   request: Request,
   env: Env,
   leccionId: string
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const completada = await leccionCompletada(env.DB, alumna.id, leccionId);
 
-  return jsonResponse({
-    ok: true,
-    leccion_id: leccionId,
-    completada,
-  });
+  return jsonResponse({ ok: true, leccion_id: leccionId, completada });
 }
 
-/**
- * GET /api/progreso/racha
- */
 export async function handleRacha(
   request: Request,
   env: Env
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const dias = await getDiasActivos(env.DB, alumna.id);
   const racha = calcularRacha(dias);
@@ -434,17 +367,12 @@ export async function handleRacha(
   return jsonResponse({ ok: true, racha });
 }
 
-/**
- * GET /api/progreso/logros
- */
 export async function handleLogros(
   request: Request,
   env: Env
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const desbloqueados = await getLogrosDesbloqueados(env.DB, alumna.id);
   const mapa = new Map(desbloqueados.map((d) => [d.logro_id, d.desbloqueado_en]));
@@ -458,25 +386,14 @@ export async function handleLogros(
   return jsonResponse({ ok: true, logros });
 }
 
-/**
- * GET /api/progreso/por-materia
- */
 export async function handleProgresoPorMateria(
   request: Request,
   env: Env
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const materias = await getLeccionesCompletadasPorMateria(env.DB, alumna.id);
-
-  // Mapeamos para incluir el total de lecciones por materia
-  // (Por ahora, el "total" lo dejamos fijo según lo que sabemos o
-  // idealmente se lee de un catálogo, pero como no lo tenemos en D1, 
-  // el frontend lo leerá desde su JSON).
-  
   return jsonResponse({ ok: true, materias });
 }
 
@@ -484,92 +401,59 @@ export async function handleProgresoPorMateria(
 // Verificación de logros (interna)
 // ============================================================
 
-/**
- * Verifica y persiste logros. Se llama desde handleCompletarLeccion.
- * Devuelve los IDs de logros desbloqueados en esta llamada.
- */
 async function verificarLogros(
   env: Env,
   alumna_id: number
 ): Promise<string[]> {
   const desbloqueadosAhora: string[] = [];
 
-  // 1. primera_leccion
   const resumen = await getResumenProgreso(env.DB, alumna_id);
   if (resumen.lecciones_completadas >= 1) {
-    const nuevo = await insertarLogroSiNoExiste(
-      env.DB,
-      alumna_id,
-      'primera_leccion'
-    );
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'primera_leccion');
     if (nuevo) desbloqueadosAhora.push('primera_leccion');
   }
 
-  // 2. materia_completa
-  // Heurística: 6 lecciones de la misma materia = completa.
-  // TODO: cuando el Worker tenga acceso al catálogo, reemplazar.
   const porMateria = await getLeccionesCompletadasPorMateria(env.DB, alumna_id);
   const completa = porMateria.some((m) => m.completadas >= 6);
   if (completa) {
-    const nuevo = await insertarLogroSiNoExiste(
-      env.DB,
-      alumna_id,
-      'materia_completa'
-    );
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'materia_completa');
     if (nuevo) desbloqueadosAhora.push('materia_completa');
   }
 
-  // 3. racha_7
   const dias = await getDiasActivos(env.DB, alumna_id);
   const racha = calcularRacha(dias);
   if (racha.racha_maxima >= 7) {
-    const nuevo = await insertarLogroSiNoExiste(
-      env.DB,
-      alumna_id,
-      'racha_7'
-    );
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'racha_7');
     if (nuevo) desbloqueadosAhora.push('racha_7');
   }
 
   return desbloqueadosAhora;
 }
 
-// GET /api/progreso/portafolio
+// ============================================================
+// Portafolio
+// ============================================================
+
 export async function handlePortafolio(
   request: Request,
   env: Env
 ): Promise<Response> {
   const alumna = await getAlumnaAutenticada(request, env);
-  if (!alumna) {
-    return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
-  }
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
   const db = env.DB;
-
-  // 1. Datos básicos (XP, nivel, lecciones)
   const resumen = await getResumenProgreso(db, alumna.id);
   const nivel = calcularNivel(resumen.xp_total);
-
-  // 2. Logros desbloqueados
   const logros = await getLogrosDesbloqueados(db, alumna.id);
-
-  // 3. Progreso por materia
   const materias = await getLeccionesCompletadasPorMateria(db, alumna.id);
-
-  // 4. Racha
   const diasActivos = await getDiasActivos(db, alumna.id);
   const racha = calcularRacha(diasActivos);
-
-  // 5. Lecciones completadas (lista completa)
   const lecciones = await getProgresoCompleto(db, alumna.id);
 
   return jsonResponse({
     ok: true,
     portafolio: {
-      alumna: {
-        nombre: alumna.nombre,
-        usuario: alumna.usuario,
-      },
+      alumna: { nombre: alumna.nombre, usuario: alumna.usuario },
       nivel: {
         numero: nivel.numero,
         nombre: nivel.nombre,
@@ -588,9 +472,162 @@ export async function handlePortafolio(
         racha_maxima: racha.racha_maxima,
         dias_activos_totales: racha.dias_activos_totales,
       },
-      logros: logros,
-      materias: materias,
-      lecciones: lecciones.slice(0, 10), // Solo las últimas 10 lecciones
+      logros,
+      materias,
+      lecciones: lecciones.slice(0, 10),
     },
+  });
+}
+
+// ============================================================
+// NUEVO: Registro de respuestas (con privacidad)
+// ============================================================
+
+export async function handleRegistrarRespuesta(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+
+  const consentimiento = await tieneConsentimiento(env.DB, alumna.id);
+  if (!consentimiento) {
+    return jsonResponse(
+      { ok: false, error: 'No hay consentimiento parental para registrar respuestas' },
+      403
+    );
+  }
+
+  let body: {
+    leccion_id?: string;
+    pregunta_id?: string;
+    tipo?: 'multiple' | 'desarrollo' | 'vf';
+    es_correcta?: boolean | null;
+  };
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse({ ok: false, error: 'Body inválido' }, 400);
+  }
+
+  const { leccion_id, pregunta_id, tipo, es_correcta } = body;
+
+  if (!leccion_id || !pregunta_id || !tipo) {
+    return jsonResponse(
+      { ok: false, error: 'leccion_id, pregunta_id y tipo son obligatorios' },
+      400
+    );
+  }
+
+  if (!['multiple', 'desarrollo', 'vf'].includes(tipo)) {
+    return jsonResponse({ ok: false, error: 'tipo inválido' }, 400);
+  }
+
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${alumna.id}${env.INTENTOS_SALT}`);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const alumna_hash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+
+  const insertado = await registrarRespuesta(
+    env.DB,
+    alumna_hash,
+    leccion_id,
+    pregunta_id,
+    tipo,
+    es_correcta === undefined ? null : es_correcta
+  );
+
+  return jsonResponse({ ok: true, registrada: insertado, ya_existia: !insertado });
+}
+
+// ============================================================
+// NUEVO: Actualizar avance (porcentaje de cumplimiento + email)
+// ============================================================
+
+export async function handleActualizarAvance(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+
+  const consentimiento = await tieneConsentimiento(env.DB, alumna.id);
+  if (!consentimiento) {
+    return jsonResponse(
+      { ok: false, error: 'No hay consentimiento parental para registrar avance' },
+      403
+    );
+  }
+
+  let body: {
+    leccion_id?: string;
+    materia_id?: string;
+    total_preguntas?: number;
+  };
+  try {
+    body = await request.json();
+  } catch {
+    return jsonResponse({ ok: false, error: 'Body inválido' }, 400);
+  }
+
+  const { leccion_id, materia_id, total_preguntas } = body;
+
+  if (!leccion_id || !materia_id) {
+    return jsonResponse(
+      { ok: false, error: 'leccion_id y materia_id son obligatorios' },
+      400
+    );
+  }
+
+  if (!total_preguntas || total_preguntas <= 0) {
+    return jsonResponse(
+      { ok: false, error: 'total_preguntas es obligatorio y debe ser mayor a 0' },
+      400
+    );
+  }
+
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${alumna.id}${env.INTENTOS_SALT}`);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const alumna_hash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+
+  const porcentaje = await calcularPorcentajeCumplimiento(
+    env.DB,
+    alumna_hash,
+    leccion_id,
+    total_preguntas
+  );
+
+  const respuestas = await getRespuestasLeccion(env.DB, alumna_hash, leccion_id);
+  const correctas = respuestas.filter((r) => r.es_correcta === 1).length;
+  const incorrectas = respuestas.filter((r) => r.es_correcta === 0).length;
+  const desarrollo = respuestas.filter((r) => r.tipo === 'desarrollo').length;
+
+  ctx.waitUntil(
+    notificarAdminAvance(env, {
+      alumnaNombre: alumna.nombre,
+      alumnaUsuario: alumna.usuario,
+      leccionTitulo: leccion_id,
+      materiaNombre: materia_id,
+      porcentaje,
+      correctas,
+      incorrectas,
+      desarrollo,
+      totalPreguntas: total_preguntas,
+    })
+      .then((res) => console.log('[notif] Resultado avance:', JSON.stringify(res)))
+      .catch((err) => console.error('[notif] Error avance:', err))
+  );
+
+  return jsonResponse({
+    ok: true,
+    porcentaje,
+    correctas,
+    incorrectas,
+    desarrollo,
+    total_preguntas,
   });
 }
