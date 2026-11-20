@@ -37,6 +37,55 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ---
 
+## 📋 Resumen de la sesión del 2026-11-20
+
+**Objetivo de la sesión:** Implementar el sistema de métricas (registro de respuestas y notificaciones) y corregir pendientes de sesiones anteriores.
+
+**Lo que se logró:**
+- Se creó la tabla `respuestas_lecciones` (schema-08) con `alumna_hash` para cumplir con la Ley 21.719.
+- Se implementaron los endpoints `POST /api/progreso/registrar-respuesta` y `POST /api/progreso/actualizar-avance` en el Worker.
+- Se modificó `TriviaRotativa.astro` para que envíe las respuestas al backend al hacer clic en "Corregir respuestas".
+- Se agregó la plantilla de email `notificarAdminAvance` en `lib/email.ts`.
+- Se corrigió el JSON de `introduccion-fracciones.json` (faltaban los IDs de las preguntas).
+- Se validó el flujo completo: frontend → backend → D1 → email → Proton.
+- Se limpió la fila con `pregunta_id: undefined` en D1.
+
+**Archivos modificados:**
+- `workers/api/schema-08-respuestas.sql` (nuevo)
+- `workers/api/src/routes/progreso.ts` (nuevos endpoints)
+- `workers/api/src/lib/db.ts` (nuevas funciones)
+- `workers/api/src/lib/email.ts` (nueva plantilla)
+- `workers/api/src/index.ts` (nuevas rutas)
+- `src/components/TriviaRotativa.astro` (envío de respuestas)
+- `src/data/materias/matematicas/lecciones/introduccion-fracciones.json` (IDs agregados)
+- `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` (este documento)
+
+**Decisiones tomadas:**
+- Se usó `alumna_hash` en lugar de `alumna_id` para las respuestas (privacidad).
+- El correo de avance se envía **siempre** (sea que completó o no la lección), pero solo si hay consentimiento parental.
+- El `materia_id` en `TriviaRotativa.astro` está hardcodeado como `'matematicas'`. Pendiente hacerlo dinámico en una próxima iteración.
+- Se eliminó la fila con `pregunta_id: undefined` de la tabla `respuestas_lecciones`.
+
+**Pendientes para la próxima sesión:**
+- Cerrar la Semana 1: agregar logros por mérito (divisiones sin tutor, primer libro completo), dar contexto informativo a la racha en el portafolio, completar el mapa de progreso.
+- Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.
+- Hacer dinámico el `materia_id` en `TriviaRotativa.astro`.
+- Iniciar el Mes 2 (Informe PDF para el apoderado) si se decide saltar.
+
+**Commit de referencia:** (anotar el hash después de `git push`).
+
+
+## 🚨 ALERTAS PARA LA IA (LEER OBLIGATORIAMENTE)
+
+1. **Monitoreo de memoria:** La IA debe indicar explícitamente cuando su ventana de contexto esté al **85% de uso**. En ese momento, debe:
+   - Notificar a la usuaria: "He alcanzado el 85% de mi memoria. Es momento de generar respaldos."
+   - Actualizar inmediatamente `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con un resumen de la sesión.
+   - Sugerir el commit correspondiente.
+
+2. **Resumen de sesión:** Al cerrar una sesión (por cambio de tema, por fin de jornada, o por alerta de memoria), la IA debe generar un **resumen sucinto** de todo lo relevante realizado, para que la IA que retome el trabajo entienda el contexto sin necesidad de releer todo el chat.
+
+---
+
 ## 📋 Resumen de la sesión del 2026-11-19
 
 **Objetivo de la sesión:** Cerrar pendientes técnicos y avanzar en el roadmap.

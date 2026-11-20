@@ -39,6 +39,70 @@ Dejar de ser solo una "web educativa" para convertirnos en un ecosistema de **so
 **Enfoque Comercial:**
 El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Start-Up Chile, ANID) para escalar la plataforma, por lo que el proyecto debe transitar desde un MVP funcional hacia un modelo de negocio sostenible (SaaS educativo).
 
+
+## ✅ Estado actual (2026-11-20)
+
+- **Portafolio:** Funcional en `/mi-portafolio`. Muestra nivel, XP, racha, logros, progreso por materia y últimas lecciones completadas.
+- **Tutor Docente:** Operativo con autoguardado en GitHub.
+- **Música:** Metalófono virtual de 25 notas operativo.
+- **Gamificación (Semana 1):** Logros (`primera_leccion`, `materia_completa`, `racha_7`) + Racha + Mapa de progreso por materia. Persistencia en tabla `logros_alumna`.
+- **Figuras irregulares en Trivia:** `TriviaRotativa.astro` renderiza figuras en L y T con `generarGrid()`. Se agregaron los colores al `@theme` de `global.css`.
+- **Laboratorio de Operaciones con Fracciones:** Operativo (modal flotante, suma/resta/multiplicación/división, explicación paso a paso).
+- **Comprensión lectora:** "La cama mágica de Bartolo" actualizada a 40 preguntas (12 media, 16 difícil, 12 muy difícil), con respuestas correctas iteradas.
+- **Sistema de métricas (nuevo):**
+  - Tabla `respuestas_lecciones` creada (schema-08). Guarda respuestas con `alumna_hash` (privacidad, Ley 21.719).
+  - Endpoints `POST /api/progreso/registrar-respuesta` y `POST /api/progreso/actualizar-avance` operativos en producción.
+  - `TriviaRotativa.astro` envía las respuestas al backend al hacer clic en "Corregir respuestas".
+  - Correo de avance llega al admin (`ferbeatriz@proton.me`) con el porcentaje de cumplimiento y detalle de respuestas.
+  - Los IDs de las preguntas del banco de `introduccion-fracciones.json` fueron corregidos (ya no hay `pregunta_id: undefined`).
+- **Semana 2 (Visualizaciones):** Completada (animación de división, simulador de sumas verticales, laboratorio de fracciones, figuras irregulares).
+- **Próximos pasos:** Cerrar la Semana 1 (logros por mérito, racha informativa, mapa de progreso) o iniciar el Mes 2 (Informe PDF para el apoderado).
+
+---
+
+## 📊 Estado del roadmap (actualizado 2026-11-20)
+
+| Mes | Semana | Foco | Estado |
+|-----|--------|------|--------|
+| 1 | 1 | Gamificación suave | 🚧 En curso (~80%) |
+| 1 | 2 | Visualizaciones Matemáticas | ✅ Completada |
+| 1 | 3 | Proyectos cortos | ⏳ No iniciada |
+| 1 | 4 | Feedback emocional | ⏳ No iniciada |
+| 2 | 5 | Informe PDF | ⏳ No iniciada |
+| 2 | 6 | Página pública | ⏳ No iniciada |
+| 2 | 7 | Vista "cómo ayudar" | ⏳ No iniciada |
+| 2 | 8 | Perfil apoderado | ⏳ No iniciada |
+| 3 | 9 | Análisis guiado Lenguaje | ⏳ No iniciada |
+| 3 | 10 | Proyectos largos | ⏳ No iniciada |
+| 3 | 11 | Portafolio | ✅ Completada (adelantada) |
+| 3 | 12 | Demo institucional | ⏳ No iniciada |
+
+---
+
+## 🗄️ Base de datos (nuevas tablas)
+
+| Tabla | Propósito |
+|-------|-----------|
+| `respuestas_lecciones` | Registro de respuestas por alumna (usa `alumna_hash`, no `alumna_id`) |
+| `logros_alumna` | Logros desbloqueados (persistente, idempotente) |
+
+---
+
+## 🔐 Secrets del Worker (actualizado)
+
+- `ADMIN_EMAIL`: `ferbeatriz@proton.me`
+- `RESEND_API_KEY`: configurado
+- `INTENTOS_SALT`: configurado
+- `GROQ_API_KEY`: configurado
+- `ADMIN_PASSWORD_HASH`: configurado
+- `ADMIN_SESSION_SECRET`: configurado
+- `GITHUB_TOKEN`: configurado
+
+**Nota:** Resend en plan gratuito solo envía al correo con el que se registró. Los correos a veces tardan en aparecer en Proton (revisar spam/lista de permitidos).
+
+
+
+
 ## 🚨 ALERTAS PARA LA IA (LEER OBLIGATORIAMENTE)
 
 1. **Monitoreo de memoria:** La IA debe indicar explícitamente cuando su ventana de contexto esté al **85% de uso**. En ese momento, debe:
