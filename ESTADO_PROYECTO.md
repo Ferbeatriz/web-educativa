@@ -39,6 +39,49 @@ Dejar de ser solo una "web educativa" para convertirnos en un ecosistema de **so
 **Enfoque Comercial:**
 El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Start-Up Chile, ANID) para escalar la plataforma, por lo que el proyecto debe transitar desde un MVP funcional hacia un modelo de negocio sostenible (SaaS educativo).
 
+## 🚨 ALERTAS PARA LA IA (LEER OBLIGATORIAMENTE)
+
+1. **Monitoreo de memoria:** La IA debe indicar explícitamente cuando su ventana de contexto esté al **85% de uso**. En ese momento, debe:
+   - Notificar a la usuaria: "He alcanzado el 85% de mi memoria. Es momento de generar respaldos."
+   - Actualizar inmediatamente `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con un resumen de la sesión.
+   - Sugerir el commit correspondiente.
+
+2. **Resumen de sesión:** Al cerrar una sesión (por cambio de tema, por fin de jornada, o por alerta de memoria), la IA debe generar un **resumen sucinto** de todo lo relevante realizado, para que la IA que retome el trabajo entienda el contexto sin necesidad de releer todo el chat.
+
+---
+
+## ✅ Estado actual (2026-11-19)
+
+- **Portafolio:** Funcional en `/mi-portafolio`. Muestra nivel, XP, racha, logros, progreso por materia y últimas lecciones completadas.
+- **Tutor Docente:** Operativo con autoguardado en GitHub.
+- **Música:** Metalófono virtual de 25 notas operativo.
+- **Gamificación (Semana 1):** Logros (`primera_leccion`, `materia_completa`, `racha_7`) + Racha + Mapa de progreso por materia. Persistencia en tabla `logros_alumna`.
+- **Figuras irregulares en Trivia:** `TriviaRotativa.astro` ahora renderiza figuras en L y T con `generarGrid()`. Se agregaron los colores al `@theme` de `global.css`.
+- **Laboratorio de Operaciones con Fracciones:** Operativo (modal flotante, suma/resta/multiplicación/división, explicación paso a paso).
+- **Comprensión lectora:** "La cama mágica de Bartolo" actualizada a 40 preguntas (12 media, 16 difícil, 12 muy difícil), con respuestas correctas iteradas.
+- **Semana 2 (Visualizaciones):** Completada (animación de división, simulador de sumas verticales, laboratorio de fracciones, figuras irregulares).
+- **Próximos pasos:** Cerrar Semana 1 (logros por mérito, racha informativa, mapa de progreso) o iniciar Mes 2 (Informe PDF para apoderado).
+
+---
+
+## 📊 Estado del roadmap (actualizado 2026-11-19)
+
+| Mes | Semana | Foco | Estado |
+|-----|--------|------|--------|
+| 1 | 1 | Gamificación suave | 🚧 En curso (~80%) |
+| 1 | 2 | Visualizaciones Matemáticas | ✅ Completada |
+| 1 | 3 | Proyectos cortos | ⏳ No iniciada |
+| 1 | 4 | Feedback emocional | ⏳ No iniciada |
+| 2 | 5 | Informe PDF | ⏳ No iniciada |
+| 2 | 6 | Página pública | ⏳ No iniciada |
+| 2 | 7 | Vista "cómo ayudar" | ⏳ No iniciada |
+| 2 | 8 | Perfil apoderado | ⏳ No iniciada |
+| 3 | 9 | Análisis guiado Lenguaje | ⏳ No iniciada |
+| 3 | 10 | Proyectos largos | ⏳ No iniciada |
+| 3 | 11 | Portafolio | ✅ Completada (adelantada) |
+| 3 | 12 | Demo institucional | ⏳ No iniciada |
+
+
 ### 🧠 Principio de Diseño: Maestría sobre Adicción (No a la Tecnología de Enganche)
 
 **Declaración:**

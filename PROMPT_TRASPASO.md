@@ -26,6 +26,48 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ---
 
+## 🚨 ALERTAS PARA LA IA (LEER OBLIGATORIAMENTE)
+
+1. **Monitoreo de memoria:** La IA debe indicar explícitamente cuando su ventana de contexto esté al **85% de uso**. En ese momento, debe:
+   - Notificar a la usuaria: "He alcanzado el 85% de mi memoria. Es momento de generar respaldos."
+   - Actualizar inmediatamente `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` con un resumen de la sesión.
+   - Sugerir el commit correspondiente.
+
+2. **Resumen de sesión:** Al cerrar una sesión (por cambio de tema, por fin de jornada, o por alerta de memoria), la IA debe generar un **resumen sucinto** de todo lo relevante realizado, para que la IA que retome el trabajo entienda el contexto sin necesidad de releer todo el chat.
+
+---
+
+## 📋 Resumen de la sesión del 2026-11-19
+
+**Objetivo de la sesión:** Cerrar pendientes técnicos y avanzar en el roadmap.
+
+**Lo que se logró:**
+- Se diagnosticó y corrigió el renderizado de figuras irregulares (L, T) en `TriviaRotativa.astro`, usando una función `generarGrid()` que soporta marcadores `{{FIGURA:tipo:color}}` y `{{FIGURA:tipo}}`.
+- Se verificó que el Laboratorio de Operaciones con Fracciones ya está operativo (modal flotante).
+- Se confirmó que la animación de división y el simulador de sumas verticales ya están integrados (Semana 2 completada).
+- Se actualizó el banco de comprensión de "La cama mágica de Bartolo" a 40 preguntas, iterando las respuestas correctas para evitar patrones.
+- Se generó el commit con todos los cambios.
+
+**Archivos modificados:**
+- `src/components/TriviaRotativa.astro` (función `procesarFiguras` y `generarGrid`).
+- `src/styles/global.css` (bloque `@theme` con colores para las figuras).
+- `src/data/materias/lenguaje/lecturas/la-cama-magica-de-bartolo/banco-comprension.json` (40 preguntas).
+- `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` (este documento).
+
+**Decisiones tomadas:**
+- Se descartó la Opción B (tabla en D1) para el mapa de progreso; se usará el frontend con los JSON de materia.
+- Se eliminó `verificarLogros()` del frontend porque el backend no tiene ese endpoint (pendiente de confirmar en próxima sesión).
+- Se acordó que la IA debe alertar al 85% de uso de memoria.
+
+**Pendientes para la próxima sesión:**
+- Cerrar la Semana 1 (logros por mérito, racha informativa, mapa de progreso).
+- Confirmar si se elimina `verificarLogros()` del frontend.
+- Iniciar el Mes 2 (Informe PDF para apoderado) si se decide saltar.
+
+**Commit de referencia:** (anotar el hash después de `git push`).
+
+
+
 ## 🚨 DECLARACIÓN DE INTENCIONES (LEER OBLIGATORIAMENTE)
 
 Este proyecto no es solo un repositorio de código; es un **producto comercial en preparación** con fines de financiamiento. 
