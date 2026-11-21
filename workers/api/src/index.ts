@@ -20,6 +20,7 @@ import {
   handleProgresoPorMateria,
   handleRegistrarRespuesta,
   handleActualizarAvance,
+  handleMisRespuestas,
 } from './routes/progreso';
 
 import {
@@ -193,6 +194,13 @@ export default {
         if (path === '/api/progreso/portafolio' && method === 'GET') {
          return await handlePortafolio(request, env);
 }
+
+
+      // NUEVO: consultar respuestas de una lección
+      const matchMisRespuestas = path.match(/^\/api\/progreso\/mis-respuestas\/([^\/]+)$/);
+      if (matchMisRespuestas && method === 'GET') {
+        return await handleMisRespuestas(request, env, matchMisRespuestas[1]);
+      }
 
     // NUEVO: rutas de respuestas y avance
       if (path === '/api/progreso/registrar-respuesta' && method === 'POST') {

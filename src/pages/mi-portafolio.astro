@@ -110,17 +110,90 @@ import Layout from '../layouts/Layout.astro';
       </div>
     `).join('');
 
-    // Generar la lista de últimas lecciones
+        // Generar la lista de últimas lecciones (con botón para ver respuestas)
+
     const leccionesHTML = p.lecciones.map((l: any) => `
-      <div class="flex items-center gap-3 p-3 border-b border-gray-50 last:border-0">
-        <div class="w-2 h-2 rounded-full bg-green-500"></div>
-        <div class="flex-1">
-          <p class="text-sm font-bold text-gray-800">${l.leccion_id}</p>
-          <p class="text-xs text-gray-500">${l.materia_id}</p>
+      <div class="border-b border-gray-50 last:border-0">
+        <div class="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50 transition rounded-lg" onclick="toggleRespuestas('${l.leccion_id}', this)">
+          <div class="w-2 h-2 rounded-full bg-green-500"></div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-gray-800">${l.leccion_id}</p>
+            <p class="text-xs text-gray-500">${l.materia_id}</p>
+          </div>
+          <span class="text-xs text-gray-400">${new Date(l.completada_en).toLocaleDateString('es-CL')}</span>
+          <span class="text-purple-500 text-sm">▼</span>
         </div>
-        <span class="text-xs text-gray-400">${new Date(l.completada_en).toLocaleDateString('es-CL')}</span>
+        <div id="respuestas-${l.leccion_id}" class="hidden pl-6 pr-3 pb-3"></div>
       </div>
     `).join('');
+
+  // Función para mostrar/ocultar el detalle de respuestas de una lección
+  async function toggleRespuestas(leccionId: string, element: HTMLElement) {
+    const contenedor = document.getElementById(`respuestas-${leccionId}`);
+    if (!contenedor) return;
+
+    // Si ya está abierto, lo cerramos
+    if (!contenedor.classList.contains('hidden')) {
+      contenedor.classList.add('hidden');
+      return;
+    }
+
+    // Si está cerrado, lo abrimos y cargamos las respuestas (solo una vez)
+    if (contenedor.innerHTML.trim() === '') {
+      contenedor.innerHTML = '<p class="text-sm text-gray-500 py-2">Cargando respuestas...</p>';
+      
+      const token = getToken();
+      if (!token) {
+        contenedor.innerHTML = '<p class="text-sm text-red-500 py-2">No hay sesión activa.</p>';
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `${API_URL}/api/progreso/mis-respuestas/${encodeURIComponent(leccionId)}`,
+          { headers: { 'Authorization': `Bearer ${token}` } }
+        );
+        const data = await response.json();
+
+        if (!data.ok) {
+          contenedor.innerHTML = `<p class="text-sm text-red-500 py-2">Error: ${data.error || 'No se pudieron cargar las respuestas.'}</p>`;
+          return;
+        }
+
+        if (data.respuestas.length === 0) {
+          contenedor.innerHTML = '<p class="text-sm text-gray-500 py-2">Aún no hay respuestas registradas para esta lección.</p>';
+          return;
+        }
+
+        // Renderizar cada respuesta
+        const respuestasHTML = data.respuestas.map((r: any) => `
+          <div class="flex items-start gap-2 py-2 border-b border-gray-100 last:border-0">
+            <span class="text-lg">${r.es_correcta === 1 ? '✅' : r.es_correcta === 0 ? '❌' : '📝'}</span>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-gray-700">${r.pregunta_id}</p>
+              <p class="text-xs text-gray-500">
+                ${r.es_correcta === 1 ? 'Correcta' : r.es_correcta === 0 ? 'Incorrecta' : 'Desarrollo'} · 
+                ${new Date(r.respondida_en).toLocaleDateString('es-CL')}
+              </p>
+            </div>
+          </div>
+        `).join('');
+
+        contenedor.innerHTML = respuestasHTML;
+      } catch (e) {
+        contenedor.innerHTML = '<p class="text-sm text-red-500 py-2">Error de conexión.</p>';
+      }
+    }
+
+    contenedor.classList.remove('hidden');
+  }
+
+
+
+
+
+
+
 
     contenedor.innerHTML = `
       <!-- Tarjeta de Bienvenida -->
@@ -175,6 +248,11 @@ import Layout from '../layouts/Layout.astro';
       </div>
     `;
   }
+
+  // Exponer la función al window para que el onclick inline la encuentre
+  (window as any).toggleRespuestas = toggleRespuestas;
+
+
 
   cargarPortafolio();
 </script>

@@ -541,6 +541,43 @@ export async function handleRegistrarRespuesta(
   return jsonResponse({ ok: true, registrada: insertado, ya_existia: !insertado });
 }
 
+// GET /api/progreso/mis-respuestas/:leccion_id
+export async function handleMisRespuestas(
+  request: Request,
+  env: Env,
+  leccionId: string
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+
+  // Calcular hash (igual que en registrar-respuesta)
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${alumna.id}${env.INTENTOS_SALT}`);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const alumna_hash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+
+  const respuestas = await getRespuestasLeccion(env.DB, alumna_hash, leccionId);
+
+  // Agrupar por pregunta_id (por si hay duplicados de distintas sesiones)
+  const agrupadas = new Map<string, typeof respuestas[0]>();
+  for (const r of respuestas) {
+    if (!agrupadas.has(r.pregunta_id)) {
+      agrupadas.set(r.pregunta_id, r);
+    }
+  }
+
+  return jsonResponse({
+    ok: true,
+    leccion_id: leccionId,
+    total_respuestas: agrupadas.size,
+    respuestas: Array.from(agrupadas.values()),
+  });
+}
+
+
+
+
 // ============================================================
 // NUEVO: Actualizar avance (porcentaje de cumplimiento + email)
 // ============================================================
