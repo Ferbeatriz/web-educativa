@@ -199,6 +199,17 @@
       "archivo": "lecciones/sumas-centenas.json",
       "activo": true,
       "grupo": "suma" 
+    },
+    {
+      "id": "desafios-palitos-lana",
+      "titulo": "Desafíos con Palitos y Lana 🪵🧶",
+      "emoji": "🪵",
+      "orden": 17,
+      "nivel": "básico",
+      "duracion_estimada_min": 25,
+      "archivo": "lecciones/desafios-palitos-lana.json",
+      "activo": true,
+      "grupo": "medicion"
     }
 
   ]

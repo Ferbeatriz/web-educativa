@@ -1,0 +1,226 @@
+{
+  "id": "desafios-palitos-lana",
+  "materia_id": "matematicas",
+  "tema": "geometria",
+  "subtema": "perimetro-area",
+  "titulo": "Desafíos con Palitos y Lana 🪵🧶",
+  "categoria": "Matemáticas",
+  "emoji": "🪵",
+  "progreso_puntos": 50,
+  "descripcion": "Usa palitos y lana para descubrir los secretos del perímetro y el área.",
+  "contenido_modulos": [
+    "# 🪵 ¿Qué podemos aprender con palitos y lana?\n\n\n\nEl perímetro es la **longitud del contorno** de una figura. Imagina que rodeas una figura con un trozo de lana: esa lana mide exactamente el perímetro.\n\n\nEl área es el **espacio que ocupa** una figura por dentro. Si cubres una figura con cuadraditos, la cantidad de cuadraditos es su área.\n\n\n> **Idea fuerza**: El perímetro es el borde; el área es lo de adentro.\n\n\n---\n\n# 🧶 Manipulando con lana\n\n\n\nSi tienes un trozo de lana de 20 cm y formas un cuadrado, cada lado mide 5 cm (porque 20 ÷ 4 = 5). Pero si con la misma lana formas un rectángulo muy alargado, el perímetro sigue siendo 20 cm, aunque la forma cambie.\n\n\n**¡Ojo!** El perímetro es la cantidad de lana. No importa la forma que le des.\n\n\n---\n\n# 🪵 Manipulando con palitos\n\n\n\nCada palito de fósforo puede representar un lado de una figura. Si tienes 12 palitos y formas un rectángulo, puedes repartirlos en 2 largos y 2 anchos. Por ejemplo: 4 palitos para el largo y 2 para el ancho (4+4+2+2 = 12).\n\n\nPero hay más de una forma de hacerlo. ¿Se te ocurre otra combinación?\n\n\n---\n\n# 🎮 Ahora te toca\n\n\n\n<!-- TUTOR: fracciones-practica -->"
+  ],
+  "banco_trivia": [
+    {
+      "id": "pal01",
+      "dificultad": "media",
+      "tema": "Palitos y Perímetro",
+      "pregunta": "Tienes 12 palitos de fósforo. ¿Cuántos palitos necesitas para el largo y cuántos para el ancho si quieres formar un rectángulo? (Elige una combinación posible)",
+      "opciones": [
+        "4 y 2",
+        "5 y 1",
+        "6 y 0",
+        "3 y 4"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Para un rectángulo, el perímetro es 2 veces el largo + 2 veces el ancho. 2×4 + 2×2 = 12. La opción D (3 y 4) sumaría 14, no 12.",
+      "pista": "Recuerda que un rectángulo tiene dos pares de lados iguales."
+    },
+    {
+      "id": "pal02",
+      "dificultad": "media",
+      "tema": "Palitos y Perímetro",
+      "pregunta": "Con 8 palitos formas un cuadrado. Si cada lado tiene 2 palitos, ¿cuál es el perímetro de la figura?",
+      "opciones": [
+        "4 palitos",
+        "6 palitos",
+        "8 palitos",
+        "10 palitos"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "Un cuadrado tiene 4 lados iguales. Si cada lado son 2 palitos, el perímetro es 2+2+2+2 = 8.",
+      "pista": "Suma todos los lados del cuadrado."
+    },
+    {
+      "id": "pal03",
+      "dificultad": "dificil",
+      "tema": "Palitos y Perímetro",
+      "pregunta": "Con 10 palitos formas una figura en forma de L. ¿Cuál es su perímetro? (Cuenta los palitos del contorno)",
+      "opciones": [
+        "8 palitos",
+        "10 palitos",
+        "12 palitos",
+        "14 palitos"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El perímetro es la suma de todos los lados exteriores. Si usaste 10 palitos para formar la L, el contorno mide 10 palitos.",
+      "pista": "El perímetro es la cantidad de palitos que forman el borde."
+    },
+    {
+      "id": "pal04",
+      "dificultad": "dificil",
+      "tema": "Palitos y Perímetro",
+      "pregunta": "Con 12 palitos formas un rectángulo. Si mueves un solo palito, ¿puedes formar otra figura con el mismo perímetro?",
+      "opciones": [
+        "Sí, siempre se puede.",
+        "No, el perímetro cambia.",
+        "Solo si la figura es un cuadrado.",
+        "Depende del color de los palitos."
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Al mover un palito, el contorno no cambia, solo la forma. El perímetro se conserva.",
+      "pista": "El perímetro es la cantidad total de palitos, no su posición."
+    },
+    {
+      "id": "pal05",
+      "dificultad": "media",
+      "tema": "Palitos y Perímetro",
+      "pregunta": "Tienes 16 palitos y formas un cuadrado. ¿Cuántos palitos tiene cada lado?",
+      "opciones": [
+        "2 palitos",
+        "3 palitos",
+        "4 palitos",
+        "5 palitos"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "Un cuadrado tiene 4 lados iguales. 16 ÷ 4 = 4 palitos por lado.",
+      "pista": "Divide el total de palitos entre 4."
+    },
+    {
+      "id": "pal06",
+      "dificultad": "dificil",
+      "tema": "Palitos y Perímetro",
+      "pregunta": "Con 14 palitos formas un rectángulo. Si el largo tiene 5 palitos, ¿cuántos palitos tiene el ancho?",
+      "opciones": [
+        "1 palito",
+        "2 palitos",
+        "3 palitos",
+        "4 palitos"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "Perímetro = 2×largo + 2×ancho. 14 = 2×5 + 2×ancho → 14 = 10 + 2×ancho → 2×ancho = 4 → ancho = 2.",
+      "pista": "Resta el doble del largo al total y divide entre 2."
+    },
+    {
+      "id": "pal07",
+      "dificultad": "muy_dificil",
+      "tema": "Palitos y Área",
+      "pregunta": "Con 20 palitos formas la figura más grande posible que tenga forma de rectángulo. ¿Cuál es la mayor área que puedes formar? (Cuenta los palitos como unidades)",
+      "opciones": [
+        "16 unidades cuadradas",
+        "20 unidades cuadradas",
+        "25 unidades cuadradas",
+        "30 unidades cuadradas"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "Para un perímetro fijo, el cuadrado maximiza el área. Si el perímetro es 20, el lado del cuadrado es 5 (20÷4), y el área es 5×5=25.",
+      "pista": "El cuadrado es la figura que más área ocupa con el mismo perímetro."
+    },
+    {
+      "id": "lan01",
+      "dificultad": "media",
+      "tema": "Lana y Perímetro",
+      "pregunta": "Tienes un trozo de lana de 20 cm. Formas un cuadrado. ¿Cuánto mide cada lado?",
+      "opciones": [
+        "4 cm",
+        "5 cm",
+        "6 cm",
+        "8 cm"
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El perímetro es 20 cm y el cuadrado tiene 4 lados iguales. 20 ÷ 4 = 5 cm por lado.",
+      "pista": "Divide la longitud total entre 4."
+    },
+    {
+      "id": "lan02",
+      "dificultad": "media",
+      "tema": "Lana y Perímetro",
+      "pregunta": "Con la misma lana de 20 cm, formas un rectángulo muy alargado. ¿El perímetro cambia?",
+      "opciones": [
+        "Sí, aumenta.",
+        "Sí, disminuye.",
+        "No, sigue siendo 20 cm.",
+        "Depende del largo."
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "El perímetro es la longitud del contorno. Si usas la misma lana, el perímetro no cambia, aunque la forma sí.",
+      "pista": "La lana es la misma, solo cambia la forma."
+    },
+    {
+      "id": "lan03",
+      "dificultad": "dificil",
+      "tema": "Lana y Área",
+      "pregunta": "Con la lana de 20 cm, formas un cuadrado y luego un rectángulo. ¿Cuál de las dos figuras ocupa más espacio por dentro (área)?",
+      "opciones": [
+        "El cuadrado.",
+        "El rectángulo.",
+        "Ocupan lo mismo.",
+        "No se puede saber."
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Para un mismo perímetro, el cuadrado siempre tiene mayor área que cualquier rectángulo. Es un concepto clave de geometría.",
+      "pista": "El cuadrado es la figura más 'compacta'."
+    },
+    {
+      "id": "lan04",
+      "dificultad": "media",
+      "tema": "Lana y Perímetro",
+      "pregunta": "Usas lana para medir el contorno de tu mesa. La lana mide 30 cm. ¿Cuál es el perímetro de tu mesa?",
+      "opciones": [
+        "15 cm",
+        "20 cm",
+        "30 cm",
+        "60 cm"
+      ],
+      "respuesta_correcta": 2,
+      "explicacion": "La lana rodea todo el contorno, así que su longitud es exactamente el perímetro.",
+      "pista": "La lana es el contorno."
+    },
+    {
+      "id": "lan05",
+      "dificultad": "dificil",
+      "tema": "Lana y Perímetro",
+      "pregunta": "Con un trozo de lana de 15 cm, formas una figura irregular (no un cuadrado ni un rectángulo). ¿Cuál es su perímetro?",
+      "opciones": [
+        "10 cm",
+        "15 cm",
+        "20 cm",
+        "No se puede saber."
+      ],
+      "respuesta_correcta": 1,
+      "explicacion": "El perímetro es la longitud total del contorno. Si usaste 15 cm de lana, ese es el perímetro, sin importar la forma.",
+      "pista": "La lana no cambia de longitud aunque la figura sea irregular."
+    },
+    {
+      "id": "lan06",
+      "dificultad": "muy_dificil",
+      "tema": "Lana y Área",
+      "pregunta": "Tienes dos trozos de lana: uno de 12 cm y otro de 12 cm. Formas un cuadrado con el primero y un rectángulo con el segundo. ¿Cuál figura tiene mayor área?",
+      "opciones": [
+        "El cuadrado.",
+        "El rectángulo.",
+        "Tienen la misma área.",
+        "No se puede comparar."
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Para un mismo perímetro (12 cm), el cuadrado siempre tiene mayor área que un rectángulo.",
+      "pista": "El cuadrado es la figura que más área ocupa con el mismo perímetro."
+    },
+    {
+      "id": "lan07",
+      "dificultad": "dificil",
+      "tema": "Lana y Perímetro",
+      "pregunta": "Con un trozo de lana de 24 cm, formas un rectángulo donde el largo sea el doble del ancho. ¿Cuánto miden el largo y el ancho?",
+      "opciones": [
+        "Largo 8 cm, ancho 4 cm",
+        "Largo 10 cm, ancho 2 cm",
+        "Largo 6 cm, ancho 3 cm",
+        "Largo 12 cm, ancho 2 cm"
+      ],
+      "respuesta_correcta": 0,
+      "explicacion": "Perímetro = 2×(largo + ancho). 24 = 2×(2a + a) = 6a → a = 4. Largo = 8, ancho = 4.",
+      "pista": "Si el largo es el doble del ancho, entonces el perímetro es 6 veces el ancho."
+    }
+  ]
+}
