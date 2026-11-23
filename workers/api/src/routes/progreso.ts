@@ -622,7 +622,7 @@ export async function handleMisRespuestas(
   const alumna = await getAlumnaAutenticada(request, env);
   if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
 
-  // Calcular hash (igual que en registrar-respuesta)
+  // Calcular hash
   const encoder = new TextEncoder();
   const data = encoder.encode(`${alumna.id}${env.INTENTOS_SALT}`);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -631,22 +631,35 @@ export async function handleMisRespuestas(
 
   const respuestas = await getRespuestasLeccion(env.DB, alumna_hash, leccionId);
 
-  // Agrupar por pregunta_id (por si hay duplicados de distintas sesiones)
+  // Agrupar por pregunta_id y quedarse con la respuesta más reciente
   const agrupadas = new Map<string, typeof respuestas[0]>();
   for (const r of respuestas) {
-    if (!agrupadas.has(r.pregunta_id)) {
+    const existente = agrupadas.get(r.pregunta_id);
+    if (!existente || new Date(r.respondida_en) > new Date(existente.respondida_en)) {
       agrupadas.set(r.pregunta_id, r);
     }
   }
 
+  const respuestasUnicas = Array.from(agrupadas.values()).sort(
+    (a, b) => new Date(b.respondida_en).getTime() - new Date(a.respondida_en).getTime()
+  );
+
+  // Calcular resumen
+  const total = respuestasUnicas.length;
+  const correctas = respuestasUnicas.filter(r => r.es_correcta === 1).length;
+  const incorrectas = respuestasUnicas.filter(r => r.es_correcta === 0).length;
+
   return jsonResponse({
     ok: true,
     leccion_id: leccionId,
-    total_respuestas: agrupadas.size,
-    respuestas: Array.from(agrupadas.values()),
+    resumen: {
+      total,
+      correctas,
+      incorrectas,
+    },
+    respuestas: respuestasUnicas,
   });
 }
-
 
 
 

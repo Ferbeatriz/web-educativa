@@ -88,7 +88,8 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // Función para mostrar/ocultar el detalle de respuestas de una lección
-  async function toggleRespuestas(leccionId: string, element: HTMLElement) {
+
+   async function toggleRespuestas(leccionId: string, element: HTMLElement) {
     const contenedorResp = document.getElementById(`respuestas-${leccionId}`);
     if (!contenedorResp) return;
 
@@ -123,6 +124,19 @@ import Layout from '../layouts/Layout.astro';
           return;
         }
 
+        // Mostrar resumen de la lección
+        const resumenHTML = `
+          <div class="bg-gray-50 rounded-lg p-3 mb-3 text-sm">
+            <p class="font-bold text-gray-700 mb-1">Resumen de la lección</p>
+            <p class="text-gray-600">
+              ${data.resumen.total} preguntas respondidas · 
+              ✅ ${data.resumen.correctas} correctas · 
+              ❌ ${data.resumen.incorrectas} incorrectas
+            </p>
+          </div>
+        `;
+
+        // Mostrar detalle de cada pregunta
         const respuestasHTML = data.respuestas.map((r: any) => `
           <div class="flex items-start gap-2 py-2 border-b border-gray-100 last:border-0">
             <span class="text-lg">${r.es_correcta === 1 ? '✅' : r.es_correcta === 0 ? '❌' : '📝'}</span>
@@ -136,7 +150,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
         `).join('');
 
-        contenedorResp.innerHTML = respuestasHTML;
+        contenedorResp.innerHTML = resumenHTML + respuestasHTML;
       } catch (e) {
         contenedorResp.innerHTML = '<p class="text-sm text-red-500 py-2">Error de conexión.</p>';
       }
@@ -144,8 +158,6 @@ import Layout from '../layouts/Layout.astro';
 
     contenedorResp.classList.remove('hidden');
   }
-
-
   // Totales de lecciones por materia (hardcodeados por ahora)
   const TOTAL_LECCIONES_POR_MATERIA: Record<string, number> = {
     matematicas: 8,  // Ajusta según el número real de lecciones activas
