@@ -16,15 +16,15 @@
       "id": "ati01",
       "dificultad": "media",
       "tema": "Identificar textos instructivos",
-      "pregunta": "Marca con una X los textos instructivos. ¿Cuál de las siguientes opciones NO es un texto instructivo?",
+      "pregunta": "¿Cuál de los siguientes textos NO es un texto instructivo?",
       "opciones": [
         "Una receta de queque.",
-        "Un cuento de animales.",
         "Las reglas de un juego.",
-        "Un poema sobre la lluvia."
+        "Las instrucciones para armar un mueble.",
+        "Un cuento de animales."
       ],
-      "respuesta_correcta": 1,
-      "explicacion": "Un cuento de animales es un texto narrativo, no instructivo. No nos enseña a hacer algo paso a paso.",
+      "respuesta_correcta": 3,
+      "explicacion": "Un cuento de animales es un texto narrativo, no instructivo. Los otros tres son instructivos porque nos enseñan a hacer algo paso a paso.",
       "pista": "Los textos instructivos nos enseñan a hacer algo."
     },
     {
@@ -34,9 +34,9 @@
       "pregunta": "En un texto instructivo, ¿cómo se llama la parte donde se enumeran los pasos a seguir?",
       "opciones": [
         "Título",
-        "Ingredientes",
+        "Introducción",
         "Preparación o Procedimiento",
-        "Introducción"
+        "Ingredientes"
       ],
       "respuesta_correcta": 2,
       "explicacion": "La parte donde se enumeran los pasos se llama 'Preparación' (en recetas) o 'Procedimiento' (en manuales).",
@@ -48,12 +48,12 @@
       "tema": "Verbos en imperativo",
       "pregunta": "Subraya los verbos en modo imperativo. ¿Cuál de estas palabras es un verbo en imperativo?",
       "opciones": [
-        "Lava",
-        "Lavando",
         "Lavó",
+        "Lavando",
+        "Lava",
         "Lavar"
       ],
-      "respuesta_correcta": 0,
+      "respuesta_correcta": 2,
       "explicacion": "El verbo 'lava' está en modo imperativo, porque da una orden o instrucción.",
       "pista": "El imperativo se usa para dar órdenes."
     },
@@ -63,13 +63,13 @@
       "tema": "Verbos en imperativo",
       "pregunta": "¿Cuál de estas oraciones contiene un verbo en modo imperativo?",
       "opciones": [
-        "Mezcla los ingredientes en un bol.",
         "Mezcló los ingredientes en un bol.",
+        "Mezcla los ingredientes en un bol.",
         "Mezclando los ingredientes en un bol.",
         "Mezclar los ingredientes en un bol."
       ],
-      "respuesta_correcta": 0,
-      "explicacion": "La opción A da una instrucción (mezcla tú), por lo que el verbo está en imperativo.",
+      "respuesta_correcta": 1,
+      "explicacion": "La opción B da una instrucción (mezcla tú), por lo que el verbo está en imperativo.",
       "pista": "Busca la oración que da una orden."
     },
     {
@@ -80,10 +80,10 @@
       "opciones": [
         "Dobla el papel por la mitad.",
         "Abre el papel y dobla las esquinas hacia el centro.",
-        "Toma una hoja de papel.",
-        "Dobla nuevamente por la mitad."
+        "Dobla nuevamente por la mitad.",
+        "Toma una hoja de papel."
       ],
-      "respuesta_correcta": 2,
+      "respuesta_correcta": 3,
       "explicacion": "El primer paso siempre es reunir los materiales: en este caso, tomar una hoja de papel.",
       "pista": "Lo primero es tener el material."
     },
@@ -93,12 +93,12 @@
       "tema": "Ordenar pasos",
       "pregunta": "Para hacer un sándwich, ¿cuál es el último paso?",
       "opciones": [
-        "Coloca una rebanada de queso.",
+        "Sirve el sándwich en un plato.",
         "Cubre con la otra rebanada de pan.",
         "Unta mayonesa en una rebanada de pan.",
-        "Sirve el sándwich en un plato."
+        "Coloca una rebanada de queso."
       ],
-      "respuesta_correcta": 3,
+      "respuesta_correcta": 0,
       "explicacion": "El último paso es servir el sándwich en un plato, porque ya está listo para comer.",
       "pista": "El último paso es cuando el sándwich ya está listo."
     },
@@ -108,12 +108,12 @@
       "tema": "Completar instrucciones",
       "pregunta": "Completa las instrucciones: 'Primero, ______ los materiales. Luego, recorta la figura. Finalmente, pega la figura en la cartulina.'",
       "opciones": [
-        "reúne",
         "recorta",
         "pega",
+        "reúne",
         "ordena"
       ],
-      "respuesta_correcta": 0,
+      "respuesta_correcta": 2,
       "explicacion": "El primer paso es reunir los materiales. 'Reúne' es el verbo que falta.",
       "pista": "Lo primero es tener todo a mano."
     },
@@ -123,12 +123,12 @@
       "tema": "Completar instrucciones",
       "pregunta": "Completa las instrucciones: 'Primero, reúne los materiales. Luego, ______ la figura por la línea. Después, pega la figura. Finalmente, ordena y guarda los materiales.'",
       "opciones": [
-        "recorta",
         "pega",
         "reúne",
-        "ordena"
+        "ordena",
+        "recorta"
       ],
-      "respuesta_correcta": 0,
+      "respuesta_correcta": 3,
       "explicacion": "El verbo 'recorta' es el que corresponde al paso de cortar la figura por la línea.",
       "pista": "El paso dice 'por la línea', así que hay que cortar."
     },
@@ -168,12 +168,12 @@
       "tema": "Identificar materiales",
       "pregunta": "Lee la instrucción: 'Construye un avión de papel con una hoja, siguiendo los pasos.' ¿Qué material se necesita?",
       "opciones": [
-        "Una hoja de papel.",
         "Un lápiz.",
         "Una tijera.",
+        "Una hoja de papel.",
         "Un pegamento."
       ],
-      "respuesta_correcta": 0,
+      "respuesta_correcta": 2,
       "explicacion": "La instrucción dice explícitamente 'con una hoja', por lo que el material es una hoja de papel.",
       "pista": "Lee la instrucción y busca el material mencionado."
     },
@@ -185,10 +185,10 @@
       "opciones": [
         "Exprimir las naranjas.",
         "Servir el jugo en un vaso.",
-        "Cortar las naranjas por la mitad.",
-        "Lavar las naranjas."
+        "Lavar las naranjas.",
+        "Cortar las naranjas por la mitad."
       ],
-      "respuesta_correcta": 3,
+      "respuesta_correcta": 2,
       "explicacion": "El primer paso siempre es lavar los ingredientes antes de manipularlos, para asegurar la higiene.",
       "pista": "Antes de cortar o exprimir, hay que lavar."
     },
@@ -200,10 +200,10 @@
       "opciones": [
         "Usar rimas y poesía.",
         "Incluir personajes fantásticos.",
-        "Usar verbos en modo imperativo y pasos ordenados.",
-        "Narrar una historia con inicio, desarrollo y final."
+        "Narrar una historia con inicio, desarrollo y final.",
+        "Usar verbos en modo imperativo y pasos ordenados."
       ],
-      "respuesta_correcta": 2,
+      "respuesta_correcta": 3,
       "explicacion": "Los textos instructivos se caracterizan por usar verbos en imperativo y seguir un orden lógico de pasos.",
       "pista": "Piensa en lo que diferencia una receta de un cuento."
     },
@@ -214,11 +214,11 @@
       "pregunta": "¿Cuál es el orden correcto de las partes de un texto instructivo?",
       "opciones": [
         "Pasos, título, materiales.",
-        "Título, materiales, pasos.",
         "Materiales, pasos, título.",
+        "Título, materiales, pasos.",
         "Título, pasos, materiales."
       ],
-      "respuesta_correcta": 1,
+      "respuesta_correcta": 2,
       "explicacion": "El orden lógico es: primero el título (¿qué vamos a hacer?), luego los materiales (¿qué necesitamos?) y finalmente los pasos (¿cómo lo hacemos?).",
       "pista": "Primero sabemos qué haremos, luego qué necesitamos y al final cómo hacerlo."
     }
