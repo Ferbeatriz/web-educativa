@@ -102,20 +102,20 @@
       "explicacion": "Perímetro = 2×largo + 2×ancho. 14 = 2×5 + 2×ancho → 14 = 10 + 2×ancho → 2×ancho = 4 → ancho = 2.",
       "pista": "Resta el doble del largo al total y divide entre 2."
     },
-    {
+        {
       "id": "pal07",
       "dificultad": "muy_dificil",
       "tema": "Palitos y Área",
-      "pregunta": "Con 20 palitos formas la figura más grande posible que tenga forma de rectángulo. ¿Cuál es la mayor área que puedes formar? (Cuenta los palitos como unidades)",
+      "pregunta": "Con 20 palitos formas un rectángulo. ¿Cuál es la mayor área que puedes formar? (Cuenta los palitos como unidades)",
       "opciones": [
         "16 unidades cuadradas",
         "20 unidades cuadradas",
-        "25 unidades cuadradas",
-        "30 unidades cuadradas"
+        "24 unidades cuadradas",
+        "25 unidades cuadradas"
       ],
       "respuesta_correcta": 2,
-      "explicacion": "Para un perímetro fijo, el cuadrado maximiza el área. Si el perímetro es 20, el lado del cuadrado es 5 (20÷4), y el área es 5×5=25.",
-      "pista": "El cuadrado es la figura que más área ocupa con el mismo perímetro."
+      "explicacion": "Para un perímetro de 20 palitos, el rectángulo más grande es el de 6x4, que tiene área 24.",
+      "pista": "El rectángulo más 'compacto' es el de 6x4."
     },
     {
       "id": "lan01",
