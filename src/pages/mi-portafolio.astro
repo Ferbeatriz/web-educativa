@@ -145,6 +145,19 @@ import Layout from '../layouts/Layout.astro';
     contenedorResp.classList.remove('hidden');
   }
 
+
+  // Totales de lecciones por materia (hardcodeados por ahora)
+  const TOTAL_LECCIONES_POR_MATERIA: Record<string, number> = {
+    matematicas: 8,  // Ajusta según el número real de lecciones activas
+    lenguaje: 5,
+    historia: 2,
+    ingles: 2,
+    ciencias: 2,
+    musica: 2,
+  };
+
+
+
   function renderPortafolio(p: any) {
     if (!contenedor) return;
 
@@ -155,14 +168,17 @@ import Layout from '../layouts/Layout.astro';
       </div>
     `).join('');
 
-    const materiasHTML = p.materias.map((m: any) => `
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center">
-        <span class="font-bold text-gray-700 capitalize">${m.materia_id}</span>
-        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-bold">
-          ${m.completadas} lecciones
-        </span>
-      </div>
-    `).join('');
+        const materiasHTML = p.materias.map((m: any) => {
+      const total = TOTAL_LECCIONES_POR_MATERIA[m.materia_id] || '?';
+      return `
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center">
+          <span class="font-bold text-gray-700 capitalize">${m.materia_id}</span>
+          <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-bold">
+            ${m.completadas} de ${total} lecciones
+          </span>
+        </div>
+      `;
+    }).join('');
 
     const leccionesHTML = p.lecciones.map((l: any) => `
       <div class="border-b border-gray-50 last:border-0">
