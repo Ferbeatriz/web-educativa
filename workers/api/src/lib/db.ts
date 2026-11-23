@@ -525,3 +525,53 @@ export async function tieneConsentimiento(
   return result !== null;
 }
 
+// ============================================================
+// LOGROS POR MÉRITO (divisiones sin tutor, libro completo)
+// ============================================================
+
+/**
+ * Cuenta los intentos de división acertados sin tutor (origen = 'problema_card').
+ * Usa alumna_hash (privacidad).
+ */
+export async function contarDivisionesSinTutor(
+  db: D1Database,
+  alumna_hash: string
+): Promise<number> {
+  const result = await db
+    .prepare(
+      `SELECT COUNT(*) as total
+       FROM intentos_ejercicios
+       WHERE alumna_hash = ?
+         AND origen = 'problema_card'
+         AND error_type IS NULL
+         AND paso_n IS NULL`
+    )
+    .bind(alumna_hash)
+    .first<{ total: number }>();
+  return result?.total ?? 0;
+}
+
+/**
+ * Verifica si la alumna completó algún libro del Club de Lectura.
+ * Los libros se identifican por tener un materia_id que NO es una materia estándar.
+ */
+export async function tieneLibroCompleto(
+  db: D1Database,
+  alumna_id: number
+): Promise<boolean> {
+  const MATERIAS_ESTANDAR = [
+    'matematicas', 'lenguaje', 'historia', 'ingles', 'ciencias', 'programacion'
+  ];
+  const placeholders = MATERIAS_ESTANDAR.map(() => '?').join(',');
+  const result = await db
+    .prepare(
+      `SELECT COUNT(*) as total
+       FROM progreso
+       WHERE alumna_id = ?
+         AND materia_id NOT IN (${placeholders})`
+    )
+    .bind(alumna_id, ...MATERIAS_ESTANDAR)
+    .first<{ total: number }>();
+  return (result?.total ?? 0) > 0;
+}
+

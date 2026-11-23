@@ -26,6 +26,8 @@ import {
   tieneConsentimiento,
   calcularPorcentajeCumplimiento,
   getRespuestasLeccion,
+  contarDivisionesSinTutor,
+  tieneLibroCompleto,
 } from '../lib/db';
 import {
   notificarAdminLeccionCompletada,
@@ -138,9 +140,48 @@ interface LogroCatalogo {
 }
 
 const LOGROS: LogroCatalogo[] = [
-  { id: 'primera_leccion', emoji: '🌱', titulo: 'Primera lección', descripcion: 'Completa tu primera lección.' },
-  { id: 'materia_completa', emoji: '🏆', titulo: 'Materia completa', descripcion: 'Completa todas las lecciones de una materia.' },
-  { id: 'racha_7', emoji: '🔥', titulo: 'Semana activa', descripcion: '7 días seguidos de actividad.' },
+  {
+    id: 'primera_leccion',
+    emoji: '🌱',
+    titulo: 'Primera lección',
+    descripcion: 'Completa tu primera lección.',
+  },
+  {
+    id: 'materia_completa',
+    emoji: '🏆',
+    titulo: 'Materia completa',
+    descripcion: 'Completa todas las lecciones de una materia.',
+  },
+  {
+    id: 'racha_7',
+    emoji: '🔥',
+    titulo: 'Semana activa',
+    descripcion: '7 días seguidos de actividad.',
+  },
+  {
+    id: 'primera_division_sin_tutor',
+    emoji: '➗',
+    titulo: 'Primera división sola',
+    descripcion: 'Resuelve tu primera división sin usar el tutor.',
+  },
+  {
+    id: 'cinco_divisiones_sin_tutor',
+    emoji: '🧮',
+    titulo: 'Cinco divisiones solas',
+    descripcion: 'Resuelve 5 divisiones sin usar el tutor.',
+  },
+  {
+    id: 'diez_divisiones_sin_tutor',
+    emoji: '🏅',
+    titulo: 'Diez divisiones solas',
+    descripcion: 'Resuelve 10 divisiones sin usar el tutor.',
+  },
+  {
+    id: 'primer_libro_completo',
+    emoji: '📖',
+    titulo: 'Primer libro',
+    descripcion: 'Termina tu primer libro del Club de Lectura.',
+  },
 ];
 
 // ============================================================
@@ -407,12 +448,14 @@ async function verificarLogros(
 ): Promise<string[]> {
   const desbloqueadosAhora: string[] = [];
 
+  // 1. primera_leccion
   const resumen = await getResumenProgreso(env.DB, alumna_id);
   if (resumen.lecciones_completadas >= 1) {
     const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'primera_leccion');
     if (nuevo) desbloqueadosAhora.push('primera_leccion');
   }
 
+  // 2. materia_completa (heurística: 6 lecciones de la misma materia)
   const porMateria = await getLeccionesCompletadasPorMateria(env.DB, alumna_id);
   const completa = porMateria.some((m) => m.completadas >= 6);
   if (completa) {
@@ -420,6 +463,7 @@ async function verificarLogros(
     if (nuevo) desbloqueadosAhora.push('materia_completa');
   }
 
+  // 3. racha_7
   const dias = await getDiasActivos(env.DB, alumna_id);
   const racha = calcularRacha(dias);
   if (racha.racha_maxima >= 7) {
@@ -427,9 +471,37 @@ async function verificarLogros(
     if (nuevo) desbloqueadosAhora.push('racha_7');
   }
 
+  // 4. divisiones sin tutor (necesitamos el alumna_hash)
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${alumna_id}${env.INTENTOS_SALT}`);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const alumna_hash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+
+  const divisiones = await contarDivisionesSinTutor(env.DB, alumna_hash);
+  
+  if (divisiones >= 1) {
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'primera_division_sin_tutor');
+    if (nuevo) desbloqueadosAhora.push('primera_division_sin_tutor');
+  }
+  if (divisiones >= 5) {
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'cinco_divisiones_sin_tutor');
+    if (nuevo) desbloqueadosAhora.push('cinco_divisiones_sin_tutor');
+  }
+  if (divisiones >= 10) {
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'diez_divisiones_sin_tutor');
+    if (nuevo) desbloqueadosAhora.push('diez_divisiones_sin_tutor');
+  }
+
+  // 5. primer_libro_completo
+  const libroCompleto = await tieneLibroCompleto(env.DB, alumna_id);
+  if (libroCompleto) {
+    const nuevo = await insertarLogroSiNoExiste(env.DB, alumna_id, 'primer_libro_completo');
+    if (nuevo) desbloqueadosAhora.push('primer_libro_completo');
+  }
+
   return desbloqueadosAhora;
 }
-
 // ============================================================
 // Portafolio
 // ============================================================
