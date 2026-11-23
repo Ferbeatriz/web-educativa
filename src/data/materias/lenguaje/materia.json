@@ -89,6 +89,18 @@
       "duracion_estimada_min": 15,
       "archivo": "lecciones/textos-instructivos.json",
       "activo": true
+    },
+
+    {
+      "id": "actividades-textos-instructivos",
+      "titulo": "Actividades: Textos Instructivos 📝",
+      "emoji": "📝",
+      "orden": 9,
+      "nivel": "básico",
+      "duracion_estimada_min": 25,
+      "archivo": "lecciones/actividades-textos-instructivos.json",
+      "activo": true,
+      "grupo": "lectura"
     }
 
   ]
