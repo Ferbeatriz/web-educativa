@@ -194,10 +194,13 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-xs uppercase font-bold text-white/70 mb-1">XP Total</p>
             <p class="text-xl font-extrabold">${p.nivel.xp_total} XP</p>
           </div>
-          <div class="bg-white/20 backdrop-blur px-6 py-3 rounded-2xl flex-1 min-w-[140px]">
-            <p class="text-xs uppercase font-bold text-white/70 mb-1">Racha</p>
-            <p class="text-xl font-extrabold">🔥 ${p.racha.dias_consecutivos} días</p>
-          </div>
+
+         <div class="bg-white/20 backdrop-blur px-6 py-3 rounded-2xl flex-1 min-w-[140px]">
+             <p class="text-xs uppercase font-bold text-white/70 mb-1">Racha</p>
+             <p class="text-xl font-extrabold">🔥 ${p.racha.dias_consecutivos} días</p>
+             <p class="text-[10px] text-white/60 mt-1 leading-tight">Días activos seguidos. No se rompe si faltas.</p>
+          <div>
+
         </div>
       </div>
 
