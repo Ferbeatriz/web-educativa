@@ -100,7 +100,7 @@
       "duracion_estimada_min": 25,
       "archivo": "lecciones/actividades-textos-instructivos.json",
       "activo": true,
-      "grupo": "lectura"
+      "activo": true
     }
 
   ]
