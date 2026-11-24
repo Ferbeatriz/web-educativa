@@ -57,8 +57,43 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 
 
+## ✅ Actualización 2026-11-24 (cierre de sesión)
 
+**Lo que se logró:**
+- **Nueva lección:** "Actividades: Área y Perímetro" (24 ejercicios fijos con SVG, figuras organizadas).
+- **Nueva lección:** "Actividades: Textos Instructivos" (14 ejercicios, con opciones rotadas).
+- **Logros por mérito:** Agregados `primera_division_sin_tutor`, `cinco_divisiones_sin_tutor`, `diez_divisiones_sin_tutor` y `primer_libro_completo`.
+- **Portafolio:** Ahora muestra el detalle de respuestas por lección (agrupadas por pregunta, con resumen de correctas/incorrectas).
+- **Racha:** Se agregó el texto informativo "Días activos seguidos. No se rompe si faltas." en el portafolio.
+- **Mapa de progreso:** Se implementó el "X de Y" por materia (con totales hardcodeados en el frontend).
+- **Fix:** Se corrigió la pregunta ambigua de textos instructivos y se rotaron las opciones para evitar que la respuesta correcta sea siempre la misma letra.
+- **Fix crítico:** Se hizo dinámico el `materia_id` en `TriviaRotativa.astro` (ya no está hardcodeado como 'matematicas'). Ahora el correo y las métricas reflejan la materia correcta.
+
+**Pendientes para la próxima sesión:**
+- Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.
+- Iniciar el Mes 2 (Informe PDF para el apoderado).
+
+**Commit de referencia:** (anotar el hash después de `git push`).
 ## 📋 Resumen de la sesión del 2026-11-20
+
+## ✅ Actualización 2026-11-24 (cierre de sesión)
+
+**Lo que se logró:**
+- **Nueva lección:** "Actividades: Área y Perímetro" (24 ejercicios fijos con SVG, figuras organizadas).
+- **Nueva lección:** "Actividades: Textos Instructivos" (14 ejercicios, con opciones rotadas).
+- **Logros por mérito:** Agregados `primera_division_sin_tutor`, `cinco_divisiones_sin_tutor`, `diez_divisiones_sin_tutor` y `primer_libro_completo`.
+- **Portafolio:** Ahora muestra el detalle de respuestas por lección (agrupadas por pregunta, con resumen de correctas/incorrectas).
+- **Racha:** Se agregó el texto informativo "Días activos seguidos. No se rompe si faltas." en el portafolio.
+- **Mapa de progreso:** Se implementó el "X de Y" por materia (con totales hardcodeados en el frontend).
+- **Fix:** Se corrigió la pregunta ambigua de textos instructivos y se rotaron las opciones para evitar que la respuesta correcta sea siempre la misma letra.
+- **Fix crítico:** Se hizo dinámico el `materia_id` en `TriviaRotativa.astro` (ya no está hardcodeado como 'matematicas'). Ahora el correo y las métricas reflejan la materia correcta.
+
+**Pendientes para la próxima sesión:**
+- Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.
+- Iniciar el Mes 2 (Informe PDF para el apoderado).
+
+**Commit de referencia:** (anotar el hash después de `git push`).
+
 
 **Objetivo de la sesión:** Implementar el sistema de métricas (registro de respuestas y notificaciones) y corregir pendientes de sesiones anteriores.
 
