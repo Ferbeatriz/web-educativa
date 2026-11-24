@@ -7,6 +7,7 @@
   "categoria": "Matemáticas",
   "emoji": "📐",
   "progreso_puntos": 50,
+  "trivia_por_sesion": 24,
   "descripcion": "Practica el cálculo de área y perímetro con figuras geométricas.",
   "contenido_modulos": [
     "# 📐 ¡Practiquemos Área y Perímetro!\n\n\n\nEn esta lección pondrás a prueba lo que sabes sobre el área y el perímetro de figuras geométricas.\n\n\n- **Perímetro**: es la suma de todos los lados de una figura.\n- **Área**: es la medida de la superficie que ocupa una figura.\n\n\n> **Idea fuerza**: El perímetro es el borde; el área es lo de adentro.\n\n\n---\n\n# 🎯 Instrucciones\n\n\n\nPara cada figura, calcula el **área (A)** y el **perímetro (P)**. Usa las medidas que se indican en los dibujos.\n\n\n---\n\n# 🎮 Ahora te toca\n\n\n\n<!-- TUTOR: fracciones-practica -->"
