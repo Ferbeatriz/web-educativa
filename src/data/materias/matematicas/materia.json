@@ -210,6 +210,19 @@
       "archivo": "lecciones/desafios-palitos-lana.json",
       "activo": true,
       "grupo": "medicion"
+    },
+
+
+    {
+      "id": "actividades-area-perimetro",
+      "titulo": "Actividades: Área y Perímetro 📐",
+      "emoji": "📐",
+      "orden": 18,
+      "nivel": "básico",
+      "duracion_estimada_min": 30,
+      "archivo": "lecciones/actividades-area-perimetro.json",
+      "activo": true,
+      "grupo": "medicion"
     }
 
   ]
