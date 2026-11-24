@@ -358,11 +358,12 @@ const esEjerciciosGuiados = leccion.tipo === 'ejercicios-guiados';
       )}
 
       <!-- 🧠 TRIVIA (fija o rotativa) -->
-      {leccion.banco_trivia && leccion.banco_trivia.length > 0 ? (
+            {leccion.banco_trivia && leccion.banco_trivia.length > 0 ? (
         <section class="mb-10">
           <TriviaRotativa
             banco={leccion.banco_trivia}
             leccionId={leccion.id}
+            materiaId={materia.id}
             cantidadPorSesion={leccion.trivia_por_sesion || 10}
           />
         </section>

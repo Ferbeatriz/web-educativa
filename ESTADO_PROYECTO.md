@@ -40,7 +40,29 @@ Dejar de ser solo una "web educativa" para convertirnos en un ecosistema de **so
 El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Start-Up Chile, ANID) para escalar la plataforma, por lo que el proyecto debe transitar desde un MVP funcional hacia un modelo de negocio sostenible (SaaS educativo).
 
 
-## ✅ Estado actual (2026-11-20)
+
+
+## ✅ Actualización 2026-11-23 (cierre de sesión)
+
+**Lo que se logró:**
+- **Nueva lección:** "Actividades: Área y Perímetro" (24 ejercicios fijos con SVG, figuras organizadas).
+- **Nueva lección:** "Actividades: Textos Instructivos" (14 ejercicios, con opciones rotadas).
+- **Logros por mérito:** Agregados `primera_division_sin_tutor`, `cinco_divisiones_sin_tutor`, `diez_divisiones_sin_tutor` y `primer_libro_completo`.
+- **Portafolio:** Ahora muestra el detalle de respuestas por lección (agrupadas por pregunta, con resumen de correctas/incorrectas).
+- **Racha:** Se agregó el texto informativo "Días activos seguidos. No se rompe si faltas." en el portafolio.
+- **Mapa de progreso:** Se implementó el "X de Y" por materia (con totales hardcodeados en el frontend).
+- **Fix:** Se corrigió la pregunta ambigua de textos instructivos y se rotaron las opciones para evitar que la respuesta correcta sea siempre la misma letra.
+
+**Pendientes para la próxima sesión:**
+- Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.
+- Hacer dinámico el `materia_id` en `TriviaRotativa.astro` (actualmente hardcodeado como 'matematicas').
+- Iniciar el Mes 2 (Informe PDF para el apoderado).
+
+**Commit de referencia:** (93ce5e2..a6fbdbe).
+
+
+
+
 
 - **Portafolio:** Funcional en `/mi-portafolio`. Muestra nivel, XP, racha, logros, progreso por materia y últimas lecciones completadas.
 - **Tutor Docente:** Operativo con autoguardado en GitHub.

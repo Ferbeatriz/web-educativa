@@ -17,12 +17,14 @@ interface Pregunta {
 interface Props {
   banco: Pregunta[];
   leccionId: string;
+  materiaId: string;
   cantidadPorSesion?: number;
 }
 
 const {
   banco,
   leccionId,
+  materiaId,
   cantidadPorSesion = 10,
 } = Astro.props;
 ---
@@ -33,10 +35,10 @@ const {
   data-leccion-id={leccionId}
   data-cantidad={cantidadPorSesion}
 >
-  <script
+    <script
     id="trivia-data"
     type="application/json"
-    set:html={JSON.stringify({ banco })}
+    set:html={JSON.stringify({ banco, materiaId })}
   />
 
   <div class="trivia-header">
@@ -78,7 +80,7 @@ const {
     const dataEl = document.getElementById('trivia-data');
     if (!contenedor || !dataEl) return;
 
-    const { banco } = JSON.parse(dataEl.textContent || '{}');
+    const { banco, materiaId } = JSON.parse(dataEl.textContent || '{}');
     const leccionId = contenedor.dataset.leccionId!;
     const cantidadPorSesion = parseInt(contenedor.dataset.cantidad || '10', 10);
 
@@ -191,9 +193,9 @@ function generarGrid(filas: string[], color: string): string {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({
+            body: JSON.stringify({
             leccion_id: leccionId,
-            materia_id: 'matematicas', // TODO: hacer dinámico
+            materia_id: materiaId,
             total_preguntas: banco.length
           })
         });
