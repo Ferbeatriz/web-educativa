@@ -16,7 +16,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/propiedades-multiplicacion.json",
-      "activa": true,
+      "activo": true,
       "grupo": "multiplicacion"
     },
     {
@@ -27,7 +27,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/introduccion-division.json",
-      "activa": true,
+      "activo": true,
       "grupo": "division"
     },
     {
@@ -38,7 +38,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/resta-con-reserva.json",
-      "activa": true,
+      "activo": true,
       "grupo": "resta"
     },
     {
@@ -50,7 +50,7 @@
       "duracion_estimada_min": 30,
       "archivo": "ejercicios/division-problemas.json",
       "tipo": "ejercicios",
-      "activa": true,
+      "activo": true,
       "grupo": "division"
     },
     {
@@ -62,7 +62,7 @@
       "duracion_estimada_min": 30,
       "archivo": "lecciones/division-reparto-3basico.json",
       "tipo": "ejercicios-guiados",
-      "activa": true,
+      "activo": true,
       "grupo": "division"
     },
     {
@@ -74,7 +74,7 @@
       "duracion_estimada_min": 25,
       "archivo": "lecciones/division-repaso-3basico.json",
       "tipo": "ejercicios-guiados",
-      "activa": true,
+      "activo": true,
       "grupo": "division"
     },
     {
@@ -85,7 +85,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/introduccion-fracciones.json",
-      "activa": true,
+      "activo": true,
       "grupo": "fracciones"
     },
     {
@@ -96,7 +96,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/comparacion-fracciones.json",
-      "activa": true,
+      "activo": true,
       "grupo": "fracciones"
     },
     {
@@ -107,7 +107,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/multiplos-equivalentes.json",
-      "activa": true,
+      "activo": true,
       "grupo": "fracciones"
     },
     {
@@ -118,7 +118,7 @@
       "nivel": "b\u00e1sico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/ordenamiento-fracciones.json",
-      "activa": true,
+      "activo": true,
       "grupo": "fracciones"
     },
     {
@@ -140,7 +140,7 @@
       "nivel": "basico",
       "duracion_estimada_min": 30,
       "archivo": "lecciones/perimetro.json",
-      "activa": true,
+      "activo": true,
       "grupo": "medicion"
     },
     {
@@ -151,7 +151,7 @@
       "nivel": "basico",
       "duracion_estimada_min": 30,
       "archivo": "lecciones/area.json",
-      "activa": true,
+      "activo": true,
       "grupo": "medicion"
     },
     {
@@ -170,7 +170,7 @@
       "id": "ejercicios-medicion",
       "titulo": "Desafíos de Área y Perímetro 📐",
       "emoji": "📐",
-      "orden": 14,
+      "orden": 15,
       "nivel": "básico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/ejercicios-medicion.json",
@@ -182,7 +182,7 @@
       "id": "practica-area-perimetro",
       "titulo": "Práctica: Área y Perímetro 📐",
       "emoji": "📐",
-      "orden": 15,
+      "orden": 16,
       "nivel": "básico",
       "duracion_estimada_min": 20,
       "archivo": "lecciones/practica-area-perimetro.json",
@@ -193,7 +193,7 @@
       "id": "sumas-centenas",
       "titulo": "Sumas Verticales de Centenas ➕",
       "emoji": "➕",
-      "orden": 16,
+      "orden": 17,
       "nivel": "básico",
       "duracion_estimada_min": 15,
       "archivo": "lecciones/sumas-centenas.json",
@@ -204,7 +204,7 @@
       "id": "desafios-palitos-lana",
       "titulo": "Desafíos con Palitos y Lana 🪵🧶",
       "emoji": "🪵",
-      "orden": 17,
+      "orden": 18,
       "nivel": "básico",
       "duracion_estimada_min": 25,
       "archivo": "lecciones/desafios-palitos-lana.json",
@@ -217,7 +217,7 @@
       "id": "actividades-area-perimetro",
       "titulo": "Actividades: Área y Perímetro 📐",
       "emoji": "📐",
-      "orden": 18,
+      "orden": 19,
       "nivel": "básico",
       "duracion_estimada_min": 30,
       "archivo": "lecciones/actividades-area-perimetro.json",
