@@ -74,7 +74,51 @@ Por favor, lee esos archivos primero y luego continuamos."
 - Iniciar el Mes 2 (Informe PDF para el apoderado).
 
 **Commit de referencia:** (anotar el hash después de `git push`).
-## 📋 Resumen de la sesión del 2026-11-20
+
+
+
+## 📋 Resumen de la sesión del 2026-11-24
+
+**Objetivo de la sesión:** Implementar el sistema de métricas, crear nuevas lecciones y corregir pendientes de gamificación.
+
+**Lo que se logró:**
+- Se creó la tabla `respuestas_lecciones` (schema-08) con `alumna_hash` para cumplir con la Ley 21.719.
+- Se implementaron los endpoints `POST /api/progreso/registrar-respuesta`, `POST /api/progreso/actualizar-avance` y `GET /api/progreso/mis-respuestas/:leccion_id`.
+- Se modificó `TriviaRotativa.astro` para que envíe las respuestas al backend y haga dinámico el `materia_id`.
+- Se agregó la plantilla de email `notificarAdminAvance` en `lib/email.ts`.
+- Se corrigió el JSON de `introduccion-fracciones.json` (faltaban los IDs).
+- Se crearon dos lecciones nuevas: "Actividades: Textos Instructivos" (14 ejercicios) y "Actividades: Área y Perímetro" (24 ejercicios con SVG).
+- Se agregaron logros por mérito: divisiones sin tutor (1, 5 y 10) y primer libro completo.
+- Se mejoró el portafolio: muestra el detalle de respuestas por lección (agrupadas por pregunta, con resumen de correctas/incorrectas) y la racha con contexto informativo.
+- Se implementó el mapa de progreso "X de Y" por materia.
+
+**Archivos modificados:**
+- `workers/api/schema-08-respuestas.sql` (nuevo)
+- `workers/api/src/routes/progreso.ts` (nuevos endpoints y lógica de logros)
+- `workers/api/src/lib/db.ts` (nuevas funciones)
+- `workers/api/src/lib/email.ts` (nueva plantilla)
+- `workers/api/src/index.ts` (nuevas rutas)
+- `src/components/TriviaRotativa.astro` (envío de respuestas y `materia_id` dinámico)
+- `src/pages/mi-portafolio.astro` (detalle de respuestas y racha con contexto)
+- `src/pages/leccion/[...slug].astro` (pasa `materiaId` a `TriviaRotativa`)
+- `src/data/materias/matematicas/lecciones/actividades-area-perimetro.json` (nuevo)
+- `src/data/materias/lenguaje/lecciones/actividades-textos-instructivos.json` (nuevo)
+- `src/data/materias/matematicas/materia.json` (registro de nueva lección)
+- `src/data/materias/lenguaje/materia.json` (registro de nueva lección)
+
+**Decisiones tomadas:**
+- Se usó `alumna_hash` en lugar de `alumna_id` para las respuestas (privacidad).
+- El correo de avance se envía siempre (sea que completó o no la lección), pero solo si hay consentimiento parental.
+- Se eliminó `verificarLogros()` del frontend (el backend no tiene ese endpoint).
+- Se hardcodearon los totales de lecciones por materia en el frontend (solución simple).
+- El `materia_id` ahora es dinámico en `TriviaRotativa.astro` (viene de `materia.id`).
+
+**Pendientes para la próxima sesión:**
+- Agregar la llamada a `POST /api/progreso/completar` en `TriviaRotativa.astro` para que las lecciones aparezcan en el portafolio (el código está en el chat).
+- Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.
+- Iniciar el Mes 2 (Informe PDF para el apoderado).
+
+**Commit de referencia:** (anotar el hash después de `git push`).
 
 ## ✅ Actualización 2026-11-24 (cierre de sesión)
 
