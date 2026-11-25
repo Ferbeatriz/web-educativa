@@ -36,6 +36,26 @@ Por favor, lee esos archivos primero y luego continuamos."
 2. **Resumen de sesión:** Al cerrar una sesión (por cambio de tema, por fin de jornada, o por alerta de memoria), la IA debe generar un **resumen sucinto** de todo lo relevante realizado, para que la IA que retome el trabajo entienda el contexto sin necesidad de releer todo el chat.
 
 ---
+
+### Cierre de la Semana 1 (2026-11-25)
+
+**Estado:** La Semana 1 (Gamificación suave) está 100% completada. Todos los pendientes se resolvieron:
+- Logros por mérito implementados (divisiones sin tutor, primer libro completo).
+- Racha con contexto informativo en el portafolio.
+- Detalle de respuestas en el portafolio (con resumen de correctas/incorrectas).
+- `materia_id` dinámico en `TriviaRotativa.astro`.
+- Totales de lecciones por materia corregidos (Lenguaje 9, Matemáticas 19).
+- `materia.json` limpio (sin duplicados de `orden`, campo `activo` consistente).
+
+**Próximos pasos:**
+1. Semana 3 (proyectos cortos) del Mes 1.
+2. Mes 2: Informe PDF para el apoderado (Semana 5).
+
+**Nota:** El portafolio funciona correctamente. Si una lección no aparece, es porque no se ha marcado como completada (el botón "Completar lección" no se ha presionado).
+
+
+
+
 ## ✅ Actualización 2026-11-23 (cierre de sesión)
 
 **Lo que se logró:**

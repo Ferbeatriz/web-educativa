@@ -40,7 +40,16 @@ Dejar de ser solo una "web educativa" para convertirnos en un ecosistema de **so
 El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Start-Up Chile, ANID) para escalar la plataforma, por lo que el proyecto debe transitar desde un MVP funcional hacia un modelo de negocio sostenible (SaaS educativo).
 
 
+### 2026-11-25 (Cierre Semana 1)
 
+- **Semana 1 (Gamificación suave):** 100% completada.
+  - Logros por mérito: `primera_division_sin_tutor`, `cinco_divisiones_sin_tutor`, `diez_divisiones_sin_tutor`, `primer_libro_completo`.
+  - Racha con contexto informativo en el portafolio ("Días activos seguidos. No se rompe si faltas.").
+  - Detalle de respuestas por lección en el portafolio (agrupadas por pregunta, con resumen de correctas/incorrectas).
+  - `materia_id` dinámico en `TriviaRotativa.astro`.
+  - Totales de lecciones por materia corregidos (Lenguaje 9, Matemáticas 19).
+  - `materia.json` limpio (sin duplicados de `orden`, campo `activo` consistente en todas las lecciones).
+- **Próximos pasos:** Semana 3 (proyectos cortos) o Mes 2 (Informe PDF para el apoderado).
 
 ## ✅ Actualización 2026-11-24 (cierre de sesión)
 
@@ -61,6 +70,10 @@ El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Star
 - Iniciar el Mes 2 (Informe PDF para el apoderado).
 
 **Commit de referencia:** (anotar el hash después de `git push`).
+
+
+
+
 
 
 
