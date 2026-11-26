@@ -202,6 +202,35 @@ function generarGrid(filas: string[], color: string): string {
       } catch (e) {
         console.warn('[trivia] Error al actualizar avance:', e);
       }
+
+      // Marcar la lección como completada (para que aparezca en el portafolio)
+      try {
+        const resCompletar = await fetch('https://web-educativa-api.ferbeatriz.workers.dev/api/progreso/completar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            leccion_id: leccionId,
+            materia_id: materiaId
+          })
+        });
+        if (!resCompletar.ok) {
+          const errText = await resCompletar.text();
+          console.warn(`[trivia] /completar respondió ${resCompletar.status}:`, errText);
+        } else {
+          const data = await resCompletar.json();
+          if (data.nueva) {
+            console.log(`[trivia] Lección completada: +${data.xp_ganados} XP, logros:`, data.logros_desbloqueados);
+          } else {
+            console.log('[trivia] Lección ya estaba completada. No se otorgó XP extra.');
+          }
+        }
+      } catch (e) {
+        console.warn('[trivia] Error al marcar lección como completada:', e);
+      }
+
     }
 
 
