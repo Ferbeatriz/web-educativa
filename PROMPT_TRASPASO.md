@@ -37,6 +37,35 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ---
 
+## 📋 Resumen de la sesión del 2026-11-26
+
+**Objetivo de la sesión:** Resolver el bug del portafolio (lección no se marcaba como completada).
+
+**Lo que se logró:**
+- Se agregó la llamada a `POST /api/progreso/completar` en `TriviaRotativa.astro` (al final de `enviarRespuestasAlBackend`).
+- Se validó el flujo completo: respuestas → avance → completar. La lección `actividades-area-perimetro` ya aparece en `/mi-portafolio` con sus 50 XP.
+- Se confirmó la idempotencia del backend: corregir varias veces no duplica XP.
+
+**Archivos modificados:**
+- `src/components/TriviaRotativa.astro`
+- `ESTADO_PROYECTO.md` y `PROMPT_TRASPASO.md` (este documento)
+
+**Decisiones tomadas:**
+- El fix se aplicó sin verificar consentimiento en el frontend (el progreso se guarda igual, pero el email solo se envía si hay consentimiento). La decisión legal final se aplaza a la próxima sesión.
+- Se mantuvo el orden actual (respuestas → avance → completar) para no romper dependencias del backend.
+
+**Pendientes para la próxima sesión:**
+- Decidir si se agrega `tieneConsentimiento()` a `handleCompletarLeccion`.
+- Revisar panel admin `/admin/metricas` (últimas 3 lecciones).
+- Iniciar Semana 3 o Mes 2.
+
+**Commit de referencia:** (anotar el hash después de `git push`).
+
+
+
+
+
+
 ### Cierre de la Semana 1 (2026-11-25)
 
 **Estado:** La Semana 1 (Gamificación suave) está 100% completada. Todos los pendientes se resolvieron:

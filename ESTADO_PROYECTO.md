@@ -40,6 +40,23 @@ Dejar de ser solo una "web educativa" para convertirnos en un ecosistema de **so
 El objetivo a mediano plazo es postular a líneas de financiamiento (CORFO, Start-Up Chile, ANID) para escalar la plataforma, por lo que el proyecto debe transitar desde un MVP funcional hacia un modelo de negocio sostenible (SaaS educativo).
 
 
+
+
+## ✅ Actualización 2026-11-26 (Cierre Fix Portafolio)
+
+**Lo que se logró:**
+- **Fix crítico:** Se agregó la llamada a `POST /api/progreso/completar` al final de `enviarRespuestasAlBackend` en `src/components/TriviaRotativa.astro`. Ahora las lecciones se marcan como completadas al presionar "Corregir respuestas", aparecen en el portafolio (`/mi-portafolio`) y otorgan los 50 XP correspondientes.
+- **Manejo de errores:** Se agregó verificación de `resCompletar.ok` y logs en consola para diagnosticar fallos (401, 403, 500) sin romper la UI.
+- **Idempotencia validada:** El backend (`handleCompletarLeccion`) ya manejaba correctamente el caso de lección repetida (`nueva: false`), por lo que no hay riesgo de XP duplicado si la alumna corrige varias veces.
+
+**Pendientes para la próxima sesión:**
+- Decidir si `handleCompletarLeccion` debe verificar `tieneConsentimiento()` (capa legal Ley 21.719).
+- Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.
+- Iniciar la Semana 3 (Proyectos cortos) o el Mes 2 (Informe PDF para el apoderado).
+
+**Commit de referencia:** (anotar el hash después de `git push`).
+
+
 ### 2026-11-25 (Cierre Semana 1)
 
 - **Semana 1 (Gamificación suave):** 100% completada.
