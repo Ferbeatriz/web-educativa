@@ -130,6 +130,11 @@ por iniciativa propia al menos 3 veces por semana, sin recordatorio.
 "¿qué aprendió mi hija esta semana?" en menos de 1 minuto, usando la
 plataforma.
 
+> **Nota de arquitectura (2026-11-27):** El informe del apoderado (Semana 5) es el primer consumidor del ecosistema de informes. No se diseña como pieza aislada, sino como capa sobre el motor común. Las vistas institucionales futuras deben respetar la doble mirada académica/negocio (ver `ESTADO_PROYECTO.md` → "Ecosistema de Informes por Capas").
+
+
+
+
 ### Semana 5 — Informe mensual en PDF
 
 - Página `/apoderado/informe` que genera PDF con progreso, logros,

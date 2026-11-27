@@ -162,6 +162,9 @@ Por favor, lee esos archivos primero y luego continuamos."
 - Se hardcodearon los totales de lecciones por materia en el frontend (solución simple).
 - El `materia_id` ahora es dinámico en `TriviaRotativa.astro` (viene de `materia.id`).
 
+| **Ecosistema de informes por capas** | Los informes (apoderado, profesor, dirección, plataforma) comparten fuente de verdad y se comunican entre sí. Se construyen sobre un motor común parametrizado por rol y alcance. No son piezas aisladas. |
+| **Doble mirada académica vs. negocio** | Un mismo hecho educativo se lee desde dos miradas: académica (¿están aprendiendo?) y de negocio/gestión (¿rinde la inversión educativa?). El director/rector ve la académica; el sostenedor/dueño de colegio ve ambas y necesita detectar la brecha entre resultados y matrícula/rentabilidad; el dueño de plataforma ve la operativa + negocio. Las vistas no mezclan miradas sin separarlas. |
+
 **Pendientes para la próxima sesión:**
 - Agregar la llamada a `POST /api/progreso/completar` en `TriviaRotativa.astro` para que las lecciones aparezcan en el portafolio (el código está en el chat).
 - Revisar el panel del admin (`/admin/metricas`) para incluir las últimas 3 lecciones con porcentaje de cumplimiento.

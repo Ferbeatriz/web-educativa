@@ -236,7 +236,39 @@ Buscamos **seducir a través de la maestría y la agencia**, no de la dopamina b
 5. **Diseño limpio y respetuoso:** La interfaz no busca "atrapar" a la niña con estímulos visuales excesivos. Busca ser un espacio de refugio y concentración, con una estética sobria, cálida y profesional.
 
 
+## 🗂️ Principio de Arquitectura: Ecosistema de Informes por Capas
 
+**Declaración (2026-11-27):**
+Los informes de la plataforma NO son piezas aisladas. Forman un ecosistema conectado: todos comparten la misma fuente de verdad y se comunican entre sí, respetando capas de acceso según el rol.
+
+**Actores y sus dos miradas sobre un mismo hecho:**
+Un mismo hecho educativo (una alumna que aprende, un curso que mejora, un colegio que sube resultados) se lee desde dos miradas complementarias que NO se confunden:
+
+1. **Mirada académica:** notas, SIMCE, PAES, dominio de OA, errores frecuentes, progreso por materia. Responde a *¿están aprendiendo?*
+2. **Mirada de negocio/gestión:** matrícula, retención, prestigio, rentabilidad de la inversión educativa, posición competitiva. Responde a *¿está rindiendo la inversión educativa?*
+
+Ambas miradas pueden divergir: un colegio puede tener buenos resultados académicos y no traducirlos en más matrícula o mejor rentabilidad. El sostenedor necesita ver esa brecha.
+
+| Actor | Mirada principal | Pregunta que responde |
+|---|---|---|
+| Alumna | Académica (personal) | ¿Qué aprendí? |
+| Apoderado | Académica (seguimiento) | ¿Cómo va mi hija/o? |
+| Profesor / UTP | Académica (aula) | ¿Qué necesita reforzar el curso? |
+| Director / Rector | Académica (institucional) | ¿Está aprendiendo el colegio? |
+| Sostenedor / Dueño de colegio | Académica + Negocio (doble lectura) | ¿La inversión educativa rinde en resultados y en matrícula/prestigio? |
+| Dueño de plataforma (como negocio) | Operativa + Negocio | ¿Qué materias/ejercicios se usan, qué retiene usuarias, cómo se monetiza? |
+
+**Regla de oro:** cada vista traduce el mismo hecho a los intereses de su actor, sin inventar datos nuevos. El hecho académico no se altera; lo que cambia es la lectura y la agregación.
+
+**Reglas de integración:**
+1. **Fuente de verdad única:** todos los informes consultan los mismos datos (progreso, respuestas, logros, errores) desde las mismas tablas. No se replican ni reinventan datos por capa.
+2. **Capas de granularidad:** una alumna → un curso → un colegio → la plataforma. Cada capa agrega la anterior, no la contradice.
+3. **Comparabilidad:** lo que muestra el informe del apoderado debe poder agregarse y formar parte del informe del profesor, y el del profesor del de la dirección.
+4. **Motor único de generación:** los informes se construyen sobre un módulo común de agregación (ej. `lib/informes.ts`) parametrizado por rol y alcance. No hay generadores independientes por rol.
+5. **Doble lectura para sostenedor/plataforma:** las vistas de negocio se construyen sobre los mismos datos académicos, pero traducidos a indicadores de gestión (matrícula, retención, prestigio, rentabilidad). No se mezclan en una sola pantalla sin separar las dos miradas.
+
+**Implicancia para el Mes 2 (Informe PDF del apoderado):**
+El informe del apoderado es el primer consumidor del motor común. Antes de implementarlo, se define el contrato de datos compartido que usarán también las capas de profesor, dirección y plataforma en el futuro.
 
 
 

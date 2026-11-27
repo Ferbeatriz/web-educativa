@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import InformePDF from '../components/InformePDF.astro';
 ---
 
 <Layout title="Mi Portafolio - Aprende Jugando">
@@ -36,6 +37,10 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
   </main>
+
+    <InformePDF />
+
+
 
   <script>
   import { getToken, isLoggedIn, logout } from '../lib/auth';
