@@ -37,6 +37,26 @@ Por favor, lee esos archivos primero y luego continuamos."
 
 ---
 
+## 📋 Resumen de la sesión del 2026-11-27/28
+
+**Objetivo de la sesión:** Implementar el Informe PDF para apoderados (Mes 2, Semana 5).
+
+**Lo que se logró:**
+- `lib/informes.ts` (motor común de informes).
+- Endpoint `GET /api/progreso/informe` registrado en `index.ts`.
+- Refactorización de `handleRegistrarRespuesta` y `handleMisRespuestas` para usar `hashAlumna` de `crypto.ts` (eliminando la duplicación del hash).
+- Frontend `InformePDF.astro` con `pdf-lib` funcionando.
+- Ajuste de codificación (se quitaron emojis del PDF porque `WinAnsi` no los soporta).
+
+**Decisiones tomadas:**
+- Ecosistema de informes: el PDF del apoderado es la primera capa. El motor devuelve hechos neutros para que futuras capas (profesor, dirección, sostenedor) los traduzcan a sus intereses.
+- Doble mirada: los informes de sostenedores tendrán mirada académica (¿aprenden?) y de negocio (¿rinde la inversión?).
+
+**Pendientes para la próxima sesión:**
+- Semana 6 (página pública), Semana 7 (vista "cómo ayudar") o Semana 8 (perfil apoderado).
+
+
+
 ## 📋 Resumen de la sesión del 2026-11-26
 
 **Objetivo de la sesión:** Resolver el bug del portafolio (lección no se marcaba como completada).
@@ -171,6 +191,12 @@ Por favor, lee esos archivos primero y luego continuamos."
 - Iniciar el Mes 2 (Informe PDF para el apoderado).
 
 **Commit de referencia:** (anotar el hash después de `git push`).
+
+
+
+
+
+
 
 ## ✅ Actualización 2026-11-24 (cierre de sesión)
 

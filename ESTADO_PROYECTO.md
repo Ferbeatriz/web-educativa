@@ -429,6 +429,29 @@ web-educativa/
 ---
 ## ✅ Estado actual 
 
+
+## ✅ Actualización 2026-11-28 (Cierre Semana 5 - Informe PDF)
+
+**Lo que se logró:**
+- **Backend:** Motor común de informes (`lib/informes.ts`) con `agregarHechoAlumna`, endpoint `GET /api/progreso/informe` y helper `getResumenRespuestasPorRango`.
+- **Frontend:** Componente `InformePDF.astro` integrado en `/mi-portafolio`. Genera PDF en el cliente con `pdf-lib` para "Última Semana", "Último Mes" o rango personalizado.
+- **Privacidad:** El motor usa `alumna_hash` (Ley 21.719) para las respuestas.
+- **Producción:** Desplegado y funcionando en `https://web-educativa.pages.dev/mi-portafolio/`.
+
+**Decisiones tomadas:**
+- El PDF se genera en el cliente (Opción B) para no consumir recursos del Worker.
+- Se eliminaron los emojis del PDF para evitar errores de codificación `WinAnsi` de `pdf-lib`.
+- El informe del apoderado es la primera capa del ecosistema de informes (doble mirada académica/negocio queda para el futuro).
+
+**Pendientes para la próxima sesión:**
+- Semana 6: Página pública "¿qué aprende esta semana?" (sin login).
+- Semana 7: Vista "cómo ayudar" (10 minutos para el apoderado).
+- Semana 8: Perfil del apoderado (login ligero).
+- Capas futuras del ecosistema de informes (profesor, dirección, sostenedor).
+
+
+
+
 ### 2026-11-19
 - **Portafolio de la Alumna:** Creada la página `/mi-portafolio`. Muestra nivel, XP, racha, logros, progreso por materia y últimas lecciones completadas.
 - **Backend:** Nuevo endpoint `GET /api/progreso/portafolio` que consolida todos los datos de la alumna.
