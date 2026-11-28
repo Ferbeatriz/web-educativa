@@ -139,6 +139,19 @@ export function generateSessionToken(): string {
 }
 
 /**
+ * Genera el hash SHA-256 de (alumna_id + salt) para privacidad.
+ * Retorna un string en hexadecimal (64 caracteres).
+ */
+export async function hashAlumna(alumna_id: number, salt: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${alumna_id}${salt}`);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+
+/**
  * Genera el hash SHA-256 de un token (para guardar en BD).
  */
 export async function hashToken(token: string): Promise<string> {
@@ -147,3 +160,7 @@ export async function hashToken(token: string): Promise<string> {
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   return bufferToBase64(hashBuffer);
 }
+
+
+
+

@@ -133,7 +133,7 @@ export async function handleGuardarLeccion(request: Request, env: any): Promise<
     const getRes = await fetch(fileUrl, { headers });
     if (getRes.ok) {
       const fileData = await getRes.json();
-      sha = fileData.sha;
+      sha = (fileData as any).sha;
     }
 
     // 3. Guardamos la lección
@@ -153,7 +153,7 @@ export async function handleGuardarLeccion(request: Request, env: any): Promise<
     if (!response.ok) {
       const errorData = await response.json();
       // Si falla, devolvemos la ruta exacta para saber qué está mal
-      throw new Error(`Error GitHub: ${errorData.message} | Ruta intentada: ${filePath}`);
+      throw new Error(`Error GitHub: ${(errorData as any).message} | Ruta intentada: ${filePath}`);
     }
 
     return jsonResponse({ ok: true, message: 'Lección guardada exitosamente.' });

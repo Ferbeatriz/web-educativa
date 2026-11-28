@@ -575,3 +575,39 @@ export async function tieneLibroCompleto(
   return (result?.total ?? 0) > 0;
 }
 
+
+
+/**
+ * Obtiene el resumen de respuestas por lección en un rango de fechas.
+ * Usa alumna_hash (privacidad).
+ */
+export async function getResumenRespuestasPorRango(
+  db: D1Database,
+  alumna_hash: string,
+  desde: string,
+  hasta: string
+): Promise<{
+  leccion_id: string;
+  total: number;
+  correctas: number;
+}[]> {
+  const result = await db
+    .prepare(
+      `SELECT 
+         leccion_id,
+         COUNT(*) as total,
+         SUM(CASE WHEN es_correcta = 1 THEN 1 ELSE 0 END) as correctas
+       FROM respuestas_lecciones
+       WHERE alumna_hash = ? 
+         AND respondida_en >= ? 
+         AND respondida_en <= ?
+       GROUP BY leccion_id`
+    )
+    .bind(alumna_hash, desde, hasta)
+    .all<{ leccion_id: string; total: number; correctas: number }>();
+  return result.results ?? [];
+}
+
+
+
+

@@ -12,6 +12,7 @@
  */
 
 import { hashToken } from '../lib/crypto';
+import { agregarHechoAlumna } from '../lib/informes';
 import {
   getSesionByTokenHash,
   marcarLeccionCompletada,
@@ -29,6 +30,9 @@ import {
   contarDivisionesSinTutor,
   tieneLibroCompleto,
 } from '../lib/db';
+
+import { hashAlumna } from '../lib/crypto';
+
 import {
   notificarAdminLeccionCompletada,
   notificarAdminAvance,
@@ -595,11 +599,7 @@ export async function handleRegistrarRespuesta(
     return jsonResponse({ ok: false, error: 'tipo inválido' }, 400);
   }
 
-  const encoder = new TextEncoder();
-  const data = encoder.encode(`${alumna.id}${env.INTENTOS_SALT}`);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const alumna_hash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+   const alumna_hash = await hashAlumna(alumna.id, env.INTENTOS_SALT);
 
   const insertado = await registrarRespuesta(
     env.DB,
@@ -752,4 +752,40 @@ export async function handleActualizarAvance(
     desarrollo,
     total_preguntas,
   });
+
 }
+
+export async function handleInformeApoderado(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  const alumna = await getAlumnaAutenticada(request, env);
+  if (!alumna) return jsonResponse({ ok: false, error: 'No autorizado' }, 401);
+
+  const url = new URL(request.url);
+  const desde = url.searchParams.get('desde') || '1970-01-01';
+  const hasta = url.searchParams.get('hasta') || new Date().toISOString();
+
+  const hecho = await agregarHechoAlumna(env, alumna, desde, hasta);
+
+  // Traducir a lenguaje de apoderado (mirada académica)
+  const recomendacion = hecho.area_de_mejora
+    ? `Reforzar en casa la lección "${hecho.area_de_mejora.leccion_id}". Dedicar 10 minutos a repasar los conceptos y practicar ejercicios similares.`
+    : '¡Excelente trabajo! No hay áreas críticas que reforzar en este período. Sigue practicando regularmente.';
+
+  return jsonResponse({
+    ok: true,
+    ...hecho,
+    recomendacion,
+  });
+}
+
+
+
+
+
+
+
+
+
+

@@ -21,6 +21,7 @@ import {
   handleRegistrarRespuesta,
   handleActualizarAvance,
   handleMisRespuestas,
+  handleInformeApoderado,
 } from './routes/progreso';
 
 import {
@@ -179,6 +180,12 @@ export default {
       if (matchLeccion && method === 'GET') {
         return await handleEstadoLeccion(request, env, matchLeccion[1]);
       }
+
+
+    // NUEVO: Informe PDF
+    if (path === '/api/progreso/informe' && method === 'GET') {
+      return await handleInformeApoderado(request, env);
+    }
 
       // ---------- Progreso (Semana 1: racha, logros, por materia) ----------
       if (path === '/api/progreso/racha' && method === 'GET') {
